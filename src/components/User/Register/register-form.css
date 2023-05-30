@@ -1,0 +1,17 @@
+.div-register {
+   width: 40%;
+   margin: auto;
+   margin-top: 50px;
+   background-color: whitesmoke;
+   border: 2px solid lightgray;
+   border-radius: 5px;
+   padding: 20px;
+}
+
+.div-register * {
+   color: black !important;
+}
+
+.w-100 {
+   width: 100% !important;
+}
