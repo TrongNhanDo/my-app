@@ -1,41 +1,39 @@
-import { useFormik } from "formik";
-import { InputType } from "./types";
-import { useCallback } from "react";
+import { ActionType, ActionTypes, InitStateType } from "./types";
+import { useEffect, useReducer } from "react";
+import { callApi } from "../../../api/callApi/callApi";
 
 export const UserList = () => {
-   const initValues: InputType = {
-      username: "",
-      password: "",
+   const reducer = (state: InitStateType, action: ActionType) => {
+      const { type, payload } = action;
+      switch (type) {
+         case ActionTypes.SET_PRODUCTS:
+            return {
+               ...state,
+               products: payload,
+            };
+            break;
+         default:
+            return state;
+      }
+   };
+   const [data, dispatch] = useReducer(reducer, { products: [] });
+   const fetchApi = async () => {
+      const response = await callApi('users', 'get').catch(err => console.log({ err }));
+      dispatch({
+         type: ActionTypes.SET_PRODUCTS,
+         payload: response.data,
+      });
    };
 
-   const onSubmit = useCallback(async (formikValues: InputType) => {
-      return formikValues;
+   useEffect(() => {
+      fetchApi();
    }, []);
-
-   const formikBag = useFormik({
-      initialValues: initValues,
-      onSubmit: (values) => onSubmit(values),
-   });
 
    return (
       <div>
-         <form onSubmit={formikBag.handleSubmit}>
-            <input
-               type="text"
-               name="username"
-               id="username"
-               value={formikBag.values.username || ""}
-               onChange={formikBag.handleChange}
-            />
-            <input
-               type="text"
-               name="password"
-               id="password"
-               value={formikBag.values.password || ""}
-               onChange={formikBag.handleChange}
-            />
-            <button type="submit">Submit</button>
-         </form>
+         {data.products[0] && data.products.map((value: any, index: any) => (
+            <h1 key={index}>{value.username}</h1>
+         ))}
       </div>
    );
 };

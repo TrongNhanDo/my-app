@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const callApi = (url: string, method: string, data?: object) => {
+export const callApi = (url: string, method: string, data?: object): Promise<any> => {
    const requestApi = {
       method: method,
-      url: `http://localhost:3500/${url}`,
+      url: import.meta.env.VITE_API_URL + url,
       headers: {
          "Content-Type": "application/json",
       },
@@ -11,5 +11,6 @@ export const callApi = (url: string, method: string, data?: object) => {
          ...data,
       },
    };
+
    return axios(requestApi);
 };
