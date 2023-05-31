@@ -3,7 +3,7 @@ export type InputType = {
    password: string;
 };
 
-export type Product = {
+export type ProductType = {
    username: string;
    role: string;
    createdAt: string;

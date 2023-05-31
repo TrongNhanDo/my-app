@@ -5,7 +5,7 @@ export const Header = () => {
       <div>
          <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-               <Link to="" className="flex items-center">
+               <Link to="/admin/" className="flex items-center">
                   <img
                      src="https://flowbite.com/docs/images/logo.svg"
                      className="h-8 mr-3"
