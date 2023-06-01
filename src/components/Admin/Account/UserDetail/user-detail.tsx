@@ -66,8 +66,17 @@ export const UserDetail = () => {
    }, [navigate]);
 
    const onSubmit = async (formikValues: FormikPropType) => {
-      const response = await callApi("users", "post", formikValues).catch(err => console.log({ err }));
+      // show loader while update information
+      setIsLoading(true);
+      const requestPayload = {
+         ...formikValues,
+         id: userId,
+      };
+      const response = await callApi("users", "patch", requestPayload).catch(err => console.log({ err }));
+      // close loader when updated information
+      setIsLoading(false);
       if (response) {
+         alert("Update account success");
          fetchApi();
       } else {
          alert("Update account fail");
