@@ -55,7 +55,7 @@ export const UserDetail = () => {
       setIsLoading(false);
    };
 
-   const deteleUser = async (userId: string) => {
+   const deleteUser = useCallback(async (userId: string) => {
       const response = await callApi("users", "delete", { id: userId }).catch(err => console.log({ err }));
       if (response) {
          alert("Delete account success");
@@ -63,7 +63,7 @@ export const UserDetail = () => {
       } else {
          alert("Delete account fail");
       }
-   };
+   }, [navigate]);
 
    const onSubmit = async (formikValues: FormikPropType) => {
       const response = await callApi("users", "post", formikValues).catch(err => console.log({ err }));
@@ -254,14 +254,14 @@ export const UserDetail = () => {
                         </button>
                         <button
                            type="button"
-                           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 me-10 px-12"
-                           onClick={() => deteleUser(product._id || "")}
+                           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-12"
+                           onClick={() => deleteUser(product._id || "")}
                         >
                            Delete
                         </button>
                         <button
                            type="button"
-                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-12"
+                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-12 ms-10"
                            onClick={() => navigate(-1)}
                         >
                            Back
