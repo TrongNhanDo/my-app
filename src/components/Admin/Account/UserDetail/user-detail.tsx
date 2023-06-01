@@ -55,8 +55,23 @@ export const UserDetail = () => {
       setIsLoading(false);
    };
 
-   const onSubmit = (formikValues: FormikPropType) => {
-      console.log(formikValues);
+   const deteleUser = async (userId: string) => {
+      const response = await callApi("users", "delete", { id: userId }).catch(err => console.log({ err }));
+      if (response) {
+         alert("Delete account success");
+         navigate(-1);
+      } else {
+         alert("Delete account fail");
+      }
+   };
+
+   const onSubmit = async (formikValues: FormikPropType) => {
+      const response = await callApi("users", "post", formikValues).catch(err => console.log({ err }));
+      if (response) {
+         fetchApi();
+      } else {
+         alert("Update account fail");
+      }
    };
 
    const formikBag = useFormik({
@@ -240,6 +255,7 @@ export const UserDetail = () => {
                         <button
                            type="button"
                            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 me-10 px-12"
+                           onClick={() => deteleUser(product._id || "")}
                         >
                            Delete
                         </button>
