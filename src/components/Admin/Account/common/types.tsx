@@ -12,11 +12,21 @@ export type InitStateType = {
    products: UserType;
 };
 
+export type InitStateUserDetailType = {
+   product: UserType;
+};
+
 export type ActionType = {
    type: string;
-   payload: any;
+   payload?: any;
+};
+
+export type FormikPropType = {
+   username: string;
+   role: number;
 };
 
 export const ActionTypes = {
-   SET_PRODUCTS: 'SET_PRODUCTS'
+   SET_PRODUCTS: 'SET_PRODUCTS',
+   SELECTED_PRODUCT: 'SELECTED_PRODUCT',
 };
