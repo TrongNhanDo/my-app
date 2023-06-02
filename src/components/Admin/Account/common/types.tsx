@@ -1,11 +1,11 @@
 export type UserType = {
-   active: boolean,
-   createdAt: string,
-   role: number,
-   updatedAt: string,
-   username: string,
-   __v: number,
-   _id: string,
+   active: boolean;
+   createdAt: string;
+   role: number;
+   updatedAt: string;
+   username: string;
+   __v: number;
+   _id: string;
 };
 
 export type InitStateType = {
@@ -26,7 +26,14 @@ export type FormikPropType = {
    role: number;
 };
 
+export type InputInsertType = {
+   username: string;
+   password: string;
+   confirmPwd: string;
+   role: number;
+};
+
 export const ActionTypes = {
-   SET_PRODUCTS: 'SET_PRODUCTS',
-   SELECTED_PRODUCT: 'SELECTED_PRODUCT',
+   SET_PRODUCTS: "SET_PRODUCTS",
+   SELECTED_PRODUCT: "SELECTED_PRODUCT",
 };

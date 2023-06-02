@@ -1,17 +1,9 @@
 import { useCallback } from "react";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
-import { Link } from "react-router-dom";
 import "./register-form.css";
-
-type FormikInputTypes = {
-   name: string;
-   phone: string;
-   address: string;
-   email: string;
-   password: string;
-   confirmPwd: string;
-};
+import { FormikInputTypes } from "./types";
 
 export const RegisterFrom = () => {
    const initValues = {
@@ -34,7 +26,7 @@ export const RegisterFrom = () => {
    });
 
    return (
-      <div className="div-register">
+      <div className="div-register dark:bg-gray-700">
          <form onSubmit={formikBag.handleSubmit}>
             <div className="grid gap-6 mb-6 md:grid-cols-2">
                <div>

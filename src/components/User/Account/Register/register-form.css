@@ -8,8 +8,12 @@
    padding: 20px;
 }
 
-.div-register * {
-   color: black !important;
+.div-register label {
+   color: white !important;
+}
+
+.div-register input {
+   color: white !important;
 }
 
 .w-100 {

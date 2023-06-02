@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callApi } from "../../../../api/callApi/callApi";
 import {
@@ -7,7 +8,6 @@ import {
    FormikPropType,
    InitStateUserDetailType,
 } from "../common/types";
-import { useEffect, useReducer, useState } from "react";
 import { useFormik } from "formik";
 import { formatDate, formatRole } from "../common/logics";
 import { RoleNumber } from "../common/constants";
@@ -55,15 +55,20 @@ export const UserDetail = () => {
       setIsLoading(false);
    };
 
-   const deleteUser = useCallback(async (userId: string) => {
-      const response = await callApi("users", "delete", { id: userId }).catch(err => console.log({ err }));
-      if (response) {
-         alert("Delete account success");
-         navigate(-1);
-      } else {
-         alert("Delete account fail");
-      }
-   }, [navigate]);
+   const deleteUser = useCallback(
+      async (userId: string) => {
+         const response = await callApi("users", "delete", {
+            id: userId,
+         }).catch((err) => console.log({ err }));
+         if (response) {
+            alert("Delete account success");
+            navigate(-1);
+         } else {
+            alert("Delete account fail");
+         }
+      },
+      [navigate]
+   );
 
    const onSubmit = async (formikValues: FormikPropType) => {
       // show loader while update information
@@ -72,7 +77,9 @@ export const UserDetail = () => {
          ...formikValues,
          id: userId,
       };
-      const response = await callApi("users", "patch", requestPayload).catch(err => console.log({ err }));
+      const response = await callApi("users", "patch", requestPayload).catch(
+         (err) => console.log({ err })
+      );
       // close loader when updated information
       setIsLoading(false);
       if (response) {
@@ -256,21 +263,21 @@ export const UserDetail = () => {
                      <>
                         <button
                            type="button"
-                           className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-10"
+                           className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-20"
                            onClick={handleSubmit}
                         >
                            Update
                         </button>
                         <button
                            type="button"
-                           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-12"
+                           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
                            onClick={() => deleteUser(product._id || "")}
                         >
                            Delete
                         </button>
                         <button
                            type="button"
-                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-12 ms-10"
+                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-20 ms-10"
                            onClick={() => navigate(-1)}
                         >
                            Back
