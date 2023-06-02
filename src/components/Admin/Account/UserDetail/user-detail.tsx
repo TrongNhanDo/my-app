@@ -1,6 +1,6 @@
-import { useCallback } from "react";
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
 import {
    ActionType,
@@ -8,8 +8,7 @@ import {
    FormikPropType,
    InitStateUserDetailType,
 } from "../common/types";
-import { useFormik } from "formik";
-import { formatDate, formatRole } from "../common/logics";
+import { formatDate, formatRole } from "../../../Common/Logic/logics";
 import { RoleNumber } from "../common/constants";
 import { Loader } from "../../../Common/Loader/loader";
 import { validationSchema } from "./validations";

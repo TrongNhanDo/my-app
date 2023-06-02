@@ -9,6 +9,8 @@ import { UserList } from "./components/Admin/Account/UserList/user-list";
 import { PageNotFound } from "./components/Common/Error/error";
 import { UserDetail } from "./components/Admin/Account/UserDetail/user-detail";
 import { AddNewUser } from "./components/Admin/Account/UserList/add-user";
+import { ProductList } from "./components/Admin/Product/ProductList/product-list";
+import { ProductDetail } from "./components/Admin/Product/ProductDetail/product-detail";
 
 function App() {
    return (
@@ -22,7 +24,11 @@ function App() {
 
             {/* route for admin */}
             <Route path="/admin" element={<AdminHome />} />
-            <Route path="/admin/product-list" element={<AdminHome />} />
+            <Route path="/admin/product-list" element={<ProductList />} />
+            <Route
+               path="/admin/product-detail/:productId"
+               element={<ProductDetail />}
+            />
             <Route path="/admin/user-list" element={<UserList />} />
             <Route path="/admin/user-detail/:userId" element={<UserDetail />} />
             <Route path="/admin/add-user" element={<AddNewUser />} />
