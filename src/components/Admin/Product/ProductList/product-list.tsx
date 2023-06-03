@@ -7,11 +7,11 @@ import {
    ProductListType,
    ProductType,
 } from "../common/types";
-import { formatDate } from "../../../Common/Logic/logics";
+import { delay, formatDate } from "../../../Common/Logic/logics";
 import { callApi } from "../../../../api/callApi/callApi";
 
 export const ProductList = () => {
-   const [showLoader, setShowLoader] = useState(true);
+   const [showLoader, setShowLoader] = useState<boolean>(true);
    const reducer = (state: ProductListType, action: ActionType) => {
       const { type, payload } = action;
       switch (type) {
@@ -36,6 +36,7 @@ export const ProductList = () => {
          type: ActionValues.GET_PRODUCTS,
          payload: response.data || [],
       });
+      await delay(300);
       setShowLoader(false);
    };
 

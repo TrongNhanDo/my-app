@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import {
    ActionType,
@@ -7,11 +7,11 @@ import {
    UserType,
 } from "../common/types";
 import { callApi } from "../../../../api/callApi/callApi";
-import { formatDate, formatRole } from "../../../Common/Logic/logics";
+import { delay, formatDate, formatRole } from "../../../Common/Logic/logics";
 import { Loader } from "../../../Common/Loader/loader";
 
 export const UserList = () => {
-   const [showLoader, setShowLoader] = useState(true);
+   const [showLoader, setShowLoader] = useState<boolean>(true);
    const reducer = (state: InitStateType, action: ActionType) => {
       const { type, payload } = action;
       switch (type) {
@@ -31,7 +31,7 @@ export const UserList = () => {
    };
 
    const [data, dispatch] = useReducer(reducer, initState);
-   const fetchApi = async () => {
+   const fetchApi = useCallback(async () => {
       const response = await callApi("users", "get").catch((err) =>
          console.log({ err })
       );
@@ -39,12 +39,32 @@ export const UserList = () => {
          type: ActionTypes.SET_USERS,
          payload: response.data || [],
       });
+      await delay(300);
       setShowLoader(false);
-   };
+   }, []);
+
+   const [sortUsername, setSortUsername] = useState<number>(1);
+   const sortData = useCallback(
+      async (column: string) => {
+         setShowLoader(true);
+         const response = await callApi("users/sort", "post", {
+            column: column,
+            condition: sortUsername,
+         }).catch((err) => console.log({ err }));
+         dispatch({
+            type: ActionTypes.SET_USERS,
+            payload: response.data || [],
+         });
+         await delay(300);
+         setShowLoader(false);
+         setSortUsername(sortUsername === 1 ? -1 : 1);
+      },
+      [sortUsername]
+   );
 
    useEffect(() => {
       fetchApi();
-   }, []);
+   }, [fetchApi]);
 
    return (
       <div>
@@ -72,16 +92,68 @@ export const UserList = () => {
                               No
                            </th>
                            <th scope="col" className="px-6 py-3">
-                              user name
+                              <div className="flex items-center">
+                                 user name
+                                 <button onClick={() => sortData("username")}>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       className="w-3 h-3 ml-1"
+                                       aria-hidden="true"
+                                       fill="currentColor"
+                                       viewBox="0 0 320 512"
+                                    >
+                                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>
+                                 </button>
+                              </div>
                            </th>
                            <th scope="col" className="px-6 py-3">
-                              role
+                              <div className="flex items-center">
+                                 role
+                                 <button onClick={() => sortData("role")}>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       className="w-3 h-3 ml-1"
+                                       aria-hidden="true"
+                                       fill="currentColor"
+                                       viewBox="0 0 320 512"
+                                    >
+                                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>
+                                 </button>
+                              </div>
                            </th>
                            <th scope="col" className="px-6 py-3">
-                              created date
+                              <div className="flex items-center">
+                                 created date
+                                 <button onClick={() => sortData("createdAt")}>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       className="w-3 h-3 ml-1"
+                                       aria-hidden="true"
+                                       fill="currentColor"
+                                       viewBox="0 0 320 512"
+                                    >
+                                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>
+                                 </button>
+                              </div>
                            </th>
                            <th scope="col" className="px-6 py-3">
-                              updated at
+                              <div className="flex items-center">
+                                 updated at
+                                 <button onClick={() => sortData("updatedAt")}>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       className="w-3 h-3 ml-1"
+                                       aria-hidden="true"
+                                       fill="currentColor"
+                                       viewBox="0 0 320 512"
+                                    >
+                                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>
+                                 </button>
+                              </div>
                            </th>
                            <th scope="col" className="px-6 py-3">
                               <span className="sr-only">Edit</span>

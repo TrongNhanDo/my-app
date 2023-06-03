@@ -7,11 +7,12 @@ import { Input } from "../../../Common/Input/input";
 import { RoleNumber } from "../common/constants";
 import { callApi } from "../../../../api/callApi/callApi";
 import { Loader } from "../../../Common/Loader/loader";
+import { delay } from "../../../Common/Logic/logics";
 
 export const AddNewUser = () => {
    const navigate = useNavigate();
-   const [showLoading, setShowLoading] = useState(false);
-   const [isDuplicate, setIsDuplicate] = useState(false);
+   const [showLoading, setShowLoading] = useState<boolean>(false);
+   const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
    const initValues = {
       username: "",
       password: "",
@@ -43,6 +44,7 @@ export const AddNewUser = () => {
             setIsDuplicate(true);
          }
       );
+      await delay(300);
       setShowLoading(false);
       if (response) {
          alert("Insert new account success");

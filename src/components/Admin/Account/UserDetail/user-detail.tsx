@@ -8,7 +8,7 @@ import {
    FormikPropType,
    InitStateUserDetailType,
 } from "../common/types";
-import { formatDate, formatRole } from "../../../Common/Logic/logics";
+import { delay, formatDate, formatRole } from "../../../Common/Logic/logics";
 import { RoleNumber } from "../common/constants";
 import { Loader } from "../../../Common/Loader/loader";
 import { validationSchema } from "./validations";
@@ -16,8 +16,8 @@ import { validationSchema } from "./validations";
 export const UserDetail = () => {
    const { userId } = useParams();
    const navigate = useNavigate();
-   const [isLoading, setIsLoading] = useState(true);
-   const [notChange, setNotChange] = useState(false);
+   const [isLoading, setIsLoading] = useState<boolean>(true);
+   const [notChange, setNotChange] = useState<boolean>(false);
 
    const initState = {
       user: {
@@ -52,6 +52,7 @@ export const UserDetail = () => {
          type: ActionTypes.SELECTED_USER,
          payload: response.data || [],
       });
+      await delay(300);
       setIsLoading(false);
    };
 
@@ -93,6 +94,7 @@ export const UserDetail = () => {
          (err) => console.log({ err })
       );
       // close loader when updated information
+      await delay(300);
       setIsLoading(false);
       if (response) {
          alert("Update account success");
