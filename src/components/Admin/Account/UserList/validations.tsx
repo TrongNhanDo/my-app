@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export const validationSchema = () => {
    const validation = Yup.object().shape({
-      username: Yup.string().required(),
+      username: Yup.string().required().email(),
       password: Yup.string().required().min(8).max(32),
       confirmPwd: Yup.string().required().min(8).max(32),
       role: Yup.string().required(),

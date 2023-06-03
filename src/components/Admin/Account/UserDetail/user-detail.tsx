@@ -17,9 +17,10 @@ export const UserDetail = () => {
    const { userId } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState(true);
+   const [notChange, setNotChange] = useState(false);
 
    const initState = {
-      product: {
+      user: {
          active: false,
          createdAt: "",
          role: 0,
@@ -33,14 +34,14 @@ export const UserDetail = () => {
    const reducer = (state: InitStateUserDetailType, action: ActionType) => {
       const { type, payload } = action;
       switch (type) {
-         case ActionTypes.SELECTED_PRODUCT:
+         case ActionTypes.SELECTED_USER:
             return payload;
          default:
             return state;
       }
    };
 
-   const [product, dispatch] = useReducer(reducer, initState);
+   const [user, dispatch] = useReducer(reducer, initState);
 
    const fetchApi = async () => {
       const url = `users/${userId}`;
@@ -48,7 +49,7 @@ export const UserDetail = () => {
          console.log({ err })
       );
       dispatch({
-         type: ActionTypes.SELECTED_PRODUCT,
+         type: ActionTypes.SELECTED_USER,
          payload: response.data || [],
       });
       setIsLoading(false);
@@ -56,20 +57,32 @@ export const UserDetail = () => {
 
    const deleteUser = useCallback(
       async (userId: string) => {
-         const response = await callApi("users", "delete", {
-            id: userId,
-         }).catch((err) => console.log({ err }));
-         if (response) {
-            alert("Delete account success");
-            navigate(-1);
-         } else {
-            alert("Delete account fail");
+         if (confirm("Are you sure you want to delete this account?")) {
+            const response = await callApi("users", "delete", {
+               id: userId,
+            }).catch((err) => console.log({ err }));
+            if (response) {
+               alert("Delete account success");
+               navigate(-1);
+            } else {
+               alert("Delete account fail");
+            }
          }
       },
       [navigate]
    );
 
    const onSubmit = async (formikValues: FormikPropType) => {
+      if (
+         formikValues.username &&
+         formikValues.role &&
+         formikValues.username === user.username &&
+         formikValues.role == user.role
+      ) {
+         setNotChange(true);
+         return;
+      }
+      setNotChange(false);
       // show loader while update information
       setIsLoading(true);
       const requestPayload = {
@@ -113,11 +126,11 @@ export const UserDetail = () => {
 
    useEffect(() => {
       if (!isLoading) {
-         formikBag.setFieldValue("username", product.username || "");
-         formikBag.setFieldValue("role", product.role || 1);
+         formikBag.setFieldValue("username", user.username || "");
+         formikBag.setFieldValue("role", user.role || 1);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [isLoading, product]);
+   }, [isLoading, user]);
 
    return (
       <div>
@@ -126,7 +139,12 @@ export const UserDetail = () => {
          ) : (
             <>
                <div className="mt-10 w-3/4 m-auto">
-                  <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5">
+                  {notChange && (
+                     <div className="bg-lime-300 w-full text-orange-600 p-5 rounded-md">
+                        There must be at least one data change
+                     </div>
+                  )}
+                  <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-10">
                      ACCOUNT DETAIL
                   </h2>
                   <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-auto">
@@ -154,14 +172,20 @@ export const UserDetail = () => {
                                     Username
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {product.username || ""}
+                                    {user.username || ""}
                                  </td>
                                  <td className="px-6 py-4">
                                     <input
                                        type="email"
                                        id="username"
                                        name="username"
-                                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                       className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                          notChange ||
+                                          (formikBag.errors.username &&
+                                             formikBag.touched.username)
+                                             ? "bg-yellow"
+                                             : ""
+                                       }`}
                                        value={formikBag.values.username || ""}
                                        onChange={formikBag.handleChange}
                                     />
@@ -181,14 +205,14 @@ export const UserDetail = () => {
                                     Roles
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {product.role
-                                       ? formatRole(product.role)
-                                       : ""}
+                                    {user.role ? formatRole(user.role) : ""}
                                  </td>
                                  <td className="px-6 py-4">
                                     <select
                                        id="role"
-                                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                       className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                          notChange ? "bg-yellow" : ""
+                                       }`}
                                        onChange={formikBag.handleChange}
                                        value={formikBag.values.role}
                                     >
@@ -212,10 +236,10 @@ export const UserDetail = () => {
                                     Active
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {product.active ? "Active" : "Inactive"}
+                                    {user.active ? "Active" : "Inactive"}
                                  </td>
                                  <td className="px-6 py-4 text-base">
-                                    {product.active ? "Active" : "Inactive"}
+                                    {user.active ? "Active" : "Inactive"}
                                  </td>
                               </tr>
                               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -226,13 +250,13 @@ export const UserDetail = () => {
                                     Created Date
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {product.createdAt
-                                       ? formatDate(product.createdAt)
+                                    {user.createdAt
+                                       ? formatDate(user.createdAt)
                                        : ""}
                                  </td>
                                  <td className="px-6 py-4 text-base">
-                                    {product.createdAt
-                                       ? formatDate(product.createdAt)
+                                    {user.createdAt
+                                       ? formatDate(user.createdAt)
                                        : ""}
                                  </td>
                               </tr>
@@ -244,13 +268,13 @@ export const UserDetail = () => {
                                     Updated At
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {product.updatedAt
-                                       ? formatDate(product.updatedAt)
+                                    {user.updatedAt
+                                       ? formatDate(user.updatedAt)
                                        : ""}
                                  </td>
                                  <td className="px-6 py-4 text-base">
-                                    {product.updatedAt
-                                       ? formatDate(product.updatedAt)
+                                    {user.updatedAt
+                                       ? formatDate(user.updatedAt)
                                        : ""}
                                  </td>
                               </tr>
@@ -262,21 +286,21 @@ export const UserDetail = () => {
                      <>
                         <button
                            type="button"
-                           className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-20"
+                           className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-20"
                            onClick={handleSubmit}
                         >
                            Update
                         </button>
                         <button
                            type="button"
-                           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
-                           onClick={() => deleteUser(product._id || "")}
+                           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
+                           onClick={() => deleteUser(user._id || "")}
                         >
                            Delete
                         </button>
                         <button
                            type="button"
-                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-20 ms-10"
+                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-20 ms-10"
                            onClick={() => navigate(-1)}
                         >
                            Back

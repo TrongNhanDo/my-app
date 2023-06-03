@@ -255,6 +255,28 @@ export const ProductDetail = () => {
                                     scope="row"
                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                  >
+                                    Image
+                                 </th>
+                                 <td className="px-6 py-4 text-base w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image1 || ""}
+                                       alt={viewData.product.image1 || ""}
+                                    />
+                                 </td>
+                                 <td className="px-6 py-4 w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image1 || ""}
+                                       alt={viewData.product.image1 || ""}
+                                    />
+                                 </td>
+                              </tr>
+                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                 <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                 >
                                     Price
                                  </th>
                                  <td className="px-6 py-4 text-base">
@@ -391,20 +413,20 @@ export const ProductDetail = () => {
                      <>
                         <button
                            type="button"
-                           className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-20"
+                           className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-20"
                            onClick={handleSubmit}
                         >
                            Update
                         </button>
                         <button
                            type="button"
-                           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
+                           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
                         >
                            Delete
                         </button>
                         <button
                            type="button"
-                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-20 ms-10"
+                           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-20 ms-10"
                            onClick={() => navigate(-1)}
                         >
                            Back

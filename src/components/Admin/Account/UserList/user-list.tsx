@@ -15,10 +15,10 @@ export const UserList = () => {
    const reducer = (state: InitStateType, action: ActionType) => {
       const { type, payload } = action;
       switch (type) {
-         case ActionTypes.SET_PRODUCTS:
+         case ActionTypes.SET_USERS:
             return {
                ...state,
-               products: payload,
+               users: payload,
             };
             break;
          default:
@@ -27,7 +27,7 @@ export const UserList = () => {
    };
 
    const initState = {
-      products: [],
+      users: [],
    };
 
    const [data, dispatch] = useReducer(reducer, initState);
@@ -36,7 +36,7 @@ export const UserList = () => {
          console.log({ err })
       );
       dispatch({
-         type: ActionTypes.SET_PRODUCTS,
+         type: ActionTypes.SET_USERS,
          payload: response.data || [],
       });
       setShowLoader(false);
@@ -90,40 +90,38 @@ export const UserList = () => {
                      </thead>
                      <tbody>
                         {data &&
-                           data.products[0] &&
-                           data.products.map(
-                              (value: UserType, index: number) => (
-                                 <tr
-                                    key={index}
-                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                           data.users[0] &&
+                           data.users.map((value: UserType, index: number) => (
+                              <tr
+                                 key={index}
+                                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                              >
+                                 <td className="px-6 py-4">{index + 1}</td>
+                                 <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                  >
-                                    <td className="px-6 py-4">{index + 1}</td>
-                                    <th
-                                       scope="row"
-                                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    {value.username || ""}
+                                 </th>
+                                 <td className="px-6 py-4">
+                                    {formatRole(value.role)}
+                                 </td>
+                                 <td className="px-6 py-4">
+                                    {formatDate(value.createdAt)}
+                                 </td>
+                                 <td className="px-6 py-4">
+                                    {formatDate(value.updatedAt)}
+                                 </td>
+                                 <td className="px-6 py-4 text-right">
+                                    <Link
+                                       to={`/admin/user-detail/${value._id}`}
+                                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                     >
-                                       {value.username || ""}
-                                    </th>
-                                    <td className="px-6 py-4">
-                                       {formatRole(value.role)}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                       {formatDate(value.createdAt)}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                       {formatDate(value.updatedAt)}
-                                    </td>
-                                    <td className="px-6 py-4 text-right">
-                                       <Link
-                                          to={`/admin/user-detail/${value._id}`}
-                                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                       >
-                                          Detail Account
-                                       </Link>
-                                    </td>
-                                 </tr>
-                              )
-                           )}
+                                       Detail Account
+                                    </Link>
+                                 </td>
+                              </tr>
+                           ))}
                      </tbody>
                   </table>
                </div>

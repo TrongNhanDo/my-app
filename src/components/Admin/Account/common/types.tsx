@@ -9,11 +9,11 @@ export type UserType = {
 };
 
 export type InitStateType = {
-   products: UserType;
+   users: UserType;
 };
 
 export type InitStateUserDetailType = {
-   product: UserType;
+   user: UserType;
 };
 
 export type ActionType = {
@@ -34,6 +34,6 @@ export type InputInsertType = {
 };
 
 export const ActionTypes = {
-   SET_PRODUCTS: "SET_PRODUCTS",
-   SELECTED_PRODUCT: "SELECTED_PRODUCT",
+   SET_USERS: "SET_USERS",
+   SELECTED_USER: "SELECTED_USER",
 };
