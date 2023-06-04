@@ -10,6 +10,7 @@ export type UserType = {
 
 export type InitStateType = {
    users: UserType;
+   totalPage: number;
 };
 
 export type InitStateUserDetailType = {

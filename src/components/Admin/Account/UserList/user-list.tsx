@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import {
    ActionType,
@@ -12,13 +12,17 @@ import { Loader } from "../../../Common/Loader/loader";
 
 export const UserList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
+   const dataPerPage = useMemo(() => import.meta.env.VITE_PER_PAGE || 10, []);
    const reducer = (state: InitStateType, action: ActionType) => {
       const { type, payload } = action;
       switch (type) {
          case ActionTypes.SET_USERS:
             return {
                ...state,
-               users: payload,
+               users: payload.users || [],
+               totalPage: payload.totalPage
+                  ? Math.ceil(payload.totalPage / dataPerPage)
+                  : 0,
             };
             break;
          default:
@@ -28,20 +32,31 @@ export const UserList = () => {
 
    const initState = {
       users: [],
+      totalPage: 0,
    };
 
    const [data, dispatch] = useReducer(reducer, initState);
+
    const fetchApi = useCallback(async () => {
+      // get totalPage
       const response = await callApi("users", "get").catch((err) =>
          console.log({ err })
       );
+      // get data paginate
+      const responsePaginate = await callApi("users/paginate", "post", {
+         perPage: dataPerPage,
+         page: 1,
+      }).catch((err) => console.log({ err }));
       dispatch({
          type: ActionTypes.SET_USERS,
-         payload: response.data || [],
+         payload: {
+            totalPage: response.data.length || 0,
+            users: responsePaginate.data || [],
+         },
       });
       await delay(300);
       setShowLoader(false);
-   }, []);
+   }, [dataPerPage]);
 
    const [sortUsername, setSortUsername] = useState<number>(1);
    const sortData = useCallback(
@@ -61,6 +76,40 @@ export const UserList = () => {
       },
       [sortUsername]
    );
+
+   const changePage = useCallback(async (perPage: number, page: number) => {
+      const response = await callApi("users", "get").catch((err) =>
+         console.log({ err })
+      );
+      const responsePaginate = await callApi("users/paginate", "post", {
+         perPage: perPage || 10,
+         page: page || 1,
+      }).catch((err) => console.log({ err }));
+      dispatch({
+         type: ActionTypes.SET_USERS,
+         payload: {
+            totalPage: response.data.length || 0,
+            users: responsePaginate.data || [],
+         },
+      });
+   }, []);
+
+   const Pagination = () => {
+      const buttons = [];
+      for (let index = 1; index <= data.totalPage; index++) {
+         buttons.push(
+            <button
+               key={index}
+               type="button"
+               className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+               onClick={() => changePage(dataPerPage, index)}
+            >
+               {index}
+            </button>
+         );
+      }
+      return buttons.length > 0 ? buttons : [];
+   };
 
    useEffect(() => {
       fetchApi();
@@ -196,6 +245,11 @@ export const UserList = () => {
                            ))}
                      </tbody>
                   </table>
+                  {Pagination && (
+                     <div className="flex justify-center my-3">
+                        {Pagination()}
+                     </div>
+                  )}
                </div>
             </>
          )}
