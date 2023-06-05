@@ -5,9 +5,9 @@ export const Roles = {
 };
 
 export const RoleConvert = {
-   User: 'User',
-   Employee: 'Employee',
-   Admin: 'Admin',
+   User: "User",
+   Employee: "Employee",
+   Admin: "Admin",
 };
 
 export const RoleNumber = {

@@ -1,5 +1,5 @@
 export const checkIsAdmin = (pathname: string) => {
-   if (pathname && pathname.includes('admin')) {
+   if (pathname && pathname.includes("admin")) {
       return true;
    }
 
