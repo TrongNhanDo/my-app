@@ -68,6 +68,37 @@ export type ProductType = {
    skill: SkillType;
 };
 
+export type InitProductType = {
+   age: AgeType;
+   branch: BranchType;
+   skill: SkillType;
+};
+
+export type FormikAddProduct = {
+   ageId: string;
+   branchId: string;
+   skillId: string;
+   productName: string;
+   price: string;
+   describes: string;
+   amount: string;
+   image1?: File;
+   image2?: File;
+   image3?: File;
+   image4?: File;
+   image5?: File;
+};
+
+export const InitFormikAddProduct = {
+   ageId: "",
+   branchId: "",
+   skillId: "",
+   productName: "",
+   price: "",
+   describes: "",
+   amount: "",
+};
+
 export type ProductListType = {
    products: ProductType[];
 };

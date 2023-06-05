@@ -11,6 +11,7 @@ import { UserDetail } from "./components/Admin/Account/UserDetail/user-detail";
 import { AddNewUser } from "./components/Admin/Account/UserList/add-user";
 import { ProductList } from "./components/Admin/Product/ProductList/product-list";
 import { ProductDetail } from "./components/Admin/Product/ProductDetail/product-detail";
+import { AddProduct } from "./components/Admin/Product/ProductList/add-product";
 
 function App() {
    return (
@@ -25,6 +26,7 @@ function App() {
             {/* route for admin */}
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/admin/product-list" element={<ProductList />} />
+            <Route path="/admin/add-product" element={<AddProduct />} />
             <Route
                path="/admin/product-detail/:productId"
                element={<ProductDetail />}
