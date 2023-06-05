@@ -19,8 +19,8 @@ function App() {
          <Routes>
             {/* route for user */}
             <Route index element={<HomePage />} />
-            <Route path="login" element={<LoginForm />} />
-            <Route path="register" element={<RegisterFrom />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterFrom />} />
 
             {/* route for admin */}
             <Route path="/admin" element={<AdminHome />} />

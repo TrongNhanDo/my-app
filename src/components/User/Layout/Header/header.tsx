@@ -32,7 +32,7 @@ export const Header = () => {
                      <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
                            <Link
-                              to="admin"
+                              to="/admin"
                               className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
                               aria-current="page"
                            >
@@ -41,7 +41,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="admin/user-list"
+                              to="/admin/user-list"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Users
@@ -49,7 +49,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="admin/product-list"
+                              to="/admin/product-list"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Products
@@ -57,7 +57,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="admin/age-category-list"
+                              to="/admin/age-category-list"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Ages
@@ -65,7 +65,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="admin/branch-category-list"
+                              to="/admin/branch-category-list"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Branches
@@ -73,7 +73,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="admin/account-detail"
+                              to="/admin/account-detail"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               My Account
@@ -81,7 +81,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="admin/logout"
+                              to="/admin/logout"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Logout
@@ -92,7 +92,7 @@ export const Header = () => {
                      <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
                            <Link
-                              to={isAdmin ? "admin" : ""}
+                              to="/"
                               className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
                               aria-current="page"
                            >
@@ -101,7 +101,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="product-list"
+                              to="/product-list"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Products
@@ -109,7 +109,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="#"
+                              to="/"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Services
@@ -117,7 +117,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="#"
+                              to="/"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Pricing
@@ -125,7 +125,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="#"
+                              to="/"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Contact
@@ -133,7 +133,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="login"
+                              to="/login"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Login
@@ -141,7 +141,7 @@ export const Header = () => {
                         </li>
                         <li>
                            <Link
-                              to="register"
+                              to="/register"
                               className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                            >
                               Register
