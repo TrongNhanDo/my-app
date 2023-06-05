@@ -11,7 +11,7 @@
       "preview": "vite preview",
       "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
       "predeploy": "npm run build",
-      "deploy": "gh-pages -d build"
+      "deploy": "gh-pages -d dist"
    },
    "dependencies": {
       "@reduxjs/toolkit": "^1.9.5",
