@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader } from "../../../Common/Loader/loader";
 import {
@@ -12,36 +12,88 @@ import { callApi } from "../../../../api/callApi/callApi";
 
 export const ProductList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
+   const dataPerpage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const reducer = (state: ProductListType, action: ActionType) => {
       const { type, payload } = action;
       switch (type) {
          case ActionValues.GET_PRODUCTS:
             return {
                ...state,
-               products: payload,
+               products: payload && payload.products ? payload.products : [],
+               totalPage: payload && payload.totalPage ? payload.totalPage : 0,
             };
          default:
             return state;
       }
    };
 
-   const initState = { products: [] };
+   const initState = { products: [], totalPage: 0 };
    const [data, dispatch] = useReducer(reducer, initState);
 
-   const fetchApi = async () => {
-      const response = await callApi("products", "get").catch((err) =>
+   const fetchApi = useCallback(async () => {
+      const responseAll = await callApi("products", "get").catch((err) =>
          console.log({ err })
       );
+      const responsePaginate = await callApi("products/paginate", "post", {
+         perPage: dataPerpage,
+         page: 1,
+      });
       dispatch({
          type: ActionValues.GET_PRODUCTS,
-         payload: response.data || [],
+         payload: {
+            products: responsePaginate.data || [],
+            totalPage: responseAll.data
+               ? Math.ceil(responseAll.data.length / dataPerpage)
+               : 0,
+         },
       });
       setShowLoader(false);
-   };
+   }, [dataPerpage]);
+
+   const changePage = useCallback(
+      async (perPage: number, page: number) => {
+         setShowLoader(true);
+         const response = await callApi("products", "get").catch((err) =>
+            console.log({ err })
+         );
+         const responsePaginate = await callApi("products/paginate", "post", {
+            perPage: perPage || 10,
+            page: page || 1,
+         }).catch((err) => console.log({ err }));
+         dispatch({
+            type: ActionValues.GET_PRODUCTS,
+            payload: {
+               totalPage: response.data
+                  ? Math.ceil(response.data.length / dataPerpage)
+                  : 0,
+               products: responsePaginate.data || [],
+            },
+         });
+         setShowLoader(false);
+      },
+      [dataPerpage]
+   );
+
+   const Pagination = useMemo(() => {
+      const buttons = [];
+      for (let index = 1; index <= data.totalPage; index++) {
+         buttons.push(
+            <button
+               key={index}
+               type="button"
+               className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+               onClick={() => changePage(dataPerpage, index)}
+            >
+               {index}
+            </button>
+         );
+      }
+      return buttons.length > 0 ? buttons : [];
+   }, [changePage, data, dataPerpage]);
 
    useEffect(() => {
       fetchApi();
-   }, []);
+   }, [fetchApi]);
 
    return (
       <div className="container mb-10">
@@ -61,6 +113,9 @@ export const ProductList = () => {
                      INSERT NEW PRODUCT
                   </Link>
                </div>
+               {Pagination.length > 1 && (
+                  <div className="flex">{Pagination}</div>
+               )}
                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -96,7 +151,7 @@ export const ProductList = () => {
                      </thead>
                      <tbody>
                         {data &&
-                           data.products[0] &&
+                           data.products &&
                            data.products.map(
                               (value: ProductType, index: number) => (
                                  <tr

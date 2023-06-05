@@ -22,10 +22,11 @@ export const UserList = () => {
          case ActionTypes.SET_USERS:
             return {
                ...state,
-               users: payload.users || [],
-               totalPage: payload.totalPage
-                  ? Math.ceil(payload.totalPage / dataPerPage)
-                  : 0,
+               users: payload && payload.users ? payload.users : [],
+               totalPage:
+                  payload && payload.totalPage
+                     ? Math.ceil(payload.totalPage / dataPerPage)
+                     : 0,
             };
             break;
          default:
@@ -60,24 +61,6 @@ export const UserList = () => {
       setShowLoader(false);
    }, [dataPerPage]);
 
-   // const [sortUsername, setSortUsername] = useState<number>(1);
-   // const sortData = useCallback(
-   //    async (column: string) => {
-   //       setShowLoader(true);
-   //       const response = await callApi("users/sort", "post", {
-   //          column: column,
-   //          condition: sortUsername,
-   //       }).catch((err) => console.log({ err }));
-   //       dispatch({
-   //          type: ActionTypes.SET_USERS,
-   //          payload: response.data || [],
-   //       });
-   //       setShowLoader(false);
-   //       setSortUsername(sortUsername === 1 ? -1 : 1);
-   //    },
-   //    [sortUsername]
-   // );
-
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
       const response = await callApi("users", "get").catch((err) =>
@@ -97,7 +80,7 @@ export const UserList = () => {
       setShowLoader(false);
    }, []);
 
-   const Pagination = () => {
+   const Pagination = useMemo(() => {
       const buttons = [];
       for (let index = 1; index <= data.totalPage; index++) {
          buttons.push(
@@ -112,7 +95,7 @@ export const UserList = () => {
          );
       }
       return buttons.length > 0 ? buttons : [];
-   };
+   }, [changePage, data, dataPerPage]);
 
    useEffect(() => {
       fetchApi();
@@ -136,13 +119,9 @@ export const UserList = () => {
                      INSERT NEW ACCOUNT
                   </Link>
                </div>
-               <div className="flex">
-                  {Pagination && (
-                     <div className="flex justify-center my-3">
-                        {Pagination()}
-                     </div>
-                  )}
-               </div>
+               {Pagination.length > 1 && (
+                  <div className="flex">{Pagination}</div>
+               )}
                <div className="relative overflow-x-auto shadow-md sm:rounded-lg  m-auto">
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -151,68 +130,16 @@ export const UserList = () => {
                               No
                            </th>
                            <th scope="col" className="px-6 py-3">
-                              <div className="flex items-center">
-                                 user name
-                                 {/* <button onClick={() => sortData("username")}>
-                                    <svg
-                                       xmlns="http://www.w3.org/2000/svg"
-                                       className="w-3 h-3 ml-1"
-                                       aria-hidden="true"
-                                       fill="currentColor"
-                                       viewBox="0 0 320 512"
-                                    >
-                                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                    </svg>
-                                 </button> */}
-                              </div>
+                              user name
                            </th>
                            <th scope="col" className="px-6 py-3">
-                              <div className="flex items-center">
-                                 role
-                                 {/* <button onClick={() => sortData("role")}>
-                                    <svg
-                                       xmlns="http://www.w3.org/2000/svg"
-                                       className="w-3 h-3 ml-1"
-                                       aria-hidden="true"
-                                       fill="currentColor"
-                                       viewBox="0 0 320 512"
-                                    >
-                                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                    </svg>
-                                 </button> */}
-                              </div>
+                              role
                            </th>
                            <th scope="col" className="px-6 py-3">
-                              <div className="flex items-center">
-                                 created date
-                                 {/* <button onClick={() => sortData("createdAt")}>
-                                    <svg
-                                       xmlns="http://www.w3.org/2000/svg"
-                                       className="w-3 h-3 ml-1"
-                                       aria-hidden="true"
-                                       fill="currentColor"
-                                       viewBox="0 0 320 512"
-                                    >
-                                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                    </svg>
-                                 </button> */}
-                              </div>
+                              created date
                            </th>
                            <th scope="col" className="px-6 py-3">
-                              <div className="flex items-center">
-                                 updated at
-                                 {/* <button onClick={() => sortData("updatedAt")}>
-                                    <svg
-                                       xmlns="http://www.w3.org/2000/svg"
-                                       className="w-3 h-3 ml-1"
-                                       aria-hidden="true"
-                                       fill="currentColor"
-                                       viewBox="0 0 320 512"
-                                    >
-                                       <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                    </svg>
-                                 </button> */}
-                              </div>
+                              updated at
                            </th>
                            <th scope="col" className="px-6 py-3">
                               <span className="sr-only">Edit</span>
@@ -221,7 +148,7 @@ export const UserList = () => {
                      </thead>
                      <tbody>
                         {data &&
-                           data.users[0] &&
+                           data.users &&
                            data.users.map((value: UserType, index: number) => (
                               <tr
                                  key={index}

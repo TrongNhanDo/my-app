@@ -14,7 +14,7 @@ export type InitReducer = {
 
 export type InputActionType = {
    type: string;
-   payload?: any;
+   payload?: InitReducer;
 };
 
 export type FormikUpdate = {

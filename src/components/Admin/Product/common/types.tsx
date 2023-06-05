@@ -101,11 +101,12 @@ export const InitFormikAddProduct = {
 
 export type ProductListType = {
    products: ProductType[];
+   totalPage: number;
 };
 
 export type ActionType = {
    type: string;
-   payload?: any;
+   payload?: ProductListType;
 };
 
 export const ActionValues = {

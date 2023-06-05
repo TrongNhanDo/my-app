@@ -14,14 +14,15 @@ export const AgeCategoryList = () => {
    );
    const reducer = (state: InitReducer, action: InputActionType) => {
       const { type, payload } = action;
-      const sumPage = payload.totalPage
-         ? Math.ceil(payload.totalPage / dataPerPage)
-         : 0;
+      const sumPage =
+         payload && payload.totalPage
+            ? Math.ceil(payload.totalPage / dataPerPage)
+            : 0;
       switch (type) {
          case ActionValues.SET_AGES:
             return {
                ...state,
-               ages: payload.ages || [],
+               ages: payload && payload.ages ? payload.ages : [],
                totalPage: sumPage,
             };
          default:
@@ -70,9 +71,7 @@ export const AgeCategoryList = () => {
       setShowLoader(false);
    }, []);
 
-   console.log({ data });
-
-   const Pagination = () => {
+   const Pagination = useMemo(() => {
       const buttons = [];
       for (let index = 1; index <= data.totalPage; index++) {
          buttons.push(
@@ -87,7 +86,7 @@ export const AgeCategoryList = () => {
          );
       }
       return buttons.length > 0 ? buttons : [];
-   };
+   }, [changePage, data, dataPerPage]);
 
    useEffect(() => {
       fetchApi();
@@ -111,9 +110,9 @@ export const AgeCategoryList = () => {
                      INSERT NEW PRODUCT
                   </Link>
                </div>
-               <div className="flex">
-                  {Pagination && Pagination.length > 1 && Pagination()}
-               </div>
+               {Pagination.length > 1 && (
+                  <div className="flex">{Pagination}</div>
+               )}
                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

@@ -9,7 +9,7 @@ export type UserType = {
 };
 
 export type InitStateType = {
-   users: UserType;
+   users: UserType[];
    totalPage: number;
 };
 
@@ -19,7 +19,7 @@ export type InitStateUserDetailType = {
 
 export type ActionType = {
    type: string;
-   payload?: any;
+   payload?: InitStateType;
 };
 
 export type FormikPropType = {
