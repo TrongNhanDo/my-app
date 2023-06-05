@@ -90,12 +90,12 @@ export const ProductDetail = () => {
    }, [fetchApi]);
 
    return (
-      <div className="">
+      <div className="container">
          {showLoader ? (
             <Loader />
          ) : (
             <>
-               <div className="mt-10 w-3/4 m-auto">
+               <div className="mt-10">
                   <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5">
                      ACCOUNT DETAIL
                   </h2>

@@ -26,8 +26,14 @@ export const RegisterFrom = () => {
    });
 
    return (
-      <div className="div-register dark:bg-gray-700">
-         <form onSubmit={formikBag.handleSubmit}>
+      <div className="container">
+         <form
+            onSubmit={formikBag.handleSubmit}
+            className="w-3/4 dark:bg-gray-700 div-register rounded-lg"
+         >
+            <div className="font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-10 uppercase text-center text-3xl">
+               SIGN UP
+            </div>
             <div className="grid gap-6 mb-6 md:grid-cols-2">
                <div>
                   <label

@@ -71,7 +71,7 @@ export const AddNewUser = () => {
          {showLoading ? (
             <Loader />
          ) : (
-            <form onSubmit={formikBag.handleSubmit}>
+            <form onSubmit={formikBag.handleSubmit} className="container">
                <div className="div-register dark:bg-gray-700">
                   <div className="mb-6">
                      <div className="text-3xl font-bold text-center text-slate-100">

@@ -12,7 +12,10 @@ import { Loader } from "../../../Common/Loader/loader";
 
 export const UserList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
-   const dataPerPage = useMemo(() => import.meta.env.VITE_PER_PAGE || 10, []);
+   const dataPerPage = useMemo(
+      () => parseInt(import.meta.env.VITE_PER_PAGE || 10),
+      []
+   );
    const reducer = (state: InitStateType, action: ActionType) => {
       const { type, payload } = action;
       switch (type) {
@@ -120,7 +123,7 @@ export const UserList = () => {
          {showLoader ? (
             <Loader />
          ) : (
-            <>
+            <div className="container m-auto">
                <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5">
                   LIST OF USER ACCOUNTS
                </h2>
@@ -133,7 +136,14 @@ export const UserList = () => {
                      INSERT NEW ACCOUNT
                   </Link>
                </div>
-               <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-4/5 m-auto">
+               <div className="flex">
+                  {Pagination && (
+                     <div className="flex justify-center my-3">
+                        {Pagination()}
+                     </div>
+                  )}
+               </div>
+               <div className="relative overflow-x-auto shadow-md sm:rounded-lg  m-auto">
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -245,13 +255,8 @@ export const UserList = () => {
                            ))}
                      </tbody>
                   </table>
-                  {Pagination && (
-                     <div className="flex justify-center my-3">
-                        {Pagination()}
-                     </div>
-                  )}
                </div>
-            </>
+            </div>
          )}
       </div>
    );

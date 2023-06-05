@@ -45,7 +45,7 @@ export const ProductList = () => {
    }, []);
 
    return (
-      <div className="mb-10">
+      <div className="container mb-10">
          {showLoader ? (
             <Loader />
          ) : (
@@ -62,7 +62,7 @@ export const ProductList = () => {
                      INSERT NEW PRODUCT
                   </Link>
                </div>
-               <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-4/5 m-auto">
+               <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>

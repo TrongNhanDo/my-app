@@ -140,7 +140,7 @@ export const UserDetail = () => {
             <Loader />
          ) : (
             <>
-               <div className="mt-10 w-3/4 m-auto">
+               <div className="container mt-10">
                   {notChange && (
                      <div className="bg-lime-300 w-full text-orange-600 p-5 rounded-md">
                         There must be at least one data change
