@@ -7,7 +7,7 @@ import {
    ProductListType,
    ProductType,
 } from "../common/types";
-import { delay, formatDate } from "../../../Common/Logic/logics";
+import { formatDate } from "../../../Common/Logic/logics";
 import { callApi } from "../../../../api/callApi/callApi";
 
 export const ProductList = () => {
@@ -36,7 +36,6 @@ export const ProductList = () => {
          type: ActionValues.GET_PRODUCTS,
          payload: response.data || [],
       });
-      await delay(300);
       setShowLoader(false);
    };
 

@@ -7,7 +7,6 @@ import { Input } from "../../../Common/Input/input";
 import { RoleNumber } from "../common/constants";
 import { callApi } from "../../../../api/callApi/callApi";
 import { Loader } from "../../../Common/Loader/loader";
-import { delay } from "../../../Common/Logic/logics";
 
 export const AddNewUser = () => {
    const navigate = useNavigate();
@@ -44,7 +43,6 @@ export const AddNewUser = () => {
             setIsDuplicate(true);
          }
       );
-      await delay(300);
       setShowLoading(false);
       if (response) {
          alert("Insert new account success");

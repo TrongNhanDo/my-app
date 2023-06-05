@@ -11,11 +11,7 @@ import {
    ProductType,
    SkillType,
 } from "../common/types";
-import {
-   delay,
-   formatCurrency,
-   formatDate,
-} from "../../../Common/Logic/logics";
+import { formatCurrency, formatDate } from "../../../Common/Logic/logics";
 import { validationSchema } from "./validations";
 import { Loader } from "../../../Common/Loader/loader";
 
@@ -63,7 +59,6 @@ export const ProductDetail = () => {
             skillCategory: skillResponse.data || [],
          },
       });
-      await delay(300);
       setShowLoader(false);
    }, [productId]);
 

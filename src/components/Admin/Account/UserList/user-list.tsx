@@ -7,7 +7,7 @@ import {
    UserType,
 } from "../common/types";
 import { callApi } from "../../../../api/callApi/callApi";
-import { delay, formatDate, formatRole } from "../../../Common/Logic/logics";
+import { formatDate, formatRole } from "../../../Common/Logic/logics";
 import { Loader } from "../../../Common/Loader/loader";
 
 export const UserList = () => {
@@ -57,7 +57,6 @@ export const UserList = () => {
             users: responsePaginate.data || [],
          },
       });
-      await delay(300);
       setShowLoader(false);
    }, [dataPerPage]);
 
@@ -73,7 +72,6 @@ export const UserList = () => {
             type: ActionTypes.SET_USERS,
             payload: response.data || [],
          });
-         await delay(300);
          setShowLoader(false);
          setSortUsername(sortUsername === 1 ? -1 : 1);
       },
