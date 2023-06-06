@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
-import { Loader } from "../../../Common/Loader/loader";
-import { formatDate } from "../../../Common/Logic/logics";
-import { callApi } from "../../../../api/callApi/callApi";
-import { Age, InitReducer, InputActionType } from "./types";
-import { ActionValues } from "./constants";
+import { Loader } from "../../../../Common/Loader/loader";
+import { formatDate } from "../../../../Common/Logic/logics";
+import { callApi } from "../../../../../api/callApi/callApi";
+import { AgeType, InitReducer, InputActionType } from "../Common/types";
+import { ActionValues } from "../Common/constants";
 
 export const AgeCategoryList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
@@ -103,7 +103,7 @@ export const AgeCategoryList = () => {
                </h2>
                <div className="flex justify-center mb-2">
                   <Link
-                     to="/admin/add-product"
+                     to="/admin/add-age-category"
                      type="button"
                      className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
                   >
@@ -140,7 +140,7 @@ export const AgeCategoryList = () => {
                      <tbody>
                         {data &&
                            data.ages &&
-                           data.ages.map((value: Age, index: number) => (
+                           data.ages.map((value: AgeType, index: number) => (
                               <tr
                                  key={index}
                                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"

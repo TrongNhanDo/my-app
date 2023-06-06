@@ -1,4 +1,4 @@
-export type Age = {
+export type AgeType = {
    _id: string;
    ageId: number;
    ageName: string;
@@ -8,7 +8,7 @@ export type Age = {
 };
 
 export type InitReducer = {
-   ages?: Age[];
+   ages?: AgeType[];
    totalPage: number;
 };
 

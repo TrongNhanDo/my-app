@@ -12,8 +12,9 @@ import { AddNewUser } from "./components/Admin/Account/UserList/add-user";
 import { ProductList } from "./components/Admin/Product/ProductList/product-list";
 import { ProductDetail } from "./components/Admin/Product/ProductDetail/product-detail";
 import { AddProduct } from "./components/Admin/Product/ProductList/add-product";
-import { AgeCategoryList } from "./components/Admin/Category/Age/age-list";
-import { AgeCategoryDetail } from "./components/Admin/Category/Age/age-detail";
+import { AgeCategoryList } from "./components/Admin/Category/Age/AgeList/age-list";
+import { AgeCategoryDetail } from "./components/Admin/Category/Age/AgeDetail/age-detail";
+import { AddAgeCategory } from "./components/Admin/Category/Age/AgeAdd/add-age-category";
 
 function App() {
    return (
@@ -43,6 +44,10 @@ function App() {
             <Route
                path="/admin/age-category-detail/:id"
                element={<AgeCategoryDetail />}
+            />
+            <Route
+               path="/admin/add-age-category"
+               element={<AddAgeCategory />}
             />
             <Route path="/admin/branch-category-list" element={<AdminHome />} />
             <Route path="/admin/list-category-list" element={<AdminHome />} />

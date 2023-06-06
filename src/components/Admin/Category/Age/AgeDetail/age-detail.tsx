@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import { callApi } from "../../../../api/callApi/callApi";
-import { formatDate } from "../../../Common/Logic/logics";
-import { Loader } from "../../../Common/Loader/loader";
+import { callApi } from "../../../../../api/callApi/callApi";
+import { formatDate } from "../../../../Common/Logic/logics";
+import { Loader } from "../../../../Common/Loader/loader";
 import { validationSchema } from "./validations";
-import { Age, FormikUpdate, InputActionType } from "./types";
-import { ActionValues } from "./constants";
+import { AgeType } from "../Common/types";
+import { ActionValues } from "../Common/constants";
+import { ActionReducerType, FormikBagType, InitState } from "./types";
 
 export const AgeCategoryDetail = () => {
    const { id } = useParams();
@@ -14,18 +15,7 @@ export const AgeCategoryDetail = () => {
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [msg, setMsg] = useState<string>("");
 
-   const initState = {
-      age: {
-         _id: "",
-         ageId: 0,
-         ageName: "",
-         createdAt: "",
-         updatedAt: "",
-         __v: 0,
-      },
-   };
-
-   const reducer = (state: Age, action: InputActionType) => {
+   const reducer = (state: AgeType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
          case ActionValues.SELECTED_AGE:
@@ -35,7 +25,7 @@ export const AgeCategoryDetail = () => {
       }
    };
 
-   const [age, dispatch] = useReducer(reducer, initState);
+   const [age, dispatch] = useReducer(reducer, InitState);
 
    const fetchApi = useCallback(async () => {
       const url = `ages/${id}`;
@@ -50,10 +40,10 @@ export const AgeCategoryDetail = () => {
    }, [id]);
 
    const deleteAge = useCallback(
-      async (userId: string) => {
+      async (id: string) => {
          if (confirm("Are you sure you want to delete this age category?")) {
             const response = await callApi("ages", "delete", {
-               id: userId,
+               ageId: id,
             }).catch((err) => console.log({ err }));
             if (response) {
                alert("Delete age category success");
@@ -67,14 +57,9 @@ export const AgeCategoryDetail = () => {
    );
 
    const onSubmit = useCallback(
-      async (formikValues: FormikUpdate) => {
+      async (formikValues: FormikBagType) => {
          setMsg("");
-         if (
-            formikValues.ageId &&
-            formikValues.ageName &&
-            formikValues.ageId == age.ageId &&
-            formikValues.ageName === age.ageName
-         ) {
+         if (formikValues.ageName && formikValues.ageName === age.ageName) {
             setMsg("There must be at least one data change");
             return;
          }
@@ -93,7 +78,7 @@ export const AgeCategoryDetail = () => {
             setMsg("Update account success");
             fetchApi();
          } else {
-            setMsg("Update account fail");
+            setMsg("Age Category Name already existed");
          }
       },
       [age, fetchApi, id]
@@ -118,7 +103,7 @@ export const AgeCategoryDetail = () => {
 
    const ErrorMessages = (msg: string) => {
       return (
-         <div className="bg-lime-300 w-full text-orange-600 p-5 rounded-md">
+         <div className="bg-lime-300 w-full text-orange-600 px-5 py-3 rounded-md my-5">
             {msg}
          </div>
       );
@@ -130,12 +115,11 @@ export const AgeCategoryDetail = () => {
    }, []);
 
    useEffect(() => {
-      if (!isLoading) {
-         formikBag.setFieldValue("ageId", age.ageId || "");
-         formikBag.setFieldValue("ageName", age.ageName || 1);
+      if (age.ageName && age.ageName !== "") {
+         formikBag.setFieldValue("ageName", age.ageName);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [isLoading, age]);
+   }, [age]);
 
    return (
       <div>
@@ -144,10 +128,10 @@ export const AgeCategoryDetail = () => {
          ) : (
             <>
                <div className="container mt-10">
-                  {msg && ErrorMessages(msg)}
-                  <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-10">
+                  <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10">
                      ACCOUNT DETAIL
                   </h2>
+                  {msg && ErrorMessages(msg)}
                   <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-auto">
                      <form onSubmit={formikBag.handleSubmit}>
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -176,26 +160,7 @@ export const AgeCategoryDetail = () => {
                                     {age.ageId || ""}
                                  </td>
                                  <td className="px-6 py-4">
-                                    <input
-                                       type="text"
-                                       id="ageId"
-                                       name="ageId"
-                                       className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                          msg !== "" ||
-                                          (formikBag.errors.ageId &&
-                                             formikBag.touched.ageId)
-                                             ? "bg-yellow"
-                                             : ""
-                                       }`}
-                                       value={formikBag.values.ageId || ""}
-                                       onChange={formikBag.handleChange}
-                                    />
-                                    {formikBag.errors.ageId &&
-                                       formikBag.touched.ageId && (
-                                          <p className="text-orange-600">
-                                             {formikBag.errors.ageId}
-                                          </p>
-                                       )}
+                                    {age.ageId || ""}
                                  </td>
                               </tr>
                               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
