@@ -1,19 +1,15 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader } from "../../../Common/Loader/loader";
-import {
-   ActionType,
-   ActionValues,
-   ProductListType,
-   ProductType,
-} from "../common/types";
+import { ActionValues, ProductType } from "../common/types";
 import { formatDate } from "../../../Common/Logic/logics";
 import { callApi } from "../../../../api/callApi/callApi";
+import { ActionReducerType, ProductListType } from "./types";
 
 export const ProductList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerpage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
-   const reducer = (state: ProductListType, action: ActionType) => {
+   const reducer = (state: ProductListType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
          case ActionValues.GET_PRODUCTS:

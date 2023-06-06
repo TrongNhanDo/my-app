@@ -1,8 +1,13 @@
-import { AgeType, BranchType, SkillType } from "../common/types";
+import { AgeType, BranchType, ProductType, SkillType } from "../common/types";
 
 export type ActionReducerType = {
    type: string;
    payload?: any;
+};
+
+export type ProductListType = {
+   products: ProductType[];
+   totalPage: number;
 };
 
 export type StateReducerType = {
