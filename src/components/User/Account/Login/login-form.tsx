@@ -15,31 +15,25 @@ export const LoginForm = () => {
       password: "",
    };
 
-   const onSubmit = useCallback(
-      async (formikValues: FormikValueType) => {
-         try {
-            const payload = {
-               username: formikValues.email || "",
-               password: formikValues.password || "",
-            };
-            const response = await callApi(
-               "users/login",
-               "post",
-               payload
-            ).catch((err) => console.log({ err }));
+   const onSubmit = useCallback(async (formikValues: FormikValueType) => {
+      try {
+         const payload = {
+            username: formikValues.email || "",
+            password: formikValues.password || "",
+         };
+         const response = await callApi("users/login", "post", payload).catch(
+            (err) => console.log({ err })
+         );
 
-            if (response) {
-               alert("Login success");
-            } else {
-               alert("Login fail");
-            }
-         } catch (error) {
-            console.log({ error });
+         if (response) {
+            alert("Login success");
+         } else {
+            alert("Login fail");
          }
-      },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      []
-   );
+      } catch (error) {
+         console.log({ error });
+      }
+   }, []);
 
    const formikBag = useFormik({
       initialValues: initValueFormik,

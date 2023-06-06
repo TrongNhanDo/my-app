@@ -2,11 +2,7 @@ import { AgeType, BranchType, SkillType } from "../common/types";
 
 export type ActionReducerType = {
    type: string;
-   payload?: {
-      ageCategory: AgeType[] | [];
-      branchCategory: BranchType[] | [];
-      skillCategory: SkillType[] | [];
-   };
+   payload?: any;
 };
 
 export type StateReducerType = {

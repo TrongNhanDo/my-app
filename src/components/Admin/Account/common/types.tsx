@@ -19,7 +19,7 @@ export type InitStateUserDetailType = {
 
 export type ActionType = {
    type: string;
-   payload?: InitStateType;
+   payload?: any;
 };
 
 export type FormikPropType = {
