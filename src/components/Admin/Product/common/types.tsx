@@ -68,52 +68,6 @@ export type ProductType = {
    skill: SkillType;
 };
 
-export type InitProductType = {
-   age: AgeType;
-   branch: BranchType;
-   skill: SkillType;
-};
-
-export type FormikAddProduct = {
-   ageId: string;
-   branchId: string;
-   skillId: string;
-   productName: string;
-   price: string;
-   describes: string;
-   amount: string;
-   image1?: File;
-   image2?: File;
-   image3?: File;
-   image4?: File;
-   image5?: File;
-};
-
-export const InitFormikAddProduct = {
-   ageId: "",
-   branchId: "",
-   skillId: "",
-   productName: "",
-   price: "",
-   describes: "",
-   amount: "",
-};
-
-export type ProductListType = {
-   products: ProductType[];
-   totalPage: number;
-};
-
-export type ActionType = {
-   type: string;
-   payload?: ProductListType;
-};
-
-export const ActionValues = {
-   GET_PRODUCTS: "GET_PRODUCTS",
-   SELECTED_PRODUCT: "SELECTED_PRODUCT",
-};
-
 export const InitProductValues = {
    _id: "",
    ageId: 0,
@@ -134,4 +88,9 @@ export const InitProductValues = {
    age: AgeInitValue,
    branch: BranchInitValue,
    skill: SkillInitValue,
+};
+
+export const ActionValues = {
+   GET_PRODUCTS: "GET_PRODUCTS",
+   SELECTED_PRODUCT: "SELECTED_PRODUCT",
 };

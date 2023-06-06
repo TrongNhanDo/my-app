@@ -2,25 +2,24 @@ import { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
-import {
-   ActionType,
-   ActionValues,
-   AgeType,
-   BranchType,
-   InitProductValues,
-   ProductType,
-   SkillType,
-} from "../common/types";
 import { formatCurrency, formatDate } from "../../../Common/Logic/logics";
 import { validationSchema } from "./validations";
 import { Loader } from "../../../Common/Loader/loader";
+import { ActionValues, AgeType, BranchType, SkillType } from "../common/types";
+import {
+   ActionReducerType,
+   FormikBagType,
+   StateReducerType,
+   initFormikValues,
+   initStateReducer,
+} from "./types";
 
 export const ProductDetail = () => {
    const navigate = useNavigate();
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const { productId } = useParams();
 
-   const reducer = (state: ProductType, action: ActionType) => {
+   const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
          case ActionValues.SELECTED_PRODUCT:
@@ -30,7 +29,7 @@ export const ProductDetail = () => {
       }
    };
 
-   const [viewData, dispatch] = useReducer(reducer, InitProductValues);
+   const [viewData, dispatch] = useReducer(reducer, initStateReducer);
 
    const fetchApi = useCallback(async () => {
       const url = `products/${productId}`;
@@ -62,12 +61,12 @@ export const ProductDetail = () => {
       setShowLoader(false);
    }, [productId]);
 
-   const onSubmit = useCallback(async (formikValues: ProductType) => {
+   const onSubmit = useCallback(async (formikValues: FormikBagType) => {
       console.log({ formikValues });
    }, []);
 
    const formikBag = useFormik({
-      initialValues: InitProductValues,
+      initialValues: initFormikValues,
       validationSchema,
       onSubmit,
    });
@@ -277,16 +276,106 @@ export const ProductDetail = () => {
                                     scope="row"
                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                  >
+                                    Image
+                                 </th>
+                                 <td className="px-6 py-4 text-base w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image2 || ""}
+                                       alt={viewData.product.image2 || ""}
+                                    />
+                                 </td>
+                                 <td className="px-6 py-4 w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image2 || ""}
+                                       alt={viewData.product.image2 || ""}
+                                    />
+                                 </td>
+                              </tr>
+                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                 <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                 >
+                                    Image
+                                 </th>
+                                 <td className="px-6 py-4 text-base w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image3 || ""}
+                                       alt={viewData.product.image3 || ""}
+                                    />
+                                 </td>
+                                 <td className="px-6 py-4 w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image3 || ""}
+                                       alt={viewData.product.image3 || ""}
+                                    />
+                                 </td>
+                              </tr>
+                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                 <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                 >
+                                    Image
+                                 </th>
+                                 <td className="px-6 py-4 text-base w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image4 || ""}
+                                       alt={viewData.product.image4 || ""}
+                                    />
+                                 </td>
+                                 <td className="px-6 py-4 w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image4 || ""}
+                                       alt={viewData.product.image4 || ""}
+                                    />
+                                 </td>
+                              </tr>
+                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                 <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                 >
+                                    Image
+                                 </th>
+                                 <td className="px-6 py-4 text-base w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image5 || ""}
+                                       alt={viewData.product.image5 || ""}
+                                    />
+                                 </td>
+                                 <td className="px-6 py-4 w-2/5">
+                                    <img
+                                       className="w-full h-auto"
+                                       src={viewData.product.image5 || ""}
+                                       alt={viewData.product.image5 || ""}
+                                    />
+                                 </td>
+                              </tr>
+                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                 <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                 >
                                     Price
                                  </th>
                                  <td className="px-6 py-4 text-base">
                                     {formatCurrency(
-                                       viewData.product.price || 0
+                                       viewData.product.price
+                                          ? parseFloat(viewData.product.price)
+                                          : 0
                                     )}
                                  </td>
                                  <td className="px-6 py-4 text-base">
                                     <input
-                                       type="number"
+                                       type="text"
                                        name="price"
                                        id="price"
                                        value={
@@ -313,7 +402,11 @@ export const ProductDetail = () => {
                                     <textarea
                                        name="describes"
                                        id="describes"
-                                       value={viewData.product.describes || ""}
+                                       value={
+                                          formikBag.values.describes ||
+                                          viewData.product.describes ||
+                                          ""
+                                       }
                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
                                        onChange={formikBag.handleChange}
                                     />

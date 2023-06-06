@@ -1,10 +1,10 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 export const callApi = (
    url: string,
    method: string,
    data?: object
-): Promise<AxiosResponse> => {
+): Promise<any> => {
    const requestApi = {
       method: method,
       url: import.meta.env.VITE_API_URL + url,

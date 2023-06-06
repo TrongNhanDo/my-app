@@ -1,42 +1,17 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
-import { callApi } from "../../../../api/callApi/callApi";
-import {
-   ActionType,
-   ActionValues,
-   AgeType,
-   BranchType,
-   FormikAddProduct,
-   InitFormikAddProduct,
-   InitProductType,
-   SkillType,
-} from "../common/types";
-import { validationSchema } from "./validations";
-import { useFormik } from "formik";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { callApi } from "../../../../api/callApi/callApi";
+import { AgeType, BranchType, SkillType } from "../common/types";
+import { validationSchema } from "./validations";
 import { Loader } from "../../../Common/Loader/loader";
+import { FormikBagType, InitFormikValues, StateReducerType } from "./types";
 
 export const AddProduct = () => {
    const navigate = useNavigate();
    const [showLoader, setShowLoader] = useState<boolean>(false);
    const [images, setImages] = useState<File[]>();
-
-   const reducer = (state: InitProductType, action: ActionType) => {
-      const { type, payload } = action;
-      switch (type) {
-         case ActionValues.SELECTED_PRODUCT:
-            return payload;
-         default:
-            return state;
-      }
-   };
-
-   const initState = {
-      age: [],
-      branch: [],
-      skill: [],
-   };
-
-   const [viewData, dispatch] = useReducer(reducer, initState);
+   const [viewData, setViewData] = useState<StateReducerType>();
 
    const fetchApi = useCallback(async () => {
       // data for age dropdown
@@ -51,23 +26,20 @@ export const AddProduct = () => {
       const skillResponse = await callApi("skills", "get").catch((err) =>
          console.log({ err })
       );
-      dispatch({
-         type: ActionValues.SELECTED_PRODUCT,
-         payload: {
-            ageCategory: ageResponse.data || [],
-            branchCategory: branchResponse.data || [],
-            skillCategory: skillResponse.data || [],
-         },
+      setViewData({
+         ageCategory: ageResponse.data || [],
+         branchCategory: branchResponse.data || [],
+         skillCategory: skillResponse.data || [],
       });
       setShowLoader(false);
    }, []);
 
-   const onSubmit = useCallback(async (formikValues: FormikAddProduct) => {
+   const onSubmit = useCallback(async (formikValues: FormikBagType) => {
       console.log({ formikValues });
    }, []);
 
    const formikBag = useFormik({
-      initialValues: InitFormikAddProduct,
+      initialValues: InitFormikValues,
       validationSchema,
       onSubmit,
    });
@@ -152,7 +124,8 @@ export const AddProduct = () => {
                                        value={formikBag.values.ageId}
                                        onChange={formikBag.handleChange}
                                     >
-                                       {viewData.ageCategory &&
+                                       {viewData &&
+                                          viewData.ageCategory &&
                                           viewData.ageCategory.map(
                                              (
                                                 value: AgeType,
@@ -182,7 +155,8 @@ export const AddProduct = () => {
                                        value={formikBag.values.ageId}
                                        onChange={formikBag.handleChange}
                                     >
-                                       {viewData.branchCategory &&
+                                       {viewData &&
+                                          viewData.branchCategory &&
                                           viewData.branchCategory.map(
                                              (
                                                 value: BranchType,
@@ -212,7 +186,8 @@ export const AddProduct = () => {
                                        value={formikBag.values.skillId}
                                        onChange={formikBag.handleChange}
                                     >
-                                       {viewData.skillCategory &&
+                                       {viewData &&
+                                          viewData.skillCategory &&
                                           viewData.skillCategory.map(
                                              (
                                                 value: SkillType,
