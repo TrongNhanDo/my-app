@@ -5,9 +5,13 @@ import { callApi } from "../../../../../api/callApi/callApi";
 import { formatDate } from "../../../../Common/Logic/logics";
 import { Loader } from "../../../../Common/Loader/loader";
 import { validationSchema } from "./validations";
-import { AgeType } from "../Common/types";
 import { ActionValues } from "../Common/constants";
-import { ActionReducerType, FormikBagType, InitState } from "./types";
+import {
+   ActionReducerType,
+   FormikBagType,
+   InitStateReducerType,
+   StateReducerType,
+} from "./types";
 
 export const AgeCategoryDetail = () => {
    const { id } = useParams();
@@ -15,17 +19,19 @@ export const AgeCategoryDetail = () => {
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [msg, setMsg] = useState<string>("");
 
-   const reducer = (state: AgeType, action: ActionReducerType) => {
+   const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
          case ActionValues.SELECTED_AGE:
-            return payload;
+            return {
+               age: payload,
+            };
          default:
             return state;
       }
    };
 
-   const [age, dispatch] = useReducer(reducer, InitState);
+   const [data, dispatch] = useReducer(reducer, InitStateReducerType);
 
    const fetchApi = useCallback(async () => {
       const url = `ages/${id}`;
@@ -59,7 +65,11 @@ export const AgeCategoryDetail = () => {
    const onSubmit = useCallback(
       async (formikValues: FormikBagType) => {
          setMsg("");
-         if (formikValues.ageName && formikValues.ageName === age.ageName) {
+         if (
+            formikValues.ageName &&
+            data.age &&
+            formikValues.ageName === data.age.ageName
+         ) {
             setMsg("There must be at least one data change");
             return;
          }
@@ -81,7 +91,7 @@ export const AgeCategoryDetail = () => {
             setMsg("Age Category Name already existed");
          }
       },
-      [age, fetchApi, id]
+      [data, fetchApi, id]
    );
 
    const formikBag = useFormik({
@@ -115,11 +125,11 @@ export const AgeCategoryDetail = () => {
    }, []);
 
    useEffect(() => {
-      if (age.ageName && age.ageName !== "") {
-         formikBag.setFieldValue("ageName", age.ageName);
+      if (data.age && data.age.ageName !== "") {
+         formikBag.setFieldValue("ageName", data.age.ageName);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [age]);
+   }, [data]);
 
    return (
       <div>
@@ -157,10 +167,10 @@ export const AgeCategoryDetail = () => {
                                     Age ID
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {age.ageId || ""}
+                                    {data.age ? data.age.ageId : ""}
                                  </td>
                                  <td className="px-6 py-4">
-                                    {age.ageId || ""}
+                                    {data.age ? data.age.ageId : ""}
                                  </td>
                               </tr>
                               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -171,7 +181,7 @@ export const AgeCategoryDetail = () => {
                                     Age Name
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {age.ageName || ""}
+                                    {data.age ? data.age.ageName : ""}
                                  </td>
                                  <td className="px-6 py-4">
                                     <input
@@ -204,13 +214,13 @@ export const AgeCategoryDetail = () => {
                                     Created Date
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {age.createdAt
-                                       ? formatDate(age.createdAt)
+                                    {data.age && data.age.createdAt
+                                       ? formatDate(data.age.createdAt)
                                        : ""}
                                  </td>
                                  <td className="px-6 py-4 text-base">
-                                    {age.createdAt
-                                       ? formatDate(age.createdAt)
+                                    {data.age && data.age.createdAt
+                                       ? formatDate(data.age.createdAt)
                                        : ""}
                                  </td>
                               </tr>
@@ -222,13 +232,13 @@ export const AgeCategoryDetail = () => {
                                     Updated At
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {age.updatedAt
-                                       ? formatDate(age.updatedAt)
+                                    {data.age && data.age.updatedAt
+                                       ? formatDate(data.age.updatedAt)
                                        : ""}
                                  </td>
                                  <td className="px-6 py-4 text-base">
-                                    {age.updatedAt
-                                       ? formatDate(age.updatedAt)
+                                    {data.age && data.age.updatedAt
+                                       ? formatDate(data.age.updatedAt)
                                        : ""}
                                  </td>
                               </tr>
@@ -248,7 +258,9 @@ export const AgeCategoryDetail = () => {
                         <button
                            type="button"
                            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
-                           onClick={() => deleteAge(age._id || "")}
+                           onClick={() =>
+                              deleteAge(data.age ? data.age._id : "")
+                           }
                         >
                            Delete
                         </button>

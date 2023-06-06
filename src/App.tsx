@@ -15,6 +15,8 @@ import { AddProduct } from "./components/Admin/Product/ProductList/add-product";
 import { AgeCategoryList } from "./components/Admin/Category/Age/AgeList/age-list";
 import { AgeCategoryDetail } from "./components/Admin/Category/Age/AgeDetail/age-detail";
 import { AddAgeCategory } from "./components/Admin/Category/Age/AgeAdd/add-age-category";
+import { BranchList } from "./components/Admin/Category/Branch/BranchList/branch-list";
+import { BranchDetail } from "./components/Admin/Category/Branch/BranchDetail/branch-detail";
 
 function App() {
    return (
@@ -49,7 +51,15 @@ function App() {
                path="/admin/add-age-category"
                element={<AddAgeCategory />}
             />
-            <Route path="/admin/branch-category-list" element={<AdminHome />} />
+            <Route
+               path="/admin/branch-category-list"
+               element={<BranchList />}
+            />
+            <Route
+               path="/admin/branch-category-detail/:id"
+               element={<BranchDetail />}
+            />
+            <Route path="/admin/add-branch-category" element={<AdminHome />} />
             <Route path="/admin/list-category-list" element={<AdminHome />} />
             <Route path="/admin/order-list" element={<AdminHome />} />
 

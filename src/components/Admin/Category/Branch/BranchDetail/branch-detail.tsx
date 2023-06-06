@@ -1,30 +1,30 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFormik } from "formik";
-import { callApi } from "../../../../api/callApi/callApi";
-import { ActionTypes, FormikPropType } from "../common/types";
-import { formatDate, formatRole } from "../../../Common/Logic/logics";
-import { RoleNumber } from "../common/constants";
-import { Loader } from "../../../Common/Loader/loader";
-import { validationSchema } from "./validations";
 import {
    ActionReducerType,
+   FormikBagType,
    InitStateReducerType,
    StateReducerType,
 } from "./types";
+import { ActionValues } from "../Common/types";
+import { callApi } from "../../../../../api/callApi/callApi";
+import { useFormik } from "formik";
+import { validationSchema } from "./vadidations";
+import { Loader } from "../../../../Common/Loader/loader";
+import { formatDate } from "../../../../Common/Logic/logics";
 
-export const UserDetail = () => {
-   const { userId } = useParams();
+export const BranchDetail = () => {
+   const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
-   const [notChange, setNotChange] = useState<boolean>(false);
+   const [msg, setMsg] = useState<string>("");
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
-         case ActionTypes.SELECTED_USER:
+         case ActionValues.GET_BRANCH:
             return {
-               user: payload,
+               branch: payload,
             };
          default:
             return state;
@@ -33,70 +33,72 @@ export const UserDetail = () => {
 
    const [data, dispatch] = useReducer(reducer, InitStateReducerType);
 
-   const fetchApi = async () => {
-      const url = `users/${userId}`;
+   const fetchApi = useCallback(async () => {
+      const url = `branches/${id}`;
       const response = await callApi(url, "get").catch((err) =>
          console.log({ err })
       );
       dispatch({
-         type: ActionTypes.SELECTED_USER,
+         type: ActionValues.GET_BRANCH,
          payload: response.data || [],
       });
       setIsLoading(false);
-   };
+   }, [id]);
 
-   const deleteUser = useCallback(
-      async (userId: string) => {
-         if (confirm("Are you sure you want to delete this account?")) {
-            const response = await callApi("users", "delete", {
-               id: userId,
+   const deleteAge = useCallback(
+      async (id: string) => {
+         if (confirm("Are you sure you want to delete this branch category?")) {
+            const response = await callApi("branches", "delete", {
+               branchId: id,
             }).catch((err) => console.log({ err }));
             if (response) {
-               alert("Delete account success");
+               alert("Delete branch category success");
                navigate(-1);
             } else {
-               alert("Delete account fail");
+               alert("Delete branch category fail");
             }
          }
       },
       [navigate]
    );
 
-   const onSubmit = async (formikValues: FormikPropType) => {
-      if (
-         formikValues.username &&
-         formikValues.role &&
-         data.user &&
-         formikValues.username === data.user.username &&
-         formikValues.role == data.user.role
-      ) {
-         setNotChange(true);
-         return;
-      }
-      setNotChange(false);
-      // show loader while update information
-      setIsLoading(true);
-      const requestPayload = {
-         ...formikValues,
-         id: userId,
-      };
-      const response = await callApi("users", "patch", requestPayload).catch(
-         (err) => console.log({ err })
-      );
-      // close loader when updated information
-      setIsLoading(false);
-      if (response) {
-         alert("Update account success");
-         fetchApi();
-      } else {
-         alert("Update account fail");
-      }
-   };
+   const onSubmit = useCallback(
+      async (formikValues: FormikBagType) => {
+         setMsg("");
+         if (
+            formikValues.branchName &&
+            data.branch &&
+            formikValues.branchName === data.branch.branchName
+         ) {
+            setMsg("There must be at least one data change");
+            return;
+         }
+         // show loader while update information
+         setIsLoading(true);
+         const requestPayload = {
+            ...formikValues,
+            id: id,
+         };
+         const response = await callApi(
+            "branches",
+            "patch",
+            requestPayload
+         ).catch((err) => console.log({ err }));
+         // close loader when updated information
+         setIsLoading(false);
+         if (response) {
+            setMsg("Update account success");
+            fetchApi();
+         } else {
+            setMsg("Age Category Name already existed");
+         }
+      },
+      [data, fetchApi, id]
+   );
 
    const formikBag = useFormik({
       initialValues: {
-         username: "",
-         role: 1,
+         branchName: "",
       },
       validationSchema,
       onSubmit: (value) => onSubmit(value),
@@ -110,18 +112,25 @@ export const UserDetail = () => {
       }
    }, [formikBag]);
 
+   const ErrorMessages = (msg: string) => {
+      return (
+         <div className="bg-lime-300 w-full text-orange-600 px-5 py-3 rounded-md my-5">
+            {msg}
+         </div>
+      );
+   };
+
    useEffect(() => {
       fetchApi();
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    useEffect(() => {
-      if (!isLoading && data.user) {
-         formikBag.setFieldValue("username", data.user.username || "");
-         formikBag.setFieldValue("role", data.user.role || 1);
+      if (data.branch && data.branch.branchName !== "") {
+         formikBag.setFieldValue("branchName", data.branch.branchName);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [isLoading, data]);
+   }, [data]);
 
    return (
       <div>
@@ -130,14 +139,10 @@ export const UserDetail = () => {
          ) : (
             <>
                <div className="container mt-10">
-                  {notChange && (
-                     <div className="bg-lime-300 w-full text-orange-600 p-5 rounded-md">
-                        There must be at least one data change
-                     </div>
-                  )}
-                  <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-10">
+                  <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10">
                      ACCOUNT DETAIL
                   </h2>
+                  {msg && ErrorMessages(msg)}
                   <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-auto">
                      <form onSubmit={formikBag.handleSubmit}>
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -160,83 +165,46 @@ export const UserDetail = () => {
                                     scope="row"
                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                  >
-                                    Username
+                                    Age ID
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {data.user ? data.user.username : ""}
+                                    {data.branch ? data.branch.branchId : ""}
+                                 </td>
+                                 <td className="px-6 py-4">
+                                    {data.branch ? data.branch.branchId : ""}
+                                 </td>
+                              </tr>
+                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                 <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                 >
+                                    Age Name
+                                 </th>
+                                 <td className="px-6 py-4 text-base">
+                                    {data.branch ? data.branch.branchName : ""}
                                  </td>
                                  <td className="px-6 py-4">
                                     <input
-                                       type="email"
-                                       id="username"
-                                       name="username"
+                                       type="text"
+                                       id="ageName"
+                                       name="ageName"
                                        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                          notChange ||
-                                          (formikBag.errors.username &&
-                                             formikBag.touched.username)
+                                          msg !== "" ||
+                                          (formikBag.errors.branchName &&
+                                             formikBag.touched.branchName)
                                              ? "bg-yellow"
                                              : ""
                                        }`}
-                                       value={formikBag.values.username || ""}
+                                       value={formikBag.values.branchName || ""}
                                        onChange={formikBag.handleChange}
                                     />
-                                    {formikBag.errors.username &&
-                                       formikBag.touched.username && (
+                                    {formikBag.errors.branchName &&
+                                       formikBag.touched.branchName && (
                                           <p className="text-orange-600">
-                                             {formikBag.errors.username}
+                                             {formikBag.errors.branchName}
                                           </p>
                                        )}
-                                 </td>
-                              </tr>
-                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                 <th
-                                    scope="row"
-                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                 >
-                                    Roles
-                                 </th>
-                                 <td className="px-6 py-4 text-base">
-                                    {data.user && data.user.role
-                                       ? formatRole(data.user.role)
-                                       : ""}
-                                 </td>
-                                 <td className="px-6 py-4">
-                                    <select
-                                       id="role"
-                                       className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                          notChange ? "bg-yellow" : ""
-                                       }`}
-                                       onChange={formikBag.handleChange}
-                                       value={formikBag.values.role}
-                                    >
-                                       <option value={RoleNumber.User}>
-                                          User
-                                       </option>
-                                       <option value={RoleNumber.Employee}>
-                                          Employee
-                                       </option>
-                                       <option value={RoleNumber.Admin}>
-                                          Admin
-                                       </option>
-                                    </select>
-                                 </td>
-                              </tr>
-                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                 <th
-                                    scope="row"
-                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                 >
-                                    Active
-                                 </th>
-                                 <td className="px-6 py-4 text-base">
-                                    {data.user && data.user.active
-                                       ? "Active"
-                                       : "Inactive"}
-                                 </td>
-                                 <td className="px-6 py-4 text-base">
-                                    {data.user && data.user.active
-                                       ? "Active"
-                                       : "Inactive"}
                                  </td>
                               </tr>
                               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -247,13 +215,13 @@ export const UserDetail = () => {
                                     Created Date
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {data.user && data.user.createdAt
-                                       ? formatDate(data.user.createdAt)
+                                    {data.branch && data.branch.createdAt
+                                       ? formatDate(data.branch.createdAt)
                                        : ""}
                                  </td>
                                  <td className="px-6 py-4 text-base">
-                                    {data.user && data.user.createdAt
-                                       ? formatDate(data.user.createdAt)
+                                    {data.branch && data.branch.createdAt
+                                       ? formatDate(data.branch.createdAt)
                                        : ""}
                                  </td>
                               </tr>
@@ -265,13 +233,13 @@ export const UserDetail = () => {
                                     Updated At
                                  </th>
                                  <td className="px-6 py-4 text-base">
-                                    {data.user && data.user.updatedAt
-                                       ? formatDate(data.user.updatedAt)
+                                    {data.branch && data.branch.updatedAt
+                                       ? formatDate(data.branch.updatedAt)
                                        : ""}
                                  </td>
                                  <td className="px-6 py-4 text-base">
-                                    {data.user && data.user.updatedAt
-                                       ? formatDate(data.user.updatedAt)
+                                    {data.branch && data.branch.updatedAt
+                                       ? formatDate(data.branch.updatedAt)
                                        : ""}
                                  </td>
                               </tr>
@@ -292,7 +260,7 @@ export const UserDetail = () => {
                            type="button"
                            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
                            onClick={() =>
-                              deleteUser(data.user ? data.user._id : "")
+                              deleteAge(data.branch ? data.branch._id : "")
                            }
                         >
                            Delete
