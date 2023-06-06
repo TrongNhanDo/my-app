@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { validationSchema } from "./validations";
 import { callApi } from "../../../../../api/callApi/callApi";
 
-export const AddAgeCategory = () => {
+export const AddBranchCategory = () => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [error, setError] = useState<string>("");
@@ -15,12 +15,12 @@ export const AddAgeCategory = () => {
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
       setShowLoading(true);
       const requestPayload = {
-         ageId: formikValues.ageId,
-         ageName: formikValues.ageName,
+         branchId: formikValues.branchId,
+         branchName: formikValues.branchName,
       };
-      await callApi("ages", "post", requestPayload)
+      await callApi("branches", "post", requestPayload)
          .then(() => {
-            setError("Insert new age category success");
+            setError("Insert new branch category success");
          })
          .catch((err) => {
             setError(err.response.data.message);
@@ -49,7 +49,7 @@ export const AddAgeCategory = () => {
             <div className="div-register dark:bg-gray-700">
                <div className="mb-6">
                   <div className="text-2xl font-bold text-center text-slate-100">
-                     INSERT NEW AGE CATEGORY
+                     INSERT NEW BRANCH CATEGORY
                   </div>
                   {error && error !== "" && (
                      <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
@@ -59,41 +59,45 @@ export const AddAgeCategory = () => {
                </div>
                <div className="mb-6">
                   <Input
-                     label="Age Category ID:"
-                     name="ageId"
-                     id="ageId"
+                     label="Branch Category ID:"
+                     name="branchId"
+                     id="branchId"
                      type="text"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
-                        formikBag.errors.ageId && formikBag.touched.ageId
+                        formikBag.errors.branchId && formikBag.touched.branchId
                            ? "bg-yellow"
                            : ""
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.ageId || ""}
+                     value={formikBag.values.branchId || ""}
                   />
-                  {formikBag.errors.ageId && formikBag.touched.ageId && (
-                     <p className="text-orange-600">{formikBag.errors.ageId}</p>
+                  {formikBag.errors.branchId && formikBag.touched.branchId && (
+                     <p className="text-orange-600">
+                        {formikBag.errors.branchId}
+                     </p>
                   )}
                </div>
                <div className="mb-6">
                   <Input
                      type="text"
-                     label="Age Category Name:"
-                     name="ageName"
-                     id="ageName"
+                     label="Branch Category Name:"
+                     name="branchName"
+                     id="branchName"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
-                        formikBag.errors.ageName && formikBag.touched.ageName
+                        formikBag.errors.branchName &&
+                        formikBag.touched.branchName
                            ? "bg-yellow"
                            : ""
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.ageName || ""}
+                     value={formikBag.values.branchName || ""}
                   />
-                  {formikBag.errors.ageName && formikBag.touched.ageName && (
-                     <p className="text-orange-600">
-                        {formikBag.errors.ageName}
-                     </p>
-                  )}
+                  {formikBag.errors.branchName &&
+                     formikBag.touched.branchName && (
+                        <p className="text-orange-600">
+                           {formikBag.errors.branchName}
+                        </p>
+                     )}
                </div>
                <div className="grid gap-6 mb-1 md:grid-cols-2">
                   <div>

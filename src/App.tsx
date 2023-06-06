@@ -17,6 +17,7 @@ import { AgeCategoryDetail } from "./components/Admin/Category/Age/AgeDetail/age
 import { AddAgeCategory } from "./components/Admin/Category/Age/AgeAdd/add-age-category";
 import { BranchList } from "./components/Admin/Category/Branch/BranchList/branch-list";
 import { BranchDetail } from "./components/Admin/Category/Branch/BranchDetail/branch-detail";
+import { AddBranchCategory } from "./components/Admin/Category/Branch/AddBranch/add-branch-category";
 
 function App() {
    return (
@@ -59,7 +60,10 @@ function App() {
                path="/admin/branch-category-detail/:id"
                element={<BranchDetail />}
             />
-            <Route path="/admin/add-branch-category" element={<AdminHome />} />
+            <Route
+               path="/admin/add-branch-category"
+               element={<AddBranchCategory />}
+            />
             <Route path="/admin/list-category-list" element={<AdminHome />} />
             <Route path="/admin/order-list" element={<AdminHome />} />
 
