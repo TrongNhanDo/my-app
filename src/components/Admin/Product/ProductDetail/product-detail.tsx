@@ -436,18 +436,7 @@ export const ProductDetail = () => {
                               {viewData.product.rate || 0}
                            </td>
                            <td className="px-6 py-4 text-base">
-                              <input
-                                 type="number"
-                                 name="rate"
-                                 id="rate"
-                                 value={
-                                    formikBag.values.rate ||
-                                    viewData.product.rate ||
-                                    0
-                                 }
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
-                                 onChange={formikBag.handleChange}
-                              />
+                              {viewData.product.rate || 0}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">

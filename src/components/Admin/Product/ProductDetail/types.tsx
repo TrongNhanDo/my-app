@@ -41,7 +41,6 @@ export type FormikBagType = {
    price: string;
    describes: string;
    amount: number;
-   rate: number;
    image1: string;
    image2?: string;
    image3?: string;
@@ -57,7 +56,6 @@ export const initFormikValues = {
    price: "",
    describes: "",
    amount: 0,
-   rate: 0,
    image1: "",
    image2: "",
    image3: "",
