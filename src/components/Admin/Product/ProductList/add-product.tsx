@@ -12,6 +12,7 @@ export const AddProduct = () => {
    const [showLoader, setShowLoader] = useState<boolean>(false);
    const [images, setImages] = useState<File[]>();
    const [viewData, setViewData] = useState<StateReducerType>();
+   const [success, setSuccess] = useState<boolean>(false);
 
    const fetchApi = useCallback(async () => {
       // data for age dropdown
@@ -73,6 +74,13 @@ export const AddProduct = () => {
    useEffect(() => {
       fetchApi();
    }, [fetchApi]);
+
+   useEffect(() => {
+      if (success) {
+         formikBag.resetForm();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [success]);
 
    return (
       <div className="container">

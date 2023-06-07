@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Loader } from "../../../../Common/Loader/loader";
 import { FormikBagType, InitFormikBag } from "./types";
 import { Input } from "../../../../Common/Input/input";
@@ -11,8 +11,10 @@ export const AddSkillCategory = () => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [error, setError] = useState<string>("");
+   const [success, setSuccess] = useState<boolean>(false);
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
+      setSuccess(false);
       setShowLoading(true);
       const requestPayload = {
          skillId: formikValues.skillId,
@@ -21,9 +23,10 @@ export const AddSkillCategory = () => {
       await callApi("skills", "post", requestPayload)
          .then(() => {
             setError("Insert new skill category success");
+            setSuccess(true);
          })
          .catch((err) => {
-            setError(err.response.data.message);
+            setError(err.response.data.message || "");
          });
       setShowLoading(false);
    }, []);
@@ -41,6 +44,13 @@ export const AddSkillCategory = () => {
          console.log({ error });
       }
    }, [formikBag]);
+
+   useEffect(() => {
+      if (success) {
+         formikBag.resetForm();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [success]);
 
    return (
       <div>

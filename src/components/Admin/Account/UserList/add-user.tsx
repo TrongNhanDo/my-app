@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
@@ -11,7 +11,9 @@ import { Loader } from "../../../Common/Loader/loader";
 export const AddNewUser = () => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
-   const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
+   const [error, setError] = useState<string>("");
+   const [success, setSuccess] = useState<boolean>(false);
+
    const initValues = {
       username: "",
       password: "",
@@ -20,7 +22,7 @@ export const AddNewUser = () => {
    };
 
    const onSubmit = async (formikValues: InputInsertType) => {
-      setIsDuplicate(false);
+      setSuccess(false);
       if (
          formikValues.password &&
          formikValues.confirmPwd &&
@@ -30,25 +32,22 @@ export const AddNewUser = () => {
             "confirmPwd",
             "Confirm password not matched with password"
          );
-         return;
-      }
-
-      setShowLoading(true);
-      const requestPayload = {
-         ...formikValues,
-         username: formikValues.username.trim(),
-         password: formikValues.password.trim(),
-      };
-      const response = await callApi("users", "post", requestPayload).catch(
-         (err) => {
-            console.log({ err });
-            setIsDuplicate(true);
-         }
-      );
-      setShowLoading(false);
-      if (response) {
-         alert("Insert new account success");
-         navigate(-1);
+      } else {
+         setShowLoading(true);
+         const requestPayload = {
+            ...formikValues,
+            username: formikValues.username.trim(),
+            password: formikValues.password.trim(),
+         };
+         await callApi("users", "post", requestPayload)
+            .then(() => {
+               setError("Insert new skill category success");
+               setSuccess(true);
+            })
+            .catch((err) => {
+               setError(err.response.data.message || "");
+            });
+         setShowLoading(false);
       }
    };
 
@@ -66,6 +65,13 @@ export const AddNewUser = () => {
       }
    }, [formikBag]);
 
+   useEffect(() => {
+      if (success) {
+         formikBag.resetForm();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [success]);
+
    return (
       <div>
          {showLoading && <Loader />}
@@ -75,9 +81,9 @@ export const AddNewUser = () => {
                   <div className="text-3xl font-bold text-center text-slate-100">
                      INSERT NEW ACCOUNT
                   </div>
-                  {isDuplicate && (
+                  {error && error !== "" && (
                      <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
-                        Username has already existed
+                        {error}
                      </div>
                   )}
                </div>
@@ -87,8 +93,10 @@ export const AddNewUser = () => {
                      name="username"
                      id="username"
                      type="text"
-                     className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
-                        isDuplicate ? "bg-yellow" : ""
+                     className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
+                        formikBag.errors.username && formikBag.touched.username
+                           ? "bg-yellow"
+                           : ""
                      }`}
                      onChange={formikBag.handleChange}
                      value={formikBag.values.username || ""}

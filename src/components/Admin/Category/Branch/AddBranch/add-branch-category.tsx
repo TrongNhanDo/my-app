@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Loader } from "../../../../Common/Loader/loader";
 import { FormikBagType, InitFormikBag } from "./types";
 import { Input } from "../../../../Common/Input/input";
@@ -11,8 +11,10 @@ export const AddBranchCategory = () => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [error, setError] = useState<string>("");
+   const [success, setSuccess] = useState<boolean>(false);
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
+      setSuccess(false);
       setShowLoading(true);
       const requestPayload = {
          branchId: formikValues.branchId,
@@ -21,6 +23,7 @@ export const AddBranchCategory = () => {
       await callApi("branches", "post", requestPayload)
          .then(() => {
             setError("Insert new branch category success");
+            setSuccess(true);
          })
          .catch((err) => {
             setError(err.response.data.message);
@@ -41,6 +44,13 @@ export const AddBranchCategory = () => {
          console.log({ error });
       }
    }, [formikBag]);
+
+   useEffect(() => {
+      if (success) {
+         formikBag.resetForm();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [success]);
 
    return (
       <div>
