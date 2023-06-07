@@ -162,7 +162,7 @@ export const AgeCategoryList = () => {
                                     to={`/admin/age-category-detail/${value._id}`}
                                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                  >
-                                    Detail Age Category
+                                    Detail
                                  </Link>
                               </td>
                            </tr>

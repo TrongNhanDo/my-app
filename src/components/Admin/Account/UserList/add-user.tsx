@@ -36,6 +36,8 @@ export const AddNewUser = () => {
       setShowLoading(true);
       const requestPayload = {
          ...formikValues,
+         username: formikValues.username.trim(),
+         password: formikValues.password.trim(),
       };
       const response = await callApi("users", "post", requestPayload).catch(
          (err) => {

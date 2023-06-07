@@ -16,7 +16,7 @@ export const AddBranchCategory = () => {
       setShowLoading(true);
       const requestPayload = {
          branchId: formikValues.branchId,
-         branchName: formikValues.branchName,
+         branchName: formikValues.branchName.trim(),
       };
       await callApi("branches", "post", requestPayload)
          .then(() => {

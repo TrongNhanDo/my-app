@@ -13,7 +13,7 @@ import { validationSchema } from "./vadidations";
 import { Loader } from "../../../../Common/Loader/loader";
 import { formatDate } from "../../../../Common/Logic/logics";
 
-export const BranchCategoryDetail = () => {
+export const SkillCategoryDetail = () => {
    const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -22,9 +22,9 @@ export const BranchCategoryDetail = () => {
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
-         case ActionValues.GET_BRANCH:
+         case ActionValues.GET_SKILL:
             return {
-               branch: payload,
+               skill: payload,
             };
          default:
             return state;
@@ -34,12 +34,12 @@ export const BranchCategoryDetail = () => {
    const [data, dispatch] = useReducer(reducer, InitStateReducerType);
 
    const fetchApi = useCallback(async () => {
-      const url = `branches/${id}`;
+      const url = `skills/${id}`;
       const response = await callApi(url, "get").catch((err) =>
          console.log({ err })
       );
       dispatch({
-         type: ActionValues.GET_BRANCH,
+         type: ActionValues.GET_SKILL,
          payload: response.data || [],
       });
       setIsLoading(false);
@@ -47,8 +47,8 @@ export const BranchCategoryDetail = () => {
 
    const deleteAge = useCallback(
       async (id: string) => {
-         if (confirm("Are you sure you want to delete this branch category?")) {
-            const response = await callApi("branches", "delete", {
+         if (confirm("Are you sure you want to delete this skill category?")) {
+            const response = await callApi("skills", "delete", {
                id: id,
             }).catch((err) => console.log({ err }));
             if (response) {
@@ -66,9 +66,9 @@ export const BranchCategoryDetail = () => {
       async (formikValues: FormikBagType) => {
          setMsg("");
          if (
-            formikValues.branchName &&
-            data.branch &&
-            formikValues.branchName === data.branch.branchName
+            formikValues.skillName &&
+            data.skill &&
+            formikValues.skillName === data.skill.skillName
          ) {
             setMsg("There must be at least one data change");
          } else {
@@ -79,17 +79,17 @@ export const BranchCategoryDetail = () => {
                id: id,
             };
             const response = await callApi(
-               "branches",
+               "skills",
                "patch",
                requestPayload
             ).catch((err) => console.log({ err }));
             // close loader when updated information
             setIsLoading(false);
             if (response) {
-               setMsg("Update account success");
+               setMsg("Update category success");
                fetchApi();
             } else {
-               setMsg("Age Category Name already existed");
+               setMsg("Skill Category Name already existed");
             }
          }
       },
@@ -98,7 +98,7 @@ export const BranchCategoryDetail = () => {
 
    const formikBag = useFormik({
       initialValues: {
-         branchName: "",
+         skillName: "",
       },
       validationSchema,
       onSubmit: (value) => onSubmit(value),
@@ -126,8 +126,8 @@ export const BranchCategoryDetail = () => {
    }, []);
 
    useEffect(() => {
-      if (data.branch && data.branch.branchName !== "") {
-         formikBag.setFieldValue("branchName", data.branch.branchName);
+      if (data.skill && data.skill.skillName !== "") {
+         formikBag.setFieldValue("skillName", data.skill.skillName);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [data]);
@@ -162,13 +162,13 @@ export const BranchCategoryDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Branch ID
+                              Skill ID
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.branch ? data.branch.branchId : ""}
+                              {data.skill ? data.skill.skillId : ""}
                            </td>
                            <td className="px-6 py-4">
-                              {data.branch ? data.branch.branchId : ""}
+                              {data.skill ? data.skill.skillId : ""}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -176,30 +176,30 @@ export const BranchCategoryDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Branch Name
+                              Skill Name
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.branch ? data.branch.branchName : ""}
+                              {data.skill ? data.skill.skillName : ""}
                            </td>
                            <td className="px-6 py-4">
                               <input
                                  type="text"
-                                 id="branchName"
-                                 name="branchName"
+                                 id="skillName"
+                                 name="skillName"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
                                     msg !== "" ||
-                                    (formikBag.errors.branchName &&
-                                       formikBag.touched.branchName)
+                                    (formikBag.errors.skillName &&
+                                       formikBag.touched.skillName)
                                        ? "bg-yellow"
                                        : ""
                                  }`}
-                                 value={formikBag.values.branchName || ""}
+                                 value={formikBag.values.skillName || ""}
                                  onChange={formikBag.handleChange}
                               />
-                              {formikBag.errors.branchName &&
-                                 formikBag.touched.branchName && (
+                              {formikBag.errors.skillName &&
+                                 formikBag.touched.skillName && (
                                     <p className="text-orange-600">
-                                       {formikBag.errors.branchName}
+                                       {formikBag.errors.skillName}
                                     </p>
                                  )}
                            </td>
@@ -212,13 +212,13 @@ export const BranchCategoryDetail = () => {
                               Created Date
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.branch && data.branch.createdAt
-                                 ? formatDate(data.branch.createdAt)
+                              {data.skill && data.skill.createdAt
+                                 ? formatDate(data.skill.createdAt)
                                  : ""}
                            </td>
                            <td className="px-6 py-4 text-base">
-                              {data.branch && data.branch.createdAt
-                                 ? formatDate(data.branch.createdAt)
+                              {data.skill && data.skill.createdAt
+                                 ? formatDate(data.skill.createdAt)
                                  : ""}
                            </td>
                         </tr>
@@ -230,13 +230,13 @@ export const BranchCategoryDetail = () => {
                               Updated At
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.branch && data.branch.updatedAt
-                                 ? formatDate(data.branch.updatedAt)
+                              {data.skill && data.skill.updatedAt
+                                 ? formatDate(data.skill.updatedAt)
                                  : ""}
                            </td>
                            <td className="px-6 py-4 text-base">
-                              {data.branch && data.branch.updatedAt
-                                 ? formatDate(data.branch.updatedAt)
+                              {data.skill && data.skill.updatedAt
+                                 ? formatDate(data.skill.updatedAt)
                                  : ""}
                            </td>
                         </tr>
@@ -256,9 +256,7 @@ export const BranchCategoryDetail = () => {
                   <button
                      type="button"
                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
-                     onClick={() =>
-                        deleteAge(data.branch ? data.branch._id : "")
-                     }
+                     onClick={() => deleteAge(data.skill ? data.skill._id : "")}
                   >
                      Delete
                   </button>

@@ -184,7 +184,7 @@ export const ProductList = () => {
                                        to={`/admin/product-detail/${value._id}`}
                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                     >
-                                       Detail Account
+                                       Detail
                                     </Link>
                                  </td>
                               </tr>

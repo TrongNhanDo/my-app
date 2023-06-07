@@ -166,7 +166,7 @@ export const BranchList = () => {
                                        to={`/admin/branch-category-detail/${value._id}`}
                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                     >
-                                       Detail Branch Category
+                                       Detail
                                     </Link>
                                  </td>
                               </tr>

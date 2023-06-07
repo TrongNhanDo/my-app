@@ -49,7 +49,7 @@ export const AgeCategoryDetail = () => {
       async (id: string) => {
          if (confirm("Are you sure you want to delete this age category?")) {
             const response = await callApi("ages", "delete", {
-               ageId: id,
+               id: id,
             }).catch((err) => console.log({ err }));
             if (response) {
                alert("Delete age category success");

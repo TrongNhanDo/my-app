@@ -1,61 +1,55 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
-import { Link } from "react-router-dom";
 import {
-   ActionType,
-   ActionTypes,
-   InitStateType,
-   UserType,
-} from "../common/types";
-import { callApi } from "../../../../api/callApi/callApi";
-import { formatDate, formatRole } from "../../../Common/Logic/logics";
-import { Loader } from "../../../Common/Loader/loader";
+   ActionReducerType,
+   InitStateReducerType,
+   StateReducerType,
+} from "./types";
+import { ActionValues, SkillType } from "../Common/types";
+import { callApi } from "../../../../../api/callApi/callApi";
+import { Loader } from "../../../../Common/Loader/loader";
+import { Link } from "react-router-dom";
+import { formatDate } from "../../../../Common/Logic/logics";
 
-export const UserList = () => {
+export const SkillList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = useMemo(
       () => parseInt(import.meta.env.VITE_PER_PAGE || 10),
       []
    );
-   const reducer = (state: InitStateType, action: ActionType) => {
+   const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
+      const sumPage =
+         payload && payload.totalPage
+            ? Math.ceil(payload.totalPage / dataPerPage)
+            : 0;
       switch (type) {
-         case ActionTypes.SET_USERS:
+         case ActionValues.SET_SKILLS:
             return {
                ...state,
-               users: payload && payload.users ? payload.users : [],
-               totalPage:
-                  payload && payload.totalPage
-                     ? Math.ceil(payload.totalPage / dataPerPage)
-                     : 0,
+               skills: payload && payload.skills ? payload.skills : [],
+               totalPage: sumPage,
             };
-            break;
          default:
             return state;
       }
    };
 
-   const initState = {
-      users: [],
-      totalPage: 0,
-   };
-
-   const [data, dispatch] = useReducer(reducer, initState);
-
+   const [data, dispatch] = useReducer(reducer, InitStateReducerType);
    const fetchApi = useCallback(async () => {
       // get totalPage
-      const response = await callApi("users", "get").catch((err) =>
+      const response = await callApi("skills", "get").catch((err) =>
          console.log({ err })
       );
       // get data paginate
-      const responsePaginate = await callApi("users/paginate", "post", {
+      const responsePaginate = await callApi("skills/paginate", "post", {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
       dispatch({
-         type: ActionTypes.SET_USERS,
+         type: ActionValues.SET_SKILLS,
          payload: {
             totalPage: response.data.length || 0,
-            users: responsePaginate.data || [],
+            skills: responsePaginate.data || [],
          },
       });
       setShowLoader(false);
@@ -63,18 +57,18 @@ export const UserList = () => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("users", "get").catch((err) =>
+      const response = await callApi("skills", "get").catch((err) =>
          console.log({ err })
       );
-      const responsePaginate = await callApi("users/paginate", "post", {
+      const responsePaginate = await callApi("skills/paginate", "post", {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
       dispatch({
-         type: ActionTypes.SET_USERS,
+         type: ActionValues.SET_SKILLS,
          payload: {
             totalPage: response.data.length || 0,
-            users: responsePaginate.data || [],
+            skills: responsePaginate.data || [],
          },
       });
       setShowLoader(false);
@@ -102,34 +96,34 @@ export const UserList = () => {
    }, [fetchApi]);
 
    return (
-      <div>
+      <div className="container mb-10">
          {showLoader && <Loader />}
-         <div className="container m-auto">
-            <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5">
-               LIST OF USER ACCOUNTS
+         <div>
+            <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5 uppercase">
+               list of skill categories
             </h2>
             <div className="flex justify-center mb-2">
                <Link
-                  to="/admin/add-user"
+                  to="/admin/add-skill-category"
                   type="button"
-                  className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                  className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 uppercase"
                >
-                  INSERT NEW ACCOUNT
+                  insert new category
                </Link>
             </div>
             {Pagination.length > 1 && <div className="flex">{Pagination}</div>}
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg  m-auto">
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                      <tr>
                         <th scope="col" className="px-6 py-3">
-                           No
+                           no
                         </th>
                         <th scope="col" className="px-6 py-3">
-                           user name
+                           skill id
                         </th>
                         <th scope="col" className="px-6 py-3">
-                           role
+                           skill Name
                         </th>
                         <th scope="col" className="px-6 py-3">
                            created date
@@ -144,8 +138,8 @@ export const UserList = () => {
                   </thead>
                   <tbody>
                      {data &&
-                        data.users &&
-                        data.users.map((value: UserType, index: number) => (
+                        data.skills &&
+                        data.skills.map((value: SkillType, index: number) => (
                            <tr
                               key={index}
                               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -155,10 +149,10 @@ export const UserList = () => {
                                  scope="row"
                                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                               >
-                                 {value.username || ""}
+                                 {value.skillId || ""}
                               </th>
                               <td className="px-6 py-4">
-                                 {formatRole(value.role)}
+                                 {value.skillName || ""}
                               </td>
                               <td className="px-6 py-4">
                                  {formatDate(value.createdAt)}
@@ -168,7 +162,7 @@ export const UserList = () => {
                               </td>
                               <td className="px-6 py-4 text-right">
                                  <Link
-                                    to={`/admin/user-detail/${value._id}`}
+                                    to={`/admin/skill-category-detail/${value._id}`}
                                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                  >
                                     Detail

@@ -16,8 +16,11 @@ import { AgeCategoryList } from "./components/Admin/Category/Age/AgeList/age-lis
 import { AgeCategoryDetail } from "./components/Admin/Category/Age/AgeDetail/age-detail";
 import { AddAgeCategory } from "./components/Admin/Category/Age/AgeAdd/add-age-category";
 import { BranchList } from "./components/Admin/Category/Branch/BranchList/branch-list";
-import { BranchDetail } from "./components/Admin/Category/Branch/BranchDetail/branch-detail";
+import { BranchCategoryDetail } from "./components/Admin/Category/Branch/BranchDetail/branch-detail";
 import { AddBranchCategory } from "./components/Admin/Category/Branch/AddBranch/add-branch-category";
+import { SkillList } from "./components/Admin/Category/Skill/SkillList/skill-list";
+import { SkillCategoryDetail } from "./components/Admin/Category/Skill/SkillDetail/skill-detail";
+import { AddSkillCategory } from "./components/Admin/Category/Skill/AddSkill/add-skill-category";
 
 function App() {
    return (
@@ -58,13 +61,21 @@ function App() {
             />
             <Route
                path="/admin/branch-category-detail/:id"
-               element={<BranchDetail />}
+               element={<BranchCategoryDetail />}
             />
             <Route
                path="/admin/add-branch-category"
                element={<AddBranchCategory />}
             />
-            <Route path="/admin/list-category-list" element={<AdminHome />} />
+            <Route path="/admin/skill-category-list" element={<SkillList />} />
+            <Route
+               path="/admin/skill-category-detail/:id"
+               element={<SkillCategoryDetail />}
+            />
+            <Route
+               path="/admin/add-skill-category"
+               element={<AddSkillCategory />}
+            />
             <Route path="/admin/order-list" element={<AdminHome />} />
 
             {/* 404 page */}

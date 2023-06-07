@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { validationSchema } from "./validations";
 import { callApi } from "../../../../../api/callApi/callApi";
 
-export const AddAgeCategory = () => {
+export const AddSkillCategory = () => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [error, setError] = useState<string>("");
@@ -15,12 +15,12 @@ export const AddAgeCategory = () => {
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
       setShowLoading(true);
       const requestPayload = {
-         ageId: formikValues.ageId,
-         ageName: formikValues.ageName.trim(),
+         skillId: formikValues.skillId,
+         skillName: formikValues.skillName.trim(),
       };
-      await callApi("ages", "post", requestPayload)
+      await callApi("skills", "post", requestPayload)
          .then(() => {
-            setError("Insert new age category success");
+            setError("Insert new skill category success");
          })
          .catch((err) => {
             setError(err.response.data.message);
@@ -48,8 +48,8 @@ export const AddAgeCategory = () => {
          <form onSubmit={formikBag.handleSubmit} className="container">
             <div className="div-register dark:bg-gray-700">
                <div className="mb-6">
-                  <div className="text-2xl font-bold text-center text-slate-100">
-                     INSERT NEW AGE CATEGORY
+                  <div className="text-2xl font-bold text-center text-slate-100 uppercase">
+                     insert new skill category
                   </div>
                   {error && error !== "" && (
                      <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
@@ -59,41 +59,45 @@ export const AddAgeCategory = () => {
                </div>
                <div className="mb-6">
                   <Input
-                     label="Age Category ID:"
-                     name="ageId"
-                     id="ageId"
+                     label="Skill Category ID:"
+                     name="skillId"
+                     id="skillId"
                      type="text"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
-                        formikBag.errors.ageId && formikBag.touched.ageId
+                        formikBag.errors.skillId && formikBag.touched.skillId
                            ? "bg-yellow"
                            : ""
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.ageId || ""}
+                     value={formikBag.values.skillId || ""}
                   />
-                  {formikBag.errors.ageId && formikBag.touched.ageId && (
-                     <p className="text-orange-600">{formikBag.errors.ageId}</p>
+                  {formikBag.errors.skillId && formikBag.touched.skillId && (
+                     <p className="text-orange-600">
+                        {formikBag.errors.skillId}
+                     </p>
                   )}
                </div>
                <div className="mb-6">
                   <Input
                      type="text"
-                     label="Age Category Name:"
-                     name="ageName"
-                     id="ageName"
+                     label="Skill Category Name:"
+                     name="skillName"
+                     id="skillName"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
-                        formikBag.errors.ageName && formikBag.touched.ageName
+                        formikBag.errors.skillName &&
+                        formikBag.touched.skillName
                            ? "bg-yellow"
                            : ""
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.ageName || ""}
+                     value={formikBag.values.skillName || ""}
                   />
-                  {formikBag.errors.ageName && formikBag.touched.ageName && (
-                     <p className="text-orange-600">
-                        {formikBag.errors.ageName}
-                     </p>
-                  )}
+                  {formikBag.errors.skillName &&
+                     formikBag.touched.skillName && (
+                        <p className="text-orange-600">
+                           {formikBag.errors.skillName}
+                        </p>
+                     )}
                </div>
                <div className="grid gap-6 mb-1 md:grid-cols-2">
                   <div>
