@@ -242,7 +242,7 @@ export const ProductDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Image
+                              Image 1
                            </th>
                            <td className="px-6 py-4 text-base w-2/5">
                               <img
@@ -264,7 +264,7 @@ export const ProductDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Image
+                              Image 2
                            </th>
                            <td className="px-6 py-4 text-base w-2/5">
                               <img
@@ -286,7 +286,7 @@ export const ProductDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Image
+                              Image 3
                            </th>
                            <td className="px-6 py-4 text-base w-2/5">
                               <img
@@ -308,7 +308,7 @@ export const ProductDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Image
+                              Image 4
                            </th>
                            <td className="px-6 py-4 text-base w-2/5">
                               <img
@@ -330,7 +330,7 @@ export const ProductDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Image
+                              Image 5
                            </th>
                            <td className="px-6 py-4 text-base w-2/5">
                               <img
