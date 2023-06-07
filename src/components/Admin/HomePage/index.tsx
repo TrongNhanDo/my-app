@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StateReducerType } from "./types";
 import { callApi } from "../../../api/callApi/callApi";
+import { Loader } from "../../Common/Loader/loader";
 
 export const AdminHome = () => {
    const [data, setData] = useState<StateReducerType>();
+   const [showLoader, setShowLoader] = useState<boolean>(true);
 
    const fetchApi = useCallback(async () => {
       const userResponse = await callApi("users", "get").catch((err) =>
@@ -31,6 +33,7 @@ export const AdminHome = () => {
          skills: skillResponse.data || [],
          orders: [],
       });
+      setShowLoader(false);
    }, []);
 
    useEffect(() => {
@@ -39,6 +42,7 @@ export const AdminHome = () => {
 
    return (
       <div className="container text-dark">
+         {showLoader && <Loader />}
          <Link
             to="/admin/user-list"
             className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 inline-block m-10 bg-blue-700"
