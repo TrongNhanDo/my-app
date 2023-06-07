@@ -37,6 +37,7 @@ export const AddProduct = () => {
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
       console.log({ formikValues });
+      setSuccess(false);
    }, []);
 
    const formikBag = useFormik({
