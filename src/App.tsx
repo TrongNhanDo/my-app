@@ -21,6 +21,9 @@ import { AddBranchCategory } from "./components/Admin/Category/Branch/AddBranch/
 import { SkillList } from "./components/Admin/Category/Skill/SkillList/skill-list";
 import { SkillCategoryDetail } from "./components/Admin/Category/Skill/SkillDetail/skill-detail";
 import { AddSkillCategory } from "./components/Admin/Category/Skill/AddSkill/add-skill-category";
+import { RoleList } from "./components/Admin/Role/RoleList/role-list";
+import { RoleDetail } from "./components/Admin/Role/RoleDetail/role-detail";
+import { AddRole } from "./components/Admin/Role/RoleAdd/add-role";
 
 function App() {
    return (
@@ -76,6 +79,9 @@ function App() {
                path="/admin/add-skill-category"
                element={<AddSkillCategory />}
             />
+            <Route path="/admin/role-list" element={<RoleList />} />
+            <Route path="/admin/role-detail/:id" element={<RoleDetail />} />
+            <Route path="/admin/add-role" element={<AddRole />} />
             <Route path="/admin/order-list" element={<AdminHome />} />
 
             {/* 404 page */}

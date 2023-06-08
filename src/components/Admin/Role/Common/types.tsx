@@ -1,14 +1,14 @@
-export type AgeType = {
+export type RoleType = {
    _id: string;
-   ageId: number;
-   ageName: string;
+   roleId: number;
+   roleName: string;
    createdAt: string;
    updatedAt: string;
    __v: number;
 };
 
 export type InitReducer = {
-   ages?: AgeType[];
+   roles?: RoleType[];
    totalPage: number;
 };
 
@@ -18,6 +18,6 @@ export type InputActionType = {
 };
 
 export type FormikUpdate = {
-   ageId: number;
-   ageName: string;
+   roleId: number;
+   roleName: string;
 };
