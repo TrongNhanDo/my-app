@@ -58,7 +58,7 @@ export const AddAgeCategory = () => {
          <form onSubmit={formikBag.handleSubmit} className="container">
             <div className="div-register dark:bg-gray-700">
                <div className="mb-6">
-                  <div className="text-2xl font-bold text-center text-slate-100">
+                  <div className="text-2xl font-bold text-center">
                      INSERT NEW AGE CATEGORY
                   </div>
                   {error && error !== "" && (
