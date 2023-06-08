@@ -24,6 +24,9 @@ export const AdminHome = () => {
       const skillResponse = await callApi("skills", "get").catch((err) =>
          console.log({ err })
       );
+      const roleResponse = await callApi("roles", "get").catch((err) =>
+         console.log({ err })
+      );
 
       setData({
          users: userResponse.data || [],
@@ -31,6 +34,7 @@ export const AdminHome = () => {
          ages: ageResponse.data || [],
          branches: branchResponse.data || [],
          skills: skillResponse.data || [],
+         roles: roleResponse.data || [],
          orders: [],
       });
       setShowLoader(false);
@@ -45,7 +49,7 @@ export const AdminHome = () => {
          {showLoader && <Loader />}
          <Link
             to="/admin/user-list"
-            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 inline-block m-10 bg-blue-700"
+            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-400 inline-block m-10 bg-blue-400 w-1/4"
          >
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                User Accounts Management
@@ -55,8 +59,19 @@ export const AdminHome = () => {
             </p>
          </Link>
          <Link
+            to="/admin/role-list"
+            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-400 inline-block m-10 bg-amber-400 w-1/4"
+         >
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+               Roles Management
+            </h5>
+            <p className="font-normal text-gray-700 dark:text-gray-400">
+               Total of accounts: {data ? data.roles.length : 0}
+            </p>
+         </Link>
+         <Link
             to="/admin/product-list"
-            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 inline-block m-10 bg-green-700"
+            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-400 inline-block m-10 bg-green-400 w-1/4"
          >
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                Products Management
@@ -67,7 +82,7 @@ export const AdminHome = () => {
          </Link>
          <Link
             to="/admin/age-category-list"
-            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 inline-block m-10 bg-orange-700"
+            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-400 inline-block m-10 bg-orange-400 w-1/4"
          >
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                Age Category Management
@@ -78,7 +93,7 @@ export const AdminHome = () => {
          </Link>
          <Link
             to="/admin/branch-category-list"
-            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 inline-block m-10 bg-pink-700"
+            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-400 inline-block m-10 bg-pink-400 w-1/4"
          >
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                Branch Category Management
@@ -89,7 +104,7 @@ export const AdminHome = () => {
          </Link>
          <Link
             to="/admin/skill-category-list"
-            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 inline-block m-10 bg-purple-700"
+            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-400 inline-block m-10 bg-purple-400 w-1/4"
          >
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                Skill Category Management
@@ -100,7 +115,7 @@ export const AdminHome = () => {
          </Link>
          <Link
             to="/admin/order-list"
-            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 inline-block m-10 bg-red-700"
+            className="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-400 inline-block m-10 bg-red-400 w-1/4"
          >
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                Orders Management

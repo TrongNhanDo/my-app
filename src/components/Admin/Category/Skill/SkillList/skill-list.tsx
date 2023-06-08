@@ -114,7 +114,7 @@ export const SkillList = () => {
             {Pagination.length > 1 && <div className="flex">{Pagination}</div>}
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-300">
                      <tr>
                         <th scope="col" className="px-6 py-3">
                            no
@@ -142,15 +142,12 @@ export const SkillList = () => {
                         data.skills.map((value: SkillType, index: number) => (
                            <tr
                               key={index}
-                              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                              className="bg-white border-b hover:bg-gray-300 text-black"
                            >
                               <td className="px-6 py-4">{index + 1}</td>
-                              <th
-                                 scope="row"
-                                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                              >
+                              <td className="px-6 py-4">
                                  {value.skillId || ""}
-                              </th>
+                              </td>
                               <td className="px-6 py-4">
                                  {value.skillName || ""}
                               </td>

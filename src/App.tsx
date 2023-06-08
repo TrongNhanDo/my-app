@@ -24,6 +24,7 @@ import { AddSkillCategory } from "./components/Admin/Category/Skill/AddSkill/add
 import { RoleList } from "./components/Admin/Role/RoleList/role-list";
 import { RoleDetail } from "./components/Admin/Role/RoleDetail/role-detail";
 import { AddRole } from "./components/Admin/Role/RoleAdd/add-role";
+import { Footer } from "./components/User/Layout/Footer/footer";
 
 function App() {
    return (
@@ -87,6 +88,7 @@ function App() {
             {/* 404 page */}
             <Route path="*" element={<PageNotFound />} />
          </Routes>
+         <Footer />
       </>
    );
 }

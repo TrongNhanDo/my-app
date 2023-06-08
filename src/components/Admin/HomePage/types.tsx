@@ -32,6 +32,14 @@ export type SkillType = {
    updatedAt: string;
 };
 
+export type RoleType = {
+   _id: string;
+   roleId: number;
+   roleName: string;
+   createdAt: string;
+   updatedAt: string;
+};
+
 export type ProductType = {
    _id: string;
    ageId: number;
@@ -60,5 +68,6 @@ export type StateReducerType = {
    ages: AgeType[];
    branches: BranchType[];
    skills: SkillType[];
+   roles: RoleType[];
    orders: [];
 };
