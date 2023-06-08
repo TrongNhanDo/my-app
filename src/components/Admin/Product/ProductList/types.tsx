@@ -2,7 +2,7 @@ import { AgeType, BranchType, ProductType, SkillType } from "../common/types";
 
 export type ActionReducerType = {
    type: string;
-   payload?: any;
+   payload: ProductListType | null;
 };
 
 export type ProductListType = {
@@ -24,26 +24,16 @@ export type FormikBagType = {
    price: string;
    describes: string;
    amount: number;
-   rate: number;
-   image1: string;
-   image2?: string;
-   image3?: string;
-   image4?: string;
-   image5?: string;
+   images: string[];
 };
 
 export const InitFormikValues = {
-   ageId: 0,
-   branchId: 0,
-   skillId: 0,
+   ageId: 1,
+   branchId: 1,
+   skillId: 1,
    productName: "",
    price: "",
    describes: "",
    amount: 0,
-   rate: 0,
-   image1: "",
-   image2: "",
-   image3: "",
-   image4: "",
-   image5: "",
+   images: [],
 };

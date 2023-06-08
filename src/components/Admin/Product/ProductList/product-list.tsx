@@ -7,6 +7,7 @@ import { callApi } from "../../../../api/callApi/callApi";
 import { ActionReducerType, ProductListType } from "./types";
 
 export const ProductList = () => {
+   const DEFAULT_IMAGE = import.meta.env.VITE_DEFAULT_IMAGE_URL || "";
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerpage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const reducer = (state: ProductListType, action: ActionReducerType) => {
@@ -168,9 +169,21 @@ export const ProductList = () => {
                                  </td>
                                  <td className="px-6 py-4 w-1/6">
                                     <img
-                                       className="w-full h-auto"
-                                       src={value.image1 || ""}
-                                       alt={value.image1 || ""}
+                                       style={{
+                                          width: "150px",
+                                          height: "150px",
+                                          objectFit: "cover",
+                                       }}
+                                       src={
+                                          value.images && value.images[0]
+                                             ? value.images[0]
+                                             : DEFAULT_IMAGE
+                                       }
+                                       alt={
+                                          value.images
+                                             ? value.images[0]
+                                             : DEFAULT_IMAGE
+                                       }
                                     />
                                  </td>
                                  <td className="px-6 py-4">

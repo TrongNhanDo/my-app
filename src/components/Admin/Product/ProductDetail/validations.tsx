@@ -23,11 +23,12 @@ export const validationSchema = () => {
             message: "amount must be more than 1",
             test: (value) => parseFloat(value) >= 1,
          }),
-      image1: Yup.string().required(),
-      image2: Yup.string().required(),
-      image3: Yup.string().required(),
-      image4: Yup.string().required(),
-      image5: Yup.string().required(),
+      images: Yup.array()
+         .required()
+         .test({
+            message: "images is a required field",
+            test: (value) => (value.length ? true : false),
+         }),
    });
    return validation;
 };
@@ -44,11 +45,7 @@ export const checkChangeValue = (
       formikValues.price === product.price &&
       formikValues.describes === product.describes &&
       formikValues.amount === product.amount &&
-      formikValues.image1 === product.image1 &&
-      formikValues.image3 === product.image3 &&
-      formikValues.image4 === product.image4 &&
-      formikValues.image5 === product.image5 &&
-      formikValues.image5 === product.image5
+      formikValues.images === product.images
    ) {
       return true;
    }

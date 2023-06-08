@@ -17,9 +17,11 @@ import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
 
 export const ProductDetail = () => {
    const navigate = useNavigate();
+   const { productId } = useParams();
+   const DEFAULT_IMAGE = import.meta.env.VITE_DEFAULT_IMAGE_URL || "";
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const [msg, setMsg] = useState<string>("");
-   const { productId } = useParams();
+   const [images, setImages] = useState<File[]>();
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
@@ -102,6 +104,37 @@ export const ProductDetail = () => {
          console.log({ error });
       }
    }, [formikBag]);
+
+   const ListImage = () => {
+      const buttons = [];
+      if (images && images.length) {
+         for (let index = 0; index < images.length; index++) {
+            buttons.push(
+               <img
+                  className="inline-block"
+                  style={{
+                     width: "200px",
+                     height: "200px",
+                     marginRight: "10px",
+                     objectFit: "cover",
+                  }}
+                  key={index}
+                  src={URL.createObjectURL(images[index])}
+                  alt=""
+               />
+            );
+         }
+         return buttons.length > 0 ? buttons : [];
+      }
+      return [];
+   };
+
+   const handleChangImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event.target.files;
+      const myFiles = files ? Array.from(files) : [];
+      formikBag.setFieldValue("images", myFiles);
+      setImages(myFiles);
+   };
 
    useEffect(() => {
       fetchApi();
@@ -282,109 +315,56 @@ export const ProductDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Image 1
+                              Images
                            </th>
-                           <td className="px-6 py-4 text-base w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image1 || ""}
-                                 alt={viewData.product.image1 || ""}
-                              />
+                           <td className="px-6 py-4">
+                              {viewData.product.images &&
+                              viewData.product.images.length ? (
+                                 viewData.product.images.map((value, index) => (
+                                    <img
+                                       key={index}
+                                       className="inline-block"
+                                       style={{
+                                          width: "150px",
+                                          height: "150px",
+                                          objectFit: "cover",
+                                          marginRight: "10px",
+                                       }}
+                                       src={value || ""}
+                                       alt={value || ""}
+                                    />
+                                 ))
+                              ) : (
+                                 <img
+                                    className="inline-block"
+                                    style={{
+                                       width: "150px",
+                                       height: "150px",
+                                       objectFit: "cover",
+                                       marginRight: "10px",
+                                    }}
+                                    src={DEFAULT_IMAGE || ""}
+                                    alt={DEFAULT_IMAGE || ""}
+                                 />
+                              )}
                            </td>
-                           <td className="px-6 py-4 w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image1 || ""}
-                                 alt={viewData.product.image1 || ""}
+                           <td className="px-6 py-4">
+                              <input
+                                 type="file"
+                                 name="images"
+                                 id="images"
+                                 multiple
+                                 onChange={(e) => handleChangImage(e)}
+                                 className={`${
+                                    formikBag.errors.images &&
+                                    formikBag.touched.images
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                               />
-                           </td>
-                        </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                           <th
-                              scope="row"
-                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                           >
-                              Image 2
-                           </th>
-                           <td className="px-6 py-4 text-base w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image2 || ""}
-                                 alt={viewData.product.image2 || ""}
-                              />
-                           </td>
-                           <td className="px-6 py-4 w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image2 || ""}
-                                 alt={viewData.product.image2 || ""}
-                              />
-                           </td>
-                        </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                           <th
-                              scope="row"
-                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                           >
-                              Image 3
-                           </th>
-                           <td className="px-6 py-4 text-base w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image3 || ""}
-                                 alt={viewData.product.image3 || ""}
-                              />
-                           </td>
-                           <td className="px-6 py-4 w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image3 || ""}
-                                 alt={viewData.product.image3 || ""}
-                              />
-                           </td>
-                        </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                           <th
-                              scope="row"
-                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                           >
-                              Image 4
-                           </th>
-                           <td className="px-6 py-4 text-base w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image4 || ""}
-                                 alt={viewData.product.image4 || ""}
-                              />
-                           </td>
-                           <td className="px-6 py-4 w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image4 || ""}
-                                 alt={viewData.product.image4 || ""}
-                              />
-                           </td>
-                        </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                           <th
-                              scope="row"
-                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                           >
-                              Image 5
-                           </th>
-                           <td className="px-6 py-4 text-base w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image5 || ""}
-                                 alt={viewData.product.image5 || ""}
-                              />
-                           </td>
-                           <td className="px-6 py-4 w-2/5">
-                              <img
-                                 className="w-full h-auto"
-                                 src={viewData.product.image5 || ""}
-                                 alt={viewData.product.image5 || ""}
-                              />
+                              {ListImage && (
+                                 <div className="mt-3">{ListImage()}</div>
+                              )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">

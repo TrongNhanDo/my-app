@@ -6,10 +6,11 @@ import { AgeType, BranchType, SkillType } from "../common/types";
 import { validationSchema } from "./validations";
 import { Loader } from "../../../Common/Loader/loader";
 import { FormikBagType, InitFormikValues, StateReducerType } from "./types";
+import { callApiUpload } from "../../../../api/callApi/callApiUpload";
 
 export const AddProduct = () => {
    const navigate = useNavigate();
-   const [showLoader, setShowLoader] = useState<boolean>(false);
+   const [showLoader, setShowLoader] = useState<boolean>(true);
    const [images, setImages] = useState<File[]>();
    const [viewData, setViewData] = useState<StateReducerType>();
    const [success, setSuccess] = useState<boolean>(false);
@@ -37,7 +38,39 @@ export const AddProduct = () => {
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
       console.log({ formikValues });
-      setSuccess(false);
+      const PRESET_NAME = import.meta.env.VITE_PRESET_NAME;
+      const FOLDER_NAME = import.meta.env.VITE_FOLDER_NAME;
+      const API_URL = import.meta.env.VITE_CLOUDINARY_API_URL;
+      const arrayUrl: string[] = [];
+      const formData = new FormData();
+      formData.append("upload_preset", PRESET_NAME);
+      formData.append("folder", FOLDER_NAME);
+      if (formikValues.images && formikValues.images.length) {
+         setShowLoader(true);
+         for (const file of formikValues.images) {
+            formData.append("file", file);
+            await callApiUpload(API_URL, "POST", formData)
+               .then((res) => (res.data.url ? arrayUrl.push(res.data.url) : ""))
+               .catch((err) => console.log(err));
+         }
+         setShowLoader(false);
+         if (arrayUrl.length) {
+            const requestPayload = {
+               ...formikValues,
+               images: arrayUrl,
+            };
+            await callApi("products", "post", requestPayload)
+               .then(() => setSuccess(true))
+               .catch((err) => {
+                  console.log({ err });
+                  alert("Upload image fail");
+               });
+         } else {
+            alert("Upload image fail");
+         }
+      } else {
+         alert("Please choose image");
+      }
    }, []);
 
    const formikBag = useFormik({
@@ -54,13 +87,26 @@ export const AddProduct = () => {
       }
    }, [formikBag]);
 
+   const handleChangImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event.target.files;
+      const myFiles = files ? Array.from(files) : [];
+      formikBag.setFieldValue("images", myFiles);
+      setImages(myFiles);
+   };
+
    const ListImage = () => {
       const buttons = [];
       if (images && images.length) {
          for (let index = 0; index < images.length; index++) {
             buttons.push(
                <img
-                  className="w-1/4 mb-3"
+                  className="inline-block"
+                  style={{
+                     width: "200px",
+                     height: "200px",
+                     marginRight: "10px",
+                     objectFit: "cover",
+                  }}
                   key={index}
                   src={URL.createObjectURL(images[index])}
                   alt=""
@@ -102,7 +148,12 @@ export const AddProduct = () => {
                                  id="productName"
                                  name="productName"
                                  placeholder="Enter product name"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base mt-1"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base mt-1 ${
+                                    formikBag.errors.productName &&
+                                    formikBag.touched.productName
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  value={formikBag.values.productName || ""}
                                  onChange={formikBag.handleChange}
                               />
@@ -118,8 +169,14 @@ export const AddProduct = () => {
                            <td className="px-6 py-4">
                               <label htmlFor="productName">Age Category:</label>
                               <select
-                                 id="role"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 name="ageId"
+                                 id="ageId"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.ageId &&
+                                    formikBag.touched.ageId
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  value={formikBag.values.ageId}
                                  onChange={formikBag.handleChange}
                               >
@@ -138,6 +195,12 @@ export const AddProduct = () => {
                                        }
                                     )}
                               </select>
+                              {formikBag.errors.ageId &&
+                                 formikBag.touched.ageId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.ageId}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -146,9 +209,15 @@ export const AddProduct = () => {
                                  Branch Category:
                               </label>
                               <select
-                                 id="role"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
-                                 value={formikBag.values.ageId}
+                                 name="branchId"
+                                 id="branchId"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.branchId &&
+                                    formikBag.touched.branchId
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
+                                 value={formikBag.values.branchId}
                                  onChange={formikBag.handleChange}
                               >
                                  {viewData &&
@@ -166,6 +235,12 @@ export const AddProduct = () => {
                                        }
                                     )}
                               </select>
+                              {formikBag.errors.branchId &&
+                                 formikBag.touched.branchId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.branchId}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -174,8 +249,14 @@ export const AddProduct = () => {
                                  Skill Category:
                               </label>
                               <select
-                                 id="role"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 name="skillId"
+                                 id="skillId"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.skillId &&
+                                    formikBag.touched.skillId
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  value={formikBag.values.skillId}
                                  onChange={formikBag.handleChange}
                               >
@@ -194,187 +275,44 @@ export const AddProduct = () => {
                                        }
                                     )}
                               </select>
+                              {formikBag.errors.skillId &&
+                                 formikBag.touched.skillId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.skillId}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
-                        {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                 <td className="px-6 py-4 w-1/5">
-                                    <label htmlFor="productName">
-                                       Image 1:{" "}
-                                       <input
-                                          type="file"
-                                          name="image1"
-                                          id="image1"
-                                          onChange={formikBag.handleChange}
-                                       />
-                                    </label>
-                                    <div className="flex mt-3">
-                                       <img
-                                          className="w-1/3"
-                                          src={
-                                             formikBag.values.image1
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image1
-                                                  )
-                                                : ""
-                                          }
-                                          alt={
-                                             formikBag.values.image1
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image1
-                                                  )
-                                                : ""
-                                          }
-                                       />
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                 <td className="px-6 py-4 w-1/5">
-                                    <label htmlFor="productName">
-                                       Image 2:{" "}
-                                       <input
-                                          type="file"
-                                          name="image2"
-                                          id="image2"
-                                          onChange={formikBag.handleChange}
-                                       />
-                                    </label>
-                                    <div className="flex mt-3">
-                                       <img
-                                          className="w-1/3"
-                                          src={
-                                             formikBag.values.image2
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image2
-                                                  )
-                                                : ""
-                                          }
-                                          alt={
-                                             formikBag.values.image2
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image2
-                                                  )
-                                                : ""
-                                          }
-                                       />
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                 <td className="px-6 py-4 w-1/5">
-                                    <label htmlFor="productName">
-                                       Image 3:{" "}
-                                       <input
-                                          type="file"
-                                          name="image3"
-                                          id="image3"
-                                          onChange={formikBag.handleChange}
-                                       />
-                                    </label>
-                                    <div className="flex mt-3">
-                                       <img
-                                          className="w-1/3"
-                                          src={
-                                             formikBag.values.image3
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image3
-                                                  )
-                                                : ""
-                                          }
-                                          alt={
-                                             formikBag.values.image3
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image3
-                                                  )
-                                                : ""
-                                          }
-                                       />
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                 <td className="px-6 py-4 w-1/5">
-                                    <label htmlFor="productName">
-                                       Image 4:{" "}
-                                       <input
-                                          type="file"
-                                          name="image4"
-                                          id="image4"
-                                          onChange={formikBag.handleChange}
-                                       />
-                                    </label>
-                                    <div className="flex mt-3">
-                                       <img
-                                          className="w-1/3"
-                                          src={
-                                             formikBag.values.image4
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image4
-                                                  )
-                                                : ""
-                                          }
-                                          alt={
-                                             formikBag.values.image4
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image4
-                                                  )
-                                                : ""
-                                          }
-                                       />
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                 <td className="px-6 py-4 w-1/5">
-                                    <label htmlFor="productName">
-                                       Image 5:{" "}
-                                       <input
-                                          type="file"
-                                          name="image5"
-                                          id="image5"
-                                          onChange={formikBag.handleChange}
-                                       />
-                                    </label>
-                                    <div className="flex mt-3">
-                                       <img
-                                          className="w-1/3"
-                                          src={
-                                             formikBag.values.image5
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image5
-                                                  )
-                                                : ""
-                                          }
-                                          alt={
-                                             formikBag.values.image5
-                                                ? URL.createObjectURL(
-                                                     formikBag.values.image5
-                                                  )
-                                                : ""
-                                          }
-                                       />
-                                    </div>
-                                 </td>
-                              </tr> */}
-
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                           <td className="px-6 py-4 text-base">
-                              <label htmlFor="productName">Price:</label>
-                              <input
-                                 id="file"
-                                 name="profile"
-                                 type="file"
-                                 onChange={(event) => {
-                                    const files = event.target.files;
-                                    const myFiles = files
-                                       ? Array.from(files)
-                                       : [];
-                                    formikBag.setFieldValue("profile", myFiles);
-                                    setImages(myFiles);
-                                 }}
-                                 multiple
-                              />
-                              {ListImage && ListImage()}
+                           <td className="px-6 py-4 w-1/5">
+                              <label
+                                 htmlFor="productName"
+                                 className="flex justify-between"
+                              >
+                                 Images:
+                                 <input
+                                    type="file"
+                                    name="images"
+                                    id="images"
+                                    multiple
+                                    onChange={(e) => handleChangImage(e)}
+                                    className={`${
+                                       formikBag.errors.images &&
+                                       formikBag.touched.images
+                                          ? "bg-yellow"
+                                          : ""
+                                    }`}
+                                 />
+                              </label>
+                              {formikBag.errors.images &&
+                                 formikBag.touched.images && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.images}
+                                    </p>
+                                 )}
+                              {ListImage && (
+                                 <div className="mt-3">{ListImage()}</div>
+                              )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -386,9 +324,20 @@ export const AddProduct = () => {
                                  id="price"
                                  placeholder="Enter product's price"
                                  value={formikBag.values.price || ""}
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.price &&
+                                    formikBag.touched.price
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  onChange={formikBag.handleChange}
                               />
+                              {formikBag.errors.price &&
+                                 formikBag.touched.price && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.price}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -400,9 +349,20 @@ export const AddProduct = () => {
                                  id="amount"
                                  placeholder="Enter amount's price"
                                  value={formikBag.values.amount || ""}
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.amount &&
+                                    formikBag.touched.amount
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  onChange={formikBag.handleChange}
                               />
+                              {formikBag.errors.amount &&
+                                 formikBag.touched.amount && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.amount}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -411,11 +371,23 @@ export const AddProduct = () => {
                               <textarea
                                  name="describes"
                                  id="describes"
+                                 rows={5}
                                  value={formikBag.values.describes || ""}
                                  placeholder="Enter describe about product"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.describes &&
+                                    formikBag.touched.describes
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  onChange={formikBag.handleChange}
                               />
+                              {formikBag.errors.describes &&
+                                 formikBag.touched.describes && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.describes}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                      </tbody>

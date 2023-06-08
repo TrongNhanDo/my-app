@@ -56,11 +56,7 @@ export type ProductType = {
    describes: string;
    amount: number;
    rate: number;
-   image1: string;
-   image2?: string;
-   image3?: string;
-   image4?: string;
-   image5?: string;
+   images: string[];
    createdAt: string;
    updatedAt: string;
    age: AgeType;
@@ -78,11 +74,7 @@ export const InitProductValues = {
    describes: "",
    amount: 0,
    rate: 0,
-   image1: "",
-   image2: "",
-   image3: "",
-   image4: "",
-   image5: "",
+   images: [],
    createdAt: "",
    updatedAt: "",
    age: AgeInitValue,
