@@ -38,13 +38,13 @@ export const checkChangeValue = (
    product: ProductType
 ) => {
    if (
-      formikValues.ageId === product.ageId &&
-      formikValues.branchId === product.branchId &&
-      formikValues.skillId === product.skillId &&
+      formikValues.ageId == product.ageId &&
+      formikValues.branchId == product.branchId &&
+      formikValues.skillId == product.skillId &&
       formikValues.productName === product.productName &&
-      formikValues.price === product.price &&
+      formikValues.price == product.price &&
       formikValues.describes === product.describes &&
-      formikValues.amount === product.amount &&
+      formikValues.amount == product.amount &&
       formikValues.images === product.images
    ) {
       return true;

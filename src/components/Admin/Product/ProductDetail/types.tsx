@@ -42,6 +42,7 @@ export type FormikBagType = {
    describes: string;
    amount: number;
    images: string[];
+   productId: string;
 };
 
 export const initFormikValues = {
@@ -53,4 +54,5 @@ export const initFormikValues = {
    describes: "",
    amount: 0,
    images: [],
+   productId: "",
 };

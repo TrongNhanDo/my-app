@@ -14,6 +14,7 @@ import {
    initStateReducer,
 } from "./types";
 import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
+import { upLoadImage } from "../../../../api/callApi/callApiUpload";
 
 export const ProductDetail = () => {
    const navigate = useNavigate();
@@ -22,6 +23,7 @@ export const ProductDetail = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const [msg, setMsg] = useState<string>("");
    const [images, setImages] = useState<File[]>();
+   const [notChange, setNotChange] = useState<boolean>(false);
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
@@ -69,24 +71,32 @@ export const ProductDetail = () => {
       setMsg("");
       const isNotChange = checkChangeValue(formikValues, viewData.product);
       if (isNotChange) {
+         setNotChange(true);
          setMsg("There must be at least one data change");
       } else {
+         setNotChange(false);
          setShowLoader(true);
-         const requestPayload = {
-            ...formikValues,
-         };
-         const response = await callApi(
-            "products",
-            "patch",
-            requestPayload
-         ).catch((err) => console.log({ err }));
-         // close loader when updated information
-         setShowLoader(false);
-         if (response) {
-            setMsg("Update product success");
-            fetchApi();
+         const arrayUrl = await upLoadImage(formikValues.images);
+         if (arrayUrl && arrayUrl.length) {
+            const requestPayload = {
+               ...formikValues,
+               images: arrayUrl,
+            };
+            const response = await callApi(
+               "products",
+               "patch",
+               requestPayload
+            ).catch((err) => console.log({ err }));
+            // close loader when updated information
+            setShowLoader(false);
+            if (response) {
+               setMsg("Update product success");
+               fetchApi();
+            } else {
+               setMsg("Update product fail");
+            }
          } else {
-            setMsg("Update product fail");
+            setMsg("Upload image fail");
          }
       }
    };
@@ -113,8 +123,8 @@ export const ProductDetail = () => {
                <img
                   className="inline-block"
                   style={{
-                     width: "200px",
-                     height: "200px",
+                     width: "150px",
+                     height: "150px",
                      marginRight: "10px",
                      objectFit: "cover",
                   }}
@@ -152,6 +162,8 @@ export const ProductDetail = () => {
          formikBag.setFieldValue("price", viewData.product.price || 0);
          formikBag.setFieldValue("describes", viewData.product.describes || "");
          formikBag.setFieldValue("amount", viewData.product.amount || 0);
+         formikBag.setFieldValue("images", viewData.product.images || []);
+         formikBag.setFieldValue("productId", viewData.product._id || []);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [viewData]);
@@ -196,7 +208,9 @@ export const ProductDetail = () => {
                                  type="email"
                                  id="productName"
                                  name="productName"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    notChange ? "bg-yellow" : ""
+                                 }`}
                                  value={formikBag.values.productName || ""}
                                  onChange={formikBag.handleChange}
                               />
@@ -222,7 +236,9 @@ export const ProductDetail = () => {
                               <select
                                  id="ageId"
                                  name="ageId"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    notChange ? "bg-yellow" : ""
+                                 }`}
                                  value={formikBag.values.ageId}
                                  onChange={formikBag.handleChange}
                               >
@@ -240,6 +256,12 @@ export const ProductDetail = () => {
                                        }
                                     )}
                               </select>
+                              {formikBag.errors.ageId &&
+                                 formikBag.touched.ageId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.ageId}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -256,8 +278,10 @@ export const ProductDetail = () => {
                               <select
                                  id="branchId"
                                  name="branchId"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
-                                 value={formikBag.values.ageId}
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    notChange ? "bg-yellow" : ""
+                                 }`}
+                                 value={formikBag.values.branchId}
                                  onChange={formikBag.handleChange}
                               >
                                  {viewData.branchCategory &&
@@ -274,6 +298,12 @@ export const ProductDetail = () => {
                                        }
                                     )}
                               </select>
+                              {formikBag.errors.branchId &&
+                                 formikBag.touched.branchId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.branchId}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -290,7 +320,9 @@ export const ProductDetail = () => {
                               <select
                                  id="skillId"
                                  name="skillId"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    notChange ? "bg-yellow" : ""
+                                 }`}
                                  value={formikBag.values.skillId}
                                  onChange={formikBag.handleChange}
                               >
@@ -308,6 +340,12 @@ export const ProductDetail = () => {
                                        }
                                     )}
                               </select>
+                              {formikBag.errors.skillId &&
+                                 formikBag.touched.skillId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.skillId}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -360,8 +398,14 @@ export const ProductDetail = () => {
                                     formikBag.touched.images
                                        ? "bg-yellow"
                                        : ""
-                                 }`}
+                                 }  ${notChange ? "bg-yellow" : ""}`}
                               />
+                              {formikBag.errors.images &&
+                                 formikBag.touched.images && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.images}
+                                    </p>
+                                 )}
                               {ListImage && (
                                  <div className="mt-3">{ListImage()}</div>
                               )}
@@ -388,6 +432,8 @@ export const ProductDetail = () => {
                                  id="price"
                                  value={formikBag.values.price || ""}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    notChange ? "bg-yellow" : ""
+                                 } ${
                                     formikBag.errors.price &&
                                     formikBag.touched.price
                                        ? "bg-yellow"
@@ -420,6 +466,8 @@ export const ProductDetail = () => {
                                  rows={5}
                                  value={formikBag.values.describes || ""}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    notChange ? "bg-yellow" : ""
+                                 } ${
                                     formikBag.errors.describes &&
                                     formikBag.touched.describes
                                        ? "bg-yellow"
@@ -452,6 +500,8 @@ export const ProductDetail = () => {
                                  id="amount"
                                  value={formikBag.values.amount || ""}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    notChange ? "bg-yellow" : ""
+                                 } ${
                                     formikBag.errors.amount &&
                                     formikBag.touched.amount
                                        ? "bg-yellow"

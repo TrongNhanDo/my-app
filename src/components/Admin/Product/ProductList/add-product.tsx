@@ -6,7 +6,7 @@ import { AgeType, BranchType, SkillType } from "../common/types";
 import { validationSchema } from "./validations";
 import { Loader } from "../../../Common/Loader/loader";
 import { FormikBagType, InitFormikValues, StateReducerType } from "./types";
-import { callApiUpload } from "../../../../api/callApi/callApiUpload";
+import { upLoadImage } from "../../../../api/callApi/callApiUpload";
 
 export const AddProduct = () => {
    const navigate = useNavigate();
@@ -37,40 +37,27 @@ export const AddProduct = () => {
    }, []);
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
-      console.log({ formikValues });
-      const PRESET_NAME = import.meta.env.VITE_PRESET_NAME;
-      const FOLDER_NAME = import.meta.env.VITE_FOLDER_NAME;
-      const API_URL = import.meta.env.VITE_CLOUDINARY_API_URL;
-      const arrayUrl: string[] = [];
-      const formData = new FormData();
-      formData.append("upload_preset", PRESET_NAME);
-      formData.append("folder", FOLDER_NAME);
-      if (formikValues.images && formikValues.images.length) {
-         setShowLoader(true);
-         for (const file of formikValues.images) {
-            formData.append("file", file);
-            await callApiUpload(API_URL, "POST", formData)
-               .then((res) => (res.data.url ? arrayUrl.push(res.data.url) : ""))
-               .catch((err) => console.log(err));
-         }
-         setShowLoader(false);
-         if (arrayUrl.length) {
-            const requestPayload = {
-               ...formikValues,
-               images: arrayUrl,
-            };
-            await callApi("products", "post", requestPayload)
-               .then(() => setSuccess(true))
-               .catch((err) => {
-                  console.log({ err });
-                  alert("Upload image fail");
-               });
-         } else {
-            alert("Upload image fail");
-         }
+      setShowLoader(true);
+      const arrayUrl = await upLoadImage(formikValues.images);
+      if (arrayUrl.length) {
+         const requestPayload = {
+            ...formikValues,
+            images: arrayUrl,
+         };
+         await callApi("products", "post", requestPayload)
+            .then(() => {
+               setSuccess(true);
+               setImages([]);
+               alert("Add product success");
+            })
+            .catch((err) => {
+               console.log({ err });
+               alert("Add product fail");
+            });
       } else {
-         alert("Please choose image");
+         alert("Upload image fail");
       }
+      setShowLoader(false);
    }, []);
 
    const formikBag = useFormik({
