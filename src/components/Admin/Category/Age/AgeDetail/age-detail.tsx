@@ -12,6 +12,7 @@ import {
    InitStateReducerType,
    StateReducerType,
 } from "./types";
+import { ErrorMessages } from "../../../../Common/ErrorMessage/error-message";
 
 export const AgeCategoryDetail = () => {
    const { id } = useParams();
@@ -78,15 +79,13 @@ export const AgeCategoryDetail = () => {
             id: id,
          };
          const response = await callApi("ages", "patch", requestPayload).catch(
-            (err) => console.log({ err })
+            (err) => setMsg(err.response.data.message || "")
          );
          // close loader when updated information
          setIsLoading(false);
          if (response) {
-            setMsg("Update account success");
+            setMsg("Update age category success");
             fetchApi();
-         } else {
-            setMsg("Age Category Name already existed");
          }
       }
    };
@@ -106,14 +105,6 @@ export const AgeCategoryDetail = () => {
          console.log({ error });
       }
    }, [formikBag]);
-
-   const ErrorMessages = (msg: string) => {
-      return (
-         <div className="bg-lime-300 w-full text-orange-600 px-5 py-3 rounded-md my-5">
-            {msg}
-         </div>
-      );
-   };
 
    useEffect(() => {
       fetchApi();
@@ -182,7 +173,7 @@ export const AgeCategoryDetail = () => {
                                  id="ageName"
                                  name="ageName"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    msg !== "" ||
+                                    msg ||
                                     (formikBag.errors.ageName &&
                                        formikBag.touched.ageName)
                                        ? "bg-yellow"

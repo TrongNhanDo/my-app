@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
 import { formatCurrency, formatDate } from "../../../Common/Logic/logics";
-import { validationSchema } from "./validations";
+import { checkChangeValue, validationSchema } from "./validations";
 import { Loader } from "../../../Common/Loader/loader";
 import { ActionValues, AgeType, BranchType, SkillType } from "../common/types";
 import {
@@ -13,10 +13,12 @@ import {
    initFormikValues,
    initStateReducer,
 } from "./types";
+import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
 
 export const ProductDetail = () => {
    const navigate = useNavigate();
    const [showLoader, setShowLoader] = useState<boolean>(true);
+   const [msg, setMsg] = useState<string>("");
    const { productId } = useParams();
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
@@ -61,14 +63,36 @@ export const ProductDetail = () => {
       setShowLoader(false);
    }, [productId]);
 
-   const onSubmit = useCallback(async (formikValues: FormikBagType) => {
-      console.log({ formikValues });
-   }, []);
+   const onSubmit = async (formikValues: FormikBagType) => {
+      setMsg("");
+      const isNotChange = checkChangeValue(formikValues, viewData.product);
+      if (isNotChange) {
+         setMsg("There must be at least one data change");
+      } else {
+         setShowLoader(true);
+         const requestPayload = {
+            ...formikValues,
+         };
+         const response = await callApi(
+            "products",
+            "patch",
+            requestPayload
+         ).catch((err) => console.log({ err }));
+         // close loader when updated information
+         setShowLoader(false);
+         if (response) {
+            setMsg("Update product success");
+            fetchApi();
+         } else {
+            setMsg("Update product fail");
+         }
+      }
+   };
 
    const formikBag = useFormik({
       initialValues: initFormikValues,
       validationSchema,
-      onSubmit,
+      onSubmit: (value) => onSubmit(value),
    });
 
    const handleSubmit = useCallback(() => {
@@ -83,13 +107,30 @@ export const ProductDetail = () => {
       fetchApi();
    }, [fetchApi]);
 
+   useEffect(() => {
+      if (viewData.product) {
+         formikBag.setFieldValue(
+            "productName",
+            viewData.product.productName || ""
+         );
+         formikBag.setFieldValue("ageId", viewData.product.ageId || 1);
+         formikBag.setFieldValue("branchId", viewData.product.branchId || 1);
+         formikBag.setFieldValue("skillId", viewData.product.skillId || 1);
+         formikBag.setFieldValue("price", viewData.product.price || 0);
+         formikBag.setFieldValue("describes", viewData.product.describes || "");
+         formikBag.setFieldValue("amount", viewData.product.amount || 0);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [viewData]);
+
    return (
       <div className="container">
          {showLoader && <Loader />}
          <div className="mt-10">
-            <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5">
-               ACCOUNT DETAIL
+            <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5 uppercase">
+               product detail
             </h2>
+            {msg && ErrorMessages(msg)}
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-auto">
                <form onSubmit={formikBag.handleSubmit}>
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -123,11 +164,7 @@ export const ProductDetail = () => {
                                  id="productName"
                                  name="productName"
                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
-                                 value={
-                                    formikBag.values.productName ||
-                                    viewData.product.productName ||
-                                    ""
-                                 }
+                                 value={formikBag.values.productName || ""}
                                  onChange={formikBag.handleChange}
                               />
                               {formikBag.errors.productName &&
@@ -150,7 +187,8 @@ export const ProductDetail = () => {
                            </td>
                            <td className="px-6 py-4">
                               <select
-                                 id="role"
+                                 id="ageId"
+                                 name="ageId"
                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
                                  value={formikBag.values.ageId}
                                  onChange={formikBag.handleChange}
@@ -183,7 +221,8 @@ export const ProductDetail = () => {
                            </td>
                            <td className="px-6 py-4">
                               <select
-                                 id="role"
+                                 id="branchId"
+                                 name="branchId"
                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
                                  value={formikBag.values.ageId}
                                  onChange={formikBag.handleChange}
@@ -216,7 +255,8 @@ export const ProductDetail = () => {
                            </td>
                            <td className="px-6 py-4">
                               <select
-                                 id="role"
+                                 id="skillId"
+                                 name="skillId"
                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
                                  value={formikBag.values.skillId}
                                  onChange={formikBag.handleChange}
@@ -366,14 +406,21 @@ export const ProductDetail = () => {
                                  type="text"
                                  name="price"
                                  id="price"
-                                 value={
-                                    formikBag.values.price ||
-                                    viewData.product.price ||
-                                    ""
-                                 }
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 value={formikBag.values.price || ""}
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.price &&
+                                    formikBag.touched.price
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  onChange={formikBag.handleChange}
                               />
+                              {formikBag.errors.price &&
+                                 formikBag.touched.price && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.price}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -390,14 +437,22 @@ export const ProductDetail = () => {
                               <textarea
                                  name="describes"
                                  id="describes"
-                                 value={
-                                    formikBag.values.describes ||
-                                    viewData.product.describes ||
-                                    ""
-                                 }
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 rows={5}
+                                 value={formikBag.values.describes || ""}
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.describes &&
+                                    formikBag.touched.describes
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  onChange={formikBag.handleChange}
                               />
+                              {formikBag.errors.describes &&
+                                 formikBag.touched.describes && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.describes}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -412,17 +467,24 @@ export const ProductDetail = () => {
                            </td>
                            <td className="px-6 py-4 text-base">
                               <input
-                                 type="number"
+                                 type="text"
                                  name="amount"
                                  id="amount"
-                                 value={
-                                    formikBag.values.amount ||
-                                    viewData.product.amount ||
-                                    0
-                                 }
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
+                                 value={formikBag.values.amount || ""}
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    formikBag.errors.amount &&
+                                    formikBag.touched.amount
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
                                  onChange={formikBag.handleChange}
                               />
+                              {formikBag.errors.amount &&
+                                 formikBag.touched.amount && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.amount}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -480,28 +542,26 @@ export const ProductDetail = () => {
                </form>
             </div>
             <div className="flex w-full mt-10 justify-center">
-               <>
-                  <button
-                     type="button"
-                     className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-20"
-                     onClick={handleSubmit}
-                  >
-                     Update
-                  </button>
-                  <button
-                     type="button"
-                     className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
-                  >
-                     Delete
-                  </button>
-                  <button
-                     type="button"
-                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-20 ms-10"
-                     onClick={() => navigate(-1)}
-                  >
-                     Back
-                  </button>
-               </>
+               <button
+                  type="button"
+                  className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-20"
+                  onClick={handleSubmit}
+               >
+                  Update
+               </button>
+               <button
+                  type="button"
+                  className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 ms-10 px-20"
+               >
+                  Delete
+               </button>
+               <button
+                  type="button"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-20 ms-10"
+                  onClick={() => navigate(-1)}
+               >
+                  Back
+               </button>
             </div>
          </div>
       </div>

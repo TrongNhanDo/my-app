@@ -6,18 +6,20 @@ import { ActionTypes, FormikPropType } from "../common/types";
 import { formatDate, formatRole } from "../../../Common/Logic/logics";
 import { RoleNumber } from "../common/constants";
 import { Loader } from "../../../Common/Loader/loader";
-import { validationSchema } from "./validations";
+import { checkChangeValues, validationSchema } from "./validations";
 import {
    ActionReducerType,
    InitStateReducerType,
    StateReducerType,
+   UserType,
 } from "./types";
+import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
 
 export const UserDetail = () => {
    const { userId } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
-   const [notChange, setNotChange] = useState<boolean>(false);
+   const [msg, setMsg] = useState<string>("");
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
@@ -63,33 +65,27 @@ export const UserDetail = () => {
    );
 
    const onSubmit = async (formikValues: FormikPropType) => {
-      if (
-         formikValues.username &&
-         formikValues.role &&
-         data.user &&
-         formikValues.username === data.user.username &&
-         formikValues.role == data.user.role
-      ) {
-         setNotChange(true);
-         return;
-      }
-      setNotChange(false);
-      // show loader while update information
-      setIsLoading(true);
-      const requestPayload = {
-         ...formikValues,
-         id: userId,
-      };
-      const response = await callApi("users", "patch", requestPayload).catch(
-         (err) => console.log({ err })
+      setMsg("");
+      const isNotChange = checkChangeValues(
+         formikValues,
+         data.user as UserType
       );
-      // close loader when updated information
-      setIsLoading(false);
-      if (response) {
-         alert("Update account success");
-         fetchApi();
+      if (isNotChange) {
+         setMsg("There must be at least one data change");
       } else {
-         alert("Update account fail");
+         setIsLoading(true);
+         const requestPayload = {
+            ...formikValues,
+            id: userId,
+         };
+         const response = await callApi("users", "patch", requestPayload).catch(
+            (err) => setMsg(err.response.data.message || "")
+         );
+         if (response) {
+            setMsg("Update account success");
+            fetchApi();
+         }
+         setIsLoading(false);
       }
    };
 
@@ -116,25 +112,21 @@ export const UserDetail = () => {
    }, []);
 
    useEffect(() => {
-      if (!isLoading && data.user) {
+      if (data.user) {
          formikBag.setFieldValue("username", data.user.username || "");
          formikBag.setFieldValue("role", data.user.role || 1);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [isLoading, data]);
+   }, [data]);
 
    return (
       <div>
          {isLoading && <Loader />}
          <div className="container mt-10">
-            {notChange && (
-               <div className="bg-lime-300 w-full text-orange-600 p-5 rounded-md">
-                  There must be at least one data change
-               </div>
-            )}
             <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-10">
                ACCOUNT DETAIL
             </h2>
+            {msg && ErrorMessages(msg)}
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-auto">
                <form onSubmit={formikBag.handleSubmit}>
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -168,7 +160,7 @@ export const UserDetail = () => {
                                  id="username"
                                  name="username"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ||
+                                    msg ||
                                     (formikBag.errors.username &&
                                        formikBag.touched.username)
                                        ? "bg-yellow"
@@ -201,7 +193,7 @@ export const UserDetail = () => {
                               <select
                                  id="role"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ? "bg-yellow" : ""
+                                    msg ? "bg-yellow" : ""
                                  }`}
                                  onChange={formikBag.handleChange}
                                  value={formikBag.values.role}

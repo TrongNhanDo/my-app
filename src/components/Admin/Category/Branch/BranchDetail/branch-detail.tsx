@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import { validationSchema } from "./vadidations";
 import { Loader } from "../../../../Common/Loader/loader";
 import { formatDate } from "../../../../Common/Logic/logics";
+import { ErrorMessages } from "../../../../Common/ErrorMessage/error-message";
 
 export const BranchCategoryDetail = () => {
    const { id } = useParams();
@@ -111,14 +112,6 @@ export const BranchCategoryDetail = () => {
          console.log({ error });
       }
    }, [formikBag]);
-
-   const ErrorMessages = (msg: string) => {
-      return (
-         <div className="bg-lime-300 w-full text-orange-600 px-5 py-3 rounded-md my-5">
-            {msg}
-         </div>
-      );
-   };
 
    useEffect(() => {
       fetchApi();
