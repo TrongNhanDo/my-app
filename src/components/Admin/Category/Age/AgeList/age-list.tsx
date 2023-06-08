@@ -97,7 +97,7 @@ export const AgeCategoryList = () => {
          {showLoader && <Loader />}
          <div>
             <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5">
-               LIST OF PRODUCTS
+               LIST OF AGE CATEGORIES
             </h2>
             <div className="flex justify-center mb-2">
                <Link

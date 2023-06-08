@@ -50,9 +50,11 @@ export const UserDetail = () => {
    const deleteUser = useCallback(
       async (userId: string) => {
          if (confirm("Are you sure you want to delete this account?")) {
+            setIsLoading(true);
             const response = await callApi("users", "delete", {
                id: userId,
             }).catch((err) => console.log({ err }));
+            setIsLoading(false);
             if (response) {
                alert("Delete account success");
                navigate(-1);

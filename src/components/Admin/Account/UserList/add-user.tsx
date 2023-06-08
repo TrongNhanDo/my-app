@@ -41,7 +41,7 @@ export const AddNewUser = () => {
          };
          await callApi("users", "post", requestPayload)
             .then(() => {
-               setError("Insert new skill category success");
+               setError("Insert new account success");
                setSuccess(true);
             })
             .catch((err) => {

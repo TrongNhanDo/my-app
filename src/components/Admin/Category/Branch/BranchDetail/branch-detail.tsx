@@ -49,9 +49,11 @@ export const BranchCategoryDetail = () => {
    const deleteAge = useCallback(
       async (id: string) => {
          if (confirm("Are you sure you want to delete this branch category?")) {
+            setIsLoading(true);
             const response = await callApi("branches", "delete", {
                id: id,
             }).catch((err) => console.log({ err }));
+            setIsLoading(false);
             if (response) {
                alert("Delete branch category success");
                navigate(-1);
