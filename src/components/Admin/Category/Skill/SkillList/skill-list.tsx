@@ -142,7 +142,7 @@ export const SkillList = () => {
                         data.skills.map((value: SkillType, index: number) => (
                            <tr
                               key={index}
-                              className="bg-white border-b hover:bg-gray-300 text-black"
+                              className="bg-white border-b hover:bg-gray-100 text-black"
                            >
                               <td className="px-6 py-4">{index + 1}</td>
                               <td className="px-6 py-4">
