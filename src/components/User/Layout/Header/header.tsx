@@ -18,10 +18,10 @@ export const Header = () => {
                   <img
                      src="https://congcaphe.com/_next/static/images/vn-66e76189e15384f6034e56f129991d96.png"
                      className="h-8 mr-3"
-                     alt="Flowbite Logo"
+                     alt={`${import.meta.env.VITE_WEB_NAME} Logo`}
                   />
                   <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                     DTNHAN
+                     {import.meta.env.VITE_WEB_NAME}
                   </span>
                </Link>
                <div

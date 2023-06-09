@@ -23,7 +23,7 @@ export const Footer = () => {
                            alt="FlowBite Logo"
                         />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                           DTNHAN
+                           {import.meta.env.VITE_WEB_NAME}
                         </span>
                      </Link>
                   </div>
@@ -35,7 +35,7 @@ export const Footer = () => {
                         <ul className=" dark:text-gray-400 font-medium">
                            <li className="mb-4">
                               <Link to="/" className="hover:underline">
-                                 DTNHAN
+                                 {import.meta.env.VITE_WEB_NAME}
                               </Link>
                            </li>
                            <li>
@@ -55,7 +55,7 @@ export const Footer = () => {
                         <ul className=" dark:text-gray-400 font-medium">
                            <li className="mb-4">
                               <Link to="/" className="hover:underline">
-                                 DTNHAN
+                                 {import.meta.env.VITE_WEB_NAME}
                               </Link>
                            </li>
                            <li>
@@ -120,7 +120,7 @@ export const Footer = () => {
                               to="https://flowbite.com/"
                               className="hover:underline"
                            >
-                              DTNHAN
+                              {import.meta.env.VITE_WEB_NAME}
                            </Link>
                            . All Rights Reserved.
                         </span>
@@ -128,7 +128,7 @@ export const Footer = () => {
                      <div className="mx-5">|</div>
                      <div>
                         <span className="text-sm sm:text-center dark:text-gray-400">
-                           Designed by DTNHAN
+                           Designed by {import.meta.env.VITE_WEB_NAME}
                         </span>
                      </div>
                   </span>
@@ -217,7 +217,7 @@ export const Footer = () => {
                               clipRule="evenodd"
                            />
                         </svg>
-                        <span className="sr-only">Dribbble account</span>
+                        <span className="sr-only">account</span>
                      </Link>
                   </div>
                </div>
@@ -228,7 +228,7 @@ export const Footer = () => {
                   <span className="sm:text-center dark:text-gray-400">
                      © 2023{" "}
                      <Link to="/admin" className="hover:underline">
-                        DTNHAN
+                        {import.meta.env.VITE_WEB_NAME}
                      </Link>
                      . All Rights Reserved.
                   </span>
@@ -236,7 +236,7 @@ export const Footer = () => {
                <div className="mx-5">|</div>
                <div>
                   <span className="text-sm sm:text-center dark:text-gray-400">
-                     Designed by DTNHAN
+                     Designed by {import.meta.env.VITE_WEB_NAME}
                   </span>
                </div>
             </div>
