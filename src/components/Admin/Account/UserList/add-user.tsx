@@ -2,23 +2,31 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
-import { InputInsertType } from "../common/types";
+import { InputInsertType, RoleType } from "../common/types";
 import { Input } from "../../../Common/Input/input";
-import { RoleNumber } from "../common/constants";
 import { callApi } from "../../../../api/callApi/callApi";
 import { Loader } from "../../../Common/Loader/loader";
 
 export const AddNewUser = () => {
    const navigate = useNavigate();
-   const [showLoading, setShowLoading] = useState<boolean>(false);
+   const [showLoading, setShowLoading] = useState<boolean>(true);
    const [error, setError] = useState<string>("");
    const [success, setSuccess] = useState<boolean>(false);
+   const [roleValues, setRoleValues] = useState<RoleType[]>([]);
 
    const initValues = {
       username: "",
       password: "",
       confirmPwd: "",
-      role: 1,
+      roleId: 1,
+   };
+
+   const fetchRole = async () => {
+      const response = await callApi("roles", "get").catch((err) =>
+         console.log({ err })
+      );
+      setRoleValues(response.data ? response.data : []);
+      setShowLoading(false);
    };
 
    const onSubmit = async (formikValues: InputInsertType) => {
@@ -71,6 +79,10 @@ export const AddNewUser = () => {
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [success]);
+
+   useEffect(() => {
+      fetchRole();
+   }, []);
 
    return (
       <div>
@@ -142,17 +154,22 @@ export const AddNewUser = () => {
                </div>
                <div className="mb-6">
                   <select
-                     id="role"
+                     id="roleId"
                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base"
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.role}
+                     value={formikBag.values.roleId}
                   >
-                     <option value={RoleNumber.User}>User</option>
-                     <option value={RoleNumber.Employee}>Employee</option>
-                     <option value={RoleNumber.Admin}>Admin</option>
+                     {roleValues &&
+                        roleValues.map((value, index) => (
+                           <option key={index} value={value.roleId}>
+                              {value.roleName}
+                           </option>
+                        ))}
                   </select>
-                  {formikBag.errors.role && formikBag.touched.role && (
-                     <p className="text-orange-600">{formikBag.errors.role}</p>
+                  {formikBag.errors.roleId && formikBag.touched.roleId && (
+                     <p className="text-orange-600">
+                        {formikBag.errors.roleId}
+                     </p>
                   )}
                </div>
                <div className="grid gap-6 mb-1 md:grid-cols-2">

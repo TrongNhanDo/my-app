@@ -7,7 +7,7 @@ import {
    UserType,
 } from "../common/types";
 import { callApi } from "../../../../api/callApi/callApi";
-import { formatDate, formatRole } from "../../../Common/Logic/logics";
+import { formatDate } from "../../../Common/Logic/logics";
 import { Loader } from "../../../Common/Loader/loader";
 
 export const UserList = () => {
@@ -100,6 +100,7 @@ export const UserList = () => {
    useEffect(() => {
       fetchApi();
    }, [fetchApi]);
+   console.log({ data });
 
    return (
       <div>
@@ -155,17 +156,23 @@ export const UserList = () => {
                                  {value.username || ""}
                               </td>
                               <td className="px-6 py-4">
-                                 {formatRole(value.role)}
+                                 {value.role && value.role.roleName
+                                    ? value.role.roleName
+                                    : ""}
                               </td>
                               <td className="px-6 py-4">
-                                 {formatDate(value.createdAt)}
+                                 {value.createdAt
+                                    ? formatDate(value.createdAt)
+                                    : ""}
                               </td>
                               <td className="px-6 py-4">
-                                 {formatDate(value.updatedAt)}
+                                 {value.updatedAt
+                                    ? formatDate(value.updatedAt)
+                                    : ""}
                               </td>
                               <td className="px-6 py-4 text-right">
                                  <Link
-                                    to={`/admin/user-detail/${value._id}`}
+                                    to={`/admin/user-detail/${value._id || ""}`}
                                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                  >
                                     Detail

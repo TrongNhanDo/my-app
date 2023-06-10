@@ -5,7 +5,7 @@ export const validationSchema = () => {
       username: Yup.string().required().email(),
       password: Yup.string().required().min(8).max(32),
       confirmPwd: Yup.string().required().min(8).max(32),
-      role: Yup.string().required(),
+      roleId: Yup.string().required(),
    });
 
    return validation;

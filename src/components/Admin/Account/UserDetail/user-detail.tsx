@@ -2,16 +2,19 @@ import { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
-import { ActionTypes, FormikPropType } from "../common/types";
-import { formatDate, formatRole } from "../../../Common/Logic/logics";
-import { RoleNumber } from "../common/constants";
+import {
+   ActionTypes,
+   FormikPropType,
+   RoleType,
+   UserType,
+} from "../common/types";
+import { formatDate } from "../../../Common/Logic/logics";
 import { Loader } from "../../../Common/Loader/loader";
 import { checkChangeValues, validationSchema } from "./validations";
 import {
    ActionReducerType,
    InitStateReducerType,
    StateReducerType,
-   UserType,
 } from "./types";
 import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
 
@@ -26,7 +29,8 @@ export const UserDetail = () => {
       switch (type) {
          case ActionTypes.SELECTED_USER:
             return {
-               user: payload,
+               user: payload?.user,
+               roles: payload?.roles,
             };
          default:
             return state;
@@ -40,9 +44,15 @@ export const UserDetail = () => {
       const response = await callApi(url, "get").catch((err) =>
          console.log({ err })
       );
+      const fetchRole = await callApi("roles", "get").catch((err) =>
+         console.log({ err })
+      );
       dispatch({
          type: ActionTypes.SELECTED_USER,
-         payload: response.data || [],
+         payload: {
+            user: response.data || [],
+            roles: fetchRole.data || [],
+         },
       });
       setIsLoading(false);
    };
@@ -94,7 +104,7 @@ export const UserDetail = () => {
    const formikBag = useFormik({
       initialValues: {
          username: "",
-         role: 1,
+         roleId: 1,
       },
       validationSchema,
       onSubmit: (value) => onSubmit(value),
@@ -188,23 +198,29 @@ export const UserDetail = () => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {data.user && data.user.role
-                                 ? formatRole(data.user.role)
+                                 ? data.user.role.roleName
                                  : ""}
                            </td>
                            <td className="px-6 py-4">
                               <select
-                                 id="role"
+                                 id="roleId"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black text-base ${
                                     msg ? "bg-yellow" : ""
                                  }`}
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.role}
+                                 value={formikBag.values.roleId}
                               >
-                                 <option value={RoleNumber.User}>User</option>
-                                 <option value={RoleNumber.Employee}>
-                                    Employee
-                                 </option>
-                                 <option value={RoleNumber.Admin}>Admin</option>
+                                 {data.roles &&
+                                    data.roles.map(
+                                       (value: RoleType, index: number) => (
+                                          <option
+                                             key={index}
+                                             value={value.roleId}
+                                          >
+                                             {value.roleName}
+                                          </option>
+                                       )
+                                    )}
                               </select>
                            </td>
                         </tr>

@@ -1,11 +1,30 @@
+export type RoleType = {
+   _id: string;
+   roleId: number;
+   roleName: string;
+   createdAt: string;
+   updatedAt: string;
+   __v: number;
+};
+
+export const InitRole = {
+   _id: "",
+   roleId: 0,
+   roleName: "",
+   createdAt: "",
+   updatedAt: "",
+   __v: 0,
+};
+
 export type UserType = {
    active: boolean;
    createdAt: string;
-   role: number;
+   roleId: number;
    updatedAt: string;
    username: string;
    __v: number;
    _id: string;
+   role: RoleType;
 };
 
 export type InitStateType = {
@@ -24,14 +43,14 @@ export type ActionType = {
 
 export type FormikPropType = {
    username: string;
-   role: number;
+   roleId: number;
 };
 
 export type InputInsertType = {
    username: string;
    password: string;
    confirmPwd: string;
-   role: number;
+   roleId: number;
 };
 
 export const ActionTypes = {

@@ -1,11 +1,10 @@
 import * as Yup from "yup";
-import { FormikPropType } from "../common/types";
-import { UserType } from "./types";
+import { FormikPropType, UserType } from "../common/types";
 
 export const validationSchema = () => {
    const validation = Yup.object().shape({
       username: Yup.string().required(),
-      role: Yup.string().required(),
+      roleId: Yup.string().required(),
    });
 
    return validation;
@@ -17,7 +16,7 @@ export const checkChangeValues = (
 ) => {
    if (
       formikValues.username.trim() === responseApi.username &&
-      formikValues.role == responseApi.role
+      formikValues.roleId == responseApi.roleId
    ) {
       return true;
    }

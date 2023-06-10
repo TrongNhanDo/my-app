@@ -1,32 +1,27 @@
-export type UserType = {
-   active: boolean;
-   createdAt: string;
-   role: number;
-   updatedAt: string;
-   username: string;
-   __v: number;
-   _id: string;
-};
+import { InitRole, RoleType, UserType } from "../common/types";
 
 export const InitUserValue = {
    active: false,
    createdAt: "",
-   role: 0,
+   roleId: 0,
    updatedAt: "",
    username: "",
    __v: 0,
    _id: "",
+   role: InitRole,
 };
 
 export type ActionReducerType = {
    type: string;
-   payload: UserType | null;
+   payload: StateReducerType;
 };
 
 export type StateReducerType = {
-   user: UserType | null;
+   user: UserType;
+   roles: RoleType[];
 };
 
 export const InitStateReducerType = {
    user: InitUserValue,
+   roles: [InitRole],
 };
