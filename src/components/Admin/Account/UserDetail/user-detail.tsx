@@ -8,7 +8,7 @@ import {
    RoleType,
    UserType,
 } from "../common/types";
-import { formatDate } from "../../../Common/Logic/logics";
+import { formatDate, scrollTop } from "../../../Common/Logic/logics";
 import { Loader } from "../../../Common/Loader/loader";
 import { checkChangeValues, validationSchema } from "./validations";
 import {
@@ -99,6 +99,7 @@ export const UserDetail = () => {
          }
          setIsLoading(false);
       }
+      scrollTop();
    };
 
    const formikBag = useFormik({
@@ -172,9 +173,8 @@ export const UserDetail = () => {
                                  id="username"
                                  name="username"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black ${
-                                    msg ||
-                                    (formikBag.errors.username &&
-                                       formikBag.touched.username)
+                                    formikBag.errors.username &&
+                                    formikBag.touched.username
                                        ? "bg-yellow"
                                        : ""
                                  }`}
@@ -205,7 +205,10 @@ export const UserDetail = () => {
                               <select
                                  id="roleId"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black text-base ${
-                                    msg ? "bg-yellow" : ""
+                                    formikBag.errors.roleId &&
+                                    formikBag.touched.roleId
+                                       ? "bg-yellow"
+                                       : ""
                                  }`}
                                  onChange={formikBag.handleChange}
                                  value={formikBag.values.roleId}
@@ -222,6 +225,12 @@ export const UserDetail = () => {
                                        )
                                     )}
                               </select>
+                              {formikBag.errors.roleId &&
+                                 formikBag.touched.roleId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.roleId}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 hover:bg-gray-100 text-black">

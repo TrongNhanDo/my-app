@@ -2,7 +2,11 @@ import { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
-import { formatCurrency, formatDate } from "../../../Common/Logic/logics";
+import {
+   formatCurrency,
+   formatDate,
+   scrollTop,
+} from "../../../Common/Logic/logics";
 import { checkChangeValue, validationSchema } from "./validations";
 import { Loader } from "../../../Common/Loader/loader";
 import { ActionValues, AgeType, BranchType, SkillType } from "../common/types";
@@ -118,6 +122,7 @@ export const ProductDetail = () => {
             setMsg("Upload image fail");
          }
       }
+      scrollTop();
    };
 
    const formikBag = useFormik({
@@ -228,7 +233,11 @@ export const ProductDetail = () => {
                                  id="productName"
                                  name="productName"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ? "bg-yellow" : ""
+                                    notChange ||
+                                    (formikBag.errors.productName &&
+                                       formikBag.touched.productName)
+                                       ? "bg-yellow"
+                                       : ""
                                  }`}
                                  value={formikBag.values.productName || ""}
                                  onChange={formikBag.handleChange}
@@ -256,7 +265,11 @@ export const ProductDetail = () => {
                                  id="ageId"
                                  name="ageId"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ? "bg-yellow" : ""
+                                    notChange ||
+                                    (formikBag.errors.ageId &&
+                                       formikBag.touched.ageId)
+                                       ? "bg-yellow"
+                                       : ""
                                  }`}
                                  value={formikBag.values.ageId}
                                  onChange={formikBag.handleChange}
@@ -298,7 +311,11 @@ export const ProductDetail = () => {
                                  id="branchId"
                                  name="branchId"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ? "bg-yellow" : ""
+                                    notChange ||
+                                    (formikBag.errors.branchId &&
+                                       formikBag.touched.branchId)
+                                       ? "bg-yellow"
+                                       : ""
                                  }`}
                                  value={formikBag.values.branchId}
                                  onChange={formikBag.handleChange}
@@ -340,7 +357,11 @@ export const ProductDetail = () => {
                                  id="skillId"
                                  name="skillId"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ? "bg-yellow" : ""
+                                    notChange &&
+                                    formikBag.errors.skillId &&
+                                    formikBag.touched.skillId
+                                       ? "bg-yellow"
+                                       : ""
                                  }`}
                                  value={formikBag.values.skillId}
                                  onChange={formikBag.handleChange}
@@ -413,11 +434,12 @@ export const ProductDetail = () => {
                                  multiple
                                  onChange={(e) => handleChangImage(e)}
                                  className={`${
-                                    formikBag.errors.images &&
-                                    formikBag.touched.images
+                                    notChange ||
+                                    (formikBag.errors.images &&
+                                       formikBag.touched.images)
                                        ? "bg-yellow"
                                        : ""
-                                 }  ${notChange ? "bg-yellow" : ""}`}
+                                 }`}
                               />
                               {formikBag.errors.images &&
                                  formikBag.touched.images && (
@@ -451,7 +473,11 @@ export const ProductDetail = () => {
                                  id="price"
                                  value={formikBag.values.price || ""}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ? "bg-yellow" : ""
+                                    notChange ||
+                                    (formikBag.errors.price &&
+                                       formikBag.touched.price)
+                                       ? "bg-yellow"
+                                       : ""
                                  } ${
                                     formikBag.errors.price &&
                                     formikBag.touched.price
@@ -473,40 +499,6 @@ export const ProductDetail = () => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                            >
-                              Describes
-                           </th>
-                           <td className="px-6 py-4 text-base">
-                              {viewData.product.describes || ""}
-                           </td>
-                           <td className="px-6 py-4 text-base">
-                              <textarea
-                                 name="describes"
-                                 id="describes"
-                                 rows={5}
-                                 value={formikBag.values.describes || ""}
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ? "bg-yellow" : ""
-                                 } ${
-                                    formikBag.errors.describes &&
-                                    formikBag.touched.describes
-                                       ? "bg-yellow"
-                                       : ""
-                                 }`}
-                                 onChange={formikBag.handleChange}
-                              />
-                              {formikBag.errors.describes &&
-                                 formikBag.touched.describes && (
-                                    <p className="text-orange-600">
-                                       {formikBag.errors.describes}
-                                    </p>
-                                 )}
-                           </td>
-                        </tr>
-                        <tr className="bg-white border-b hover:bg-gray-100 text-black">
-                           <th
-                              scope="row"
-                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                           >
                               Amount
                            </th>
                            <td className="px-6 py-4 text-base">
@@ -519,10 +511,9 @@ export const ProductDetail = () => {
                                  id="amount"
                                  value={formikBag.values.amount || ""}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    notChange ? "bg-yellow" : ""
-                                 } ${
-                                    formikBag.errors.amount &&
-                                    formikBag.touched.amount
+                                    notChange ||
+                                    (formikBag.errors.amount &&
+                                       formikBag.touched.amount)
                                        ? "bg-yellow"
                                        : ""
                                  }`}
@@ -548,6 +539,39 @@ export const ProductDetail = () => {
                            </td>
                            <td className="px-6 py-4 text-base">
                               {viewData.product.rate || 0}
+                           </td>
+                        </tr>
+                        <tr className="bg-white border-b hover:bg-gray-100 text-black">
+                           <th
+                              scope="row"
+                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                           >
+                              Describes
+                           </th>
+                           <td className="px-6 py-4 text-base">
+                              {viewData.product.describes || ""}
+                           </td>
+                           <td className="px-6 py-4 text-base">
+                              <textarea
+                                 name="describes"
+                                 id="describes"
+                                 rows={5}
+                                 value={formikBag.values.describes || ""}
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                    notChange ||
+                                    (formikBag.errors.describes &&
+                                       formikBag.touched.describes)
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
+                                 onChange={formikBag.handleChange}
+                              />
+                              {formikBag.errors.describes &&
+                                 formikBag.touched.describes && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.describes}
+                                    </p>
+                                 )}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">

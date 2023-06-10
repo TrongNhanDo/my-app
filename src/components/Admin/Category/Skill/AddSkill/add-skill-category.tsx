@@ -6,6 +6,7 @@ import { Input } from "../../../../Common/Input/input";
 import { useNavigate } from "react-router-dom";
 import { validationSchema } from "./validations";
 import { callApi } from "../../../../../api/callApi/callApi";
+import { scrollTop } from "../../../../Common/Logic/logics";
 
 export const AddSkillCategory = () => {
    const navigate = useNavigate();
@@ -29,6 +30,7 @@ export const AddSkillCategory = () => {
             setError(err.response.data.message || "");
          });
       setShowLoading(false);
+      scrollTop();
    }, []);
 
    const formikBag = useFormik({

@@ -6,6 +6,7 @@ import { InputInsertType, RoleType } from "../common/types";
 import { Input } from "../../../Common/Input/input";
 import { callApi } from "../../../../api/callApi/callApi";
 import { Loader } from "../../../Common/Loader/loader";
+import { scrollTop } from "../../../Common/Logic/logics";
 
 export const AddNewUser = () => {
    const navigate = useNavigate();
@@ -57,6 +58,7 @@ export const AddNewUser = () => {
             });
          setShowLoading(false);
       }
+      scrollTop();
    };
 
    const formikBag = useFormik({

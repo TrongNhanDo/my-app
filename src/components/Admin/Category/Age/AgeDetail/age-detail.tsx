@@ -2,7 +2,7 @@ import { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../../api/callApi/callApi";
-import { formatDate } from "../../../../Common/Logic/logics";
+import { formatDate, scrollTop } from "../../../../Common/Logic/logics";
 import { Loader } from "../../../../Common/Loader/loader";
 import { validationSchema } from "./validations";
 import { ActionValues } from "../Common/constants";
@@ -90,6 +90,7 @@ export const AgeCategoryDetail = () => {
             fetchApi();
          }
       }
+      scrollTop();
    };
 
    const formikBag = useFormik({
@@ -175,9 +176,8 @@ export const AgeCategoryDetail = () => {
                                  id="ageName"
                                  name="ageName"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    msg ||
-                                    (formikBag.errors.ageName &&
-                                       formikBag.touched.ageName)
+                                    formikBag.errors.ageName &&
+                                    formikBag.touched.ageName
                                        ? "bg-yellow"
                                        : ""
                                  }`}

@@ -6,6 +6,7 @@ import { validationSchema } from "./validations";
 import { callApi } from "../../../../api/callApi/callApi";
 import { Loader } from "../../../Common/Loader/loader";
 import { Input } from "../../../Common/Input/input";
+import { scrollTop } from "../../../Common/Logic/logics";
 
 export const AddRole = () => {
    const navigate = useNavigate();
@@ -29,6 +30,7 @@ export const AddRole = () => {
             setError(err.response.data.message);
          });
       setShowLoading(false);
+      scrollTop();
    }, []);
 
    const formikBag = useFormik({

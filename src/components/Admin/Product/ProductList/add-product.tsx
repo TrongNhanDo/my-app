@@ -7,6 +7,7 @@ import { validationSchema } from "./validations";
 import { Loader } from "../../../Common/Loader/loader";
 import { FormikBagType, InitFormikValues, StateReducerType } from "./types";
 import { upLoadImage } from "../../../../api/callApi/callApiUpload";
+import { scrollTop } from "../../../Common/Logic/logics";
 
 export const AddProduct = () => {
    const navigate = useNavigate();
@@ -58,6 +59,7 @@ export const AddProduct = () => {
          alert("Upload image fail");
       }
       setShowLoader(false);
+      scrollTop();
    }, []);
 
    const formikBag = useFormik({

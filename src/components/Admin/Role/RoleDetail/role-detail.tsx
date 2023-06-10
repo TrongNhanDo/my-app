@@ -13,7 +13,7 @@ import {
 import { callApi } from "../../../../api/callApi/callApi";
 import { Loader } from "../../../Common/Loader/loader";
 import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
-import { formatDate } from "../../../Common/Logic/logics";
+import { formatDate, scrollTop } from "../../../Common/Logic/logics";
 
 export const RoleDetail = () => {
    const { id } = useParams();
@@ -91,6 +91,7 @@ export const RoleDetail = () => {
             fetchApi();
          }
       }
+      scrollTop();
    };
 
    const formikBag = useFormik({
@@ -174,9 +175,8 @@ export const RoleDetail = () => {
                                  id="roleName"
                                  name="roleName"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
-                                    msg ||
-                                    (formikBag.errors.roleName &&
-                                       formikBag.touched.roleName)
+                                    formikBag.errors.roleName &&
+                                    formikBag.touched.roleName
                                        ? "bg-yellow"
                                        : ""
                                  }`}

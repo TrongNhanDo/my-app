@@ -23,3 +23,7 @@ export const formatCurrency = (
 export const delay = (time: number) => {
    return new Promise((resolve) => setTimeout(resolve, time));
 };
+
+export const scrollTop = () => {
+   window.scrollTo(0, 0);
+};
