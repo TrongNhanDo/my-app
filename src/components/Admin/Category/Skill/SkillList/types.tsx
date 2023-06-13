@@ -18,3 +18,13 @@ export type ActionReducerType = {
    type: string;
    payload: StateReducerType;
 };
+
+export type FormikBagType = {
+   skillId: string;
+   skillName: string;
+};
+
+export const InitFormikBag = {
+   skillId: "",
+   skillName: "",
+};
