@@ -199,7 +199,7 @@ export const UserList = () => {
                   <ModalCustom>
                      <form onSubmit={formikBag.handleSubmit} className="w-96">
                         <div className="flex w-full justify-between text-2xl font-bold">
-                           <div className="uppercase">add new role</div>
+                           <div className="uppercase">add new account</div>
                            <button type="button" onClick={handleClose}>
                               ❌
                            </button>
