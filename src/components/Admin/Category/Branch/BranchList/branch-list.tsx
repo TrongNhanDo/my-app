@@ -1,18 +1,28 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import { Link } from "react-router-dom";
+import { useFormik } from "formik";
 import {
    ActionReducerType,
+   FormikBagType,
+   InitFormikBag,
    InitStateReducerType,
    StateReducerType,
 } from "./types";
 import { ActionValues, BranchType } from "../Common/types";
 import { callApi } from "../../../../../api/callApi/callApi";
 import { Loader } from "../../../../Common/Loader/loader";
-import { Link } from "react-router-dom";
 import { formatDate } from "../../../../Common/Logic/logics";
+import { Input } from "../../../../Common/Input/input";
+import { ModalCustom } from "../../../../Common/Modal/modal-custom";
+import { validationSchema } from "./validations";
 
 export const BranchList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
+   const [error, setError] = useState<string>("");
+   const [success, setSuccess] = useState<boolean>(false);
+   const [modal, setModal] = useState<boolean>(false);
+
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
@@ -75,6 +85,67 @@ export const BranchList = () => {
       fetchApi();
    }, [fetchApi]);
 
+   const onSubmit = useCallback(
+      async (formikValues: FormikBagType) => {
+         setSuccess(false);
+         setShowLoader(true);
+         const requestPayload = {
+            ...formikValues,
+            branchName: formikValues.branchName.trim(),
+         };
+         await callApi("branches", "post", requestPayload)
+            .then(() => {
+               setError("Insert new branch success");
+               setSuccess(true);
+            })
+            .catch((err) => {
+               setError(err.response.data.message);
+            });
+         await fetchApi();
+         setShowLoader(false);
+      },
+      [fetchApi]
+   );
+
+   const formikBag = useFormik({
+      initialValues: InitFormikBag,
+      validationSchema,
+      onSubmit: (value) => onSubmit(value),
+   });
+
+   const handleSubmit = useCallback(() => {
+      try {
+         formikBag.submitForm();
+      } catch (error) {
+         console.log({ error });
+      }
+   }, [formikBag]);
+
+   const handleClose = useCallback(() => {
+      try {
+         formikBag.resetForm();
+         setModal(false);
+         setError("");
+      } catch (error) {
+         console.log({ error });
+      }
+   }, [formikBag]);
+
+   useEffect(() => {
+      if (success) {
+         formikBag.resetForm();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [success]);
+
+   useEffect(() => {
+      if (modal) {
+         document.body.style.overflow = "hidden";
+      } else {
+         document.body.style.overflow = "unset";
+      }
+   });
+
    return (
       <div className="container mb-10">
          {showLoader && <Loader />}
@@ -83,13 +154,95 @@ export const BranchList = () => {
                list of branch categories
             </h2>
             <div className="flex justify-center mb-2">
-               <Link
-                  to="/admin/add-branch-category"
-                  type="button"
-                  className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 uppercase"
+               <button
+                  className="block bg-blue-300 hover:bg-blue-400 px-3 py-2 rounded"
+                  onClick={() => setModal(true)}
                >
-                  insert new category
-               </Link>
+                  Add Branch Category
+               </button>
+               {modal && (
+                  <ModalCustom>
+                     <form onSubmit={formikBag.handleSubmit} className="w-96">
+                        <div className="flex w-full justify-between text-2xl font-bold">
+                           <div className="uppercase">add new branch</div>
+                           <button type="button" onClick={handleClose}>
+                              ❌
+                           </button>
+                        </div>
+                        <hr className="w-full my-3 h-0.5" />
+                        {error && error !== "" && (
+                           <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
+                              {error}
+                           </div>
+                        )}
+                        <div className="flex flex-col w-full">
+                           <div className="mb-6">
+                              <Input
+                                 label="Branch Id:"
+                                 name="branchId"
+                                 id="branchId"
+                                 type="text"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
+                                    formikBag.errors.branchId &&
+                                    formikBag.touched.branchId
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
+                                 onChange={formikBag.handleChange}
+                                 value={formikBag.values.branchId || ""}
+                              />
+                              {formikBag.errors.branchId &&
+                                 formikBag.touched.branchId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.branchId}
+                                    </p>
+                                 )}
+                           </div>
+                           <div className="mb-6">
+                              <Input
+                                 type="text"
+                                 label="Branch Name:"
+                                 name="branchName"
+                                 id="branchName"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
+                                    formikBag.errors.branchName &&
+                                    formikBag.touched.branchName
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
+                                 onChange={formikBag.handleChange}
+                                 value={formikBag.values.branchName || ""}
+                              />
+                              {formikBag.errors.branchName &&
+                                 formikBag.touched.branchName && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.branchName}
+                                    </p>
+                                 )}
+                           </div>
+                        </div>
+                        <div className="flex w-full flex-col mt-auto">
+                           <hr className="w-full my-3 h-0.5" />
+                           <div className="flex justify-end">
+                              <button
+                                 type="button"
+                                 className="block bg-blue-500 p-2 rounded font-bold"
+                                 onClick={handleSubmit}
+                              >
+                                 Submit
+                              </button>
+                              <button
+                                 type="button"
+                                 className="block bg-red-500 p-2 rounded font-bold ms-5"
+                                 onClick={handleClose}
+                              >
+                                 Close
+                              </button>
+                           </div>
+                        </div>
+                     </form>
+                  </ModalCustom>
+               )}
             </div>
             {Pagination.length > 1 && <div className="flex">{Pagination}</div>}
             <div className="overflow-x-auto shadow-md sm:rounded-lg">

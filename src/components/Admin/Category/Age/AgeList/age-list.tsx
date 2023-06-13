@@ -97,7 +97,7 @@ export const AgeCategoryList = () => {
          };
          await callApi("ages", "post", requestPayload)
             .then(() => {
-               setError("Insert new role success");
+               setError("Insert new age success");
                setSuccess(true);
             })
             .catch((err) => {
