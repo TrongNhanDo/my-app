@@ -8,7 +8,9 @@ export type RoleType = {
 };
 
 export type InitReducer = {
-   roles?: RoleType[];
+   roles: RoleType[] | null;
+   count: number;
+   returnCnt: number;
    totalPage: number;
 };
 

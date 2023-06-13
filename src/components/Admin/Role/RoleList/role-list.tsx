@@ -14,59 +14,49 @@ export const RoleList = () => {
    );
    const reducer = (state: InitReducer, action: InputActionType) => {
       const { type, payload } = action;
-      const sumPage =
-         payload && payload.totalPage
-            ? Math.ceil(payload.totalPage / dataPerPage)
-            : 0;
       switch (type) {
          case ActionValues.SET_ROLES:
             return {
                ...state,
-               roles: payload && payload.roles ? payload.roles : [],
-               totalPage: sumPage,
+               ...payload,
             };
          default:
             return state;
       }
    };
 
-   const initState = { roles: [], totalPage: 0 };
+   const initState = {
+      roles: [],
+      totalPage: 0,
+      count: 0,
+      returnCnt: 0,
+   };
+
    const [data, dispatch] = useReducer(reducer, initState);
    const fetchApi = useCallback(async () => {
-      // get totalPage
-      const response = await callApi("roles", "get").catch((err) =>
-         console.log({ err })
-      );
       // get data paginate
-      const responsePaginate = await callApi("roles/paginate", "post", {
+      const response = await callApi("roles/paginate", "post", {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
+      const data: InitReducer = response.data || null;
       dispatch({
          type: ActionValues.SET_ROLES,
-         payload: {
-            totalPage: response.data.length || 0,
-            roles: responsePaginate.data || [],
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, [dataPerPage]);
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("ages", "get").catch((err) =>
-         console.log({ err })
-      );
-      const responsePaginate = await callApi("ages/paginate", "post", {
+      const response = await callApi("ages/paginate", "post", {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
+      const data: InitReducer = response.data || null;
       dispatch({
          type: ActionValues.SET_ROLES,
-         payload: {
-            totalPage: response.data.length || 0,
-            roles: responsePaginate.data || [],
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, []);

@@ -28,6 +28,8 @@ export type UserType = {
 };
 
 export type InitStateType = {
+   count: number;
+   returnCnt: number;
    users: UserType[];
    totalPage: number;
 };
@@ -38,7 +40,7 @@ export type InitStateUserDetailType = {
 
 export type ActionType = {
    type: string;
-   payload: InitStateType | null;
+   payload: InitStateType;
 };
 
 export type FormikPropType = {

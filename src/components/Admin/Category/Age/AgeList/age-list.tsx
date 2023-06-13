@@ -8,65 +8,51 @@ import { ActionValues } from "../Common/constants";
 
 export const AgeCategoryList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
-   const dataPerPage = useMemo(
-      () => parseInt(import.meta.env.VITE_PER_PAGE || 10),
-      []
-   );
+   const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const reducer = (state: InitReducer, action: InputActionType) => {
       const { type, payload } = action;
-      const sumPage =
-         payload && payload.totalPage
-            ? Math.ceil(payload.totalPage / dataPerPage)
-            : 0;
       switch (type) {
          case ActionValues.SET_AGES:
             return {
                ...state,
-               ages: payload && payload.ages ? payload.ages : [],
-               totalPage: sumPage,
+               ...payload,
             };
          default:
             return state;
       }
    };
 
-   const initState = { ages: [], totalPage: 0 };
+   const initState = {
+      ages: [],
+      totalPage: 0,
+      count: 0,
+      returnCnt: 0,
+   };
+
    const [data, dispatch] = useReducer(reducer, initState);
    const fetchApi = useCallback(async () => {
-      // get totalPage
-      const response = await callApi("ages", "get").catch((err) =>
-         console.log({ err })
-      );
-      // get data paginate
-      const responsePaginate = await callApi("ages/paginate", "post", {
+      const response = await callApi("ages/paginate", "post", {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
+      const data: InitReducer = response.data || null;
       dispatch({
          type: ActionValues.SET_AGES,
-         payload: {
-            totalPage: response.data.length || 0,
-            ages: responsePaginate.data || [],
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, [dataPerPage]);
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("ages", "get").catch((err) =>
-         console.log({ err })
-      );
-      const responsePaginate = await callApi("ages/paginate", "post", {
+      const response = await callApi("ages/paginate", "post", {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
+      const data: InitReducer = response.data || null;
       dispatch({
          type: ActionValues.SET_AGES,
-         payload: {
-            totalPage: response.data.length || 0,
-            ages: responsePaginate.data || [],
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, []);
