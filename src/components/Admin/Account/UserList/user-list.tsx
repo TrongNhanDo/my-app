@@ -82,7 +82,6 @@ export const UserList = () => {
    useEffect(() => {
       fetchApi();
    }, [fetchApi]);
-   console.log({ data });
 
    return (
       <div>
