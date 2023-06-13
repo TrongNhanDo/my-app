@@ -54,7 +54,7 @@ export const RoleList = () => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("ages/paginate", "post", {
+      const response = await callApi("roles/paginate", "post", {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
