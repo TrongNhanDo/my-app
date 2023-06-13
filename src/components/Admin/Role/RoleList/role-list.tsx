@@ -9,6 +9,7 @@ import { formatDate } from "../../../Common/Logic/logics";
 import { Input } from "../../../Common/Input/input";
 import { FormikBagType, InitFormikBag } from "./types";
 import { validationSchema } from "./validations";
+import { ModalCustom } from "../../../Common/Modal/modal-custom";
 
 export const RoleList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
@@ -163,92 +164,87 @@ export const RoleList = () => {
                   Add Role
                </button>
                {modal && (
-                  <div className="fixed flex w-full h-full bg-gray-200/75 top-0 left-0">
-                     <div className="flex flex-col w-1/3 h-auto bg-gray-400 m-auto items-center p-5 rounded index-30">
-                        <form
-                           onSubmit={formikBag.handleSubmit}
-                           className="w-full"
-                        >
-                           <div className="flex w-full justify-between text-2xl font-bold">
-                              <div className="uppercase">add new role</div>
-                              <button type="button" onClick={handleClose}>
-                                 ❌
+                  <ModalCustom>
+                     <form onSubmit={formikBag.handleSubmit} className="w-96">
+                        <div className="flex w-full justify-between text-2xl font-bold">
+                           <div className="uppercase">add new role</div>
+                           <button type="button" onClick={handleClose}>
+                              ❌
+                           </button>
+                        </div>
+                        <hr className="w-full my-3 h-0.5" />
+                        {error && error !== "" && (
+                           <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
+                              {error}
+                           </div>
+                        )}
+                        <div className="flex flex-col w-full">
+                           <div className="mb-6">
+                              <Input
+                                 label="Role Id:"
+                                 name="roleId"
+                                 id="roleId"
+                                 type="text"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
+                                    formikBag.errors.roleId &&
+                                    formikBag.touched.roleId
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
+                                 onChange={formikBag.handleChange}
+                                 value={formikBag.values.roleId || ""}
+                              />
+                              {formikBag.errors.roleId &&
+                                 formikBag.touched.roleId && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.roleId}
+                                    </p>
+                                 )}
+                           </div>
+                           <div className="mb-6">
+                              <Input
+                                 type="text"
+                                 label="Role Name:"
+                                 name="roleName"
+                                 id="roleName"
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
+                                    formikBag.errors.roleName &&
+                                    formikBag.touched.roleName
+                                       ? "bg-yellow"
+                                       : ""
+                                 }`}
+                                 onChange={formikBag.handleChange}
+                                 value={formikBag.values.roleName || ""}
+                              />
+                              {formikBag.errors.roleName &&
+                                 formikBag.touched.roleName && (
+                                    <p className="text-orange-600">
+                                       {formikBag.errors.roleName}
+                                    </p>
+                                 )}
+                           </div>
+                        </div>
+                        <div className="flex w-full flex-col mt-auto">
+                           <hr className="w-full my-3 h-0.5" />
+                           <div className="flex justify-end">
+                              <button
+                                 type="button"
+                                 className="block bg-blue-500 p-2 rounded font-bold"
+                                 onClick={handleSubmit}
+                              >
+                                 Submit
+                              </button>
+                              <button
+                                 type="button"
+                                 className="block bg-red-500 p-2 rounded font-bold ms-5"
+                                 onClick={handleClose}
+                              >
+                                 Close
                               </button>
                            </div>
-                           <hr className="w-full my-3 bg-black h-0.5" />
-                           {error && error !== "" && (
-                              <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
-                                 {error}
-                              </div>
-                           )}
-                           <div className="flex flex-col w-full">
-                              <div className="mb-6">
-                                 <Input
-                                    label="Role Id:"
-                                    name="roleId"
-                                    id="roleId"
-                                    type="text"
-                                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
-                                       formikBag.errors.roleId &&
-                                       formikBag.touched.roleId
-                                          ? "bg-yellow"
-                                          : ""
-                                    }`}
-                                    onChange={formikBag.handleChange}
-                                    value={formikBag.values.roleId || ""}
-                                 />
-                                 {formikBag.errors.roleId &&
-                                    formikBag.touched.roleId && (
-                                       <p className="text-orange-600">
-                                          {formikBag.errors.roleId}
-                                       </p>
-                                    )}
-                              </div>
-                              <div className="mb-6">
-                                 <Input
-                                    type="text"
-                                    label="Role Name:"
-                                    name="roleName"
-                                    id="roleName"
-                                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
-                                       formikBag.errors.roleName &&
-                                       formikBag.touched.roleName
-                                          ? "bg-yellow"
-                                          : ""
-                                    }`}
-                                    onChange={formikBag.handleChange}
-                                    value={formikBag.values.roleName || ""}
-                                 />
-                                 {formikBag.errors.roleName &&
-                                    formikBag.touched.roleName && (
-                                       <p className="text-orange-600">
-                                          {formikBag.errors.roleName}
-                                       </p>
-                                    )}
-                              </div>
-                           </div>
-                           <div className="flex w-full flex-col mt-auto">
-                              <hr className="w-full my-3 bg-black h-0.5" />
-                              <div className="flex justify-end">
-                                 <button
-                                    type="button"
-                                    className="block bg-blue-500 p-2 rounded font-bold"
-                                    onClick={handleSubmit}
-                                 >
-                                    Submit
-                                 </button>
-                                 <button
-                                    type="button"
-                                    className="block bg-red-500 p-2 rounded font-bold ms-5"
-                                    onClick={handleClose}
-                                 >
-                                    Close
-                                 </button>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
+                        </div>
+                     </form>
+                  </ModalCustom>
                )}
             </div>
             {Pagination.length > 1 && <div className="flex">{Pagination}</div>}
