@@ -16,8 +16,7 @@ export const ProductList = () => {
          case ActionValues.GET_PRODUCTS:
             return {
                ...state,
-               products: payload && payload.products ? payload.products : [],
-               totalPage: payload && payload.totalPage ? payload.totalPage : 0,
+               ...payload,
             };
          default:
             return state;
