@@ -147,7 +147,7 @@ export const BranchList = () => {
    });
 
    return (
-      <div className="container mb-10">
+      <div className="div-contai mb-10">
          {showLoader && <Loader />}
          <div>
             <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5 uppercase">

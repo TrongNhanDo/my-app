@@ -42,7 +42,7 @@ export const LoginForm = () => {
    });
 
    return (
-      <div className="container flex flex-col items-center justify-center w-full">
+      <div className="div-contai flex flex-col items-center justify-center w-full">
          <div className="w-2/4 rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-500 dark:bg-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white uppercase text-center">

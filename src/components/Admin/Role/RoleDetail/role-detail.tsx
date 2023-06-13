@@ -123,7 +123,7 @@ export const RoleDetail = () => {
    return (
       <div>
          {isLoading && <Loader />}
-         <div className="container mt-10">
+         <div className="div-contai mt-10">
             <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10">
                ROLE DETAIL
             </h2>

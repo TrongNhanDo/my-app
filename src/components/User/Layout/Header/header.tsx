@@ -12,8 +12,8 @@ export const Header = () => {
 
    return (
       <div>
-         <nav className="border-gray-200 bg-sky-400">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+         <nav className="border-gray-200 bg-footer2">
+            <div className="w-9/12 flex flex-wrap items-center justify-between mx-auto p-4">
                <Link to={isAdmin ? "admin" : ""} className="flex items-center">
                   <img
                      src="https://congcaphe.com/_next/static/images/vn-66e76189e15384f6034e56f129991d96.png"

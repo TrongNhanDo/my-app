@@ -89,7 +89,7 @@ export const AddNewUser = () => {
    return (
       <div>
          {showLoading && <Loader />}
-         <form onSubmit={formikBag.handleSubmit} className="container">
+         <form onSubmit={formikBag.handleSubmit} className="div-contai">
             <div className="div-register dark:bg-gray-700">
                <div className="mb-6">
                   <div className="text-3xl font-bold text-center">

@@ -193,7 +193,7 @@ export const ProductDetail = () => {
    }, [viewData]);
 
    return (
-      <div className="container">
+      <div className="div-contai">
          {showLoader && <Loader />}
          <div className="mt-10">
             <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5 uppercase">

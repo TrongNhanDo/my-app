@@ -2,8 +2,8 @@
    border: solid 2px red !important;
 }
 
-.container {
-   width: 80%;
+.div-contai {
+   width: 75%;
    margin: auto;
    margin-bottom: 2rem;
    margin-top: 3rem;
@@ -24,4 +24,12 @@
 
 .width-60vh {
    width: 60vh;
+}
+
+.bg-footer1 {
+   background-color: #f99e36;
+}
+
+.bg-footer2 {
+   background-color: #fdc140;
 }

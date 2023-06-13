@@ -183,7 +183,7 @@ export const UserList = () => {
    return (
       <div>
          {showLoader && <Loader />}
-         <div className="container m-auto">
+         <div className="div-contai m-auto">
             <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5">
                LIST OF USER ACCOUNTS
             </h2>

@@ -45,7 +45,7 @@ export const AdminHome = () => {
    }, [fetchApi]);
 
    return (
-      <div className="container text-dark">
+      <div className="div-contai text-dark">
          {showLoader && <Loader />}
          <div className="grid grid-cols-4 gap-4">
             <Link
