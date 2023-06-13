@@ -144,13 +144,19 @@ export const ProductList = () => {
                                     {value.productName || ""}
                                  </td>
                                  <td className="px-6 py-4">
-                                    {value.branch.branchName || ""}
+                                    {value.branch && value.branch.branchName
+                                       ? value.branch.branchName
+                                       : ""}
                                  </td>
                                  <td className="px-6 py-4">
-                                    {value.age.ageName || ""}
+                                    {value.age && value.age.ageName
+                                       ? value.age.ageName
+                                       : ""}
                                  </td>
                                  <td className="px-6 py-4">
-                                    {value.skill.skillName || ""}
+                                    {value.skill && value.skill.skillName
+                                       ? value.skill.skillName
+                                       : ""}
                                  </td>
                                  <td className="px-6 py-4 w-1/6">
                                     <img

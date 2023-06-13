@@ -258,7 +258,10 @@ export const ProductDetail = () => {
                               Age Category
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {viewData.product.age.ageName}
+                              {viewData.product.age &&
+                              viewData.product.age.ageName
+                                 ? viewData.product.age.ageName
+                                 : ""}
                            </td>
                            <td className="px-6 py-4">
                               <select
@@ -304,7 +307,10 @@ export const ProductDetail = () => {
                               Branch Category
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {viewData.product.branch.branchName}
+                              {viewData.product.branch &&
+                              viewData.product.branch.branchName
+                                 ? viewData.product.branch.branchName
+                                 : ""}
                            </td>
                            <td className="px-6 py-4">
                               <select
@@ -350,7 +356,10 @@ export const ProductDetail = () => {
                               Skill Category
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {viewData.product.skill.skillName}
+                              {viewData.product.skill &&
+                              viewData.product.skill.skillName
+                                 ? viewData.product.skill.skillName
+                                 : ""}
                            </td>
                            <td className="px-6 py-4">
                               <select
