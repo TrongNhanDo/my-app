@@ -12,22 +12,13 @@ import { formatDate } from "../../../../Common/Logic/logics";
 
 export const SkillList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
-   const dataPerPage = useMemo(
-      () => parseInt(import.meta.env.VITE_PER_PAGE || 10),
-      []
-   );
+   const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
-      const sumPage =
-         payload && payload.totalPage
-            ? Math.ceil(payload.totalPage / dataPerPage)
-            : 0;
       switch (type) {
          case ActionValues.SET_SKILLS:
             return {
-               ...state,
-               skills: payload && payload.skills ? payload.skills : [],
-               totalPage: sumPage,
+               ...payload,
             };
          default:
             return state;
@@ -36,40 +27,28 @@ export const SkillList = () => {
 
    const [data, dispatch] = useReducer(reducer, InitStateReducerType);
    const fetchApi = useCallback(async () => {
-      // get totalPage
-      const response = await callApi("skills", "get").catch((err) =>
-         console.log({ err })
-      );
-      // get data paginate
-      const responsePaginate = await callApi("skills/paginate", "post", {
+      const response = await callApi("skills/paginate", "post", {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
+      const data: StateReducerType = response.data || null;
       dispatch({
          type: ActionValues.SET_SKILLS,
-         payload: {
-            totalPage: response.data.length || 0,
-            skills: responsePaginate.data || [],
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, [dataPerPage]);
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("skills", "get").catch((err) =>
-         console.log({ err })
-      );
-      const responsePaginate = await callApi("skills/paginate", "post", {
+      const response = await callApi("skills/paginate", "post", {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
+      const data: StateReducerType = response.data || null;
       dispatch({
          type: ActionValues.SET_SKILLS,
-         payload: {
-            totalPage: response.data.length || 0,
-            skills: responsePaginate.data || [],
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, []);

@@ -24,52 +24,41 @@ export const ProductList = () => {
       }
    };
 
-   const initState = { products: [], totalPage: 0 };
+   const initState = {
+      products: [],
+      totalPage: 0,
+      count: 0,
+      returnCnt: 0,
+   };
+
    const [data, dispatch] = useReducer(reducer, initState);
 
    const fetchApi = useCallback(async () => {
-      const responseAll = await callApi("products", "get").catch((err) =>
-         console.log({ err })
-      );
-      const responsePaginate = await callApi("products/paginate", "post", {
+      const response = await callApi("products/paginate", "post", {
          perPage: dataPerpage,
          page: 1,
       });
+      const data: ProductListType = response.data || null;
       dispatch({
          type: ActionValues.GET_PRODUCTS,
-         payload: {
-            products: responsePaginate.data || [],
-            totalPage: responseAll.data
-               ? Math.ceil(responseAll.data.length / dataPerpage)
-               : 0,
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, [dataPerpage]);
 
-   const changePage = useCallback(
-      async (perPage: number, page: number) => {
-         setShowLoader(true);
-         const response = await callApi("products", "get").catch((err) =>
-            console.log({ err })
-         );
-         const responsePaginate = await callApi("products/paginate", "post", {
-            perPage: perPage || 10,
-            page: page || 1,
-         }).catch((err) => console.log({ err }));
-         dispatch({
-            type: ActionValues.GET_PRODUCTS,
-            payload: {
-               totalPage: response.data
-                  ? Math.ceil(response.data.length / dataPerpage)
-                  : 0,
-               products: responsePaginate.data || [],
-            },
-         });
-         setShowLoader(false);
-      },
-      [dataPerpage]
-   );
+   const changePage = useCallback(async (perPage: number, page: number) => {
+      setShowLoader(true);
+      const response = await callApi("products/paginate", "post", {
+         perPage: perPage || 10,
+         page: page || 1,
+      }).catch((err) => console.log({ err }));
+      const data: ProductListType = response.data || null;
+      dispatch({
+         type: ActionValues.GET_PRODUCTS,
+         payload: data,
+      });
+      setShowLoader(false);
+   }, []);
 
    const Pagination = useMemo(() => {
       const buttons = [];

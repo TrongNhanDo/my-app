@@ -1,14 +1,26 @@
+export type RoleType = {
+   _id: string;
+   roleId: number;
+   roleName: string;
+   createdAt: string;
+   updatedAt: string;
+   __v: number;
+};
+
 export type UserType = {
    active: boolean;
    createdAt: string;
-   role: number;
+   roleId: number;
    updatedAt: string;
    username: string;
    __v: number;
    _id: string;
+   role: RoleType;
 };
 
 export type InitStateType = {
+   count: number;
+   returnCnt: number;
    users: UserType[];
    totalPage: number;
 };
@@ -19,7 +31,7 @@ export type InitStateUserDetailType = {
 
 export type ActionType = {
    type: string;
-   payload: InitStateType | null;
+   payload: InitStateType;
 };
 
 export type FormikPropType = {

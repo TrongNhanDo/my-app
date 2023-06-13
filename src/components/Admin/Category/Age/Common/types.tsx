@@ -8,8 +8,10 @@ export type AgeType = {
 };
 
 export type InitReducer = {
-   ages?: AgeType[];
+   ages: AgeType[] | null;
    totalPage: number;
+   count: number;
+   returnCnt: number;
 };
 
 export type InputActionType = {

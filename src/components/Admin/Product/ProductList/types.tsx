@@ -8,6 +8,8 @@ export type ActionReducerType = {
 export type ProductListType = {
    products: ProductType[];
    totalPage: number;
+   count: number;
+   returnCnt: number;
 };
 
 export type StateReducerType = {

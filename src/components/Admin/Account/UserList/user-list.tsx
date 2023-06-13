@@ -7,26 +7,18 @@ import {
    UserType,
 } from "../common/types";
 import { callApi } from "../../../../api/callApi/callApi";
-import { formatDate, formatRole } from "../../../Common/Logic/logics";
+import { formatDate } from "../../../Common/Logic/logics";
 import { Loader } from "../../../Common/Loader/loader";
 
 export const UserList = () => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
-   const dataPerPage = useMemo(
-      () => parseInt(import.meta.env.VITE_PER_PAGE || 10),
-      []
-   );
+   const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const reducer = (state: InitStateType, action: ActionType) => {
       const { type, payload } = action;
       switch (type) {
          case ActionTypes.SET_USERS:
             return {
-               ...state,
-               users: payload && payload.users ? payload.users : [],
-               totalPage:
-                  payload && payload.totalPage
-                     ? Math.ceil(payload.totalPage / dataPerPage)
-                     : 0,
+               ...payload,
             };
             break;
          default:
@@ -35,47 +27,37 @@ export const UserList = () => {
    };
 
    const initState = {
-      users: [],
+      count: 0,
+      returnCnt: 0,
       totalPage: 0,
+      users: [],
    };
 
    const [data, dispatch] = useReducer(reducer, initState);
 
    const fetchApi = useCallback(async () => {
-      // get totalPage
-      const response = await callApi("users", "get").catch((err) =>
-         console.log({ err })
-      );
-      // get data paginate
-      const responsePaginate = await callApi("users/paginate", "post", {
+      const response = await callApi("users/paginate", "post", {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
+      const data: InitStateType = response.data || null;
       dispatch({
          type: ActionTypes.SET_USERS,
-         payload: {
-            totalPage: response.data.length || 0,
-            users: responsePaginate.data || [],
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, [dataPerPage]);
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("users", "get").catch((err) =>
-         console.log({ err })
-      );
-      const responsePaginate = await callApi("users/paginate", "post", {
+      const response = await callApi("users/paginate", "post", {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
+      const data: InitStateType = response.data || null;
       dispatch({
          type: ActionTypes.SET_USERS,
-         payload: {
-            totalPage: response.data.length || 0,
-            users: responsePaginate.data || [],
-         },
+         payload: data,
       });
       setShowLoader(false);
    }, []);
@@ -155,17 +137,23 @@ export const UserList = () => {
                                  {value.username || ""}
                               </td>
                               <td className="px-6 py-4">
-                                 {formatRole(value.role)}
+                                 {value.role.roleName || ""}
                               </td>
                               <td className="px-6 py-4">
-                                 {formatDate(value.createdAt)}
+                                 {value.createdAt
+                                    ? formatDate(value.createdAt)
+                                    : ""}
                               </td>
                               <td className="px-6 py-4">
-                                 {formatDate(value.updatedAt)}
+                                 {value.createdAt
+                                    ? formatDate(value.updatedAt)
+                                    : ""}
                               </td>
                               <td className="px-6 py-4 text-right">
                                  <Link
-                                    to={`/admin/user-detail/${value._id}`}
+                                    to={`/admin/user-detail/${
+                                       value._id ? value._id : ""
+                                    }`}
                                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                  >
                                     Detail
