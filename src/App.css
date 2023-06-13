@@ -9,3 +9,19 @@
    margin-top: 3rem;
    padding-bottom: 2rem;
 }
+
+.max-h-80vh {
+   max-height: 80vh;
+}
+
+.width-80vh {
+   width: 80vh;
+}
+
+.width-70vh {
+   width: 70vh;
+}
+
+.width-60vh {
+   width: 60vh;
+}
