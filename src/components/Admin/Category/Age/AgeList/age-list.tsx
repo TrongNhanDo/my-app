@@ -157,7 +157,7 @@ export const AgeCategoryList = () => {
             </h2>
             <div className="flex justify-center mb-2">
                <button
-                  className="block bg-blue-300 px-3 py-2 rounded"
+                  className="block bg-blue-300 hover:bg-blue-400 px-3 py-2 rounded"
                   onClick={() => setModal(true)}
                >
                   Add Age Category
