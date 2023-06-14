@@ -27,6 +27,12 @@ import AddRole from "./components/Admin/Role/RoleAdd/add-role";
 import Footer from "./components/User/Layout/Footer/footer";
 import About from "./components/User/About";
 import Contact from "./components/User/Contact";
+import ShoppingGuide from "./components/User/Customer/ShoppingGuide";
+import QuestionsFrequently from "./components/User/Customer/Questions";
+import Policy from "./components/User/Customer/Policy";
+import Warranty from "./components/User/Customer/Warranty";
+import Security from "./components/User/Customer/Security";
+import DeliveryPayment from "./components/User/Customer/DeliveryPayment";
 
 function App() {
    return (
@@ -89,6 +95,12 @@ function App() {
 
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/shopping-guide" element={<ShoppingGuide />} />
+            <Route path="/questions" element={<QuestionsFrequently />} />
+            <Route path="/policy" element={<Policy />} />
+            <Route path="/warranty" element={<Warranty />} />
+            <Route path="/security" element={<Security />} />
+            <Route path="/delivery-and-payment" element={<DeliveryPayment />} />
 
             {/* 404 page */}
             <Route path="*" element={<PageNotFound />} />
