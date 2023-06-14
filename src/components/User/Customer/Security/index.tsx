@@ -7,7 +7,7 @@ const Security = React.memo(() => {
          <div className="w-1/4">
             <Sidebar />
          </div>
-         <div className="w-3/4 bg-white rounded p-4">
+         <div className="w-3/4 bg-white rounded p-5 text-justify">
             <div className="uppercase text-2xl font-bold text-center">
                bảo mật
             </div>
