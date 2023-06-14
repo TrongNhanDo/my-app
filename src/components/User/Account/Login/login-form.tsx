@@ -1,5 +1,5 @@
+import React, { useCallback } from "react";
 import { useFormik } from "formik";
-import { useCallback } from "react";
 import { Link } from "react-router-dom";
 import { callApi } from "../../../../api/callApi/callApi";
 import { validationSchema } from "./validations";
@@ -9,7 +9,7 @@ type FormikValueType = {
    password: string;
 };
 
-export const LoginForm = () => {
+const LoginForm = React.memo(() => {
    const initValueFormik: FormikValueType = {
       email: "",
       password: "",
@@ -151,4 +151,6 @@ export const LoginForm = () => {
          </div>
       </div>
    );
-};
+});
+
+export default LoginForm;

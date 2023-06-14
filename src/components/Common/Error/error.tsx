@@ -1,6 +1,7 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const PageNotFound = () => {
+const PageNotFound = React.memo(() => {
    const navigate = useNavigate();
 
    return (
@@ -25,4 +26,6 @@ export const PageNotFound = () => {
          </main>
       </>
    );
-};
+});
+
+export default PageNotFound;

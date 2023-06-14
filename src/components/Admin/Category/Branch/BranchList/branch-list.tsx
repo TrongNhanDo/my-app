@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import React, {
+   useCallback,
+   useEffect,
+   useMemo,
+   useReducer,
+   useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import {
@@ -10,13 +16,13 @@ import {
 } from "./types";
 import { ActionValues, BranchType } from "../Common/types";
 import { callApi } from "../../../../../api/callApi/callApi";
-import { Loader } from "../../../../Common/Loader/loader";
+import Loader from "../../../../Common/Loader/loader";
 import { formatDate } from "../../../../Common/Logic/logics";
 import { Input } from "../../../../Common/Input/input";
 import { ModalCustom } from "../../../../Common/Modal/modal-custom";
 import { validationSchema } from "./validations";
 
-export const BranchList = () => {
+const BranchList = React.memo(() => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const [error, setError] = useState<string>("");
@@ -308,4 +314,6 @@ export const BranchList = () => {
          </div>
       </div>
    );
-};
+});
+
+export default BranchList;

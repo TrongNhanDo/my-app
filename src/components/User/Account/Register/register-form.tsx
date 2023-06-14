@@ -1,11 +1,11 @@
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
 import "./register-form.css";
 import { FormikInputTypes } from "./types";
 
-export const RegisterFrom = () => {
+const RegisterFrom = React.memo(() => {
    const initValues = {
       name: "",
       phone: "",
@@ -195,4 +195,6 @@ export const RegisterFrom = () => {
          </form>
       </div>
    );
-};
+});
+
+export default RegisterFrom;

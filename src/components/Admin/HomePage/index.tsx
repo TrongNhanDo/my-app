@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StateReducerType } from "./types";
 import { callApi } from "../../../api/callApi/callApi";
-import { Loader } from "../../Common/Loader/loader";
+import Loader from "../../Common/Loader/loader";
 
-export const AdminHome = () => {
+const AdminHome = React.memo(() => {
    const [data, setData] = useState<StateReducerType>();
    const [showLoader, setShowLoader] = useState<boolean>(true);
 
@@ -130,4 +130,6 @@ export const AdminHome = () => {
          </div>
       </div>
    );
-};
+});
+
+export default AdminHome;

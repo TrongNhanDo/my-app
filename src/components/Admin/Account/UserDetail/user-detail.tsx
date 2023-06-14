@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
@@ -9,7 +9,7 @@ import {
    UserType,
 } from "../common/types";
 import { formatDate, scrollTop } from "../../../Common/Logic/logics";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import { checkChangeValues, validationSchema } from "./validations";
 import {
    ActionReducerType,
@@ -18,7 +18,7 @@ import {
 } from "./types";
 import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
 
-export const UserDetail = () => {
+const UserDetail = React.memo(() => {
    const { userId } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -319,4 +319,6 @@ export const UserDetail = () => {
          </div>
       </div>
    );
-};
+});
+
+export default UserDetail;

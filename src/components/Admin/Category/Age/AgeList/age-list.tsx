@@ -1,6 +1,12 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import React, {
+   useCallback,
+   useEffect,
+   useMemo,
+   useReducer,
+   useState,
+} from "react";
 import { Link } from "react-router-dom";
-import { Loader } from "../../../../Common/Loader/loader";
+import Loader from "../../../../Common/Loader/loader";
 import { formatDate } from "../../../../Common/Logic/logics";
 import { callApi } from "../../../../../api/callApi/callApi";
 import { AgeType, InitReducer, InputActionType } from "../Common/types";
@@ -11,7 +17,7 @@ import { validationSchema } from "./validations";
 import { ModalCustom } from "../../../../Common/Modal/modal-custom";
 import { Input } from "../../../../Common/Input/input";
 
-export const AgeCategoryList = () => {
+const AgeCategoryList = React.memo(() => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const [error, setError] = useState<string>("");
@@ -306,4 +312,6 @@ export const AgeCategoryList = () => {
          </div>
       </div>
    );
-};
+});
+
+export default AgeCategoryList;

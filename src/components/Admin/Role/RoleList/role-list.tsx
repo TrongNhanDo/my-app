@@ -1,17 +1,23 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import React, {
+   useCallback,
+   useEffect,
+   useMemo,
+   useReducer,
+   useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { InitReducer, InputActionType, RoleType } from "../Common/types";
 import { ActionValues } from "../Common/constants";
 import { callApi } from "../../../../api/callApi/callApi";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import { formatDate } from "../../../Common/Logic/logics";
 import { Input } from "../../../Common/Input/input";
 import { FormikBagType, InitFormikBag } from "./types";
 import { validationSchema } from "./validations";
 import { ModalCustom } from "../../../Common/Modal/modal-custom";
 
-export const RoleList = () => {
+const RoleList = React.memo(() => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const [modal, setModal] = useState<boolean>(false);
@@ -309,4 +315,6 @@ export const RoleList = () => {
          </div>
       </div>
    );
-};
+});
+
+export default RoleList;

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { checkIsAdmin } from "./logics";
 
-export const Header = () => {
+const Header = React.memo(() => {
    const currentPathname = useLocation().pathname;
    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
@@ -170,4 +170,6 @@ export const Header = () => {
          </nav>
       </div>
    );
-};
+});
+
+export default Header;

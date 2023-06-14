@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../../api/callApi/callApi";
 import { formatDate, scrollTop } from "../../../../Common/Logic/logics";
-import { Loader } from "../../../../Common/Loader/loader";
+import Loader from "../../../../Common/Loader/loader";
 import { validationSchema } from "./validations";
 import { ActionValues } from "../Common/constants";
 import {
@@ -14,7 +14,7 @@ import {
 } from "./types";
 import { ErrorMessages } from "../../../../Common/ErrorMessage/error-message";
 
-export const AgeCategoryDetail = () => {
+const AgeCategoryDetail = React.memo(() => {
    const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -260,4 +260,6 @@ export const AgeCategoryDetail = () => {
          </div>
       </div>
    );
-};
+});
+
+export default AgeCategoryDetail;

@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
 import { InputInsertType, RoleType } from "../common/types";
 import { Input } from "../../../Common/Input/input";
 import { callApi } from "../../../../api/callApi/callApi";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import { scrollTop } from "../../../Common/Logic/logics";
 
-export const AddNewUser = () => {
+const AddNewUser = React.memo(() => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(true);
    const [error, setError] = useState<string>("");
@@ -199,4 +199,6 @@ export const AddNewUser = () => {
          </form>
       </div>
    );
-};
+});
+
+export default AddNewUser;

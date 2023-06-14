@@ -1,7 +1,13 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import React, {
+   useCallback,
+   useEffect,
+   useMemo,
+   useReducer,
+   useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import {
    ActionValues,
    AgeType,
@@ -22,7 +28,7 @@ import { validationSchema } from "./validations";
 import { upLoadImage } from "../../../../api/callApi/callApiUpload";
 import { ModalCustom } from "../../../Common/Modal/modal-custom";
 
-export const ProductList = () => {
+const ProductList = React.memo(() => {
    const DEFAULT_IMAGE = import.meta.env.VITE_DEFAULT_IMAGE_URL || "";
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerpage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
@@ -607,4 +613,6 @@ export const ProductList = () => {
          </div>
       </div>
    );
-};
+});
+
+export default ProductList;

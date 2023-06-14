@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
@@ -8,7 +8,7 @@ import {
    scrollTop,
 } from "../../../Common/Logic/logics";
 import { checkChangeValue, validationSchema } from "./validations";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import { ActionValues, AgeType, BranchType, SkillType } from "../common/types";
 import {
    ActionReducerType,
@@ -20,7 +20,7 @@ import {
 import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
 import { upLoadImage } from "../../../../api/callApi/callApiUpload";
 
-export const ProductDetail = () => {
+const ProductDetail = React.memo(() => {
    const navigate = useNavigate();
    const { productId } = useParams();
    const DEFAULT_IMAGE = import.meta.env.VITE_DEFAULT_IMAGE_URL || "";
@@ -649,4 +649,6 @@ export const ProductDetail = () => {
          </div>
       </div>
    );
-};
+});
+
+export default ProductDetail;

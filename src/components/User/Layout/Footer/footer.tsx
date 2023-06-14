@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { checkIsAdmin } from "../Header/logics";
 
-export const Footer = () => {
+const Footer = React.memo(() => {
    const currentPathname = useLocation().pathname;
    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
@@ -229,4 +229,6 @@ export const Footer = () => {
          </div>
       </footer>
    );
-};
+});
+
+export default Footer;

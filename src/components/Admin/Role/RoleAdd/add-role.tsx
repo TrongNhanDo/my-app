@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { FormikBagType, InitFormikBag } from "./types";
 import { validationSchema } from "./validations";
 import { callApi } from "../../../../api/callApi/callApi";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import { Input } from "../../../Common/Input/input";
 import { scrollTop } from "../../../Common/Logic/logics";
 
-export const AddRole = () => {
+const AddRole = React.memo(() => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [error, setError] = useState<string>("");
@@ -133,4 +133,6 @@ export const AddRole = () => {
          </form>
       </div>
    );
-};
+});
+
+export default AddRole;

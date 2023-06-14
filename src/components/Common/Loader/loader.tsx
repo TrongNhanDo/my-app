@@ -1,5 +1,8 @@
+import React from "react";
 import "./loader.css";
 
-export const Loader = () => {
+const Loader = React.memo(() => {
    return <div className="loading">Loading&#8230;</div>;
-};
+});
+
+export default Loader;

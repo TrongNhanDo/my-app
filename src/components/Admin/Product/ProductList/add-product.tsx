@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
 import { AgeType, BranchType, SkillType } from "../common/types";
 import { validationSchema } from "./validations";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import { FormikBagType, InitFormikValues, StateReducerType } from "./types";
 import { upLoadImage } from "../../../../api/callApi/callApiUpload";
 import { scrollTop } from "../../../Common/Logic/logics";
 
-export const AddProduct = () => {
+const AddProduct = React.memo(() => {
    const navigate = useNavigate();
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const [images, setImages] = useState<File[]>();
@@ -404,4 +404,6 @@ export const AddProduct = () => {
          </div>
       </div>
    );
-};
+});
+
+export default AddProduct;

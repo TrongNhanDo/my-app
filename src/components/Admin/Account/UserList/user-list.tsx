@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import React, {
+   useCallback,
+   useEffect,
+   useMemo,
+   useReducer,
+   useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import {
@@ -11,12 +17,12 @@ import {
 } from "../common/types";
 import { callApi } from "../../../../api/callApi/callApi";
 import { formatDate } from "../../../Common/Logic/logics";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import { validationSchema } from "./validations";
 import { ModalCustom } from "../../../Common/Modal/modal-custom";
 import { Input } from "../../../Common/Input/input";
 
-export const UserList = () => {
+const UserList = React.memo(() => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const [success, setSuccess] = useState<boolean>(false);
@@ -382,4 +388,6 @@ export const UserList = () => {
          </div>
       </div>
    );
-};
+});
+
+export default UserList;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
    ActionReducerType,
@@ -10,11 +10,11 @@ import { ActionValues } from "../Common/types";
 import { callApi } from "../../../../../api/callApi/callApi";
 import { useFormik } from "formik";
 import { validationSchema } from "./vadidations";
-import { Loader } from "../../../../Common/Loader/loader";
+import Loader from "../../../../Common/Loader/loader";
 import { formatDate, scrollTop } from "../../../../Common/Logic/logics";
 import { ErrorMessages } from "../../../../Common/ErrorMessage/error-message";
 
-export const BranchCategoryDetail = () => {
+const BranchCategoryDetail = React.memo(() => {
    const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -269,4 +269,6 @@ export const BranchCategoryDetail = () => {
          </div>
       </div>
    );
-};
+});
+
+export default BranchCategoryDetail;

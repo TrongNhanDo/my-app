@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
@@ -11,11 +11,11 @@ import {
    StateReducerType,
 } from "./types";
 import { callApi } from "../../../../api/callApi/callApi";
-import { Loader } from "../../../Common/Loader/loader";
+import Loader from "../../../Common/Loader/loader";
 import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
 import { formatDate, scrollTop } from "../../../Common/Logic/logics";
 
-export const RoleDetail = () => {
+const RoleDetail = React.memo(() => {
    const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -259,4 +259,6 @@ export const RoleDetail = () => {
          </div>
       </div>
    );
-};
+});
+
+export default RoleDetail;

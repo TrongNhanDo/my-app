@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import { useCallback, useEffect, useState } from "react";
-import { Loader } from "../../../../Common/Loader/loader";
+import React, { useCallback, useEffect, useState } from "react";
+import Loader from "../../../../Common/Loader/loader";
 import { FormikBagType, InitFormikBag } from "./types";
 import { Input } from "../../../../Common/Input/input";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { validationSchema } from "./validations";
 import { callApi } from "../../../../../api/callApi/callApi";
 import { scrollTop } from "../../../../Common/Logic/logics";
 
-export const AddBranchCategory = () => {
+const AddBranchCategory = React.memo(() => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [error, setError] = useState<string>("");
@@ -135,4 +135,6 @@ export const AddBranchCategory = () => {
          </form>
       </div>
    );
-};
+});
+
+export default AddBranchCategory;
