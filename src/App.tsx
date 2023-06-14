@@ -26,6 +26,7 @@ import RoleDetail from "./components/Admin/Role/RoleDetail/role-detail";
 import AddRole from "./components/Admin/Role/RoleAdd/add-role";
 import Footer from "./components/User/Layout/Footer/footer";
 import About from "./components/User/About";
+import Contact from "./components/User/Contact";
 
 function App() {
    return (
@@ -87,6 +88,7 @@ function App() {
             <Route path="/admin/order-list" element={<AdminHome />} />
 
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
 
             {/* 404 page */}
             <Route path="*" element={<PageNotFound />} />

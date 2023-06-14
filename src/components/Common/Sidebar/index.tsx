@@ -3,32 +3,46 @@ import { Link } from "react-router-dom";
 
 const Sidebar = React.memo(() => {
    return (
-      <div className="flex flex-col">
-         <div className="uppercase">hổ trợ khách hàng ▼</div>
+      <div className="flex flex-col px-2">
+         <div className="uppercase text-xl font-bold">hổ trợ khách hàng ▼</div>
          <ul>
-            <li>
-               <Link to="">Về Yay For Kids</Link>
+            <li className="py-2">
+               <Link to="" className="hover:text-blue-500">
+                  Về Yay For Kids
+               </Link>
             </li>
-            <li>
-               <Link to="">Hướng dẫn mua hàng</Link>
+            <li className="py-2">
+               <Link to="" className="hover:text-blue-500">
+                  Hướng dẫn mua hàng
+               </Link>
             </li>
-            <li>
-               <Link to="">Giao hàng và thanh toán</Link>
+            <li className="py-2">
+               <Link to="" className="hover:text-blue-500">
+                  Giao hàng và thanh toán
+               </Link>
             </li>
-            <li>
-               <Link to="">Câu hỏi thường gặp</Link>
+            <li className="py-2">
+               <Link to="" className="hover:text-blue-500">
+                  Câu hỏi thường gặp
+               </Link>
             </li>
-            <li>
-               <Link to="">Điều khoản dịch vụ</Link>
+            <li className="py-2">
+               <Link to="" className="hover:text-blue-500">
+                  Điều khoản dịch vụ
+               </Link>
             </li>
          </ul>
-         <div className="uppercase">chính sách ▼</div>
+         <div className="uppercase text-xl font-bold mt-3">chính sách ▼</div>
          <ul>
-            <li>
-               <Link to="">Đổi trả bảo hành</Link>
+            <li className="py-2">
+               <Link to="" className="hover:text-blue-500">
+                  Đổi trả bảo hành
+               </Link>
             </li>
-            <li>
-               <Link to="">Bảo mật</Link>
+            <li className="py-2">
+               <Link to="" className="hover:text-blue-500">
+                  Bảo mật
+               </Link>
             </li>
          </ul>
       </div>
