@@ -1,200 +1,153 @@
 import React, { useCallback } from "react";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
+import { callApi } from "../../../../api/callApi/callApi";
 import { validationSchema } from "./validations";
-import "./register-form.css";
-import { FormikInputTypes } from "./types";
 
-const RegisterFrom = React.memo(() => {
-   const initValues = {
-      name: "",
-      phone: "",
-      address: "",
+type FormikValueType = {
+   email: string;
+   password: string;
+   confirmPwd: string;
+};
+
+const LoginForm = React.memo(() => {
+   const initValueFormik: FormikValueType = {
       email: "",
       password: "",
       confirmPwd: "",
    };
 
-   const onSubmit = useCallback(async (formikValue: FormikInputTypes) => {
-      return formikValue;
+   const onSubmit = useCallback(async (formikValues: FormikValueType) => {
+      try {
+         const payload = {
+            username: formikValues.email || "",
+            password: formikValues.password || "",
+            roleId: 1
+         };
+         const response = await callApi("users", "post", payload).catch((err) =>
+            console.log({ err })
+         );
+
+         if (response) {
+            alert("Login success");
+         } else {
+            alert("Login fail");
+         }
+      } catch (error) {
+         console.log({ error });
+      }
    }, []);
 
    const formikBag = useFormik({
-      initialValues: initValues,
+      initialValues: initValueFormik,
       validationSchema,
-      onSubmit: (values) => onSubmit(values),
+      onSubmit: (value) => onSubmit(value),
    });
 
    return (
-      <div className="div-contai">
-         <form
-            onSubmit={formikBag.handleSubmit}
-            className="w-3/4 dark:bg-gray-700 div-register rounded-lg"
-         >
-            <div className="font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-10 uppercase text-center text-3xl">
-               SIGN UP
+      <div className="div-contai w-1/3 bg-white my-10 rounded-lg shadow">
+         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white uppercase text-center">
+               đăng ký tài khoản
             </div>
-            <div className="grid gap-6 mb-6 md:grid-cols-2">
-               <div>
-                  <label
-                     htmlFor="first_name"
-                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                     First name
-                  </label>
-                  <input
-                     type="text"
-                     id="first_name"
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     placeholder="John"
-                  />
-               </div>
-               <div>
-                  <label
-                     htmlFor="last_name"
-                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                     Last name
-                  </label>
-                  <input
-                     type="text"
-                     id="last_name"
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     placeholder="Doe"
-                  />
-               </div>
-               <div>
-                  <label
-                     htmlFor="company"
-                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                     Company
-                  </label>
-                  <input
-                     type="text"
-                     id="company"
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     placeholder="Flowbite"
-                  />
-               </div>
-               <div>
-                  <label
-                     htmlFor="phone"
-                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                     Phone number
-                  </label>
-                  <input
-                     type="tel"
-                     id="phone"
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     placeholder="123-45-678"
-                     pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                  />
-               </div>
-               <div>
-                  <label
-                     htmlFor="website"
-                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                     Website URL
-                  </label>
-                  <input
-                     type="url"
-                     id="website"
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     placeholder="flowbite.com"
-                  />
-               </div>
-               <div>
-                  <label
-                     htmlFor="visitors"
-                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                     Unique visitors (per month)
-                  </label>
-                  <input
-                     type="number"
-                     id="visitors"
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     placeholder=""
-                  />
-               </div>
-            </div>
-            <div className="mb-6">
-               <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-               >
-                  Email address
-               </label>
-               <input
-                  type="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="john.doe@company.com"
-               />
-            </div>
-            <div className="mb-6">
-               <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-               >
-                  Password
-               </label>
-               <input
-                  type="password"
-                  id="password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="•••••••••"
-               />
-            </div>
-            <div className="mb-6">
-               <label
-                  htmlFor="confirm_password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-               >
-                  Confirm password
-               </label>
-               <input
-                  type="password"
-                  id="confirm_password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="•••••••••"
-               />
-            </div>
-            <div className="flex items-start mb-6">
-               <div className="flex items-center h-5">
-                  <input
-                     id="remember"
-                     type="checkbox"
-                     defaultValue=""
-                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                  />
-               </div>
-               <label
-                  htmlFor="remember"
-                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-               >
-                  I agree with the{" "}
-                  <Link
-                     to="#"
-                     className="text-blue-600 hover:underline dark:text-blue-500 underline"
-                  >
-                     terms and conditions
-                  </Link>
-                  .
-               </label>
-            </div>
-            <button
-               type="submit"
-               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-100"
+            <form
+               className="space-y-4 md:space-y-6"
+               onSubmit={formikBag.handleSubmit}
             >
-               Submit
-            </button>
-         </form>
+               <div>
+                  <label
+                     htmlFor="email"
+                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                     Email:
+                  </label>
+                  <input
+                     type="email"
+                     name="email"
+                     id="email"
+                     className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
+                        formikBag.errors.email &&
+                        formikBag.touched.email &&
+                        "bg-yellow"
+                     }`}
+                     placeholder="Enter username"
+                     value={formikBag.values.email || ""}
+                     onChange={formikBag.handleChange}
+                  />
+                  {formikBag.errors.email && formikBag.touched.email && (
+                     <span className="text-red-800">
+                        {formikBag.errors.email}
+                     </span>
+                  )}
+               </div>
+               <div>
+                  <label
+                     htmlFor="password"
+                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                     Mật khẩu:
+                  </label>
+                  <input
+                     type="password"
+                     name="password"
+                     id="password"
+                     placeholder="Enter password"
+                     className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
+                        formikBag.errors.password &&
+                        formikBag.touched.password &&
+                        "bg-yellow"
+                     }`}
+                     value={formikBag.values.password || ""}
+                     onChange={formikBag.handleChange}
+                  />
+                  {formikBag.errors.password && formikBag.touched.password && (
+                     <span className="text-red-800">
+                        {formikBag.errors.password}
+                     </span>
+                  )}
+               </div>
+               <div>
+                  <label
+                     htmlFor="password"
+                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                     Xác nhận mật khẩu:
+                  </label>
+                  <input
+                     type="password"
+                     name="confirmPwd"
+                     id="confirmPwd"
+                     placeholder="Enter confirm password"
+                     className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
+                        formikBag.errors.password &&
+                        formikBag.touched.password &&
+                        "bg-yellow"
+                     }`}
+                     value={formikBag.values.password || ""}
+                     onChange={formikBag.handleChange}
+                  />
+                  {formikBag.errors.password && formikBag.touched.password && (
+                     <span className="text-red-800">
+                        {formikBag.errors.password}
+                     </span>
+                  )}
+               </div>
+               <button
+                  type="submit"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full"
+               >
+                  Đăng ký
+               </button>
+               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Nếu bạn đã có tài khoản?{" "}
+                  <Link to="/login" className="font-medium underline">
+                     Đăng nhập
+                  </Link>
+               </p>
+            </form>
+         </div>
       </div>
    );
 });
 
-export default RegisterFrom;
+export default LoginForm;
