@@ -41,47 +41,66 @@ export const Footer = () => {
                      <div className="flex mt-1 items-center">
                         <div className="text-3xl">📞</div>
                         <div className="flex flex-col font-bold ps-4">
-                           <div>0123456789</div>
-                           <div>0123456789</div>
+                           <Link
+                              to="tel:0123456789"
+                              className="hover:text-blue-500"
+                           >
+                              0123456789
+                           </Link>
+                           <Link
+                              to="tel:0123456789"
+                              className="hover:text-blue-500"
+                           >
+                              0123456789
+                           </Link>
                         </div>
                      </div>
                      <div className="flex mt-1 items-center">
                         <div className="text-3xl flex items-center">✉️</div>
-                        <div className="ps-4 pt-1">dtnhan@gmail.com</div>
+                        <Link
+                           to="mailto:dtnhan@gmail.com"
+                           className="hover:text-blue-500 ps-4 pt-1"
+                        >
+                           dtnhan@gmail.com
+                        </Link>
                      </div>
                      <div className="flex mt-1 items-center">
                         <div className="text-3xl">🗺️</div>
-                        <div className="flex flex-col ps-4">
-                           29A Nguyễn Gia Trí, phường 25, quận Bình Thạnh,
-                           TP.HCM
-                        </div>
+                        <Link
+                           className="flex flex-col ps-4 hover:text-blue-500"
+                           to="https://goo.gl/maps/ZoCGsEcjkwhWkw9R6"
+                           target="_blank"
+                        >
+                           475A Điện Biên Phủ, Phường 25, Bình Thạnh, Thành phố
+                           Hồ Chí Minh
+                        </Link>
                      </div>
                   </div>
                   <div className="flex flex-col w-1/4 ps-10 pe-5">
                      <div className="font-bold uppercase mb-3">thông tin</div>
                      <ul>
                         <li className="py-2">
-                           <Link to="" className="hover:text-orange-800">
+                           <Link to="" className="hover:text-blue-500">
                               Về Yay for Kids
                            </Link>
                         </li>
                         <li className="py-2">
-                           <Link to="" className="hover:text-orange-800">
+                           <Link to="" className="hover:text-blue-500">
                               Hướng dẫn mua hàng
                            </Link>
                         </li>
                         <li className="py-2">
-                           <Link to="" className="hover:text-orange-800">
+                           <Link to="" className="hover:text-blue-500">
                               Giao hàng & thanh toán
                            </Link>
                         </li>
                         <li className="py-2">
-                           <Link to="" className="hover:text-orange-800">
+                           <Link to="" className="hover:text-blue-500">
                               Câu hỏi thường gặp
                            </Link>
                         </li>
                         <li className="py-2">
-                           <Link to="" className="hover:text-orange-800">
+                           <Link to="" className="hover:text-blue-500">
                               Điều khoản dịch vụ
                            </Link>
                         </li>
@@ -91,12 +110,12 @@ export const Footer = () => {
                      <div className="font-bold uppercase mb-3">chính sách</div>
                      <ul>
                         <li className="py-2">
-                           <Link to="" className="hover:text-orange-800">
+                           <Link to="" className="hover:text-blue-500">
                               Đổi trả bảo hành
                            </Link>
                         </li>
                         <li>
-                           <Link to="" className="hover:text-orange-800">
+                           <Link to="" className="hover:text-blue-500">
                               Bảo mật
                            </Link>
                         </li>

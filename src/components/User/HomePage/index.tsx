@@ -1,14 +1,19 @@
-import { Link } from "react-router-dom";
+import Banner from "./banner";
+import BaseOnAge from "./base-on-age";
+import BaseOnBranch from "./base-on-branch";
+import BaseOnSkill from "./base-on-skill";
+import Content1 from "./content1";
+import NewProducts from "./new-products";
 
 export const HomePage = () => {
    return (
-      <div className="div-contai text-dark">
-         <Link
-            to="/admin"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-         >
-            To Admin Page
-         </Link>
+      <div className="div-contai">
+         <Banner />
+         <Content1 />
+         <NewProducts />
+         <BaseOnAge />
+         <BaseOnSkill />
+         <BaseOnBranch />
       </div>
    );
 };
