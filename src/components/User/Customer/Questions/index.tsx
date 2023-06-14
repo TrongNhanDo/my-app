@@ -1,7 +1,7 @@
 import React from "react";
-import Sidebar from "../../Common/Sidebar";
+import Sidebar from "../../../Common/Sidebar";
 
-const About = React.memo(() => {
+const QuestionsFrequently = React.memo(() => {
    return (
       <div className="div-contai flex mt-5">
          <div className="w-1/4">
@@ -9,7 +9,7 @@ const About = React.memo(() => {
          </div>
          <div className="w-3/4 bg-white rounded p-4">
             <div className="uppercase text-2xl font-bold text-center">
-               giới thiệu về dtn shop
+               câu hỏi thường xuyên
             </div>
             <div className="flex mt-5">Nội dung đang được cập nhật</div>
          </div>
@@ -17,4 +17,4 @@ const About = React.memo(() => {
    );
 });
 
-export default About;
+export default QuestionsFrequently;

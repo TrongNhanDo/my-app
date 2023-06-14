@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { checkIsAdmin } from "./logics";
+import { checkIsAdmin } from "../../../Common/Logic/logics";
 
 const Header = React.memo(() => {
    const currentPathname = useLocation().pathname;

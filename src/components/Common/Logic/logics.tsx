@@ -27,3 +27,11 @@ export const delay = (time: number) => {
 export const scrollTop = () => {
    window.scrollTo(0, 0);
 };
+
+export const checkIsAdmin = (pathname: string) => {
+   if (pathname && pathname.includes("admin")) {
+      return true;
+   }
+
+   return false;
+};
