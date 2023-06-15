@@ -14,8 +14,8 @@ export const formatCurrency = (
    return (
       <Currency
          value={parseFloat(money.toString()) || 0}
-         currency={currency || "USD"}
-         locale={locale || "en-US"}
+         currency={currency || "VND"}
+         locale={locale || "vi"}
       />
    );
 };
@@ -34,4 +34,25 @@ export const checkIsAdmin = (pathname: string) => {
    }
 
    return false;
+};
+
+export const renderStar = (rate: number) => {
+   const stars = [];
+   for (let index = 1; index <= 5; index++) {
+      stars.push(
+         <button
+            key={index}
+            type="button"
+            className="w-fit inline-block"
+            disabled={true}
+         >
+            {index <= rate ? (
+               <i className="fa-solid fa-star" style={{ color: "#d2d51a" }}></i>
+            ) : (
+               <i className="fa-regular fa-star"></i>
+            )}
+         </button>
+      );
+   }
+   return stars;
 };

@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { callApi } from "../../../api/callApi/callApi";
 import { DataPropsType, ProductType } from "./types";
-import { formatCurrency, scrollTop } from "../../Common/Logic/logics";
+import {
+   formatCurrency,
+   renderStar,
+   scrollTop,
+} from "../../Common/Logic/logics";
 import Loader from "../../Common/Loader/loader";
 
 const UserProductList = React.memo(() => {
@@ -46,10 +51,10 @@ const UserProductList = React.memo(() => {
                <button
                   key={index}
                   type="button"
-                  className={`focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ${
+                  className={`focus:outline-none text-white focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ${
                      isCurrentPage
                         ? "bg-gray-400 cursor-not-allowed"
-                        : "hover:bg-green-800"
+                        : "hover:bg-green-800 bg-green-700"
                   }`}
                   onClick={() => changePage(dataPerPage, index)}
                   disabled={isCurrentPage}
@@ -66,38 +71,17 @@ const UserProductList = React.memo(() => {
       fetchApi();
    }, [fetchApi]);
 
-   const renderStar = useCallback((rate: number) => {
-      const stars = [];
-      for (let index = 1; index <= 5; index++) {
-         stars.push(
-            <button
-               key={index}
-               type="button"
-               className="w-fit inline-block"
-               disabled={true}
-            >
-               {index <= rate ? (
-                  <i
-                     className="fa-solid fa-star"
-                     style={{ color: "#d2d51a" }}
-                  ></i>
-               ) : (
-                  <i className="fa-regular fa-star"></i>
-               )}
-            </button>
-         );
-      }
-      return stars || [];
-   }, []);
-
    return (
-      <div className="div-contai">
+      <div className="div-contai mt-5">
          {showLoading && <Loader />}
          {viewData && viewData.products && viewData.products.length ? (
             <>
                {viewData.products.map((value: ProductType, index: number) => (
                   <div className="w-1/4 inline-block p-4" key={index}>
-                     <div className="flex flex-col w-full bg-white p-4 rounded border-solid border-2 border-gray-200">
+                     <Link
+                        to={`/product-detail/${value._id}`}
+                        className="flex flex-col w-full bg-white hover:bg-gray-100 p-4 rounded border-solid border-2 border-gray-200"
+                     >
                         <img
                            src={
                               value.images && value.images[0]
@@ -118,22 +102,13 @@ const UserProductList = React.memo(() => {
                                  : ""}
                            </span>
                         </div>
-                        <div className="text-center font-bold text-xl text-orange-800">
-                           {value.price
-                              ? formatCurrency(value.price, "VND", "vi")
-                              : "0"}
-                        </div>
                         <div className="flex justify-center">
-                           {renderStar && renderStar.length ? (
-                              renderStar(value.rate || 0)
-                           ) : (
-                              <span>Chưa có lượt đánh giá</span>
-                           )}
+                           {renderStar(value.rate || 0)} {"(0)"}
                         </div>
-                        <button className="block w-full bg-blue-400 rounded py-1 mt-3 hover:bg-blue-500">
-                           Chi tiết sản phẩm
-                        </button>
-                     </div>
+                        <div className="text-center font-bold text-xl text-orange-800">
+                           {value.price ? formatCurrency(value.price) : "0"}
+                        </div>
+                     </Link>
                   </div>
                ))}
                <div className="flex w-full justify-center mt-3">
