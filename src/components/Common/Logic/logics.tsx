@@ -7,13 +7,13 @@ export const formatDate = (inputDate: string) => {
 };
 
 export const formatCurrency = (
-   money: number,
+   money: number | string,
    currency?: string,
    locale?: string
 ) => {
    return (
       <Currency
-         value={money || 0}
+         value={parseFloat(money.toString()) || 0}
          currency={currency || "USD"}
          locale={locale || "en-US"}
       />

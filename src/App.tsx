@@ -33,6 +33,7 @@ import Policy from "./components/User/Customer/Policy";
 import Warranty from "./components/User/Customer/Warranty";
 import Security from "./components/User/Customer/Security";
 import DeliveryPayment from "./components/User/Customer/DeliveryPayment";
+import UserProductList from "./components/User/Product/product-list";
 
 function App() {
    return (
@@ -101,6 +102,7 @@ function App() {
             <Route path="/warranty" element={<Warranty />} />
             <Route path="/security" element={<Security />} />
             <Route path="/delivery-and-payment" element={<DeliveryPayment />} />
+            <Route path="/product-list" element={<UserProductList />} />
 
             {/* 404 page */}
             <Route path="*" element={<PageNotFound />} />
