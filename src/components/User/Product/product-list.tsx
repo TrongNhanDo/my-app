@@ -86,7 +86,7 @@ const UserProductList = React.memo(() => {
                            src={
                               value.images && value.images[0]
                                  ? value.images[0]
-                                 : "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+                                 : import.meta.env.VITE_IMAGE_NOT_FOUND || ""
                            }
                            alt=""
                            className="w-full h-52 object-cover rounded"

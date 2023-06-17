@@ -36,22 +36,35 @@ const UserProductDetail = React.memo(() => {
          {showLoading && <Loader />}
          <div className="flex w-full">
             <div className="w-2/12 pe-5">
-               {viewData &&
-                  viewData.images &&
+               {viewData && viewData.images.length ? (
                   viewData.images.map((value: string, index: number) => {
                      return (
                         <img
                            key={index}
-                           src={value || ""}
+                           src={
+                              value ||
+                              import.meta.env.VITE_IMAGE_NOT_FOUND ||
+                              ""
+                           }
                            alt=""
                            className="w-full h-auto object-cover rounded"
                         />
                      );
-                  })}
+                  })
+               ) : (
+                  <img
+                     src={import.meta.env.VITE_IMAGE_NOT_FOUND || ""}
+                     alt=""
+                  />
+               )}
             </div>
             <div className="w-5/12">
                <img
-                  src={viewData && viewData.images[0] ? viewData.images[0] : ""}
+                  src={
+                     viewData && viewData.images[0]
+                        ? viewData.images[0]
+                        : import.meta.env.VITE_IMAGE_NOT_FOUND || ""
+                  }
                   alt=""
                   className="w-full h-auto object-cover rounded"
                />
@@ -67,7 +80,7 @@ const UserProductDetail = React.memo(() => {
                      : ""}
                </div>
                <div className="text-2xl font-bold mt-3">
-                  {viewData ? formatCurrency(viewData.price) : ""}
+                  {viewData ? formatCurrency(viewData.price || 0) : ""}
                </div>
                <div className="flex mt-3">
                   <div>{renderStar(viewData?.rate || 0)}</div>
@@ -121,8 +134,9 @@ const UserProductDetail = React.memo(() => {
          </div>
          <div className="flex flex-col w-full mt-20">
             <div className="text-xl font-bold">Mô tả sản phẩm</div>
-            <div className="mt-4">Đây là mô tả về sản phẩm ở trên</div>
-            <div className="mt-3">...</div>
+            <div className="mt-4">
+               {viewData && viewData.describes ? viewData.describes : ""}
+            </div>
          </div>
       </div>
    );
