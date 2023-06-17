@@ -1,20 +1,11 @@
 import React, { useCallback } from "react";
-import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
 import { validationSchema } from "./validations";
-
-type FormikValueType = {
-   email: string;
-   password: string;
-};
+import { FormikValueType, initValueFormik } from "./types";
 
 const LoginForm = React.memo(() => {
-   const initValueFormik: FormikValueType = {
-      email: "",
-      password: "",
-   };
-
    const onSubmit = useCallback(async (formikValues: FormikValueType) => {
       try {
          const payload = {
