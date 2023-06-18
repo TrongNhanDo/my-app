@@ -27,31 +27,57 @@ const UserProductDetail = React.memo(() => {
       setShowLoading(false);
    }, [productId, navigate]);
 
+   const handleSubmit = useCallback(() => {
+      console.log({
+         productId: productId,
+         amount: amountNum,
+      });
+   }, [amountNum, productId]);
+
    useEffect(() => {
       fetchApi();
    }, [fetchApi]);
+
+   useEffect(() => {
+      if (!productId) {
+         navigate(-1);
+      }
+   }, [productId, navigate, viewData]);
 
    return (
       <div className="div-contai flex flex-col my-5 bg-white p-5 rounded">
          {showLoading && <Loader />}
          <div className="flex w-full">
             <div className="w-2/12 pe-5">
-               {viewData &&
-                  viewData.images &&
+               {viewData && viewData.images.length ? (
                   viewData.images.map((value: string, index: number) => {
                      return (
                         <img
                            key={index}
-                           src={value || ""}
+                           src={
+                              value ||
+                              import.meta.env.VITE_IMAGE_NOT_FOUND ||
+                              ""
+                           }
                            alt=""
                            className="w-full h-auto object-cover rounded"
                         />
                      );
-                  })}
+                  })
+               ) : (
+                  <img
+                     src={import.meta.env.VITE_IMAGE_NOT_FOUND || ""}
+                     alt=""
+                  />
+               )}
             </div>
             <div className="w-5/12">
                <img
-                  src={viewData && viewData.images[0] ? viewData.images[0] : ""}
+                  src={
+                     viewData && viewData.images[0]
+                        ? viewData.images[0]
+                        : import.meta.env.VITE_IMAGE_NOT_FOUND || ""
+                  }
                   alt=""
                   className="w-full h-auto object-cover rounded"
                />
@@ -67,22 +93,31 @@ const UserProductDetail = React.memo(() => {
                      : ""}
                </div>
                <div className="text-2xl font-bold mt-3">
-                  {viewData ? formatCurrency(viewData.price) : ""}
+                  {viewData ? formatCurrency(viewData.price || 0) : ""}
                </div>
                <div className="flex mt-3">
-                  <div>{renderStar(viewData?.rate || 0)}</div>
+                  <div>
+                     {renderStar(viewData && viewData.rate ? viewData.rate : 0)}
+                  </div>
                   <div className="underline mx-2">0</div>
                   nhận xét
                </div>
                <div className="flex mt-5">
                   <button
-                     className="bg-orange-400 p-1 rounded hover:bg-orange-200"
+                     type="button"
+                     className={`bg-orange-400 p-1 rounded ${
+                        amountNum <= 1
+                           ? "cursor-not-allowed"
+                           : "hover:bg-orange-200"
+                     }`}
                      onClick={() => setAmountNum(amountNum - 1)}
+                     disabled={amountNum <= 1}
                   >
                      ➖
                   </button>
                   <span className="text-xl font-bold mx-3">{amountNum}</span>
                   <button
+                     type="button"
                      className="bg-orange-400 p-1 rounded hover:bg-orange-200"
                      onClick={() => setAmountNum(amountNum + 1)}
                   >
@@ -90,10 +125,17 @@ const UserProductDetail = React.memo(() => {
                   </button>
                </div>
                <div className="flex mt-10">
-                  <button className="block bg-orange-200 hover:bg-orange-400 py-1 px-5 rounded">
+                  <button
+                     type="button"
+                     className="block bg-orange-200 hover:bg-orange-400 py-1 px-5 rounded"
+                     onClick={handleSubmit}
+                  >
                      Thêm vào giỏ hàng
                   </button>
-                  <button className="block bg-orange-400 hover:bg-orange-200 py-1 px-5 rounded ms-5">
+                  <button
+                     type="button"
+                     className="block bg-orange-400 hover:bg-orange-200 py-1 px-5 rounded ms-5"
+                  >
                      Mua ngay
                   </button>
                </div>
@@ -121,8 +163,9 @@ const UserProductDetail = React.memo(() => {
          </div>
          <div className="flex flex-col w-full mt-20">
             <div className="text-xl font-bold">Mô tả sản phẩm</div>
-            <div className="mt-4">Đây là mô tả về sản phẩm ở trên</div>
-            <div className="mt-3">...</div>
+            <div className="mt-4">
+               {viewData && viewData.describes ? viewData.describes : ""}
+            </div>
          </div>
       </div>
    );
