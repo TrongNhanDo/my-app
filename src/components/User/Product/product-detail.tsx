@@ -11,6 +11,7 @@ const UserProductDetail = React.memo(() => {
    const [showLoading, setShowLoading] = useState<boolean>(true);
    const [viewData, setViewData] = useState<ProductType>();
    const [amountNum, setAmountNum] = useState<number>(1);
+   const [mainImage, setMainImage] = useState<string>();
 
    const fetchApi = useCallback(async () => {
       const url = `products/${productId}`;
@@ -44,6 +45,12 @@ const UserProductDetail = React.memo(() => {
       }
    }, [productId, navigate, viewData]);
 
+   useEffect(() => {
+      if (viewData && viewData.images && viewData.images[0]) {
+         setMainImage(viewData.images[0]);
+      }
+   }, [viewData]);
+
    return (
       <div className="div-contai flex flex-col my-5 bg-white p-5 rounded">
          {showLoading && <Loader />}
@@ -60,7 +67,10 @@ const UserProductDetail = React.memo(() => {
                               ""
                            }
                            alt=""
-                           className="w-full h-auto object-cover rounded"
+                           className={`w-full h-36 object-cover rounded mb-2 border-solid border-2 border-gray-200 ${
+                              value === mainImage ? "cursor-not-allowed" : ""
+                           }`}
+                           onClick={() => setMainImage(value)}
                         />
                      );
                   })
@@ -73,11 +83,7 @@ const UserProductDetail = React.memo(() => {
             </div>
             <div className="w-5/12">
                <img
-                  src={
-                     viewData && viewData.images[0]
-                        ? viewData.images[0]
-                        : import.meta.env.VITE_IMAGE_NOT_FOUND || ""
-                  }
+                  src={mainImage || import.meta.env.VITE_IMAGE_NOT_FOUND}
                   alt=""
                   className="w-full h-auto object-cover rounded"
                />
