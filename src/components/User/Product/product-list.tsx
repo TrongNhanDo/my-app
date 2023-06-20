@@ -102,7 +102,23 @@ const UserProductList = React.memo(() => {
                                  : ""}
                            </span>
                         </div>
-                        <div className="flex justify-center">
+                        <div className="text-center my-1">
+                           Age:{" "}
+                           <span className="font-bold">
+                              {value.age && value.age.ageName
+                                 ? value.age.ageName
+                                 : ""}
+                           </span>
+                        </div>
+                        <div className="text-center">
+                           Skill:{" "}
+                           <span className="font-bold">
+                              {value.skill && value.skill.skillName
+                                 ? value.skill.skillName
+                                 : ""}
+                           </span>
+                        </div>
+                        <div className="flex justify-center my-1">
                            {renderStar(value.rate || 0)} {"(0)"}
                         </div>
                         <div className="text-center font-bold text-xl text-orange-800">
