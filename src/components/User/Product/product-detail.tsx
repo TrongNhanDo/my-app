@@ -1,16 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callApi } from "../../../api/callApi/callApi";
-import { ProductType } from "./types";
+import { FormikProps, ProductType } from "./types";
 import Loader from "../../Common/Loader/loader";
 import { formatCurrency, renderStar } from "../../Common/Logic/logics";
+import { useFormik } from "formik";
+import { validationSchema } from "./validations";
 
 const UserProductDetail = React.memo(() => {
    const { productId } = useParams();
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(true);
    const [viewData, setViewData] = useState<ProductType>();
-   const [amountNum, setAmountNum] = useState<number>(1);
    const [mainImage, setMainImage] = useState<string>();
 
    const fetchApi = useCallback(async () => {
@@ -28,16 +29,42 @@ const UserProductDetail = React.memo(() => {
       setShowLoading(false);
    }, [productId, navigate]);
 
-   const handleSubmit = useCallback(() => {
-      console.log({
-         productId: productId,
-         amount: amountNum,
-      });
-   }, [amountNum, productId]);
+   const onSubmit = useCallback(async (formikBagValues: FormikProps) => {
+      try {
+         setShowLoading(true);
+         const fetchApi = await callApi("carts", "post", formikBagValues).catch(
+            (err) => console.log({ err })
+         );
 
-   useEffect(() => {
-      fetchApi();
-   }, [fetchApi]);
+         setShowLoading(false);
+         if (fetchApi) {
+            alert("Đã thêm vào giỏ hàng");
+         } else {
+            alert("Thêm vào giỏ hàng lỗi");
+         }
+      } catch (error) {
+         console.log({ error });
+      }
+   }, []);
+
+   const formikBag = useFormik({
+      initialValues: {
+         userId: "",
+         productId: "",
+         price: "",
+         amount: "",
+      },
+      validationSchema,
+      onSubmit: (value) => onSubmit(value),
+   });
+
+   const handleSubmit = useCallback(() => {
+      try {
+         formikBag.submitForm();
+      } catch (error) {
+         console.log({ error });
+      }
+   }, [formikBag]);
 
    useEffect(() => {
       if (!productId) {
@@ -46,9 +73,23 @@ const UserProductDetail = React.memo(() => {
    }, [productId, navigate, viewData]);
 
    useEffect(() => {
+      fetchApi();
+   }, [fetchApi]);
+
+   useEffect(() => {
       if (viewData && viewData.images && viewData.images[0]) {
          setMainImage(viewData.images[0]);
       }
+   }, [viewData]);
+
+   useEffect(() => {
+      if (viewData) {
+         formikBag.setFieldValue("userId", "123123123");
+         formikBag.setFieldValue("productId", viewData._id || "");
+         formikBag.setFieldValue("price", viewData.price || "");
+         formikBag.setFieldValue("amount", 1);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [viewData]);
 
    return (
@@ -89,62 +130,78 @@ const UserProductDetail = React.memo(() => {
                />
             </div>
             <div className="w-5/12 px-10 flex flex-col">
-               <div className="text-2xl font-bold line-clamp-3">
-                  {viewData ? viewData.productName : ""}
-               </div>
-               <div className="text-xl mt-3 font-bold line-clamp-3">
-                  Thương hiệu:{" "}
-                  {viewData && viewData.branch
-                     ? viewData.branch.branchName
-                     : ""}
-               </div>
-               <div className="text-2xl font-bold mt-3">
-                  {viewData ? formatCurrency(viewData.price || 0) : ""}
-               </div>
-               <div className="flex mt-3">
-                  <div>
-                     {renderStar(viewData && viewData.rate ? viewData.rate : 0)}
+               <form onSubmit={formikBag.handleSubmit}>
+                  <input
+                     type="hidden"
+                     name="userId"
+                     id="userId"
+                     value={formikBag.values.userId || ""}
+                     onChange={formikBag.handleChange}
+                  />
+                  <input
+                     type="hidden"
+                     name="productId"
+                     id="productId"
+                     value={formikBag.values.productId || ""}
+                     onChange={formikBag.handleChange}
+                  />
+                  <input
+                     type="hidden"
+                     name="price"
+                     id="price"
+                     value={formikBag.values.price || ""}
+                     onChange={formikBag.handleChange}
+                  />
+
+                  <div className="text-2xl font-bold line-clamp-3">
+                     {viewData ? viewData.productName : ""}
                   </div>
-                  <div className="underline mx-2">0</div>
-                  nhận xét
-               </div>
-               <div className="flex mt-5">
-                  <button
-                     type="button"
-                     className={`bg-orange-400 p-1 rounded ${
-                        amountNum <= 1
-                           ? "cursor-not-allowed"
-                           : "hover:bg-orange-200"
-                     }`}
-                     onClick={() => setAmountNum(amountNum - 1)}
-                     disabled={amountNum <= 1}
-                  >
-                     ➖
-                  </button>
-                  <span className="text-xl font-bold mx-3">{amountNum}</span>
-                  <button
-                     type="button"
-                     className="bg-orange-400 p-1 rounded hover:bg-orange-200"
-                     onClick={() => setAmountNum(amountNum + 1)}
-                  >
-                     ➕
-                  </button>
-               </div>
-               <div className="flex mt-10">
-                  <button
-                     type="button"
-                     className="block bg-orange-200 hover:bg-orange-400 py-1 px-5 rounded"
-                     onClick={handleSubmit}
-                  >
-                     Thêm vào giỏ hàng
-                  </button>
-                  <button
-                     type="button"
-                     className="block bg-orange-400 hover:bg-orange-200 py-1 px-5 rounded ms-5"
-                  >
-                     Mua ngay
-                  </button>
-               </div>
+                  <div className="text-xl mt-3 font-bold line-clamp-3">
+                     Thương hiệu:{" "}
+                     {viewData && viewData.branch
+                        ? viewData.branch.branchName
+                        : ""}
+                  </div>
+                  <div className="text-2xl font-bold mt-3">
+                     {viewData ? formatCurrency(viewData.price || 0) : ""}
+                  </div>
+                  <div className="flex mt-3">
+                     <div>
+                        {renderStar(
+                           viewData && viewData.rate ? viewData.rate : 0
+                        )}
+                     </div>
+                     <div className="underline mx-2">0</div>
+                     nhận xét
+                  </div>
+                  <div className="flex mt-5 items-center">
+                     Số lượng:
+                     <input
+                        type="number"
+                        name="amount"
+                        id="amount"
+                        className="ms-5 px-4 py-2 rounded border-solid border-2 border-gray-200 font-bold text-xl w-24"
+                        min={1}
+                        value={formikBag.values.amount || ""}
+                        onChange={formikBag.handleChange}
+                     />
+                  </div>
+                  <div className="flex mt-10">
+                     <button
+                        type="button"
+                        className="block bg-orange-200 hover:bg-orange-400 py-1 px-5 rounded"
+                        onClick={handleSubmit}
+                     >
+                        Thêm vào giỏ hàng
+                     </button>
+                     <button
+                        type="button"
+                        className="block bg-orange-400 hover:bg-orange-200 py-1 px-5 rounded ms-5"
+                     >
+                        Mua ngay
+                     </button>
+                  </div>
+               </form>
                <div className="mt-10">
                   <div className="text-xl font-bold ">
                      ĐĂNG KÝ NHẬN THÔNG BÁO KHI MÓN HÀNG NÀY QUAY TRỞ LẠI

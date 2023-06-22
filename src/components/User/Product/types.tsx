@@ -47,3 +47,10 @@ export type DataPropsType = {
    totalPage: number;
    products: ProductType[];
 };
+
+export type FormikProps = {
+   userId: string;
+   productId: string;
+   price: string;
+   amount: string;
+};

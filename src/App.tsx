@@ -35,6 +35,7 @@ import Security from "./components/User/Customer/Security";
 import DeliveryPayment from "./components/User/Customer/DeliveryPayment";
 import UserProductList from "./components/User/Product/product-list";
 import UserProductDetail from "./components/User/Product/product-detail";
+import CartList from "./components/User/Cart";
 
 function App() {
    return (
@@ -108,6 +109,7 @@ function App() {
                path="/product-detail/:productId"
                element={<UserProductDetail />}
             />
+            <Route path="/carts" element={<CartList />} />
 
             {/* 404 page */}
             <Route path="*" element={<PageNotFound />} />
