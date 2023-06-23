@@ -84,7 +84,7 @@ const UserProductDetail = React.memo(() => {
 
    useEffect(() => {
       if (viewData) {
-         formikBag.setFieldValue("userId", "123123123");
+         formikBag.setFieldValue("userId", "64760a06575933907791ab2e");
          formikBag.setFieldValue("productId", viewData._id || "");
          formikBag.setFieldValue("price", viewData.price || "");
          formikBag.setFieldValue("amount", 1);

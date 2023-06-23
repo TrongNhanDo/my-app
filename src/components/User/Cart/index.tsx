@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { callApi } from "../../../api/callApi/callApi";
+import { CartItemType } from "./types";
+import { formatCurrency } from "../../Common/Logic/logics";
+import { useFormik } from "formik";
 
 const CartList = React.memo(() => {
+   const [viewData, setViewData] = useState<CartItemType[]>();
+
+   const fetchApi = useCallback(async () => {
+      const response = await callApi("carts/get-by-userId", "post", {
+         userId: "64760a06575933907791ab2e",
+      }).catch((err) => console.log({ err }));
+
+      const data: CartItemType[] = response.data || [];
+      if (data) {
+         setViewData(data);
+      }
+   }, []);
+
+   const onSubmit = useCallback(async (formikValues: any) => {
+      console.log({ formikValues });
+   }, []);
+
+   const formikBag = useFormik({
+      initialValues: {},
+      onSubmit: (value) => onSubmit(value),
+   });
+
+   useEffect(() => {
+      fetchApi();
+   }, [fetchApi]);
+
    return (
       <div className="div-contai mx-auto rounded">
          <div className="flex shadow-md my-10">
@@ -25,195 +55,83 @@ const CartList = React.memo(() => {
                   </h3>
                </div>
                <hr />
-               <div className="flex items-center hover:bg-gray-100 py-5">
-                  <div className="flex w-2/5">
-                     <div className="w-20">
-                        <img
-                           className="h-24"
-                           src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z"
-                           alt=""
-                        />
-                     </div>
-                     <div className="flex flex-col justify-between ml-4 flex-grow">
-                        <span className="font-bold text-sm">Iphone 6S</span>
-                        <span className="text-red-500 text-xs">Apple</span>
-                        <Link
-                           to=""
-                           className="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                        >
-                           Remove
-                        </Link>
-                     </div>
-                  </div>
-                  <div className="flex justify-center w-1/5">
-                     <button
-                        type="button"
-                        className="px-2 rounded hover:bg-orange-300"
-                     >
-                        ➖
-                     </button>
-                     <input
-                        className="mx-2 border text-center w-2/5 text-2xl"
-                        type="text"
-                        defaultValue={1}
-                     />
-                     <button
-                        type="button"
-                        className="px-2 rounded hover:bg-orange-300"
-                     >
-                        ➕
-                     </button>
-                  </div>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                     $400.00
-                  </span>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                     $400.00
-                  </span>
-               </div>
-               <hr />
-               <div className="flex items-center hover:bg-gray-100 py-5">
-                  <div className="flex w-2/5">
-                     <div className="w-20">
-                        <img
-                           className="h-24"
-                           src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z"
-                           alt=""
-                        />
-                     </div>
-                     <div className="flex flex-col justify-between ml-4 flex-grow">
-                        <span className="font-bold text-sm">Iphone 6S</span>
-                        <span className="text-red-500 text-xs">Apple</span>
-                        <Link
-                           to=""
-                           className="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                        >
-                           Remove
-                        </Link>
-                     </div>
-                  </div>
-                  <div className="flex justify-center w-1/5">
-                     <button
-                        type="button"
-                        className="px-2 rounded hover:bg-orange-300"
-                     >
-                        ➖
-                     </button>
-                     <input
-                        className="mx-2 border text-center w-2/5 text-2xl"
-                        type="text"
-                        defaultValue={1}
-                     />
-                     <button
-                        type="button"
-                        className="px-2 rounded hover:bg-orange-300"
-                     >
-                        ➕
-                     </button>
-                  </div>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                     $400.00
-                  </span>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                     $400.00
-                  </span>
-               </div>
-               <hr />
-               <div className="flex items-center hover:bg-gray-100 py-5">
-                  <div className="flex w-2/5">
-                     <div className="w-20">
-                        <img
-                           className="h-24"
-                           src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z"
-                           alt=""
-                        />
-                     </div>
-                     <div className="flex flex-col justify-between ml-4 flex-grow">
-                        <span className="font-bold text-sm">Iphone 6S</span>
-                        <span className="text-red-500 text-xs">Apple</span>
-                        <Link
-                           to=""
-                           className="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                        >
-                           Remove
-                        </Link>
-                     </div>
-                  </div>
-                  <div className="flex justify-center w-1/5">
-                     <button
-                        type="button"
-                        className="px-2 rounded hover:bg-orange-300"
-                     >
-                        ➖
-                     </button>
-                     <input
-                        className="mx-2 border text-center w-2/5 text-2xl"
-                        type="text"
-                        defaultValue={1}
-                     />
-                     <button
-                        type="button"
-                        className="px-2 rounded hover:bg-orange-300"
-                     >
-                        ➕
-                     </button>
-                  </div>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                     $400.00
-                  </span>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                     $400.00
-                  </span>
-               </div>
-               <hr />
-               <div className="flex items-center hover:bg-gray-100 py-5">
-                  <div className="flex w-2/5">
-                     <div className="w-20">
-                        <img
-                           className="h-24"
-                           src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z"
-                           alt=""
-                        />
-                     </div>
-                     <div className="flex flex-col justify-between ml-4 flex-grow">
-                        <span className="font-bold text-sm">Iphone 6S</span>
-                        <span className="text-red-500 text-xs">Apple</span>
-                        <Link
-                           to=""
-                           className="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                        >
-                           Remove
-                        </Link>
-                     </div>
-                  </div>
-                  <div className="flex justify-center w-1/5">
-                     <button
-                        type="button"
-                        className="px-2 rounded hover:bg-orange-300"
-                     >
-                        ➖
-                     </button>
-                     <input
-                        className="mx-2 border text-center w-2/5 text-2xl"
-                        type="text"
-                        defaultValue={1}
-                     />
-                     <button
-                        type="button"
-                        className="px-2 rounded hover:bg-orange-300"
-                     >
-                        ➕
-                     </button>
-                  </div>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                     $400.00
-                  </span>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                     $400.00
-                  </span>
-               </div>
-               <hr />
-               <hr />
+               <form onSubmit={formikBag.handleSubmit}>
+                  {viewData &&
+                     viewData.length &&
+                     viewData.map((value: CartItemType) => {
+                        return (
+                           <div key={value._id}>
+                              <div className="flex items-center hover:bg-gray-100 py-5">
+                                 <div className="flex w-2/5">
+                                    <div className="flex w-2/5 items-center">
+                                       <img
+                                          className="h-24 object-cover"
+                                          src={
+                                             value.product &&
+                                             value.product.images.length &&
+                                             value.product.images[0]
+                                                ? value.product.images[0]
+                                                : import.meta.env
+                                                     .VITE_IMAGE_NOT_FOUND
+                                          }
+                                          alt=""
+                                       />
+                                    </div>
+                                    <div className="flex flex-col justify-between ml-4 flex-grow w-3/5">
+                                       <span className="font-bold line-clamp-2">
+                                          {value.product &&
+                                          value.product.productName
+                                             ? value.product.productName
+                                             : ""}
+                                       </span>
+                                       <span className="text-sm">
+                                          {value.product &&
+                                          value.product.branch &&
+                                          value.product.branch &&
+                                          value.product.branch.branchName
+                                             ? value.product.branch.branchName
+                                             : ""}
+                                       </span>
+                                       <span className="text-sm">
+                                          {value.product &&
+                                          value.product.age &&
+                                          value.product.age &&
+                                          value.product.age.ageName
+                                             ? value.product.age.ageName
+                                             : ""}
+                                       </span>
+                                       <span className="text-sm">
+                                          {value.product &&
+                                          value.product.skill &&
+                                          value.product.skill &&
+                                          value.product.skill.skillName
+                                             ? value.product.skill.skillName
+                                             : ""}
+                                       </span>
+                                    </div>
+                                 </div>
+                                 <div className="flex justify-center w-1/5">
+                                    <input
+                                       type="number"
+                                       name="amount"
+                                       id="amount"
+                                       min={1}
+                                       value={value.amount || 1}
+                                       className="ms-5 px-4 py-2 rounded border-solid border-2 border-gray-200 font-bold text-base w-24"
+                                    />
+                                 </div>
+                                 <span className="text-center w-1/5 font-semibold text-sm">
+                                    {formatCurrency("400000")}
+                                 </span>
+                                 <span className="text-center w-1/5 font-semibold text-sm">
+                                    {formatCurrency("400000")}
+                                 </span>
+                              </div>
+                              <hr />
+                           </div>
+                        );
+                     })}
+               </form>
                <Link
                   to="/product-list"
                   className="flex font-bold hover:text-orange-400 text-indigo-600 text-sm mt-4 w-fit"
