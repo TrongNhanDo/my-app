@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { callApi } from "../../../api/callApi/callApi";
 import { CartItemType } from "./types";
@@ -32,13 +32,27 @@ const CartList = React.memo(() => {
       fetchApi();
    }, [fetchApi]);
 
+   const totalProducts = useMemo(() => {
+      if (viewData && viewData.length) {
+         return viewData.reduce((sum, cur) => sum + cur.amount, 0);
+      }
+      return 0;
+   }, [viewData]);
+
+   const totalPrices = useMemo(() => {
+      if (viewData && viewData.length) {
+         return viewData.reduce((sum, cur) => sum + parseFloat(cur.total), 0);
+      }
+      return 0;
+   }, [viewData]);
+
    return (
       <div className="div-contai mx-auto rounded">
          <div className="flex shadow-md my-10">
             <div className="w-3/4 bg-white px-10 py-10">
                <div className="flex justify-between border-b pb-8">
                   <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-                  <h2 className="font-semibold text-2xl">4 Items</h2>
+                  <h2 className="font-semibold text-2xl">{`${totalProducts} Items`}</h2>
                </div>
                <div className="flex mt-10 mb-5">
                   <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
@@ -118,13 +132,14 @@ const CartList = React.memo(() => {
                                        min={1}
                                        value={value.amount || 1}
                                        className="ms-5 px-4 py-2 rounded border-solid border-2 border-gray-200 font-bold text-base w-24"
+                                       onChange={formikBag.handleChange}
                                     />
                                  </div>
                                  <span className="text-center w-1/5 font-semibold text-sm">
-                                    {formatCurrency("400000")}
+                                    {formatCurrency(value.price || 0)}
                                  </span>
                                  <span className="text-center w-1/5 font-semibold text-sm">
-                                    {formatCurrency("400000")}
+                                    {formatCurrency(value.total || 0)}
                                  </span>
                               </div>
                               <hr />
@@ -148,9 +163,11 @@ const CartList = React.memo(() => {
                </h1>
                <div className="flex justify-between mt-10 mb-5">
                   <span className="font-semibold text-sm uppercase">
-                     Items: 3
+                     {`Items: ${totalProducts || 0}`}
                   </span>
-                  <span className="font-semibold text-sm">590$</span>
+                  <span className="font-semibold text-sm">
+                     Total: {formatCurrency(totalPrices || 0)}
+                  </span>
                </div>
                <div>
                   <label className="font-medium inline-block mb-3 text-sm uppercase">
