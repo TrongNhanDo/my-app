@@ -8,6 +8,7 @@ import {
    scrollTop,
 } from "../../Common/Logic/logics";
 import Loader from "../../Common/Loader/loader";
+import SearchForm from "./form-search";
 
 const UserProductList = React.memo(() => {
    const [searchParams] = useSearchParams();
@@ -35,9 +36,7 @@ const UserProductList = React.memo(() => {
          ...queryParams,
       }).catch((err) => console.log({ err }));
       const data: DataPropsType = response.data || [];
-      if (data && data.returnCnt) {
-         setViewData(data);
-      }
+      setViewData(data);
       setShowLoading(false);
       scrollTop();
    }, [dataPerPage, queryParams]);
@@ -91,74 +90,86 @@ const UserProductList = React.memo(() => {
    return (
       <div className="div-contai mt-5">
          {showLoading && <Loader />}
-         {viewData && viewData.products && viewData.products.length ? (
-            <>
-               {viewData.products.map((value: ProductType, index: number) => (
-                  <div className="w-1/4 inline-block p-4" key={index}>
-                     <Link
-                        to={`/product-detail/${value._id}`}
-                        className="flex flex-col w-full bg-white hover:bg-gray-100 p-4 rounded border-solid border-2 border-gray-200"
-                     >
-                        <img
-                           src={
-                              value.images && value.images[0]
-                                 ? value.images[0]
-                                 : import.meta.env.VITE_IMAGE_NOT_FOUND || ""
-                           }
-                           alt=""
-                           className="w-full h-52 object-cover rounded"
-                        />
-                        <div className="font-bold mt-2 mb-1 line-clamp-2 text-center">
-                           {value.productName || ""}
+         <div className="flex w-full">
+            <div className="w-1/4 p-4 bg-white h-fit rounded me-5">
+               <SearchForm />
+            </div>
+            <div className="w-3/4 bg-white rounded">
+               {viewData && viewData.products && viewData.products.length ? (
+                  <>
+                     {viewData.products.map(
+                        (value: ProductType, index: number) => (
+                           <div className="w-1/3 inline-block p-4" key={index}>
+                              <Link
+                                 to={`/product-detail/${value._id}`}
+                                 className="flex flex-col w-full bg-white hover:bg-gray-100 p-4 rounded border-solid border-2 border-gray-200"
+                              >
+                                 <img
+                                    src={
+                                       value.images && value.images[0]
+                                          ? value.images[0]
+                                          : import.meta.env
+                                               .VITE_IMAGE_NOT_FOUND || ""
+                                    }
+                                    alt=""
+                                    className="w-full h-52 object-cover rounded"
+                                 />
+                                 <div className="font-bold mt-2 mb-1 line-clamp-2 text-center">
+                                    {value.productName || ""}
+                                 </div>
+                                 <div className="text-center">
+                                    Branch:{" "}
+                                    <span className="font-bold">
+                                       {value.branch && value.branch.branchName
+                                          ? value.branch.branchName
+                                          : ""}
+                                    </span>
+                                 </div>
+                                 <div className="text-center my-1">
+                                    Age:{" "}
+                                    <span className="font-bold">
+                                       {value.age && value.age.ageName
+                                          ? value.age.ageName
+                                          : ""}
+                                    </span>
+                                 </div>
+                                 <div className="text-center">
+                                    Skill:{" "}
+                                    <span className="font-bold">
+                                       {value.skill && value.skill.skillName
+                                          ? value.skill.skillName
+                                          : ""}
+                                    </span>
+                                 </div>
+                                 <div className="flex justify-center my-1">
+                                    {renderStar(value.rate || 0)} {"(0)"}
+                                 </div>
+                                 <div className="text-center font-bold text-xl text-orange-800">
+                                    {value.price
+                                       ? formatCurrency(value.price)
+                                       : "0"}
+                                 </div>
+                              </Link>
+                           </div>
+                        )
+                     )}
+                     {Pagination.length ? (
+                        <div className="flex w-full justify-center mt-3">
+                           {Pagination}
                         </div>
-                        <div className="text-center">
-                           Branch:{" "}
-                           <span className="font-bold">
-                              {value.branch && value.branch.branchName
-                                 ? value.branch.branchName
-                                 : ""}
-                           </span>
-                        </div>
-                        <div className="text-center my-1">
-                           Age:{" "}
-                           <span className="font-bold">
-                              {value.age && value.age.ageName
-                                 ? value.age.ageName
-                                 : ""}
-                           </span>
-                        </div>
-                        <div className="text-center">
-                           Skill:{" "}
-                           <span className="font-bold">
-                              {value.skill && value.skill.skillName
-                                 ? value.skill.skillName
-                                 : ""}
-                           </span>
-                        </div>
-                        <div className="flex justify-center my-1">
-                           {renderStar(value.rate || 0)} {"(0)"}
-                        </div>
-                        <div className="text-center font-bold text-xl text-orange-800">
-                           {value.price ? formatCurrency(value.price) : "0"}
-                        </div>
-                     </Link>
-                  </div>
-               ))}
-               {Pagination.length ? (
-                  <div className="flex w-full justify-center mt-3">
-                     {Pagination}
-                  </div>
+                     ) : (
+                        <></>
+                     )}
+                  </>
                ) : (
-                  <></>
+                  <>
+                     <div className="flex justify-center py-10">
+                        Sản phẩm đang được cập nhật
+                     </div>
+                  </>
                )}
-            </>
-         ) : (
-            <>
-               <div className="flex justify-center py-10">
-                  Sản phẩm đang được cập nhật
-               </div>
-            </>
-         )}
+            </div>
+         </div>
       </div>
    );
 });
