@@ -15,37 +15,37 @@ const BaseOnAge = React.memo(() => {
             </div>
          </div>
          <div className="flex w-full mt-5 justify-around">
-            <Link to="/">
+            <Link to="/product-list?ageId=1">
                <img
                   src="https://res.cloudinary.com/dgc1ya9ud/image/upload/v1686709992/childrenToy/age1_y21mrq.png"
                   alt=""
                />
             </Link>
-            <Link to="/">
+            <Link to="/product-list?ageId=2">
                <img
                   src="https://res.cloudinary.com/dgc1ya9ud/image/upload/v1686709992/childrenToy/age2_lupwlo.png"
                   alt=""
                />
             </Link>
-            <Link to="/">
+            <Link to="/product-list?ageId=3">
                <img
                   src="https://res.cloudinary.com/dgc1ya9ud/image/upload/v1686709992/childrenToy/age3_hp0bnk.png"
                   alt=""
                />
             </Link>
-            <Link to="/">
+            <Link to="/product-list?ageId=4">
                <img
                   src="https://res.cloudinary.com/dgc1ya9ud/image/upload/v1686709992/childrenToy/age4_yqjwcp.png"
                   alt=""
                />
             </Link>
-            <Link to="/">
+            <Link to="/product-list?ageId=5">
                <img
                   src="https://res.cloudinary.com/dgc1ya9ud/image/upload/v1686709993/childrenToy/age5_nlukml.png"
                   alt=""
                />
             </Link>
-            <Link to="/">
+            <Link to="/product-list?ageId=6">
                <img
                   src="https://res.cloudinary.com/dgc1ya9ud/image/upload/v1686709992/childrenToy/age6_n4q4fz.png"
                   alt=""

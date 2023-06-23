@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { callApi } from "../../../api/callApi/callApi";
 import { DataPropsType, ProductType } from "./types";
 import {
@@ -10,16 +10,29 @@ import {
 import Loader from "../../Common/Loader/loader";
 
 const UserProductList = React.memo(() => {
+   const [searchParams] = useSearchParams();
    const [viewData, setViewData] = useState<DataPropsType>();
    const [showLoading, setShowLoading] = useState<boolean>(true);
    const dataPerPage = import.meta.env.VITE_PER_PAGE || 10;
    const [currentPage, setCurrentPage] = useState<number>(1);
+
+   const queryParams = useMemo(() => {
+      const ageId = searchParams.get("ageId") || "";
+      const branchId = searchParams.get("branchId") || "";
+      const skillId = searchParams.get("skillId") || "";
+      return {
+         ageId: ageId,
+         branchId: branchId,
+         skillId: skillId,
+      };
+   }, [searchParams]);
 
    const fetchApi = useCallback(async () => {
       setCurrentPage(1);
       const response = await callApi("products/paginate", "post", {
          perPage: dataPerPage,
          page: 1,
+         ...queryParams,
       }).catch((err) => console.log({ err }));
       const data: DataPropsType = response.data || [];
       if (data && data.returnCnt) {
@@ -27,24 +40,28 @@ const UserProductList = React.memo(() => {
       }
       setShowLoading(false);
       scrollTop();
-   }, [dataPerPage]);
+   }, [dataPerPage, queryParams]);
 
-   const changePage = useCallback(async (perPage: number, page: number) => {
-      setShowLoading(true);
-      setCurrentPage(page);
-      const response = await callApi("products/paginate", "post", {
-         perPage: perPage || 10,
-         page: page || 1,
-      }).catch((err) => console.log({ err }));
-      const data: DataPropsType = response.data || null;
-      setViewData(data);
-      scrollTop();
-      setShowLoading(false);
-   }, []);
+   const changePage = useCallback(
+      async (perPage: number, page: number) => {
+         setShowLoading(true);
+         setCurrentPage(page);
+         const response = await callApi("products/paginate", "post", {
+            perPage: perPage || 10,
+            page: page || 1,
+            ...queryParams,
+         }).catch((err) => console.log({ err }));
+         const data: DataPropsType = response.data || null;
+         setViewData(data);
+         scrollTop();
+         setShowLoading(false);
+      },
+      [queryParams]
+   );
 
    const Pagination = useMemo(() => {
       const buttons = [];
-      if (viewData && viewData.totalPage) {
+      if (viewData && viewData.totalPage > 1) {
          for (let index = 1; index <= viewData.totalPage; index++) {
             const isCurrentPage = currentPage === index;
             buttons.push(
@@ -127,9 +144,13 @@ const UserProductList = React.memo(() => {
                      </Link>
                   </div>
                ))}
-               <div className="flex w-full justify-center mt-3">
-                  {Pagination.length && Pagination}
-               </div>
+               {Pagination.length ? (
+                  <div className="flex w-full justify-center mt-3">
+                     {Pagination}
+                  </div>
+               ) : (
+                  <></>
+               )}
             </>
          ) : (
             <>
