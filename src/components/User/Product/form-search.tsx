@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchForm = React.memo(() => {
    const navigate = useNavigate();
+   const [searchParamValues] = useSearchParams();
    const [ageId, setAgeId] = useState<string>();
    const [branchId, setBranchId] = useState<string>();
    const [skillId, setSkillId] = useState<string>();
@@ -26,6 +27,21 @@ const SearchForm = React.memo(() => {
       navigate(url, { replace: true });
    }, [navigate, ageId, branchId, skillId, isSelected]);
 
+   useEffect(() => {
+      if (searchParamValues.get("ageId")) {
+         const item = searchParamValues.get("ageId") || "";
+         setAgeId(item);
+      }
+      if (searchParamValues.get("branchId")) {
+         const item = searchParamValues.get("branchId") || "";
+         setBranchId(item);
+      }
+      if (searchParamValues.get("skillId")) {
+         const item = searchParamValues.get("skillId") || "";
+         setSkillId(item);
+      }
+   }, [searchParamValues]);
+
    return (
       <>
          <div className="flex flex-col w-full">
@@ -38,6 +54,7 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="1"
                      className="cursor-pointer"
+                     checked={branchId === "1"}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch1" className="ps-3 cursor-pointer">
@@ -51,6 +68,7 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="2"
                      className="cursor-pointer"
+                     checked={branchId === "2"}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch2" className="ps-3 cursor-pointer">
@@ -66,6 +84,7 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="3"
                      className="cursor-pointer"
+                     checked={branchId === "3"}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch3" className="ps-3 cursor-pointer">
@@ -79,6 +98,7 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="4"
                      className="cursor-pointer"
+                     checked={branchId === "4"}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch4" className="ps-3 cursor-pointer">
@@ -94,6 +114,7 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="5"
                      className="cursor-pointer"
+                     checked={branchId === "5"}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch5" className="ps-3 cursor-pointer">
@@ -107,6 +128,7 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="6"
                      className="cursor-pointer"
+                     checked={branchId === "6"}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch6" className="ps-3 cursor-pointer">
@@ -124,6 +146,7 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="1"
                      className="cursor-pointer"
+                     checked={ageId === "1"}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age1" className="ps-3 cursor-pointer">
@@ -137,6 +160,7 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="2"
                      className="cursor-pointer"
+                     checked={ageId === "2"}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age2" className="ps-3 cursor-pointer">
@@ -152,6 +176,7 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="3"
                      className="cursor-pointer"
+                     checked={ageId === "3"}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age3" className="ps-3 cursor-pointer">
@@ -165,6 +190,7 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="4"
                      className="cursor-pointer"
+                     checked={ageId === "4"}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age4" className="ps-3 cursor-pointer">
@@ -180,6 +206,7 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="5"
                      className="cursor-pointer"
+                     checked={ageId === "5"}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age5" className="ps-3 cursor-pointer">
@@ -193,6 +220,7 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="6"
                      className="cursor-pointer"
+                     checked={ageId === "6"}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age6" className="ps-3 cursor-pointer">
@@ -209,6 +237,7 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="1"
                   className="cursor-pointer"
+                  checked={skillId === "1"}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill1" className="ps-3 cursor-pointer">
@@ -222,6 +251,7 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="2"
                   className="cursor-pointer"
+                  checked={skillId === "2"}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill2" className="ps-3 cursor-pointer">
@@ -235,6 +265,7 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="3"
                   className="cursor-pointer"
+                  checked={skillId === "3"}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill3" className="ps-3 cursor-pointer">
@@ -248,6 +279,7 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="4"
                   className="cursor-pointer"
+                  checked={skillId === "4"}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill4" className="ps-3 cursor-pointer">
@@ -261,6 +293,7 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="5"
                   className="cursor-pointer"
+                  checked={skillId === "5"}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill5" className="ps-3 cursor-pointer">
@@ -274,6 +307,7 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="6"
                   className="cursor-pointer"
+                  checked={skillId === "6"}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill6" className="ps-3 cursor-pointer">
