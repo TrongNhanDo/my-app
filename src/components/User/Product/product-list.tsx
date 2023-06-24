@@ -29,6 +29,7 @@ const UserProductList = React.memo(() => {
    }, [searchParams]);
 
    const fetchApi = useCallback(async () => {
+      setShowLoading(true);
       setCurrentPage(1);
       const response = await callApi("products/paginate", "post", {
          perPage: dataPerPage,
