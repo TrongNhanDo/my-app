@@ -52,3 +52,23 @@ export type CartItemType = {
    updatedAt: string;
    product: ProductType;
 };
+
+export type FormikProps = {
+   userId: string;
+   cartItem: {
+      productId: string;
+      amount: string;
+      price: string;
+   }[];
+};
+
+export const FormikInitValues = {
+   userId: "",
+   cartItem: [
+      {
+         productId: "",
+         amount: "1",
+         price: "",
+      },
+   ],
+};

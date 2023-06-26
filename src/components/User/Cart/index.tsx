@@ -1,32 +1,52 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { callApi } from "../../../api/callApi/callApi";
-import { CartItemType } from "./types";
-import { formatCurrency } from "../../Common/Logic/logics";
 import { useFormik } from "formik";
+import { callApi } from "../../../api/callApi/callApi";
+import { CartItemType, FormikInitValues, FormikProps } from "./types";
+import { formatCurrency } from "../../Common/Logic/logics";
+import Loader from "../../Common/Loader/loader";
+import { validationSchema } from "./validations";
 
 const CartList = React.memo(() => {
    const [viewData, setViewData] = useState<CartItemType[]>();
+   const [loading, setLoading] = useState<boolean>(false);
 
    const fetchApi = useCallback(async () => {
+      setLoading(true);
       const response = await callApi("carts/get-by-userId", "post", {
          userId: "64760a06575933907791ab2e",
       }).catch((err) => console.log({ err }));
 
-      const data: CartItemType[] = response.data || [];
+      const data: CartItemType[] = response.data;
       if (data) {
          setViewData(data);
       }
+      setLoading(false);
    }, []);
 
-   const onSubmit = useCallback(async (formikValues: any) => {
-      console.log({ formikValues });
+   const onSubmit = useCallback(async (formikValues: FormikProps) => {
+      setLoading(true);
+      await callApi("carts/update-cart/", "post", formikValues).catch((err) =>
+         console.log({ err })
+      );
+      setLoading(false);
+      fetchApi();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    const formikBag = useFormik({
-      initialValues: {},
+      initialValues: FormikInitValues,
+      validationSchema,
       onSubmit: (value) => onSubmit(value),
    });
+
+   const handleSubmit = useCallback(() => {
+      try {
+         formikBag.submitForm();
+      } catch (error) {
+         console.log({ error });
+      }
+   }, [formikBag]);
 
    useEffect(() => {
       fetchApi();
@@ -46,8 +66,24 @@ const CartList = React.memo(() => {
       return 0;
    }, [viewData]);
 
+   useEffect(() => {
+      if (viewData && viewData.length) {
+         formikBag.setFieldValue("userId", viewData[0].userId || "");
+         viewData.map((value: CartItemType, index: number) => {
+            formikBag.setFieldValue(
+               `cartItem[${index}].productId`,
+               value.productId
+            );
+            formikBag.setFieldValue(`cartItem[${index}].amount`, value.amount);
+            formikBag.setFieldValue(`cartItem[${index}].price`, value.price);
+         });
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [viewData]);
+
    return (
       <div className="div-contai mx-auto rounded">
+         {loading && <Loader />}
          <div className="flex shadow-md my-10">
             <div className="w-3/4 bg-white px-10 py-10">
                <div className="flex justify-between border-b pb-8">
@@ -72,7 +108,7 @@ const CartList = React.memo(() => {
                <form onSubmit={formikBag.handleSubmit}>
                   {viewData &&
                      viewData.length &&
-                     viewData.map((value: CartItemType) => {
+                     viewData.map((value: CartItemType, index: number) => {
                         return (
                            <div key={value._id}>
                               <div className="flex items-center hover:bg-gray-100 py-5">
@@ -127,10 +163,15 @@ const CartList = React.memo(() => {
                                  <div className="flex justify-center w-1/5">
                                     <input
                                        type="number"
-                                       name="amount"
-                                       id="amount"
+                                       name={`cartItem[${index}].amount`}
+                                       id={`cartItem[${index}].amount`}
                                        min={1}
-                                       value={value.amount || 1}
+                                       value={
+                                          formikBag.values.cartItem[index]
+                                             ? formikBag.values.cartItem[index]
+                                                  .amount
+                                             : 1
+                                       }
                                        className="ms-5 px-4 py-2 rounded border-solid border-2 border-gray-200 font-bold text-base w-24"
                                        onChange={formikBag.handleChange}
                                     />
@@ -147,12 +188,21 @@ const CartList = React.memo(() => {
                         );
                      })}
                </form>
-               <Link
-                  to="/product-list"
-                  className="flex font-bold hover:text-orange-400 text-indigo-600 text-sm mt-4 w-fit"
-               >
-                  ⬅ Continue Shopping
-               </Link>
+               <div className="flex w-full items-center justify-around mt-5">
+                  <Link
+                     to="/product-list"
+                     className="flex font-bold hover:text-orange-400 text-indigo-600 text-sm w-fit"
+                  >
+                     ⬅ Continue Shopping
+                  </Link>
+                  <button
+                     type="button"
+                     onClick={handleSubmit}
+                     className="block py-1 px-3 bg-green-600 text-white rounded hover:bg-green-500"
+                  >
+                     Cập nhật giỏ hàng
+                  </button>
+               </div>
             </div>
             <div
                id="summary"
@@ -200,7 +250,10 @@ const CartList = React.memo(() => {
                      <span>Total cost</span>
                      <span>$600</span>
                   </div>
-                  <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded">
+                  <button
+                     type="button"
+                     className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded"
+                  >
                      Checkout
                   </button>
                </div>
