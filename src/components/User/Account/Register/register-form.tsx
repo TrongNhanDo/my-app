@@ -5,8 +5,10 @@ import { callApi } from "../../../../api/callApi/callApi";
 import { validationSchema } from "./validations";
 import { FormikValueType, initValueFormik } from "./types";
 import Loader from "../../../Common/Loader/loader";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = React.memo(() => {
+   const { t } = useTranslation();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [checkPass, setCheckPass] = useState<boolean>(false);
 
@@ -54,7 +56,7 @@ const LoginForm = React.memo(() => {
          {showLoading && <Loader />}
          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white uppercase text-center">
-               đăng ký tài khoản
+               {t("user.register.title")}
             </div>
             <form
                className="space-y-4 md:space-y-6"
@@ -65,7 +67,7 @@ const LoginForm = React.memo(() => {
                      htmlFor="email"
                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                     Email:
+                     {t("user.register.email")}:
                   </label>
                   <input
                      type="email"
@@ -76,7 +78,7 @@ const LoginForm = React.memo(() => {
                         formikBag.touched.email &&
                         "bg-yellow"
                      }`}
-                     placeholder="Enter username"
+                     placeholder={t("user.register.email_placeholder")}
                      value={formikBag.values.email || ""}
                      onChange={formikBag.handleChange}
                   />
@@ -91,13 +93,13 @@ const LoginForm = React.memo(() => {
                      htmlFor="password"
                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                     Mật khẩu:
+                     {t("user.register.password")}:
                   </label>
                   <input
                      type="password"
                      name="password"
                      id="password"
-                     placeholder="Enter password"
+                     placeholder={t("user.register.password_placeholder")}
                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
                         formikBag.errors.password &&
                         formikBag.touched.password &&
@@ -117,13 +119,13 @@ const LoginForm = React.memo(() => {
                      htmlFor="confirmPwd"
                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                     Xác nhận mật khẩu:
+                     {t("user.register.confirmPwd")}:
                   </label>
                   <input
                      type="password"
                      name="confirmPwd"
                      id="confirmPwd"
-                     placeholder="Enter confirm password"
+                     placeholder={t("user.register.confirmPwd_placeholder")}
                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
                         formikBag.errors.confirmPwd &&
                         formikBag.touched.confirmPwd &&
@@ -143,12 +145,12 @@ const LoginForm = React.memo(() => {
                   type="submit"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full"
                >
-                  Đăng ký
+                  {t("user.register.submit")}
                </button>
                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Nếu bạn đã có tài khoản?{" "}
+                  {t("user.register.text1")}{" "}
                   <Link to="/login" className="font-medium underline">
-                     Đăng nhập
+                     {t("user.register.login")}
                   </Link>
                </p>
             </form>
