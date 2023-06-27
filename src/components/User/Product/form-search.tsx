@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchForm = React.memo(() => {
    const navigate = useNavigate();
@@ -316,7 +316,22 @@ const SearchForm = React.memo(() => {
             </div>
          </div>
          <hr className="my-5" />
-         <div className="flex w-full justify-center">
+         <div className="flex w-full justify-around items-center">
+            <Link
+               to="/product-list"
+               className={`w-fit p-2 w-2/3 rounded text-white ${
+                  isSelected
+                     ? "hover:bg-red-500 bg-red-600"
+                     : "cursor-not-allowed bg-gray-500"
+               }`}
+               onClick={() => {
+                  setAgeId("");
+                  setBranchId("");
+                  setSkillId("");
+               }}
+            >
+               Bỏ chọn
+            </Link>
             <button
                type="button"
                className={`block py-2 w-2/3 rounded text-white ${
