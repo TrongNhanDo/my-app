@@ -1,16 +1,19 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const BaseOnAge = React.memo(() => {
+   const { t } = useTranslation();
+
    return (
       <div className="w-full flex flex-col bg-white rounded p-5 mt-5">
          <div className="flex w-full items-center">
             <div className="uppercase text-2xl font-bold w-1/2">
-               theo độ tuổi
+               {t("user.homepage.base_on_age")}
             </div>
             <div className="w-1/2 flex justify-end">
                <Link to="" className="hover:text-blue-500">
-                  Xem tất cả
+                  {t("user.homepage.see_more")}
                </Link>
             </div>
          </div>

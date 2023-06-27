@@ -1,31 +1,55 @@
 {
-   "header": {
-      "home": "Home",
-      "product": "Products",
-      "service": "Services",
-      "about": "About",
-      "contact": "Contact",
-      "cart": "Carts",
-      "login": "Login",
-      "register": "Register" 
+   "user": {
+      "header": {
+         "home": "Home",
+         "product": "Products",
+         "service": "Services",
+         "about": "About",
+         "contact": "Contact",
+         "cart": "Carts",
+         "login": "Login",
+         "register": "Register"
+      },
+      "footer": {
+         "receive_news": "RECEIVE NEWS FROM US",
+         "information": "INFORMATION",
+         "policy": "POLICY",
+         "follow": "FOLLOW SHOP",
+         "payment": "PAYMENT",
+         "email_placeholder": "Enter your email",
+         "btn_send": "SEND",
+         "hotline": "HOTLINE (9:00 - 19:00)",
+         "work_time": "From Monday to Sunday",
+         "about_shop": "About Yay for Kids",
+         "shopping_guide": "Shopping Guide",
+         "payment_delivery": "Delivery & Payment",
+         "frequently_question": "Frequently Questions",
+         "term_service": "Term of Services",
+         "warranty": "Exchange & Warranty",
+         "security": "Security",
+         "copyright": "Copyright © DTN – All rights reserved.",
+         "address": "475A Dien Bien Phu, Ward 25, Binh Thanh District, Ho Chi Minh City, Viet Nam"
+      },
+      "homepage": {
+         "new_product": "NEW PRODUCTS",
+         "base_on_age": "BASE ON AGE",
+         "base_on_skill": "BASE ON SKILL",
+         "base_on_branch": "BRANCH",
+         "see_more": "See more",
+         "updating_product": "Product are being updated"
+      }
    },
-   "footer": {
-      "receive_news": "RECEIVE NEWS FROM US",
-      "information": "INFORMATION",
-      "policy": "POLICY",
-      "follow": "FOLLOW SHOP",
-      "payment": "PAYMENT",
-      "email_placeholder": "Enter your email",
-      "btn_send": "SEND",
-      "hotline": "HOTLINE (9:00 - 19:00)",
-      "work_time": "From Monday to Sunday",
-      "about_shop": "About Yay for Kids",
-      "shopping_guide": "Shopping Guide",
-      "payment_delivery": "Delivery & Payment",
-      "frequently_question": "Frequently Questions",
-      "term_service": "Term of Services",
-      "warranty": "Exchange & Warranty",
-      "security": "Security",
-      "copyright": "Copyright © DTN – All rights reserved."
+   "admin": {
+      "header": {
+         "home": "Home",
+         "role": "Roles",
+         "user": "Users",
+         "product": "Products",
+         "age": "Ages",
+         "branch": "Branches",
+         "skill": "Skills",
+         "my_account": "My Account",
+         "logout": "Log out"
+      }
    }
 }

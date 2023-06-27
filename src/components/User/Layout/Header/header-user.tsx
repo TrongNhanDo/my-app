@@ -32,7 +32,7 @@ const HeaderUser = React.memo(() => {
                   className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
                   aria-current="page"
                >
-                  {t("header.home")}
+                  {t("user.header.home")}
                </Link>
             </li>
             <li>
@@ -40,7 +40,7 @@ const HeaderUser = React.memo(() => {
                   to="/product-list"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                >
-                  {t("header.product")}
+                  {t("user.header.product")}
                </Link>
             </li>
             <li>
@@ -48,7 +48,7 @@ const HeaderUser = React.memo(() => {
                   to="/"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                >
-                  {t("header.service")}
+                  {t("user.header.service")}
                </Link>
             </li>
             <li>
@@ -56,7 +56,7 @@ const HeaderUser = React.memo(() => {
                   to="/about"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                >
-                  {t("header.about")}
+                  {t("user.header.about")}
                </Link>
             </li>
             <li>
@@ -64,7 +64,7 @@ const HeaderUser = React.memo(() => {
                   to="/contact"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                >
-                  {t("header.contact")}
+                  {t("user.header.contact")}
                </Link>
             </li>
             <li>
@@ -72,7 +72,7 @@ const HeaderUser = React.memo(() => {
                   to="/carts"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 relative"
                >
-                  {t("header.cart")}
+                  {t("user.header.cart")}
                   <span className="absolute px-1 text-white bg-blue-700 rounded-full sum-count font-bold">
                      10
                   </span>
@@ -83,7 +83,7 @@ const HeaderUser = React.memo(() => {
                   to="/login"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                >
-                  {t("header.login")}
+                  {t("user.header.login")}
                </Link>
             </li>
             <li>
@@ -91,7 +91,7 @@ const HeaderUser = React.memo(() => {
                   to="/register"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                >
-                  {t("header.register")}
+                  {t("user.header.register")}
                </Link>
             </li>
             <li>

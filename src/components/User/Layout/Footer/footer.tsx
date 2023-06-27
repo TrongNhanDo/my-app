@@ -19,7 +19,7 @@ const Footer = React.memo(() => {
                <div className="flex w-9/12 m-auto py-5 px-4">
                   <div className="flex flex-col w-1/4">
                      <div className="font-bold uppercase mb-3">
-                        {t("footer.receive_news")}
+                        {t("user.footer.receive_news")}
                      </div>
                      <form className="">
                         <input
@@ -33,13 +33,13 @@ const Footer = React.memo(() => {
                            type="button"
                            className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
                         >
-                           {t("footer.btn_send")}
+                           {t("user.footer.btn_send")}
                         </button>
                      </form>
                      <div className="font-bold text-base mt-3">
-                        {t("footer.hotline")}
+                        {t("user.footer.hotline")}
                      </div>
-                     <div className="text-sm">{t("footer.work_time")}</div>
+                     <div className="text-sm">{t("user.footer.work_time")}</div>
                      <div className="flex mt-1 items-center">
                         <div className="text-3xl">📞</div>
                         <div className="flex flex-col font-bold ps-4">
@@ -73,19 +73,18 @@ const Footer = React.memo(() => {
                            to="https://goo.gl/maps/ZoCGsEcjkwhWkw9R6"
                            target="_blank"
                         >
-                           475A Điện Biên Phủ, Phường 25, Bình Thạnh, Thành phố
-                           Hồ Chí Minh
+                           {t("user.footer.address")}
                         </Link>
                      </div>
                   </div>
                   <div className="flex flex-col w-1/4 ps-10 pe-5">
                      <div className="font-bold uppercase mb-3">
-                        {t("footer.information")}
+                        {t("user.footer.information")}
                      </div>
                      <ul>
                         <li className="py-2">
                            <Link to="/about" className="hover:text-blue-500">
-                              {t("footer.about_shop")}
+                              {t("user.footer.about_shop")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -93,7 +92,7 @@ const Footer = React.memo(() => {
                               to="/shopping-guide"
                               className="hover:text-blue-500"
                            >
-                              {t("footer.shopping_guide")}
+                              {t("user.footer.shopping_guide")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -101,7 +100,7 @@ const Footer = React.memo(() => {
                               to="/delivery-and-payment"
                               className="hover:text-blue-500"
                            >
-                              {t("footer.payment_delivery")}
+                              {t("user.footer.payment_delivery")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -109,36 +108,36 @@ const Footer = React.memo(() => {
                               to="/questions"
                               className="hover:text-blue-500"
                            >
-                              {t("footer.frequently_question")}
+                              {t("user.footer.frequently_question")}
                            </Link>
                         </li>
                         <li className="py-2">
                            <Link to="/policy" className="hover:text-blue-500">
-                              {t("footer.term_service")}
+                              {t("user.footer.term_service")}
                            </Link>
                         </li>
                      </ul>
                   </div>
                   <div className="flex flex-col w-1/4 ps-5 pe-10">
                      <div className="font-bold uppercase mb-3">
-                        {t("footer.policy")}
+                        {t("user.footer.policy")}
                      </div>
                      <ul>
                         <li className="py-2">
                            <Link to="/warranty" className="hover:text-blue-500">
-                              {t("footer.warranty")}
+                              {t("user.footer.warranty")}
                            </Link>
                         </li>
                         <li>
                            <Link to="/security" className="hover:text-blue-500">
-                              {t("footer.security")}
+                              {t("user.footer.security")}
                            </Link>
                         </li>
                      </ul>
                   </div>
                   <div className="flex flex-col w-1/4">
                      <div className="font-bold uppercase mb-3">
-                        {t("footer.follow")}
+                        {t("user.footer.follow")}
                      </div>
                      <ul className="flex">
                         <li>
@@ -179,7 +178,7 @@ const Footer = React.memo(() => {
                         </li>
                      </ul>
                      <div className="font-bold uppercase mb-3 mt-4">
-                        {t("footer.payment")}
+                        {t("user.footer.payment")}
                      </div>
                      <ul className="flex">
                         <li>
@@ -234,7 +233,7 @@ const Footer = React.memo(() => {
          )}
          <div className="flex w-full bg-footer1 flex-col items-center p-3 text-sm">
             <div className="flex font-bold text-base">
-               {t("footer.copyright")}
+               {t("user.footer.copyright")}
             </div>
          </div>
       </footer>
