@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import i18n from "../../../../i18n/i18n";
 import { useTranslation } from "react-i18next";
 
 const HeaderUser = React.memo(() => {
    const { t } = useTranslation();
-   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const languageValue = e.target.value;
-      i18n.changeLanguage(languageValue);
-   };
+   const changeLanguage = useCallback(
+      (e: React.ChangeEvent<HTMLSelectElement>) => {
+         const languageValue = e.target.value;
+         localStorage.setItem("locale", languageValue);
+         i18n.changeLanguage(languageValue);
+      },
+      []
+   );
+
+   const locale = useMemo(() => {
+      const localeStorage = localStorage.getItem("locale");
+      return localeStorage || "eng";
+   }, []);
+
+   useEffect(() => {
+      i18n.changeLanguage(locale);
+   }, [locale]);
 
    return (
       <>
@@ -87,8 +100,12 @@ const HeaderUser = React.memo(() => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2"
                   onChange={(e) => changeLanguage(e)}
                >
-                  <option value="eng">English</option>
-                  <option value="vie">Vietnamese</option>
+                  <option value="eng" selected={locale === "eng"}>
+                     English
+                  </option>
+                  <option value="vie" selected={locale === "vie"}>
+                     Vietnamese
+                  </option>
                </select>
             </li>
          </ul>
