@@ -32,16 +32,10 @@ const UserProductDetail = React.memo(() => {
    const onSubmit = useCallback(async (formikBagValues: FormikProps) => {
       try {
          setShowLoading(true);
-         const fetchApi = await callApi("carts", "post", formikBagValues).catch(
-            (err) => console.log({ err })
+         await callApi("carts", "post", formikBagValues).catch((err) =>
+            console.log({ err })
          );
-
          setShowLoading(false);
-         if (fetchApi) {
-            alert("Đã thêm vào giỏ hàng");
-         } else {
-            alert("Thêm vào giỏ hàng lỗi");
-         }
       } catch (error) {
          console.log({ error });
       }
