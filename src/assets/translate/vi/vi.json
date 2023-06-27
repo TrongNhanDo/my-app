@@ -99,6 +99,14 @@
          "submit": "Đăng ký",
          "text1": "Nếu bạn đã có tài khoản?",
          "login": "Đăng nhập"
+      },
+      "error": {
+         "email_required": "Email không được để trống",
+         "password_required": "Mật khẩu không được để trống",
+         "confirmPwd_required": "Mật khẩu xác nhận không được để trống",
+         "password_min_length": "Mật khẩu phải nhiều hơn {{0}} ký tự",
+         "password_max_length": "Mật khẩu phải ít hơn {{0}} ký tự",
+         "incorrect_confirmPwd": "Mật khẩu xác nhận không chính xác"
       }
    },
    "admin": {

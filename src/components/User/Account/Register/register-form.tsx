@@ -40,13 +40,17 @@ const LoginForm = React.memo(() => {
 
    const formikBag = useFormik({
       initialValues: initValueFormik,
-      validationSchema,
+      validationSchema: validationSchema(t),
       onSubmit: (value) => onSubmit(value),
    });
 
    useEffect(() => {
       if (checkPass) {
-         formikBag.setFieldError("confirmPwd", "Confirm password is incorrect");
+         formikBag.setFieldError(
+            "confirmPwd",
+            t("user.error.incorrect_confirmPwd")
+         );
+         setCheckPass(false);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [checkPass]);

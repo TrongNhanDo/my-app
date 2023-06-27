@@ -99,6 +99,14 @@
          "submit": "Register",
          "text1": "If you had an account?",
          "login": "Login"
+      },
+      "error": {
+         "email_required": "Email can not be blank",
+         "password_required": "Password can not be blank",
+         "confirmPwd_required": "Confirm password can not be blank",
+         "password_min_length": "Password must more than {{0}} characters",
+         "password_max_length": "Password must less than {{0}} characters",
+         "incorrect_confirmPwd": "Confirm password is incorrect"
       }
    },
    "admin": {

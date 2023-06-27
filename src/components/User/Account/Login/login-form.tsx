@@ -31,7 +31,7 @@ const LoginForm = React.memo(() => {
 
    const formikBag = useFormik({
       initialValues: initValueFormik,
-      validationSchema,
+      validationSchema: validationSchema(t),
       onSubmit: (value) => onSubmit(value),
    });
 
