@@ -33,13 +33,13 @@ const Footer = React.memo(() => {
                            type="button"
                            className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
                         >
-                           Send
+                           {t("footer.btn_send")}
                         </button>
                      </form>
                      <div className="font-bold text-base mt-3">
-                        HOTLINE (09:00 AM – 19:00 PM)
+                        {t("footer.hotline")}
                      </div>
-                     <div className="text-sm">Từ thứ 2 đến Chủ Nhật</div>
+                     <div className="text-sm">{t("footer.work_time")}</div>
                      <div className="flex mt-1 items-center">
                         <div className="text-3xl">📞</div>
                         <div className="flex flex-col font-bold ps-4">
@@ -79,11 +79,13 @@ const Footer = React.memo(() => {
                      </div>
                   </div>
                   <div className="flex flex-col w-1/4 ps-10 pe-5">
-                     <div className="font-bold uppercase mb-3">thông tin</div>
+                     <div className="font-bold uppercase mb-3">
+                        {t("footer.information")}
+                     </div>
                      <ul>
                         <li className="py-2">
                            <Link to="/about" className="hover:text-blue-500">
-                              Về Yay for Kids
+                              {t("footer.about_shop")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -91,7 +93,7 @@ const Footer = React.memo(() => {
                               to="/shopping-guide"
                               className="hover:text-blue-500"
                            >
-                              Hướng dẫn mua hàng
+                              {t("footer.shopping_guide")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -99,7 +101,7 @@ const Footer = React.memo(() => {
                               to="/delivery-and-payment"
                               className="hover:text-blue-500"
                            >
-                              Giao hàng & thanh toán
+                              {t("footer.payment_delivery")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -107,34 +109,36 @@ const Footer = React.memo(() => {
                               to="/questions"
                               className="hover:text-blue-500"
                            >
-                              Câu hỏi thường gặp
+                              {t("footer.frequently_question")}
                            </Link>
                         </li>
                         <li className="py-2">
                            <Link to="/policy" className="hover:text-blue-500">
-                              Điều khoản dịch vụ
+                              {t("footer.term_service")}
                            </Link>
                         </li>
                      </ul>
                   </div>
                   <div className="flex flex-col w-1/4 ps-5 pe-10">
-                     <div className="font-bold uppercase mb-3">chính sách</div>
+                     <div className="font-bold uppercase mb-3">
+                        {t("footer.policy")}
+                     </div>
                      <ul>
                         <li className="py-2">
                            <Link to="/warranty" className="hover:text-blue-500">
-                              Đổi trả bảo hành
+                              {t("footer.warranty")}
                            </Link>
                         </li>
                         <li>
                            <Link to="/security" className="hover:text-blue-500">
-                              Bảo mật
+                              {t("footer.security")}
                            </Link>
                         </li>
                      </ul>
                   </div>
                   <div className="flex flex-col w-1/4">
                      <div className="font-bold uppercase mb-3">
-                        theo dõi {import.meta.env.VITE_WEB_NAME}
+                        {t("footer.follow")}
                      </div>
                      <ul className="flex">
                         <li>
@@ -175,7 +179,7 @@ const Footer = React.memo(() => {
                         </li>
                      </ul>
                      <div className="font-bold uppercase mb-3 mt-4">
-                        thanh toán
+                        {t("footer.payment")}
                      </div>
                      <ul className="flex">
                         <li>
@@ -229,13 +233,8 @@ const Footer = React.memo(() => {
             </div>
          )}
          <div className="flex w-full bg-footer1 flex-col items-center p-3 text-sm">
-            <div className="flex">
-               Copyright <div className="font-bold px-1">© DTN</div> – All
-               rights reserved.
-            </div>
-            <div>
-               MST: 0316501404 – Do Sở Kế hoạch & Đầu tư Thành phố Hồ Chí Minh
-               cấp ngày 23/09/2020.
+            <div className="flex font-bold text-base">
+               {t("footer.copyright")}
             </div>
          </div>
       </footer>
