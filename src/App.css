@@ -38,3 +38,8 @@
 .bg-footer2 {
    background-color: #fdc140;
 }
+
+.sum-count {
+   top: -4px;
+   font-size: 12px;
+}
