@@ -9,8 +9,10 @@ import {
 } from "../../Common/Logic/logics";
 import Loader from "../../Common/Loader/loader";
 import SearchForm from "./form-search";
+import { useTranslation } from "react-i18next";
 
 const UserProductList = React.memo(() => {
+   const { t } = useTranslation();
    const [searchParams] = useSearchParams();
    const [viewData, setViewData] = useState<DataPropsType>();
    const [showLoading, setShowLoading] = useState<boolean>(true);
@@ -119,7 +121,7 @@ const UserProductList = React.memo(() => {
                                     {value.productName || ""}
                                  </div>
                                  <div className="text-center">
-                                    Branch:{" "}
+                                    {t("user.product.branch")}:{" "}
                                     <span className="font-bold">
                                        {value.branch && value.branch.branchName
                                           ? value.branch.branchName
@@ -127,7 +129,7 @@ const UserProductList = React.memo(() => {
                                     </span>
                                  </div>
                                  <div className="text-center my-1">
-                                    Age:{" "}
+                                    {t("user.product.age")}:{" "}
                                     <span className="font-bold">
                                        {value.age && value.age.ageName
                                           ? value.age.ageName
@@ -135,7 +137,7 @@ const UserProductList = React.memo(() => {
                                     </span>
                                  </div>
                                  <div className="text-center">
-                                    Skill:{" "}
+                                    {t("user.product.skill")}:{" "}
                                     <span className="font-bold">
                                        {value.skill && value.skill.skillName
                                           ? value.skill.skillName
@@ -165,7 +167,7 @@ const UserProductList = React.memo(() => {
                ) : (
                   <>
                      <div className="flex justify-center py-10">
-                        Sản phẩm đang được cập nhật
+                        {t("user.product.updating_product")}
                      </div>
                   </>
                )}

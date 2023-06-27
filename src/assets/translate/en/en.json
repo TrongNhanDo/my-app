@@ -37,6 +37,29 @@
          "base_on_branch": "BRANCH",
          "see_more": "See more",
          "updating_product": "Product are being updated"
+      },
+      "product": {
+         "base_on_age": "Base on age",
+         "base_on_branch": "Base on branch",
+         "base_on_skill": "Base on skill",
+         "uncheck": "Unchecked",
+         "search": "Search",
+         "age": "Age",
+         "branch": "Branch",
+         "skill": "Skill",
+         "updating_product": "Product are being updated",
+         "age1": "0-1 years old",
+         "age2": "2+ years old",
+         "age3": "3+ years old",
+         "age4": "4-6 years old",
+         "age5": "6-10 years old",
+         "age6": "12+ years old",
+         "skill1": "Discover",
+         "skill2": "Logical thinking",
+         "skill3": "The art of painting",
+         "skill4": "Quick eyes & sharp hands",
+         "skill5": "Social interaction",
+         "skill6": "Sedentary"
       }
    },
    "admin": {

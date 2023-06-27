@@ -37,6 +37,29 @@
          "base_on_branch": "THƯƠNG HIỆU",
          "see_more": "Xem thêm",
          "updating_product": "Sản phẩm đang được cập nhật"
+      },
+      "product": {
+         "base_on_age": "Theo độ tuổi",
+         "base_on_branch": "Theo thương hiệu",
+         "base_on_skill": "Theo kĩ năng",
+         "uncheck": "Bỏ chọn",
+         "search": "Lọc sản phẩm",
+         "age": "Độ tuổi",
+         "branch": "Thương hiệu",
+         "skill": "Kĩ năng",
+         "updating_product": "Sản phẩm đang được cập nhật",
+         "age1": "0-1 tuổi",
+         "age2": "2+ tuổi",
+         "age3": "3+ tuổi",
+         "age4": "4-6 tuổi",
+         "age5": "6-10 tuổi",
+         "age6": "12+ tuổi",
+         "skill1": "Khám phá",
+         "skill2": "Tư duy logic",
+         "skill3": "Nghê thuật hội họa",
+         "skill4": "Nhanh mắt khéo tay",
+         "skill5": "Tương tác xã hội",
+         "skill6": "Vận động"
       }
    },
    "admin": {
