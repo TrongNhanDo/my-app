@@ -1,3 +1,12 @@
 {
-   "title": "Translate your react-app with react-i18next"
+   "header": {
+      "home": "Home",
+      "product": "Products",
+      "service": "Services",
+      "about": "About",
+      "contact": "Contact",
+      "cart": "Carts",
+      "login": "Login",
+      "register": "Register" 
+   }
 }
