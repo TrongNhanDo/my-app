@@ -1,0 +1,31 @@
+{
+   "header": {
+      "home": "Trang chủ",
+      "product": "Sản phẩm",
+      "service": "Dịch vụ",
+      "about": "Giới thiệu",
+      "contact": "Liên hệ",
+      "cart": "Giỏ hàng",
+      "login": "Đăng nhập",
+      "register": "Đăng ký"
+   },
+   "footer": {
+      "receive_news": "NHẬN TIN TỪ CHÚNG TÔI",
+      "information": "THÔNG TIN",
+      "policy": "CHÍNH SÁCH",
+      "follow": "THEO DÕI CHÚNG TÔI",
+      "payment": "THANH TOÁN",
+      "email_placeholder": "Nhập email của bạn",
+      "btn_send": "GỬI",
+      "hotline": "HOTLINE (9:00 - 19:00)",
+      "work_time": "Từ Thứ 2 đến Chủ nhật",
+      "about_shop": "Về Yay for Kids",
+      "shopping_guide": "Hướng dẫn mua hàng",
+      "payment_delivery": "Giao hành & thanh toán",
+      "frequently_question": "Câu hỏi thường gặp",
+      "term_service": "Điều khoản dịch vụ",
+      "warranty": "Đổi trả & bảo hành",
+      "security": "Bảo mật",
+      "copyright": "Copyright © DTN – All rights reserved."
+   }
+}
