@@ -8,5 +8,24 @@
       "cart": "Carts",
       "login": "Login",
       "register": "Register" 
+   },
+   "footer": {
+      "receive_news": "RECEIVE NEWS FROM US",
+      "information": "INFORMATION",
+      "policy": "POLICY",
+      "follow": "FOLLOW SHOP",
+      "payment": "PAYMENT",
+      "email_placeholder": "Enter your email",
+      "btn_send": "SEND",
+      "hotline": "HOTLINE ({0} - {1})",
+      "work_time": "From Monday to Sunday",
+      "about_shop": "About Yay for Kids",
+      "shopping_guide": "Shopping Guide",
+      "payment_delivery": "Delivery & Payment",
+      "frequently_question": "Frequently Questions",
+      "term_service": "Term of Services",
+      "warranty": "Exchange & Warranty",
+      "security": "Security",
+      "copyright": "Copyright © DTN – All rights reserved."
    }
 }

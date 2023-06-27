@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { checkIsAdmin } from "../../../Common/Logic/logics";
 
 const Footer = React.memo(() => {
+   const { t } = useTranslation();
    const currentPathname = useLocation().pathname;
    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
@@ -17,7 +19,7 @@ const Footer = React.memo(() => {
                <div className="flex w-9/12 m-auto py-5 px-4">
                   <div className="flex flex-col w-1/4">
                      <div className="font-bold uppercase mb-3">
-                        nhận tin từ chúng tôi
+                        {t("footer.receive_news")}
                      </div>
                      <form className="">
                         <input
