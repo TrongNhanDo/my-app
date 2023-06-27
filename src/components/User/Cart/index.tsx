@@ -24,6 +24,21 @@ const CartList = React.memo(() => {
       setLoading(false);
    }, []);
 
+   const handleDelete = useCallback(async (cartId: string) => {
+      try {
+         console.log({ cartId });
+         setLoading(true);
+         await callApi("carts", "delete", { id: cartId }).catch((err) =>
+            console.log({ err })
+         );
+         setLoading(false);
+         fetchApi();
+      } catch (error) {
+         console.log({ error });
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
+
    const onSubmit = useCallback(async (formikValues: FormikProps) => {
       setLoading(true);
       await callApi("carts/update-cart/", "post", formikValues).catch((err) =>
@@ -84,181 +99,209 @@ const CartList = React.memo(() => {
    return (
       <div className="div-contai mx-auto rounded">
          {loading && <Loader />}
-         <div className="flex shadow-md my-10">
-            <div className="w-3/4 bg-white px-10 py-10">
-               <div className="flex justify-between border-b pb-8">
-                  <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-                  <h2 className="font-semibold text-2xl">{`${totalProducts} Items`}</h2>
-               </div>
-               <div className="flex mt-10 mb-5">
-                  <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
-                     Product Details
-                  </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                     Quantity
-                  </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                     Price
-                  </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                     Total
-                  </h3>
-               </div>
-               <hr />
-               <form onSubmit={formikBag.handleSubmit}>
-                  {viewData &&
-                     viewData.length &&
-                     viewData.map((value: CartItemType, index: number) => {
-                        return (
-                           <div key={value._id}>
-                              <div className="flex items-center hover:bg-gray-100 py-5">
-                                 <div className="flex w-2/5">
-                                    <div className="flex w-2/5 items-center">
-                                       <img
-                                          className="h-24 object-cover"
-                                          src={
-                                             value.product &&
-                                             value.product.images.length &&
-                                             value.product.images[0]
-                                                ? value.product.images[0]
-                                                : import.meta.env
-                                                     .VITE_IMAGE_NOT_FOUND
+         {viewData && viewData.length ? (
+            <div className="flex shadow-md my-10">
+               <div className="w-3/4 bg-white px-10 py-10">
+                  <div className="flex justify-between border-b pb-8">
+                     <h1 className="font-semibold text-2xl">Shopping Cart</h1>
+                     <h2 className="font-semibold text-2xl">{`${totalProducts} Items`}</h2>
+                  </div>
+                  <div className="flex mt-10 mb-5">
+                     <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/6">
+                        Product Details
+                     </h3>
+                     <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
+                        Quantity
+                     </h3>
+                     <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
+                        Price
+                     </h3>
+                     <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
+                        Total
+                     </h3>
+                     <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
+                        Delete
+                     </h3>
+                  </div>
+                  <hr />
+                  <form onSubmit={formikBag.handleSubmit}>
+                     {viewData &&
+                        viewData.length &&
+                        viewData.map((value: CartItemType, index: number) => {
+                           return (
+                              <div key={value._id}>
+                                 <div className="flex items-center hover:bg-gray-100 py-5">
+                                    <div className="flex w-2/6">
+                                       <div className="flex w-2/6 items-center">
+                                          <img
+                                             className="h-24 object-cover"
+                                             src={
+                                                value.product &&
+                                                value.product.images.length &&
+                                                value.product.images[0]
+                                                   ? value.product.images[0]
+                                                   : import.meta.env
+                                                        .VITE_IMAGE_NOT_FOUND
+                                             }
+                                             alt=""
+                                          />
+                                       </div>
+                                       <div className="flex flex-col justify-between ml-4 flex-grow w-3/6">
+                                          <span className="font-bold line-clamp-2">
+                                             {value.product &&
+                                             value.product.productName
+                                                ? value.product.productName
+                                                : ""}
+                                          </span>
+                                          <span className="text-sm">
+                                             {value.product &&
+                                             value.product.branch &&
+                                             value.product.branch &&
+                                             value.product.branch.branchName
+                                                ? value.product.branch
+                                                     .branchName
+                                                : ""}
+                                          </span>
+                                          <span className="text-sm">
+                                             {value.product &&
+                                             value.product.age &&
+                                             value.product.age &&
+                                             value.product.age.ageName
+                                                ? value.product.age.ageName
+                                                : ""}
+                                          </span>
+                                          <span className="text-sm">
+                                             {value.product &&
+                                             value.product.skill &&
+                                             value.product.skill &&
+                                             value.product.skill.skillName
+                                                ? value.product.skill.skillName
+                                                : ""}
+                                          </span>
+                                       </div>
+                                    </div>
+                                    <div className="flex justify-center w-1/6">
+                                       <input
+                                          type="number"
+                                          name={`cartItem[${index}].amount`}
+                                          id={`cartItem[${index}].amount`}
+                                          min={1}
+                                          value={
+                                             formikBag.values.cartItem[index]
+                                                ? formikBag.values.cartItem[
+                                                     index
+                                                  ].amount
+                                                : 1
                                           }
-                                          alt=""
+                                          className="ms-5 px-4 py-2 rounded border-solid border-2 border-gray-200 font-bold text-base w-24"
+                                          onChange={formikBag.handleChange}
                                        />
                                     </div>
-                                    <div className="flex flex-col justify-between ml-4 flex-grow w-3/5">
-                                       <span className="font-bold line-clamp-2">
-                                          {value.product &&
-                                          value.product.productName
-                                             ? value.product.productName
-                                             : ""}
-                                       </span>
-                                       <span className="text-sm">
-                                          {value.product &&
-                                          value.product.branch &&
-                                          value.product.branch &&
-                                          value.product.branch.branchName
-                                             ? value.product.branch.branchName
-                                             : ""}
-                                       </span>
-                                       <span className="text-sm">
-                                          {value.product &&
-                                          value.product.age &&
-                                          value.product.age &&
-                                          value.product.age.ageName
-                                             ? value.product.age.ageName
-                                             : ""}
-                                       </span>
-                                       <span className="text-sm">
-                                          {value.product &&
-                                          value.product.skill &&
-                                          value.product.skill &&
-                                          value.product.skill.skillName
-                                             ? value.product.skill.skillName
-                                             : ""}
-                                       </span>
+                                    <span className="text-center w-1/6 font-semibold text-sm">
+                                       {formatCurrency(value.price || 0)}
+                                    </span>
+                                    <span className="text-center w-1/6 font-semibold text-sm">
+                                       {formatCurrency(value.total || 0)}
+                                    </span>
+                                    <div className="flex w-1/6 justify-center">
+                                       <button
+                                          className="font-semibold text-sm w-fit hover:bg-red-600 p-1 rounded"
+                                          type="button"
+                                          onClick={() =>
+                                             handleDelete(value._id || "")
+                                          }
+                                       >
+                                          ❌
+                                       </button>
                                     </div>
                                  </div>
-                                 <div className="flex justify-center w-1/5">
-                                    <input
-                                       type="number"
-                                       name={`cartItem[${index}].amount`}
-                                       id={`cartItem[${index}].amount`}
-                                       min={1}
-                                       value={
-                                          formikBag.values.cartItem[index]
-                                             ? formikBag.values.cartItem[index]
-                                                  .amount
-                                             : 1
-                                       }
-                                       className="ms-5 px-4 py-2 rounded border-solid border-2 border-gray-200 font-bold text-base w-24"
-                                       onChange={formikBag.handleChange}
-                                    />
-                                 </div>
-                                 <span className="text-center w-1/5 font-semibold text-sm">
-                                    {formatCurrency(value.price || 0)}
-                                 </span>
-                                 <span className="text-center w-1/5 font-semibold text-sm">
-                                    {formatCurrency(value.total || 0)}
-                                 </span>
+                                 <hr />
                               </div>
-                              <hr />
-                           </div>
-                        );
-                     })}
-               </form>
-               <div className="flex w-full items-center justify-around mt-5">
-                  <Link
-                     to="/product-list"
-                     className="flex font-bold hover:text-orange-400 text-indigo-600 text-sm w-fit"
-                  >
-                     ⬅ Continue Shopping
-                  </Link>
-                  <button
-                     type="button"
-                     onClick={handleSubmit}
-                     className="block py-1 px-3 bg-green-600 text-white rounded hover:bg-green-500"
-                  >
-                     Cập nhật giỏ hàng
-                  </button>
-               </div>
-            </div>
-            <div
-               id="summary"
-               className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200"
-            >
-               <h1 className="font-semibold text-2xl border-b pb-8">
-                  Order Summary
-               </h1>
-               <div className="flex justify-between mt-10 mb-5">
-                  <span className="font-semibold text-sm uppercase">
-                     {`Items: ${totalProducts || 0}`}
-                  </span>
-                  <span className="font-semibold text-sm">
-                     Total: {formatCurrency(totalPrices || 0)}
-                  </span>
-               </div>
-               <div>
-                  <label className="font-medium inline-block mb-3 text-sm uppercase">
-                     Shipping
-                  </label>
-                  <select className="block p-2 text-gray-600 w-full text-sm rounded">
-                     <option>Giao hàng tiêu chuẩn</option>
-                     <option>Giao hàng hỏa tốc ( Nội thành )</option>
-                  </select>
-               </div>
-               <div className="py-10">
-                  <label
-                     htmlFor="promo"
-                     className="font-semibold inline-block mb-3 text-sm uppercase"
-                  >
-                     Promo Code
-                  </label>
-                  <input
-                     type="text"
-                     id="promo"
-                     placeholder="Enter your code"
-                     className="p-2 text-sm w-full rounded"
-                  />
-               </div>
-               <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase rounded">
-                  Apply
-               </button>
-               <div className="border-t mt-8">
-                  <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-                     <span>Total cost</span>
-                     <span>$600</span>
+                           );
+                        })}
+                  </form>
+                  <div className="flex w-full items-center justify-around mt-5">
+                     <Link
+                        to="/product-list"
+                        className="block py-1 px-3 bg-orange-600 text-white rounded hover:bg-orange-500"
+                     >
+                        Continue Shopping
+                     </Link>
+                     <button
+                        type="button"
+                        onClick={handleSubmit}
+                        className="block py-1 px-3 bg-green-600 text-white rounded hover:bg-green-500"
+                     >
+                        Cập nhật giỏ hàng
+                     </button>
                   </div>
-                  <button
-                     type="button"
-                     className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded"
-                  >
-                     Checkout
+               </div>
+               <div
+                  id="summary"
+                  className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200"
+               >
+                  <h1 className="font-semibold text-2xl border-b pb-8">
+                     Order Summary
+                  </h1>
+                  <div className="flex justify-between mt-10 mb-5">
+                     <span className="font-semibold text-sm uppercase">
+                        {`Items: ${totalProducts || 0}`}
+                     </span>
+                     <span className="font-semibold text-sm">
+                        Total: {formatCurrency(totalPrices || 0)}
+                     </span>
+                  </div>
+                  <div>
+                     <label className="font-medium inline-block mb-3 text-sm uppercase">
+                        Shipping
+                     </label>
+                     <select className="block p-2 text-gray-600 w-full text-sm rounded">
+                        <option>Giao hàng tiêu chuẩn</option>
+                        <option>Giao hàng hỏa tốc ( Nội thành )</option>
+                     </select>
+                  </div>
+                  <div className="py-10">
+                     <label
+                        htmlFor="promo"
+                        className="font-semibold inline-block mb-3 text-sm uppercase"
+                     >
+                        Promo Code
+                     </label>
+                     <input
+                        type="text"
+                        id="promo"
+                        placeholder="Enter your code"
+                        className="p-2 text-sm w-full rounded"
+                     />
+                  </div>
+                  <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase rounded">
+                     Apply
                   </button>
+                  <div className="border-t mt-8">
+                     <div className="flex font-semibold justify-between py-6 text-sm uppercase">
+                        <span>Total cost</span>
+                        <span>{formatCurrency(totalPrices || 0)}</span>
+                     </div>
+                     <button
+                        type="button"
+                        className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded"
+                     >
+                        Checkout
+                     </button>
+                  </div>
                </div>
             </div>
-         </div>
+         ) : (
+            <div className="flex flex-col w-full rounded items-center bg-white mt-10 py-10">
+               <span className="text-2xl font-bold"> Giỏ hàng rỗng</span>
+               <Link
+                  to="/product-list"
+                  className="mt-5 underline text-blue-600 hover:text-blue-400"
+               >
+                  Mua sắm sản phẩm
+               </Link>
+            </div>
+         )}
       </div>
    );
 });
