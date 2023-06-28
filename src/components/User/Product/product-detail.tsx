@@ -6,8 +6,10 @@ import Loader from "../../Common/Loader/loader";
 import { formatCurrency, renderStar } from "../../Common/Logic/logics";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
+import { useTranslation } from "react-i18next";
 
 const UserProductDetail = React.memo(() => {
+   const { t } = useTranslation();
    const { productId } = useParams();
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(true);
@@ -150,14 +152,33 @@ const UserProductDetail = React.memo(() => {
                   <div className="text-2xl font-bold line-clamp-3">
                      {viewData ? viewData.productName : ""}
                   </div>
-                  <div className="text-xl mt-3 font-bold line-clamp-3">
-                     Thương hiệu:{" "}
-                     {viewData && viewData.branch
-                        ? viewData.branch.branchName
-                        : ""}
+                  <div className="mt-3">
+                     {t("user.product_detail.branch")}:{" "}
+                     <span className="text-xl font-bold">
+                        {viewData && viewData.branch
+                           ? viewData.branch.branchName
+                           : ""}
+                     </span>
                   </div>
-                  <div className="text-2xl font-bold mt-3">
-                     {viewData ? formatCurrency(viewData.price || 0) : ""}
+                  <div className="mt-3">
+                     {t("user.product_detail.skill")}:{" "}
+                     <span className="text-xl font-bold">
+                        {viewData && viewData.skill
+                           ? viewData.skill.skillName
+                           : ""}
+                     </span>
+                  </div>
+                  <div className="mt-3">
+                     {t("user.product_detail.age")}:{" "}
+                     <span className="text-xl font-bold">
+                        {viewData && viewData.age ? viewData.age.ageName : ""}
+                     </span>
+                  </div>
+                  <div className="mt-3">
+                     {t("user.product_detail.price")}:{" "}
+                     <span className="text-2xl font-bold">
+                        {viewData ? formatCurrency(viewData.price || 0) : ""}
+                     </span>
                   </div>
                   <div className="flex mt-3">
                      <div>
@@ -166,10 +187,10 @@ const UserProductDetail = React.memo(() => {
                         )}
                      </div>
                      <div className="underline mx-2">0</div>
-                     nhận xét
+                     {t("user.product_detail.rate")}
                   </div>
                   <div className="flex mt-5 items-center">
-                     Số lượng:
+                     {t("user.product_detail.amount")}:
                      <input
                         type="number"
                         name="amount"
@@ -186,40 +207,42 @@ const UserProductDetail = React.memo(() => {
                         className="block bg-orange-200 hover:bg-orange-400 py-1 px-5 rounded"
                         onClick={handleSubmit}
                      >
-                        Thêm vào giỏ hàng
+                        {t("user.product_detail.btn_add")}
                      </button>
                      <button
                         type="button"
                         className="block bg-orange-400 hover:bg-orange-200 py-1 px-5 rounded ms-5"
                      >
-                        Mua ngay
+                        {t("user.product_detail.btn_buy")}
                      </button>
                   </div>
                </form>
                <div className="mt-10">
                   <div className="text-xl font-bold ">
-                     ĐĂNG KÝ NHẬN THÔNG BÁO KHI MÓN HÀNG NÀY QUAY TRỞ LẠI
+                     {t("user.product_detail.heading1")}
                   </div>
                   <form className="mt-3">
                      <input
                         type="email"
                         name="customer-email"
                         id="customer-email"
-                        placeholder="Nhập địa chỉ email"
+                        placeholder={t("user.product_detail.email_placeholder")}
                         className="px-4 py-2 rounded border-solid border-2 border-gray-200"
                      />
                      <button
                         type="button"
                         className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
                      >
-                        Send
+                        {t("user.product_detail.btn_send")}
                      </button>
                   </form>
                </div>
             </div>
          </div>
          <div className="flex flex-col w-full mt-20">
-            <div className="text-xl font-bold">Mô tả sản phẩm</div>
+            <div className="text-xl font-bold">
+               {t("user.product_detail.description")}
+            </div>
             <div className="mt-4">
                {viewData && viewData.describes ? viewData.describes : ""}
             </div>

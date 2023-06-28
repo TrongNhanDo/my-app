@@ -62,6 +62,20 @@
          "skill5": "Social interaction",
          "skill6": "Sedentary"
       },
+      "product_detail": {
+         "branch": "Branch",
+         "skill": "Skill",
+         "age": "Age",
+         "price": "Price",
+         "rate": "Rate",
+         "amount": "Amount",
+         "btn_add": "Add to cart",
+         "btn_buy": "Buy now",
+         "heading1": "SIGN UP TO GET NOTIFICATIONS WHEN THIS ITEM IS BACK",
+         "email_placeholder": "Enter your email",
+         "btn_send": "SEND",
+         "description": "Product description:"
+      },
       "about": {
          "title": "GENERAL INTRODUCTION",
          "text1": "Yay For Kids is a business unit of Educational Toys, stimulating intelligence and developing children's creativity. With the desire to bring good quality, affordable intellectual toys, serving the needs of Vietnamese children to learn, play and learn, we are always looking for reputable, reliable partners. Long-term experience in the design, development and production of Intellectual Toys. The brands that we distribute all meet many safety standards and satisfy European export conditions. We believe that a standard educational toy must not only bring joy to children, but also bring peace of mind to parents. Therefore, choosing safe materials is extremely important.",
