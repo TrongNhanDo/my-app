@@ -1,47 +1,54 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const Sidebar = React.memo(() => {
+   const { t } = useTranslation();
+
    return (
       <div className="flex flex-col px-2">
-         <div className="uppercase text-xl font-bold">hổ trợ khách hàng ▼</div>
+         <div className="uppercase text-xl font-bold">
+            {t("user.footer.customer_support")} ▼
+         </div>
          <ul>
             <li className="py-2">
                <Link to="/about" className="hover:text-blue-500">
-                  Về Yay For Kids
+                  {t("user.footer.about_shop")}
                </Link>
             </li>
             <li className="py-2">
                <Link to="/shopping-guide" className="hover:text-blue-500">
-                  Hướng dẫn mua hàng
+                  {t("user.footer.shopping_guide")}
                </Link>
             </li>
             <li className="py-2">
                <Link to="/delivery-and-payment" className="hover:text-blue-500">
-                  Giao hàng và thanh toán
+                  {t("user.footer.payment_delivery")}
                </Link>
             </li>
             <li className="py-2">
                <Link to="/questions" className="hover:text-blue-500">
-                  Câu hỏi thường gặp
+                  {t("user.footer.frequently_question")}
                </Link>
             </li>
             <li className="py-2">
                <Link to="/policy" className="hover:text-blue-500">
-                  Điều khoản dịch vụ
+                  {t("user.footer.term_service")}
                </Link>
             </li>
          </ul>
-         <div className="uppercase text-xl font-bold mt-3">chính sách ▼</div>
+         <div className="uppercase text-xl font-bold mt-3">
+            {t("user.footer.policy")} ▼
+         </div>
          <ul>
             <li className="py-2">
                <Link to="/warranty" className="hover:text-blue-500">
-                  Đổi trả bảo hành
+                  {t("user.footer.warranty")}
                </Link>
             </li>
             <li className="py-2">
                <Link to="/security" className="hover:text-blue-500">
-                  Bảo mật
+                  {t("user.footer.security")}
                </Link>
             </li>
          </ul>
