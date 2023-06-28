@@ -199,6 +199,26 @@
          "title": "SECURITY",
          "updating_content": "Content are being updated"
       },
+      "cart": {
+         "title": "SHOPPING CART",
+         "product": "ITEMS",
+         "header1": "PRODUCT DETAIL",
+         "header2": "QUANTITY",
+         "header3": "PRICE",
+         "header4": "TOTAL",
+         "header5": "DELETE",
+         "btn_continue": "Continue Shopping",
+         "btn_update": "Update cart",
+         "title2": "Order Summary",
+         "shipping_method": "Shipping method",
+         "promotion_code": "PROMOTION CODE",
+         "promotion_code_placeholder": "Enter your code",
+         "btn_apply": "APPLY",
+         "total_cost": "TOTAL COST",
+         "btn_checkout": "CHECKOUT",
+         "shipping_method1": "Standard delivery",
+         "shipping_method2": "Express delivery ( Inner city )"
+      },
       "error": {
          "email_required": "Email can not be blank",
          "password_required": "Password can not be blank",

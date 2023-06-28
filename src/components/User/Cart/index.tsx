@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import { callApi } from "../../../api/callApi/callApi";
 import { CartItemType, FormikInitValues, FormikProps } from "./types";
@@ -8,6 +9,7 @@ import Loader from "../../Common/Loader/loader";
 import { validationSchema } from "./validations";
 
 const CartList = React.memo(() => {
+   const { t } = useTranslation();
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [loading, setLoading] = useState<boolean>(false);
 
@@ -103,24 +105,28 @@ const CartList = React.memo(() => {
             <div className="flex shadow-md my-10">
                <div className="w-3/4 bg-white px-10 py-10">
                   <div className="flex justify-between border-b pb-8">
-                     <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-                     <h2 className="font-semibold text-2xl">{`${totalProducts} Items`}</h2>
+                     <h1 className="font-semibold text-2xl">
+                        {t("user.cart.title")}
+                     </h1>
+                     <h2 className="font-semibold text-2xl">
+                        {totalProducts + " " + t("user.cart.product")}
+                     </h2>
                   </div>
                   <div className="flex mt-10 mb-5">
                      <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/6">
-                        Product Details
+                        {t("user.cart.header1")}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        Quantity
+                        {t("user.cart.header2")}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        Price
+                        {t("user.cart.header3")}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        Total
+                        {t("user.cart.header4")}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        Delete
+                        {t("user.cart.header5")}
                      </h3>
                   </div>
                   <hr />
@@ -225,14 +231,14 @@ const CartList = React.memo(() => {
                         to="/product-list"
                         className="block py-1 px-3 bg-orange-600 text-white rounded hover:bg-orange-500"
                      >
-                        Continue Shopping
+                        {t("user.cart.btn_continue")}
                      </Link>
                      <button
                         type="button"
                         onClick={handleSubmit}
                         className="block py-1 px-3 bg-green-600 text-white rounded hover:bg-green-500"
                      >
-                        Cập nhật giỏ hàng
+                        {t("user.cart.btn_update")}
                      </button>
                   </div>
                </div>
@@ -241,23 +247,25 @@ const CartList = React.memo(() => {
                   className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200"
                >
                   <h1 className="font-semibold text-2xl border-b pb-8">
-                     Order Summary
+                     {t("user.cart.title2")}
                   </h1>
                   <div className="flex justify-between mt-10 mb-5">
                      <span className="font-semibold text-sm uppercase">
-                        {`Items: ${totalProducts || 0}`}
+                        {t("user.cart.product") + ": "}
+                        {totalProducts || 0}
                      </span>
                      <span className="font-semibold text-sm">
-                        Total: {formatCurrency(totalPrices || 0)}
+                        {t("user.cart.header4")}:{" "}
+                        {formatCurrency(totalPrices || 0)}
                      </span>
                   </div>
                   <div>
                      <label className="font-medium inline-block mb-3 text-sm uppercase">
-                        Shipping
+                        {t("user.cart.shipping_method")}
                      </label>
                      <select className="block p-2 text-gray-600 w-full text-sm rounded">
-                        <option>Giao hàng tiêu chuẩn</option>
-                        <option>Giao hàng hỏa tốc ( Nội thành )</option>
+                        <option>{t("user.cart.shipping_method1")}</option>
+                        <option>{t("user.cart.shipping_method2")}</option>
                      </select>
                   </div>
                   <div className="py-10">
@@ -265,28 +273,28 @@ const CartList = React.memo(() => {
                         htmlFor="promo"
                         className="font-semibold inline-block mb-3 text-sm uppercase"
                      >
-                        Promo Code
+                        {t("user.cart.promotion_code")}
                      </label>
                      <input
                         type="text"
                         id="promo"
-                        placeholder="Enter your code"
+                        placeholder={t("user.cart.promotion_code_placeholder")}
                         className="p-2 text-sm w-full rounded"
                      />
                   </div>
                   <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase rounded">
-                     Apply
+                     {t("user.cart.btn_apply")}
                   </button>
                   <div className="border-t mt-8">
                      <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-                        <span>Total cost</span>
+                        <span>{t("user.cart.total_cost")}</span>
                         <span>{formatCurrency(totalPrices || 0)}</span>
                      </div>
                      <button
                         type="button"
                         className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded"
                      >
-                        Checkout
+                        {t("user.cart.btn_checkout")}
                      </button>
                   </div>
                </div>
