@@ -148,6 +148,10 @@
          "text2": "Please refer to our return policy HERE. In addition, if you are not satisfied with any aspect, you can comment directly with us through the official fanpage. Yay would like to receive your constructive comments so that we can serve you better in the future.",
          "text3": "We can confirm that, all of our products are genuine imported goods with ISO9001 certificate, EU EXPORT, FAMA DISNEY, ... from major toy manufacturers in the world such as MIDEER, TOI. , AVENIR, ... ensure safety and friendliness with children."
       },
+      "term_service": {
+         "title": "TERMS OF SERVICE",
+         "updating_content":"Content are being updated"
+      },
       "error": {
          "email_required": "Email can not be blank",
          "password_required": "Password can not be blank",
