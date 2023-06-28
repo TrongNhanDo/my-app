@@ -122,6 +122,23 @@
          "text12": "When there is a need to check the status of your order, please contact directly to Fanpage or hotline 097 88 99 150 / 0968 56 56 59.",
          "text13": "Yay sincerely thank you and wish you a nice shopping experience!"
       },
+      "payment_delivery": {
+         "title": "DELIVERY AND PAYMENT",
+         "heading1": "DELIVERY METHOD:",
+         "heading2": "PAYMENT METHODS:",
+         "text1": "Currently, Yay has 2 delivery methods and 3 payment methods as follows:",
+         "text2": "- Same-day express delivery: For customers in Ho Chi Minh City. Please note clearly in the order or contact directly to Fanpage or hotline after ordering so that we can prioritize delivery to you.",
+         "text3": "- Regular delivery: We will deliver the goods to you through the intermediary shipping units. Estimated delivery time for customers in Ho Chi Minh City is 1-2 days and customers outside the province is 3-4 days.",
+         "text4": "- Cash on delivery – COD (applicable to all orders with a delivery address in Vietnam).",
+         "text5": "- Payment by bank transfer: After the customer places an order successfully, the system will send an order confirmation email including order code and transfer information. Customers can transfer via iBanking, cash transfer at the bank, transfer via ATM... When transferring, please specify the order code for convenience in checking and updating payment.",
+         "text6": "- Transfer information:",
+         "text7": "- Recipient's name: xxxx xxxx xxxx",
+         "text8": "- Account number: xxxxxxxxxx",
+         "text9": "- Bank's name: Bank x",
+         "text10": "- Transfer content: Order number and purchase phone number",
+         "text11": "- In case you can't write the payment through the ATM, please keep the receipt and call the hotline 0978899150 or send a message to the fanpage for assistance with payment confirmation. After the order is successfully updated, payment will be processed and shipped as soon as possible.",
+         "text12": "- Payment via VNPAY: After the customer clicks Complete the order, the website will display the payment interface, you choose to scan the QR code to proceed with the payment. In case you have not paid yet but exit the interface or the QR code has expired, please contact the fanpage or hotline 0978899150 for payment support and order confirmation."
+      },
       "error": {
          "email_required": "Email can not be blank",
          "password_required": "Password can not be blank",
