@@ -181,6 +181,10 @@
          "text19": "Cách 1: Khách hàng mang hàng trực tiếp đến trả tại cửa hàng.",
          "text20": "Cách 2: Gửi về địa chỉ cửa hàng trên kiện hàng khách đã nhận."
       },
+      "security": {
+         "title": "BẢO MẬT",
+         "updating_content": "Nội dung đang được cập nhật"
+      },
       "error": {
          "email_required": "Email không được để trống",
          "password_required": "Mật khẩu không được để trống",

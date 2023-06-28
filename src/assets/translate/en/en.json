@@ -181,6 +181,10 @@
          "text19": "Method 1: Customers bring goods directly to the store to pay.",
          "text20": "Method 2: Send to the store address on the parcel received by the customer."
       },
+      "security": {
+         "title": "SECURITY",
+         "updating_content": "Content are being updated"
+      },
       "error": {
          "email_required": "Email can not be blank",
          "password_required": "Password can not be blank",
