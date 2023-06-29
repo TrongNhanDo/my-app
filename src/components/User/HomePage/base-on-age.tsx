@@ -12,7 +12,7 @@ const BaseOnAge = React.memo(() => {
                {t("user.homepage.base_on_age")}
             </div>
             <div className="w-1/2 flex justify-end">
-               <Link to="" className="hover:text-blue-500">
+               <Link to="/product-list" className="hover:text-blue-500">
                   {t("user.homepage.see_more")}
                </Link>
             </div>
