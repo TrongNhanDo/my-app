@@ -62,7 +62,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch1" className="ps-3 cursor-pointer">
-                     MIDEER
+                     {t("user.product.branch1")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -76,7 +76,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch2" className="ps-3 cursor-pointer">
-                     AVENIR
+                     {t("user.product.branch2")}
                   </label>
                </div>
             </div>
@@ -92,7 +92,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch3" className="ps-3 cursor-pointer">
-                     TOI WORLD
+                     {t("user.product.branch3")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -106,7 +106,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch4" className="ps-3 cursor-pointer">
-                     JOAN MIRO
+                     {t("user.product.branch4")}
                   </label>
                </div>
             </div>
@@ -122,7 +122,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch5" className="ps-3 cursor-pointer">
-                     TOOKY TOY
+                     {t("user.product.branch5")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -136,7 +136,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch6" className="ps-3 cursor-pointer">
-                     MOULD KING
+                     {t("user.product.branch6")}
                   </label>
                </div>
             </div>

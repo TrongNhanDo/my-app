@@ -60,7 +60,13 @@
          "skill3": "The art of painting",
          "skill4": "Quick eyes & sharp hands",
          "skill5": "Social interaction",
-         "skill6": "Sedentary"
+         "skill6": "Sedentary",
+         "branch1": "MIDEER",
+         "branch2": "JOAN MIRO",
+         "branch3": "TOI WORLD",
+         "branch4": "TOOKY TOY",
+         "branch5": "AVENIR",
+         "branch6": "MOULD KING"
       },
       "product_detail": {
          "branch": "Branch",
