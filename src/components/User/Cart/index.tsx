@@ -13,7 +13,7 @@ import { CartItemType, FormikInitValues, FormikProps } from "./types";
 import { formatCurrency } from "../../Common/Logic/logics";
 import Loader from "../../Common/Loader/loader";
 import { validationSchema } from "./validations";
-import { SumProductContext } from "../../../App";
+import { SumProductContext } from "../../../context/SumProductContext";
 
 const CartList = React.memo(() => {
    const { t } = useTranslation();

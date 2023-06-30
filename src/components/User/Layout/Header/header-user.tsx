@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import i18n from "../../../../i18n/i18n";
 import { useTranslation } from "react-i18next";
-import { SumProductContext } from "../../../../App";
+import { SumProductContext } from "../../../../context/SumProductContext";
 
 const HeaderUser = React.memo(() => {
    const { t } = useTranslation();

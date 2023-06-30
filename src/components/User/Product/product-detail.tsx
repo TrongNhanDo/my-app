@@ -7,7 +7,7 @@ import { formatCurrency, renderStar } from "../../Common/Logic/logics";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
 import { useTranslation } from "react-i18next";
-import { SumProductContext } from "../../../App";
+import { SumProductContext } from "../../../context/SumProductContext";
 
 const UserProductDetail = React.memo(() => {
    const { t } = useTranslation();

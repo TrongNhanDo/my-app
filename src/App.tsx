@@ -1,4 +1,3 @@
-import { createContext, useCallback, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoginForm from "./components/User/Account/Login/login-form";
@@ -37,133 +36,85 @@ import DeliveryPayment from "./components/User/Customer/DeliveryPayment";
 import UserProductList from "./components/User/Product/product-list";
 import UserProductDetail from "./components/User/Product/product-detail";
 import CartList from "./components/User/Cart";
-import { callApi } from "./api/callApi/callApi";
-import { CartItemType } from "./components/User/Cart/types";
-
-type ContextProps = {
-   sumProduct: number;
-   setSumProduct: React.Dispatch<React.SetStateAction<number>>;
-};
-
-export const SumProductContext = createContext<ContextProps>({
-   sumProduct: 0,
-   setSumProduct: () => 0,
-});
 
 function App() {
-   const [viewData, setViewData] = useState<CartItemType[]>();
-   const [sumProduct, setSumProduct] = useState<number>(0);
-
-   const fetchApi = useCallback(async () => {
-      const response = await callApi("carts/get-by-userId", "post", {
-         userId: "64760a06575933907791ab2e",
-      }).catch((err) => console.log({ err }));
-
-      const data: CartItemType[] = response.data;
-      if (data) {
-         setViewData(data);
-      }
-   }, []);
-
-   useEffect(() => {
-      fetchApi();
-   }, [fetchApi]);
-
-   useEffect(() => {
-      if (viewData && viewData.length) {
-         const total = viewData.reduce((sum, cur) => sum + cur.amount, 0);
-         setSumProduct(total);
-      }
-   }, [viewData]);
-
    return (
       <>
-         <SumProductContext.Provider value={{ sumProduct, setSumProduct }}>
-            <Header />
-            <Routes>
-               {/* route for user */}
-               <Route index element={<HomePage />} />
-               <Route path="/login" element={<LoginForm />} />
-               <Route path="/register" element={<RegisterFrom />} />
+         <Header />
+         <Routes>
+            {/* route for user */}
+            <Route index element={<HomePage />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterFrom />} />
 
-               {/* route for admin */}
-               <Route path="/admin" element={<AdminHome />} />
-               <Route path="/admin/product-list" element={<ProductList />} />
-               <Route path="/admin/add-product" element={<AddProduct />} />
-               <Route
-                  path="/admin/product-detail/:productId"
-                  element={<ProductDetail />}
-               />
-               <Route path="/admin/user-list" element={<UserList />} />
-               <Route
-                  path="/admin/user-detail/:userId"
-                  element={<UserDetail />}
-               />
-               <Route path="/admin/add-user" element={<AddNewUser />} />
-               <Route
-                  path="/admin/age-category-list"
-                  element={<AgeCategoryList />}
-               />
-               <Route
-                  path="/admin/age-category-detail/:id"
-                  element={<AgeCategoryDetail />}
-               />
-               <Route
-                  path="/admin/add-age-category"
-                  element={<AddAgeCategory />}
-               />
-               <Route
-                  path="/admin/branch-category-list"
-                  element={<BranchList />}
-               />
-               <Route
-                  path="/admin/branch-category-detail/:id"
-                  element={<BranchCategoryDetail />}
-               />
-               <Route
-                  path="/admin/add-branch-category"
-                  element={<AddBranchCategory />}
-               />
-               <Route
-                  path="/admin/skill-category-list"
-                  element={<SkillList />}
-               />
-               <Route
-                  path="/admin/skill-category-detail/:id"
-                  element={<SkillCategoryDetail />}
-               />
-               <Route
-                  path="/admin/add-skill-category"
-                  element={<AddSkillCategory />}
-               />
-               <Route path="/admin/role-list" element={<RoleList />} />
-               <Route path="/admin/role-detail/:id" element={<RoleDetail />} />
-               <Route path="/admin/add-role" element={<AddRole />} />
-               <Route path="/admin/order-list" element={<AdminHome />} />
+            {/* route for admin */}
+            <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/product-list" element={<ProductList />} />
+            <Route path="/admin/add-product" element={<AddProduct />} />
+            <Route
+               path="/admin/product-detail/:productId"
+               element={<ProductDetail />}
+            />
+            <Route path="/admin/user-list" element={<UserList />} />
+            <Route path="/admin/user-detail/:userId" element={<UserDetail />} />
+            <Route path="/admin/add-user" element={<AddNewUser />} />
+            <Route
+               path="/admin/age-category-list"
+               element={<AgeCategoryList />}
+            />
+            <Route
+               path="/admin/age-category-detail/:id"
+               element={<AgeCategoryDetail />}
+            />
+            <Route
+               path="/admin/add-age-category"
+               element={<AddAgeCategory />}
+            />
+            <Route
+               path="/admin/branch-category-list"
+               element={<BranchList />}
+            />
+            <Route
+               path="/admin/branch-category-detail/:id"
+               element={<BranchCategoryDetail />}
+            />
+            <Route
+               path="/admin/add-branch-category"
+               element={<AddBranchCategory />}
+            />
+            <Route path="/admin/skill-category-list" element={<SkillList />} />
+            <Route
+               path="/admin/skill-category-detail/:id"
+               element={<SkillCategoryDetail />}
+            />
+            <Route
+               path="/admin/add-skill-category"
+               element={<AddSkillCategory />}
+            />
+            <Route path="/admin/role-list" element={<RoleList />} />
+            <Route path="/admin/role-detail/:id" element={<RoleDetail />} />
+            <Route path="/admin/add-role" element={<AddRole />} />
+            <Route path="/admin/order-list" element={<AdminHome />} />
 
-               <Route path="/about" element={<About />} />
-               <Route path="/contact" element={<Contact />} />
-               <Route path="/shopping-guide" element={<ShoppingGuide />} />
-               <Route path="/questions" element={<QuestionsFrequently />} />
-               <Route path="/policy" element={<Policy />} />
-               <Route path="/warranty" element={<Warranty />} />
-               <Route path="/security" element={<Security />} />
-               <Route
-                  path="/delivery-and-payment"
-                  element={<DeliveryPayment />}
-               />
-               <Route path="/product-list" element={<UserProductList />} />
-               <Route
-                  path="/product-detail/:productId"
-                  element={<UserProductDetail />}
-               />
-               <Route path="/carts" element={<CartList />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/shopping-guide" element={<ShoppingGuide />} />
+            <Route path="/questions" element={<QuestionsFrequently />} />
+            <Route path="/policy" element={<Policy />} />
+            <Route path="/warranty" element={<Warranty />} />
+            <Route path="/security" element={<Security />} />
+            <Route path="/delivery-and-payment" element={<DeliveryPayment />} />
+            <Route path="/product-list" element={<UserProductList />} />
+            <Route
+               path="/product-detail/:productId"
+               element={<UserProductDetail />}
+            />
+            <Route path="/carts" element={<CartList />} />
 
-               {/* 404 page */}
-               <Route path="*" element={<PageNotFound />} />
-            </Routes>
-            <Footer />
-         </SumProductContext.Provider>
+            {/* 404 page */}
+            <Route path="*" element={<PageNotFound />} />
+         </Routes>
+         <Footer />
       </>
    );
 }
