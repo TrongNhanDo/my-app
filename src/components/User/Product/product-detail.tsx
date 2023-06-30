@@ -17,6 +17,7 @@ const UserProductDetail = React.memo(() => {
    const [viewData, setViewData] = useState<ProductType>();
    const [mainImage, setMainImage] = useState<string>();
    const { sumProduct, setSumProduct } = useContext(SumProductContext);
+   const [isBuyNow, setIsBuyNow] = useState<boolean>();
 
    const fetchApi = useCallback(async () => {
       const url = `products/${productId}`;
@@ -42,12 +43,15 @@ const UserProductDetail = React.memo(() => {
             await callApi("carts", "post", formikBagValues).catch((err) =>
                console.log({ err })
             );
+            if (isBuyNow) {
+               navigate("/carts");
+            }
             setShowLoading(false);
          } catch (error) {
             console.log({ error });
          }
       },
-      [sumProduct, setSumProduct]
+      [sumProduct, setSumProduct, isBuyNow, navigate]
    );
 
    const formikBag = useFormik({
@@ -61,13 +65,17 @@ const UserProductDetail = React.memo(() => {
       onSubmit: (value) => onSubmit(value),
    });
 
-   const handleSubmit = useCallback(() => {
-      try {
-         formikBag.submitForm();
-      } catch (error) {
-         console.log({ error });
-      }
-   }, [formikBag]);
+   const handleSubmit = useCallback(
+      (isBuyNow: boolean) => {
+         try {
+            setIsBuyNow(isBuyNow);
+            formikBag.submitForm();
+         } catch (error) {
+            console.log({ error });
+         }
+      },
+      [formikBag]
+   );
 
    useEffect(() => {
       if (!productId) {
@@ -212,12 +220,13 @@ const UserProductDetail = React.memo(() => {
                      <button
                         type="button"
                         className="block bg-orange-200 hover:bg-orange-400 py-1 px-5 rounded"
-                        onClick={handleSubmit}
+                        onClick={() => handleSubmit(false)}
                      >
                         {t("user.product_detail.btn_add")}
                      </button>
                      <button
                         type="button"
+                        onClick={() => handleSubmit(true)}
                         className="block bg-orange-400 hover:bg-orange-200 py-1 px-5 rounded ms-5"
                      >
                         {t("user.product_detail.btn_buy")}
