@@ -9,25 +9,35 @@ const SearchForm = React.memo(() => {
    const [ageId, setAgeId] = useState<string>();
    const [branchId, setBranchId] = useState<string>();
    const [skillId, setSkillId] = useState<string>();
+   const [productName, setProductName] = useState<string>();
 
    const isSelected = useMemo(() => {
-      if (ageId || branchId || skillId) {
+      if (ageId || branchId || skillId || productName) {
          return true;
       }
       return false;
-   }, [ageId, branchId, skillId]);
+   }, [ageId, branchId, skillId, productName]);
 
    const handleSubmit = useCallback(() => {
       if (!isSelected) {
          return;
       }
 
-      const url = `?ageId=${ageId || ""}&branchId=${branchId || ""}&skillId=${
-         skillId || ""
+      const url = `?ageId=${ageId ? ageId.trim() : ""}&branchId=${
+         branchId ? branchId.trim() : ""
+      }&skillId=${skillId ? skillId.trim() : ""}&productName=${
+         productName ? productName.trim() : ""
       }`;
 
       navigate(url, { replace: true });
-   }, [navigate, ageId, branchId, skillId, isSelected]);
+   }, [navigate, ageId, branchId, skillId, productName, isSelected]);
+
+   const handleClearSearch = useCallback(() => {
+      setAgeId("");
+      setBranchId("");
+      setSkillId("");
+      setProductName("");
+   }, []);
 
    useEffect(() => {
       if (searchParamValues.get("ageId")) {
@@ -41,6 +51,10 @@ const SearchForm = React.memo(() => {
       if (searchParamValues.get("skillId")) {
          const item = searchParamValues.get("skillId") || "";
          setSkillId(item);
+      }
+      if (searchParamValues.get("productName")) {
+         const item = searchParamValues.get("productName") || "";
+         setProductName(item);
       }
    }, [searchParamValues]);
 
@@ -324,6 +338,18 @@ const SearchForm = React.memo(() => {
             </div>
          </div>
          <hr className="my-5" />
+         <div className="w-full flex justify-center px-1">
+            <input
+               type="text"
+               name="productName"
+               id="productName"
+               className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+               placeholder={t("user.product.name_placeholder")}
+               value={productName}
+               onChange={(e) => setProductName(e.target.value)}
+            />
+         </div>
+         <hr className="my-5" />
          <div className="flex w-full justify-around items-center">
             <Link
                to="/product-list"
@@ -332,11 +358,7 @@ const SearchForm = React.memo(() => {
                      ? "hover:bg-red-500 bg-red-600"
                      : "cursor-not-allowed bg-gray-500"
                }`}
-               onClick={() => {
-                  setAgeId("");
-                  setBranchId("");
-                  setSkillId("");
-               }}
+               onClick={handleClearSearch}
             >
                {t("user.product.uncheck")}
             </Link>

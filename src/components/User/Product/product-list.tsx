@@ -23,10 +23,12 @@ const UserProductList = React.memo(() => {
       const ageId = searchParams.get("ageId") || "";
       const branchId = searchParams.get("branchId") || "";
       const skillId = searchParams.get("skillId") || "";
+      const productName = searchParams.get("productName") || "";
       return {
-         ageId: ageId,
-         branchId: branchId,
-         skillId: skillId,
+         ageId: ageId.trim(),
+         branchId: branchId.trim(),
+         skillId: skillId.trim(),
+         productName: productName.trim(),
       };
    }, [searchParams]);
 

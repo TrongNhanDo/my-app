@@ -68,7 +68,8 @@
          "branch3": "TOI WORLD",
          "branch4": "TOOKY TOY",
          "branch5": "AVENIR",
-         "branch6": "MOULD KING"
+         "branch6": "MOULD KING",
+         "name_placeholder": "Enter product's name"
       },
       "product_detail": {
          "branch": "Branch",
