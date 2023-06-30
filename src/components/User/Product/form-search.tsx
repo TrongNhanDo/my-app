@@ -6,10 +6,10 @@ const SearchForm = React.memo(() => {
    const { t } = useTranslation();
    const navigate = useNavigate();
    const [searchParamValues] = useSearchParams();
-   const [ageId, setAgeId] = useState<string>();
-   const [branchId, setBranchId] = useState<string>();
-   const [skillId, setSkillId] = useState<string>();
-   const [productName, setProductName] = useState<string>();
+   const [ageId, setAgeId] = useState<string>("");
+   const [branchId, setBranchId] = useState<string>("");
+   const [skillId, setSkillId] = useState<string>("");
+   const [productName, setProductName] = useState<string>("");
 
    const isSelected = useMemo(() => {
       if (ageId || branchId || skillId || productName) {
@@ -43,18 +43,29 @@ const SearchForm = React.memo(() => {
       if (searchParamValues.get("ageId")) {
          const item = searchParamValues.get("ageId") || "";
          setAgeId(item);
+      } else {
+         setAgeId("");
       }
+
       if (searchParamValues.get("branchId")) {
          const item = searchParamValues.get("branchId") || "";
          setBranchId(item);
+      } else {
+         setBranchId("");
       }
+
       if (searchParamValues.get("skillId")) {
          const item = searchParamValues.get("skillId") || "";
          setSkillId(item);
+      } else {
+         setSkillId("");
       }
+
       if (searchParamValues.get("productName")) {
          const item = searchParamValues.get("productName") || "";
          setProductName(item);
+      } else {
+         setProductName("");
       }
    }, [searchParamValues]);
 
