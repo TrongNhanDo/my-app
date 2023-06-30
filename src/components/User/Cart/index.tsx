@@ -118,11 +118,11 @@ const CartList = React.memo(() => {
    }, [viewData]);
 
    return (
-      <div className="div-contai mx-auto rounded">
+      <div className="div-contai">
          {loading && <Loader />}
          {viewData && viewData.length ? (
-            <div className="flex shadow-md my-10">
-               <div className="w-3/4 bg-white px-10 py-10">
+            <div className="flex shadow-md">
+               <div className="w-3/4 bg-white px-10 py-10 rounded">
                   <div className="flex justify-between border-b pb-8">
                      <h1 className="font-semibold text-2xl">
                         {t("user.cart.title")}
@@ -263,7 +263,7 @@ const CartList = React.memo(() => {
                </div>
                <div
                   id="summary"
-                  className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200"
+                  className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200 rounded"
                >
                   <h1 className="font-semibold text-2xl border-b pb-8">
                      {t("user.cart.title2")}

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 const Policy = React.memo(() => {
    const { t } = useTranslation();
    return (
-      <div className="div-contai flex mt-5">
+      <div className="div-contai flex">
          <div className="w-1/4">
             <Sidebar />
          </div>

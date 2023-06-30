@@ -56,7 +56,7 @@ const LoginForm = React.memo(() => {
    }, [checkPass]);
 
    return (
-      <div className="div-contai w-1/3 bg-white my-10 rounded-lg shadow">
+      <div className="div-contai w-1/3 bg-white shadow">
          {showLoading && <Loader />}
          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white uppercase text-center">

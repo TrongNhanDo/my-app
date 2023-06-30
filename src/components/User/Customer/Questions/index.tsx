@@ -9,7 +9,7 @@ const QuestionsFrequently = React.memo(() => {
    const [check3, setCheck3] = useState<boolean>(false);
 
    return (
-      <div className="div-contai flex mt-5">
+      <div className="div-contai flex">
          <div className="w-1/4">
             <Sidebar />
          </div>

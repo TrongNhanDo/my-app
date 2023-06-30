@@ -8,7 +8,9 @@
          "contact": "Contact",
          "cart": "Carts",
          "login": "Login",
-         "register": "Register"
+         "register": "Register",
+         "account": "My Account",
+         "logout": "Logout"
       },
       "footer": {
          "receive_news": "RECEIVE NEWS FROM US",

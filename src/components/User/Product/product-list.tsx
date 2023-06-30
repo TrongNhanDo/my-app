@@ -91,7 +91,7 @@ const UserProductList = React.memo(() => {
    }, [fetchApi]);
 
    return (
-      <div className="div-contai mt-5">
+      <div className="div-contai">
          {showLoading && <Loader />}
          <div className="flex w-full">
             <div className="w-1/4 p-4 bg-white h-fit rounded me-5">

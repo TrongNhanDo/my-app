@@ -104,7 +104,7 @@ const UserProductDetail = React.memo(() => {
    }, [viewData]);
 
    return (
-      <div className="div-contai flex flex-col my-5 bg-white p-5 rounded">
+      <div className="div-contai flex flex-col bg-white p-5">
          {showLoading && <Loader />}
          <div className="flex w-full">
             <div className="w-2/12 pe-5">
