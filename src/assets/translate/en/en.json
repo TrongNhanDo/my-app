@@ -223,7 +223,9 @@
          "total_cost": "TOTAL COST",
          "btn_checkout": "CHECKOUT",
          "shipping_method1": "Standard delivery",
-         "shipping_method2": "Express delivery ( Inner city )"
+         "shipping_method2": "Express delivery ( Inner city )",
+         "empty_shopping_cart": "Empty shopping cart",
+         "see_product": "Products list"
       },
       "error": {
          "required": "This field is required",

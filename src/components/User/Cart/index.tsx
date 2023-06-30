@@ -320,12 +320,14 @@ const CartList = React.memo(() => {
             </div>
          ) : (
             <div className="flex flex-col w-full rounded items-center bg-white mt-10 py-10">
-               <span className="text-2xl font-bold"> Giỏ hàng rỗng</span>
+               <span className="text-2xl font-bold">
+                  {t("user.cart.empty_shopping_cart")}
+               </span>
                <Link
                   to="/product-list"
                   className="mt-5 underline text-blue-600 hover:text-blue-400"
                >
-                  Mua sắm sản phẩm
+                  {t("user.cart.see_product")}
                </Link>
             </div>
          )}

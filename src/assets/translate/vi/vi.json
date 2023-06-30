@@ -223,7 +223,9 @@
          "total_cost": "Tổng tiền",
          "btn_checkout": "THANH TOÁN",
          "shipping_method1": "Giao hàng tiêu chuẩn",
-         "shipping_method2": "Giao hàng hỏa tốc ( nội thành )"
+         "shipping_method2": "Giao hàng hỏa tốc ( nội thành )",
+         "empty_shopping_cart": "Giỏ hàng rỗng",
+         "see_product": "Danh sách sản phẩm"
       },
       "error": {
          "required": "Thông tin này là thông tin bắt buộc",
