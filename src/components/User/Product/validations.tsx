@@ -3,7 +3,7 @@ import * as Yup from "yup";
 
 export const validationSchema = (t: TFunction) => {
    const validation = Yup.object().shape({
-      userId: Yup.string().required(t("user.error.required")),
+      userId: Yup.string(),
       productId: Yup.string().required(t("user.error.required")),
       price: Yup.string().required(t("user.error.required")),
       amount: Yup.string().required(t("user.error.required")),

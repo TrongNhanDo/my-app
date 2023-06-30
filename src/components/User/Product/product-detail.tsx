@@ -25,8 +25,7 @@ const UserProductDetail = React.memo(() => {
          console.log({ err })
       );
       if (!response || !response.data) {
-         alert("Sản phẩm không tồn tại");
-         navigate(-1);
+         navigate("/product-list");
       } else {
          const viewData: ProductType = response.data;
          setViewData(viewData);
@@ -37,16 +36,20 @@ const UserProductDetail = React.memo(() => {
    const onSubmit = useCallback(
       async (formikBagValues: FormikProps) => {
          try {
-            setShowLoading(true);
-            const newValue = sumProduct + parseInt(formikBagValues.amount);
-            setSumProduct(newValue);
-            await callApi("carts", "post", formikBagValues).catch((err) =>
-               console.log({ err })
-            );
-            if (isBuyNow) {
-               navigate("/carts");
+            if (formikBagValues.userId) {
+               setShowLoading(true);
+               const newValue = sumProduct + parseInt(formikBagValues.amount);
+               setSumProduct(newValue);
+               await callApi("carts", "post", formikBagValues).catch((err) =>
+                  console.log({ err })
+               );
+               if (isBuyNow) {
+                  navigate("/carts");
+               }
+               setShowLoading(false);
+            } else {
+               navigate("/login");
             }
-            setShowLoading(false);
          } catch (error) {
             console.log({ error });
          }
