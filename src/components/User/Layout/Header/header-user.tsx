@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import i18n from "../../../../i18n/i18n";
 import { useTranslation } from "react-i18next";
@@ -6,22 +6,28 @@ import { SumProductContext } from "../../../../context/SumProductContext";
 
 const HeaderUser = React.memo(() => {
    const { t } = useTranslation();
-
-   const { sumProduct } = useContext(SumProductContext);
+   const { sumProduct, setSumProduct, userId, setUserId, locale, setLocale } =
+      useContext(SumProductContext);
 
    const changeLanguage = useCallback(
       (e: React.ChangeEvent<HTMLSelectElement>) => {
          const languageValue = e.target.value;
+         setLocale(languageValue);
          localStorage.setItem("locale", languageValue);
          i18n.changeLanguage(languageValue);
       },
-      []
+      [setLocale]
    );
 
-   const locale = useMemo(() => {
-      const localeStorage = localStorage.getItem("locale");
-      return localeStorage || "eng";
-   }, []);
+   const handleLogout = useCallback(() => {
+      try {
+         setUserId("");
+         setSumProduct(0);
+         sessionStorage.removeItem("userId");
+      } catch (error) {
+         console.log({ error });
+      }
+   }, [setSumProduct, setUserId]);
 
    useEffect(() => {
       i18n.changeLanguage(locale);
@@ -82,34 +88,55 @@ const HeaderUser = React.memo(() => {
                   </span>
                </Link>
             </li>
-            <li>
-               <Link
-                  to="/login"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-               >
-                  {t("user.header.login")}
-               </Link>
-            </li>
-            <li>
-               <Link
-                  to="/register"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-               >
-                  {t("user.header.register")}
-               </Link>
-            </li>
+            {userId ? (
+               <>
+                  <li>
+                     <Link
+                        to="/login"
+                        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                     >
+                        Account
+                     </Link>
+                  </li>
+                  <li>
+                     <button
+                        onClick={handleLogout}
+                        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                     >
+                        Logout
+                     </button>
+                  </li>
+               </>
+            ) : (
+               <>
+                  <li>
+                     <Link
+                        to="/login"
+                        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                     >
+                        {t("user.header.login")}
+                     </Link>
+                  </li>
+                  <li>
+                     <Link
+                        to="/register"
+                        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                     >
+                        {t("user.header.register")}
+                     </Link>
+                  </li>
+               </>
+            )}
+
             <li>
                <select
                   id="countries"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2"
-                  onChange={(e) => changeLanguage(e)}
+                  value={locale}
+                  onChange={changeLanguage}
                >
-                  <option value="eng" selected={locale === "eng"}>
-                     English
-                  </option>
-                  <option value="vie" selected={locale === "vie"}>
-                     Vietnamese
-                  </option>
+                  <option value="eng">English</option>
+                  <option value="vie">Vietnamese</option>
                </select>
             </li>
          </ul>

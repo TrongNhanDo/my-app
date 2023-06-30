@@ -11,11 +11,19 @@ import { CartItemType } from "../components/User/Cart/types";
 type ContextProps = {
    sumProduct: number;
    setSumProduct: React.Dispatch<React.SetStateAction<number>>;
+   userId: string;
+   setUserId: React.Dispatch<React.SetStateAction<string>>;
+   locale: string;
+   setLocale: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const SumProductContext = createContext<ContextProps>({
    sumProduct: 0,
    setSumProduct: () => 0,
+   userId: "",
+   setUserId: () => "",
+   locale: "eng",
+   setLocale: () => "eng",
 });
 
 type Props = {
@@ -25,17 +33,35 @@ type Props = {
 export const ContextProvider: React.FC<Props> = ({ children }) => {
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [sumProduct, setSumProduct] = useState<number>(0);
+   const [userId, setUserId] = useState<string>("");
+   const [locale, setLocale] = useState<string>("eng");
 
-   const fetchApi = useCallback(async () => {
-      const response = await callApi("carts/get-by-userId", "post", {
-         userId: "64760a06575933907791ab2e",
-      }).catch((err) => console.log({ err }));
-
-      const data: CartItemType[] = response.data;
-      if (data) {
-         setViewData(data);
+   useEffect(() => {
+      const currentLocale = localStorage.getItem("locale");
+      if (currentLocale) {
+         setLocale(currentLocale);
       }
    }, []);
+
+   useEffect(() => {
+      const currentUserId = sessionStorage.getItem("userId");
+      if (currentUserId) {
+         setUserId(currentUserId);
+      }
+   }, []);
+
+   const fetchApi = useCallback(async () => {
+      if (userId) {
+         const response = await callApi("carts/get-by-userId", "post", {
+            userId: userId,
+         }).catch((err) => console.log({ err }));
+
+         const data: CartItemType[] = response.data;
+         if (data) {
+            setViewData(data);
+         }
+      }
+   }, [userId]);
 
    useEffect(() => {
       fetchApi();
@@ -49,7 +75,16 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
    }, [viewData]);
 
    return (
-      <SumProductContext.Provider value={{ sumProduct, setSumProduct }}>
+      <SumProductContext.Provider
+         value={{
+            sumProduct,
+            setSumProduct,
+            userId,
+            setUserId,
+            locale,
+            setLocale,
+         }}
+      >
          {children}
       </SumProductContext.Provider>
    );

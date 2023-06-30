@@ -16,7 +16,7 @@ const UserProductDetail = React.memo(() => {
    const [showLoading, setShowLoading] = useState<boolean>(true);
    const [viewData, setViewData] = useState<ProductType>();
    const [mainImage, setMainImage] = useState<string>();
-   const { sumProduct, setSumProduct } = useContext(SumProductContext);
+   const { sumProduct, setSumProduct, userId } = useContext(SumProductContext);
    const [isBuyNow, setIsBuyNow] = useState<boolean>();
 
    const fetchApi = useCallback(async () => {
@@ -95,7 +95,7 @@ const UserProductDetail = React.memo(() => {
 
    useEffect(() => {
       if (viewData) {
-         formikBag.setFieldValue("userId", "64760a06575933907791ab2e");
+         formikBag.setFieldValue("userId", userId || "");
          formikBag.setFieldValue("productId", viewData._id || "");
          formikBag.setFieldValue("price", viewData.price || "");
          formikBag.setFieldValue("amount", 1);

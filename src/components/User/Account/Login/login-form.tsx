@@ -1,13 +1,16 @@
-import React, { useCallback } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
 import { validationSchema } from "./validations";
 import { FormikValueType, initValueFormik } from "./types";
 import { useTranslation } from "react-i18next";
+import { SumProductContext } from "../../../../context/SumProductContext";
 
 const LoginForm = React.memo(() => {
    const { t } = useTranslation();
+   const { setUserId } = useContext(SumProductContext);
+   const navigate = useNavigate();
 
    const onSubmit = useCallback(async (formikValues: FormikValueType) => {
       try {
@@ -20,7 +23,10 @@ const LoginForm = React.memo(() => {
          );
 
          if (response) {
-            alert("Login success");
+            const currentUserId = response.data._id || "";
+            setUserId(currentUserId);
+            sessionStorage.setItem("userId", currentUserId);
+            navigate("/");
          } else {
             alert("Login fail");
          }

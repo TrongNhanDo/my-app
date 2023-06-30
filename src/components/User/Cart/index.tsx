@@ -5,7 +5,7 @@ import React, {
    useMemo,
    useState,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
 import { callApi } from "../../../api/callApi/callApi";
@@ -17,14 +17,22 @@ import { SumProductContext } from "../../../context/SumProductContext";
 
 const CartList = React.memo(() => {
    const { t } = useTranslation();
+   const navigate = useNavigate();
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [loading, setLoading] = useState<boolean>(false);
-   const { setSumProduct } = useContext(SumProductContext);
+   const { setSumProduct, userId } = useContext(SumProductContext);
+
+   useEffect(() => {
+      const currentUserId = sessionStorage.getItem("userId");
+      if (!currentUserId) {
+         navigate("/login");
+      }
+   });
 
    const fetchApi = useCallback(async () => {
       setLoading(true);
       const response = await callApi("carts/get-by-userId", "post", {
-         userId: "64760a06575933907791ab2e",
+         userId: userId,
       }).catch((err) => console.log({ err }));
 
       const data: CartItemType[] = response.data;
@@ -32,7 +40,7 @@ const CartList = React.memo(() => {
          setViewData(data);
       }
       setLoading(false);
-   }, []);
+   }, [userId]);
 
    const handleDelete = useCallback(async (cartId: string) => {
       try {
