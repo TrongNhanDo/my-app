@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { callApi } from "../../../../api/callApi/callApi";
@@ -11,29 +11,34 @@ const LoginForm = React.memo(() => {
    const { t } = useTranslation();
    const { setUserId } = useContext(SumProductContext);
    const navigate = useNavigate();
+   const [msg, setMsg] = useState<string>();
 
-   const onSubmit = useCallback(async (formikValues: FormikValueType) => {
-      try {
-         const payload = {
-            username: formikValues.email || "",
-            password: formikValues.password || "",
-         };
-         const response = await callApi("users/login", "post", payload).catch(
-            (err) => console.log({ err })
-         );
+   const onSubmit = useCallback(
+      async (formikValues: FormikValueType) => {
+         try {
+            const payload = {
+               username: formikValues.email || "",
+               password: formikValues.password || "",
+            };
+            const response = await callApi(
+               "users/login",
+               "post",
+               payload
+            ).catch((err) => setMsg(err.response.data.message));
 
-         if (response) {
-            const currentUserId = response.data._id || "";
-            setUserId(currentUserId);
-            sessionStorage.setItem("userId", currentUserId);
-            navigate("/");
-         } else {
-            alert("Login fail");
+            if (response) {
+               const currentUserId = response.data._id || "";
+               setUserId(currentUserId);
+               sessionStorage.setItem("userId", currentUserId);
+               setMsg("");
+               navigate("/");
+            }
+         } catch (error) {
+            console.log({ error });
          }
-      } catch (error) {
-         console.log({ error });
-      }
-   }, []);
+      },
+      [navigate, setUserId]
+   );
 
    const formikBag = useFormik({
       initialValues: initValueFormik,
@@ -47,6 +52,9 @@ const LoginForm = React.memo(() => {
             <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white uppercase text-center">
                {t("user.login.title")}
             </div>
+            {msg && (
+               <div className="w-full mt-2 text-red-600 text-center">{msg}</div>
+            )}
             <form
                className="space-y-4 md:space-y-6"
                onSubmit={formikBag.handleSubmit}
