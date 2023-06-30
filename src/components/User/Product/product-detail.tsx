@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callApi } from "../../../api/callApi/callApi";
 import { FormikProps, ProductType } from "./types";
@@ -7,6 +7,7 @@ import { formatCurrency, renderStar } from "../../Common/Logic/logics";
 import { useFormik } from "formik";
 import { validationSchema } from "./validations";
 import { useTranslation } from "react-i18next";
+import { SumProductContext } from "../../../App";
 
 const UserProductDetail = React.memo(() => {
    const { t } = useTranslation();
@@ -15,6 +16,7 @@ const UserProductDetail = React.memo(() => {
    const [showLoading, setShowLoading] = useState<boolean>(true);
    const [viewData, setViewData] = useState<ProductType>();
    const [mainImage, setMainImage] = useState<string>();
+   const { sumProduct, setSumProduct } = useContext(SumProductContext);
 
    const fetchApi = useCallback(async () => {
       const url = `products/${productId}`;
@@ -31,17 +33,22 @@ const UserProductDetail = React.memo(() => {
       setShowLoading(false);
    }, [productId, navigate]);
 
-   const onSubmit = useCallback(async (formikBagValues: FormikProps) => {
-      try {
-         setShowLoading(true);
-         await callApi("carts", "post", formikBagValues).catch((err) =>
-            console.log({ err })
-         );
-         setShowLoading(false);
-      } catch (error) {
-         console.log({ error });
-      }
-   }, []);
+   const onSubmit = useCallback(
+      async (formikBagValues: FormikProps) => {
+         try {
+            setShowLoading(true);
+            const newValue = sumProduct + parseInt(formikBagValues.amount);
+            setSumProduct(newValue);
+            await callApi("carts", "post", formikBagValues).catch((err) =>
+               console.log({ err })
+            );
+            setShowLoading(false);
+         } catch (error) {
+            console.log({ error });
+         }
+      },
+      [sumProduct, setSumProduct]
+   );
 
    const formikBag = useFormik({
       initialValues: {

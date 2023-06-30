@@ -1,10 +1,14 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import i18n from "../../../../i18n/i18n";
 import { useTranslation } from "react-i18next";
+import { SumProductContext } from "../../../../App";
 
 const HeaderUser = React.memo(() => {
    const { t } = useTranslation();
+
+   const { sumProduct } = useContext(SumProductContext);
+
    const changeLanguage = useCallback(
       (e: React.ChangeEvent<HTMLSelectElement>) => {
          const languageValue = e.target.value;
@@ -74,7 +78,7 @@ const HeaderUser = React.memo(() => {
                >
                   {t("user.header.cart")}
                   <span className="absolute px-1 text-white bg-blue-700 rounded-full sum-count font-bold">
-                     10
+                     {sumProduct || 0}
                   </span>
                </Link>
             </li>

@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+   useCallback,
+   useContext,
+   useEffect,
+   useMemo,
+   useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
@@ -7,11 +13,13 @@ import { CartItemType, FormikInitValues, FormikProps } from "./types";
 import { formatCurrency } from "../../Common/Logic/logics";
 import Loader from "../../Common/Loader/loader";
 import { validationSchema } from "./validations";
+import { SumProductContext } from "../../../App";
 
 const CartList = React.memo(() => {
    const { t } = useTranslation();
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [loading, setLoading] = useState<boolean>(false);
+   const { setSumProduct } = useContext(SumProductContext);
 
    const fetchApi = useCallback(async () => {
       setLoading(true);
@@ -71,10 +79,13 @@ const CartList = React.memo(() => {
 
    const totalProducts = useMemo(() => {
       if (viewData && viewData.length) {
-         return viewData.reduce((sum, cur) => sum + cur.amount, 0);
+         const total = viewData.reduce((sum, cur) => sum + cur.amount, 0);
+         setSumProduct(total);
+         return total;
       }
+      setSumProduct(0);
       return 0;
-   }, [viewData]);
+   }, [viewData, setSumProduct]);
 
    const totalPrices = useMemo(() => {
       if (viewData && viewData.length) {
