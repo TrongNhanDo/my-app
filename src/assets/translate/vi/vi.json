@@ -226,6 +226,7 @@
          "shipping_method2": "Giao hàng hỏa tốc ( nội thành )"
       },
       "error": {
+         "required": "Thông tin này là thông tin bắt buộc",
          "email_required": "Email không được để trống",
          "password_required": "Mật khẩu không được để trống",
          "confirmPwd_required": "Mật khẩu xác nhận không được để trống",
@@ -245,6 +246,9 @@
          "skill": "Skills",
          "my_account": "My Account",
          "logout": "Log out"
+      },
+      "error": {
+         "required": "Thông tin này là thông tin bắt buộc"
       }
    }
 }

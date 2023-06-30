@@ -69,7 +69,7 @@ const CartList = React.memo(() => {
 
    const formikBag = useFormik({
       initialValues: FormikInitValues,
-      validationSchema,
+      validationSchema: validationSchema(t),
       onSubmit: (value) => onSubmit(value),
    });
 

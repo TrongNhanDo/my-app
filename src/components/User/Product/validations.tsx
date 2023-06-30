@@ -1,11 +1,12 @@
+import { TFunction } from "i18next";
 import * as Yup from "yup";
 
-export const validationSchema = () => {
+export const validationSchema = (t: TFunction) => {
    const validation = Yup.object().shape({
-      userId: Yup.string().required(),
-      productId: Yup.string().required(),
-      price: Yup.string().required(),
-      amount: Yup.string().required(),
+      userId: Yup.string().required(t("user.error.required")),
+      productId: Yup.string().required(t("user.error.required")),
+      price: Yup.string().required(t("user.error.required")),
+      amount: Yup.string().required(t("user.error.required")),
    });
 
    return validation;

@@ -226,6 +226,7 @@
          "shipping_method2": "Express delivery ( Inner city )"
       },
       "error": {
+         "required": "This field is required",
          "email_required": "Email can not be blank",
          "password_required": "Password can not be blank",
          "confirmPwd_required": "Confirm password can not be blank",
@@ -245,6 +246,9 @@
          "skill": "Skills",
          "my_account": "My Account",
          "logout": "Log out"
+      },
+      "error": {
+         "required": "This field is required"
       }
    }
 }

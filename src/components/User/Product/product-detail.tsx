@@ -61,7 +61,7 @@ const UserProductDetail = React.memo(() => {
          price: "",
          amount: "",
       },
-      validationSchema,
+      validationSchema: validationSchema(t),
       onSubmit: (value) => onSubmit(value),
    });
 
