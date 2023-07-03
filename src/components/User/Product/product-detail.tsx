@@ -43,10 +43,10 @@ const UserProductDetail = React.memo(() => {
                await callApi("carts", "post", formikBagValues).catch((err) =>
                   console.log({ err })
                );
+               setShowLoading(false);
                if (isBuyNow) {
                   navigate("/carts");
                }
-               setShowLoading(false);
             } else {
                navigate("/login");
             }
