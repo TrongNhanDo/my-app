@@ -21,6 +21,7 @@ const CartList = React.memo(() => {
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [loading, setLoading] = useState<boolean>(false);
    const { setSumProduct, userId } = useContext(SumProductContext);
+   const [isChangeForm, setIsChangeForm] = useState<boolean>(false);
 
    useEffect(() => {
       const currentUserId = sessionStorage.getItem("userId");
@@ -31,6 +32,7 @@ const CartList = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       setLoading(true);
+      setIsChangeForm(false);
       const response = await callApi("carts/get-by-userId", "post", {
          userId,
       }).catch((err) => console.log({ err }));
@@ -152,7 +154,10 @@ const CartList = React.memo(() => {
                      </h3>
                   </div>
                   <hr />
-                  <form onSubmit={formikBag.handleSubmit}>
+                  <form
+                     onSubmit={formikBag.handleSubmit}
+                     onChange={() => setIsChangeForm(true)}
+                  >
                      {viewData &&
                         viewData.length &&
                         viewData.map((value: CartItemType, index: number) => {
@@ -258,7 +263,12 @@ const CartList = React.memo(() => {
                      <button
                         type="button"
                         onClick={handleSubmit}
-                        className="block py-1 px-3 bg-green-600 text-white rounded hover:bg-green-500"
+                        disabled={!isChangeForm}
+                        className={`block py-1 px-3 text-white rounded ${
+                           isChangeForm
+                              ? "bg-green-600 hover:bg-green-500"
+                              : "bg-gray-400 cursor-not-allowed"
+                        }`}
                      >
                         {t("user.cart.btn_update")}
                      </button>
