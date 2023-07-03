@@ -6,16 +6,19 @@ import { validationSchema } from "./validations";
 import { FormikValueType, initValueFormik } from "./types";
 import { useTranslation } from "react-i18next";
 import { SumProductContext } from "../../../../context/SumProductContext";
+import Loader from "../../../Common/Loader/loader";
 
 const LoginForm = React.memo(() => {
    const { t } = useTranslation();
    const { setUserId } = useContext(SumProductContext);
    const navigate = useNavigate();
    const [msg, setMsg] = useState<string>();
+   const [loading, setLoading] = useState<boolean>(false);
 
    const onSubmit = useCallback(
       async (formikValues: FormikValueType) => {
          try {
+            setLoading(true);
             const payload = {
                username: formikValues.email || "",
                password: formikValues.password || "",
@@ -25,6 +28,7 @@ const LoginForm = React.memo(() => {
                "post",
                payload
             ).catch((err) => setMsg(err.response.data.message));
+            setLoading(false);
 
             if (response) {
                const currentUserId = response.data._id || "";
@@ -48,6 +52,7 @@ const LoginForm = React.memo(() => {
 
    return (
       <div className="div-contai w-1/3 bg-white rounded-lg shadow">
+         {loading && <Loader />}
          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white uppercase text-center">
                {t("user.login.title")}

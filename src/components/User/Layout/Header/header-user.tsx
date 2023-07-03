@@ -1,13 +1,15 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import i18n from "../../../../i18n/i18n";
 import { useTranslation } from "react-i18next";
 import { SumProductContext } from "../../../../context/SumProductContext";
+import Loader from "../../../Common/Loader/loader";
 
 const HeaderUser = React.memo(() => {
    const { t } = useTranslation();
    const { sumProduct, setSumProduct, userId, setUserId, locale, setLocale } =
       useContext(SumProductContext);
+   const [loading, setLoading] = useState<boolean>(false);
 
    const changeLanguage = useCallback(
       (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -19,11 +21,15 @@ const HeaderUser = React.memo(() => {
       [setLocale]
    );
 
-   const handleLogout = useCallback(() => {
+   const handleLogout = useCallback(async () => {
       try {
-         setUserId("");
-         setSumProduct(0);
-         sessionStorage.removeItem("userId");
+         if (confirm("Are you sure you want to log out?")) {
+            setLoading(true);
+            await setUserId("");
+            await setSumProduct(0);
+            await sessionStorage.removeItem("userId");
+            setLoading(false);
+         }
       } catch (error) {
          console.log({ error });
       }
@@ -35,6 +41,7 @@ const HeaderUser = React.memo(() => {
 
    return (
       <>
+         {loading && <Loader />}
          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:border-gray-700">
             <li>
                <Link
