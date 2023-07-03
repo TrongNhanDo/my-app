@@ -27,12 +27,12 @@ const CartList = React.memo(() => {
       if (!currentUserId) {
          navigate("/login");
       }
-   });
+   }, [navigate]);
 
    const fetchApi = useCallback(async () => {
       setLoading(true);
       const response = await callApi("carts/get-by-userId", "post", {
-         userId: userId,
+         userId,
       }).catch((err) => console.log({ err }));
 
       const data: CartItemType[] = response.data;
@@ -42,30 +42,33 @@ const CartList = React.memo(() => {
       setLoading(false);
    }, [userId]);
 
-   const handleDelete = useCallback(async (cartId: string) => {
-      try {
-         console.log({ cartId });
+   const handleDelete = useCallback(
+      async (cartId: string) => {
+         try {
+            setLoading(true);
+            await callApi("carts", "delete", { id: cartId }).catch((err) =>
+               console.log({ err })
+            );
+            setLoading(false);
+            fetchApi();
+         } catch (error) {
+            console.log({ error });
+         }
+      },
+      [fetchApi]
+   );
+
+   const onSubmit = useCallback(
+      async (formikValues: FormikProps) => {
          setLoading(true);
-         await callApi("carts", "delete", { id: cartId }).catch((err) =>
-            console.log({ err })
+         await callApi("carts/update-cart/", "post", formikValues).catch(
+            (err) => console.log({ err })
          );
          setLoading(false);
          fetchApi();
-      } catch (error) {
-         console.log({ error });
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
-
-   const onSubmit = useCallback(async (formikValues: FormikProps) => {
-      setLoading(true);
-      await callApi("carts/update-cart/", "post", formikValues).catch((err) =>
-         console.log({ err })
-      );
-      setLoading(false);
-      fetchApi();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+      },
+      [fetchApi]
+   );
 
    const formikBag = useFormik({
       initialValues: FormikInitValues,
