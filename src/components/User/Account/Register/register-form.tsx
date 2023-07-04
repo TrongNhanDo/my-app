@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { callApi } from "../../../../api/callApi/callApi";
 import { validationSchema } from "./validations";
 import { FormikValueType, initValueFormik } from "./types";
@@ -9,34 +9,45 @@ import { useTranslation } from "react-i18next";
 
 const LoginForm = React.memo(() => {
    const { t } = useTranslation();
+   const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [checkPass, setCheckPass] = useState<boolean>(false);
 
-   const onSubmit = useCallback(async (formikValues: FormikValueType) => {
-      try {
-         if (formikValues.password !== formikValues.confirmPwd) {
-            setCheckPass(true);
-            return;
+   const onSubmit = useCallback(
+      async (formikValues: FormikValueType) => {
+         try {
+            if (formikValues.password !== formikValues.confirmPwd) {
+               setCheckPass(true);
+               return;
+            }
+            setShowLoading(true);
+            const payload = {
+               username: formikValues.email || "",
+               password: formikValues.password || "",
+               roleId: 1,
+            };
+            const response = await callApi("users", "post", payload).catch(
+               (err) =>
+                  alert(
+                     err &&
+                        err.response &&
+                        err.response.data &&
+                        err.response.data.message
+                        ? err.response.data.message
+                        : ""
+                  )
+            );
+            setShowLoading(false);
+            if (response) {
+               alert("Register success");
+               navigate("/login");
+            }
+         } catch (error) {
+            console.log({ error });
          }
-         setShowLoading(true);
-         const payload = {
-            username: formikValues.email || "",
-            password: formikValues.password || "",
-            roleId: 1,
-         };
-         const response = await callApi("users", "post", payload).catch((err) =>
-            console.log({ err })
-         );
-         setShowLoading(false);
-         if (response) {
-            alert("Register success");
-         } else {
-            alert("Register fail");
-         }
-      } catch (error) {
-         console.log({ error });
-      }
-   }, []);
+      },
+      [navigate]
+   );
 
    const formikBag = useFormik({
       initialValues: initValueFormik,
