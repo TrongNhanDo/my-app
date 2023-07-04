@@ -233,6 +233,7 @@
       "error": {
          "required": "This field is required",
          "email_required": "Email can not be blank",
+         "email_format": "Email was not in the correct format",
          "password_required": "Password can not be blank",
          "confirmPwd_required": "Confirm password can not be blank",
          "password_min_length": "Password must more than {{0}} characters",

@@ -233,6 +233,7 @@
       "error": {
          "required": "Thông tin này là thông tin bắt buộc",
          "email_required": "Email không được để trống",
+         "email_format": "Email không đúng định dạng",
          "password_required": "Mật khẩu không được để trống",
          "confirmPwd_required": "Mật khẩu xác nhận không được để trống",
          "password_min_length": "Mật khẩu phải nhiều hơn {{0}} ký tự",

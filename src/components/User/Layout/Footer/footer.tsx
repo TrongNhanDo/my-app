@@ -1,16 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { checkIsAdmin } from "../../../Common/Logic/logics";
+import { useFormik } from "formik";
+import { validationSchema } from "./validations";
+import { callApi } from "../../../../api/callApi/callApi";
+
+type FormikBagProps = {
+   email: string;
+};
 
 const Footer = React.memo(() => {
    const { t } = useTranslation();
    const currentPathname = useLocation().pathname;
    const [isAdmin, setIsAdmin] = useState<boolean>(false);
+   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
    useEffect(() => {
       setIsAdmin(checkIsAdmin(currentPathname));
    }, [currentPathname]);
+
+   const onSubmit = useCallback(async (formikValues: FormikBagProps) => {
+      try {
+         const response = await callApi("mails", "post", {
+            email: formikValues.email,
+         }).catch((err) => {
+            setIsSuccess(false);
+            alert(
+               err &&
+                  err.response &&
+                  err.response.data &&
+                  err.response.data.message
+                  ? err.response.data.message
+                  : ""
+            );
+         });
+         if (response) {
+            setIsSuccess(true);
+            alert("You have successfully registered!");
+         }
+      } catch (error) {
+         console.log({ error });
+      }
+   }, []);
+
+   const formikBag = useFormik({
+      initialValues: { email: "" },
+      validationSchema: validationSchema(t),
+      onSubmit: (value) => onSubmit(value),
+   });
+
+   const handleSubmit = useCallback(() => {
+      try {
+         formikBag.submitForm();
+      } catch (error) {
+         console.log({ error });
+      }
+   }, [formikBag]);
+
+   useEffect(() => {
+      if (isSuccess) {
+         formikBag.resetForm();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [isSuccess]);
 
    return (
       <footer className="w-full mt-auto">
@@ -21,21 +74,29 @@ const Footer = React.memo(() => {
                      <div className="font-bold uppercase mb-3">
                         {t("user.footer.receive_news")}
                      </div>
-                     <form className="">
+                     <form onSubmit={formikBag.handleSubmit}>
                         <input
                            type="email"
-                           name="customer-email"
-                           id="customer-email"
+                           name="email"
+                           id="email"
                            placeholder="Enter your email"
-                           className="px-4 py-2 rounded"
+                           className="px-2 py-2 rounded w-2/3"
+                           onChange={formikBag.handleChange}
+                           value={formikBag.values.email}
                         />
                         <button
                            type="button"
+                           onClick={handleSubmit}
                            className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
                         >
                            {t("user.footer.btn_send")}
                         </button>
                      </form>
+                     {formikBag.errors.email && formikBag.touched.email && (
+                        <span className="text-red-500">
+                           {formikBag.errors.email}
+                        </span>
+                     )}
                      <div className="font-bold text-base mt-3">
                         {t("user.footer.hotline")}
                      </div>
