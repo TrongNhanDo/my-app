@@ -51,8 +51,8 @@ const HeaderUser = React.memo(() => {
       <>
          {loading && <Loader />}
          {modal && (
-            <div className="fixed flex w-full h-full bg-gray-200/50 top-0 left-0">
-               <div className="flex flex-col w-3/12 h-auto bg-gray-500 text-white m-auto items-center p-5 rounded index-30 font-bold">
+            <div className="fixed flex w-full h-full bg-gray-500/75 top-0 left-0">
+               <div className="flex flex-col w-3/12 h-auto bg-white m-auto items-center p-5 rounded index-30 font-bold">
                   <div className="flex w-full flex-col">
                      <span className="text-xl">
                         Are you sure you want to log out ?

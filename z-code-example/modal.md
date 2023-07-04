@@ -3,8 +3,8 @@
    const [modal, setModal] = useState<boolean>false;
    {
       modal && (
-         <div className="fixed flex w-full h-full bg-gray-200/75 top-0 left-0">
-            <div className="flex flex-col w-1/3 h-auto bg-gray-400 m-auto items-center p-5 rounded index-30">
+         <div className="fixed flex w-full h-full bg-gray-500/75 top-0 left-0">
+               <div className="flex flex-col w-1/3 h-auto bg-white m-auto items-center p-5 rounded index-30 font-bold">
                <div className="flex w-full justify-between text-2xl font-bold">
                   <div className="uppercase">add new role</div>
                   <button type="button">
