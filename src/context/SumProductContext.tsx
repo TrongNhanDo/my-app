@@ -36,20 +36,6 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
    const [userId, setUserId] = useState<string>("");
    const [locale, setLocale] = useState<string>("eng");
 
-   useEffect(() => {
-      const currentLocale = localStorage.getItem("locale");
-      if (currentLocale) {
-         setLocale(currentLocale);
-      }
-   }, []);
-
-   useEffect(() => {
-      const currentUserId = sessionStorage.getItem("userId");
-      if (currentUserId) {
-         setUserId(currentUserId);
-      }
-   }, []);
-
    const fetchApi = useCallback(async () => {
       if (userId) {
          const response = await callApi("carts/get-by-userId", "post", {
@@ -66,6 +52,20 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
    useEffect(() => {
       fetchApi();
    }, [fetchApi]);
+
+   useEffect(() => {
+      const currentLocale = localStorage.getItem("locale");
+      if (currentLocale) {
+         setLocale(currentLocale);
+      }
+   }, []);
+
+   useEffect(() => {
+      const currentUserId = sessionStorage.getItem("userId");
+      if (currentUserId) {
+         setUserId(currentUserId);
+      }
+   }, []);
 
    useEffect(() => {
       if (viewData && viewData.length) {
