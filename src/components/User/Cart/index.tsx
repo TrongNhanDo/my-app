@@ -166,18 +166,23 @@ const CartList = React.memo(() => {
                                  <div className="flex items-center hover:bg-gray-100 py-5">
                                     <div className="flex w-2/6">
                                        <div className="flex w-2/6 items-center">
-                                          <img
-                                             className="h-24 object-cover"
-                                             src={
-                                                value.product &&
-                                                value.product.images.length &&
-                                                value.product.images[0]
-                                                   ? value.product.images[0]
-                                                   : import.meta.env
-                                                        .VITE_IMAGE_NOT_FOUND
-                                             }
-                                             alt=""
-                                          />
+                                          <Link
+                                             to={`/product-detail/${value.productId}`}
+                                          >
+                                             <img
+                                                className="h-24 object-cover"
+                                                src={
+                                                   value.product &&
+                                                   value.product.images
+                                                      .length &&
+                                                   value.product.images[0]
+                                                      ? value.product.images[0]
+                                                      : import.meta.env
+                                                           .VITE_IMAGE_NOT_FOUND
+                                                }
+                                                alt=""
+                                             />
+                                          </Link>
                                        </div>
                                        <div className="flex flex-col justify-between ml-4 flex-grow w-3/6">
                                           <span className="font-bold line-clamp-2">
