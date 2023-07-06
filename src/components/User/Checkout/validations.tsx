@@ -9,7 +9,7 @@ export const validationSchema = (t: TFunction) => {
          .required(t("user.error.required"))
          .matches(
             /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/,
-            "Vui lòng nhập số điện thoại đúng định đạng"
+            t("user.error.mail_formed")
          ),
       address: Yup.string().required(t("user.error.required")),
       payment_method: Yup.string().required(t("user.error.required")),

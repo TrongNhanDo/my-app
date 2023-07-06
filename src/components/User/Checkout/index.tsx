@@ -73,20 +73,20 @@ const CheckoutPage = React.memo(() => {
    return (
       <div className="div-contai bg-white py-5 px-10">
          {loading && <Loader />}
-         <div className="text-2xl font-bold w-full text-center">
-            CONFIRM AND PAYMENT
+         <div className="text-2xl font-bold w-full text-center uppercase">
+            {t("user.checkout.title")}
          </div>
          <hr className="w-full my-5" />
          <form onSubmit={formikBag.handleSubmit}>
             <div className="flex w-full">
                <div className="w-3/5">
-                  <div className="text-xl font-bold w-full mb-4">
-                     CUSTOMER INFORMATION
+                  <div className="text-xl font-bold w-full mb-4 uppercase">
+                     {t("user.checkout.title1")}
                   </div>
-                  <div className="flex flex-col w-full">
-                     <div className="w-10/12 mb-3">
+                  <div className="flex flex-col w-10/12">
+                     <div className="w-full mb-3">
                         <label htmlFor="fullname" className="block mb-2">
-                           Họ và tên (*):
+                           {t("user.checkout.fullname")} (*):
                         </label>
                         <input
                            type="fullname"
@@ -97,7 +97,7 @@ const CheckoutPage = React.memo(() => {
                                  ? "border-solid border-2 border-red-400"
                                  : ""
                            }`}
-                           placeholder="Nguyen Van A"
+                           placeholder={t("user.checkout.fullname_placeholder")}
                            value={formikBag.values.fullname}
                            onChange={formikBag.handleChange}
                         />
@@ -108,9 +108,9 @@ const CheckoutPage = React.memo(() => {
                               </span>
                            )}
                      </div>
-                     <div className="w-10/12 mb-3">
+                     <div className="w-full mb-3">
                         <label htmlFor="gender" className="block mb-2">
-                           Giới tính (*):
+                           {t("user.checkout.gender")} (*):
                         </label>
                         <div className="w-full flex justify-around">
                            <div>
@@ -169,9 +169,9 @@ const CheckoutPage = React.memo(() => {
                               </span>
                            )}
                      </div>
-                     <div className="w-10/12 mb-3">
+                     <div className="w-full mb-3">
                         <label htmlFor="phone" className="block mb-2">
-                           Số điện thoại (*):
+                           {t("user.checkout.phone")} (*):
                         </label>
                         <input
                            type="phone"
@@ -181,7 +181,7 @@ const CheckoutPage = React.memo(() => {
                                  ? "border-solid border-2 border-red-400"
                                  : ""
                            }`}
-                           placeholder="0123456789"
+                           placeholder={t("user.checkout.phone_placeholder")}
                            value={formikBag.values.phone}
                            onChange={formikBag.handleChange}
                         />
@@ -191,9 +191,9 @@ const CheckoutPage = React.memo(() => {
                            </span>
                         )}
                      </div>
-                     <div className="w-10/12 mb-3">
+                     <div className="w-full mb-3">
                         <label htmlFor="address" className="block mb-2">
-                           Địa chỉ cụ thể (*):
+                           {t("user.checkout.address")} (*):
                         </label>
                         <input
                            type="address"
@@ -204,7 +204,7 @@ const CheckoutPage = React.memo(() => {
                                  ? "border-solid border-2 border-red-400"
                                  : ""
                            }`}
-                           placeholder="Enter your address"
+                           placeholder={t("user.checkout.address_placeholder")}
                            value={formikBag.values.address}
                            onChange={formikBag.handleChange}
                         />
@@ -215,23 +215,23 @@ const CheckoutPage = React.memo(() => {
                               </span>
                            )}
                      </div>
-                     <div className="w-10/12 mb-3">
+                     <div className="w-full mb-3">
                         <label htmlFor="notes" className="block mb-2">
-                           Ghi chú:
+                           {t("user.checkout.notes")}:
                         </label>
                         <textarea
                            id="notes"
                            name="notes"
                            className="bg-gray-50 border border-gray-300 rounded-lg focus:border-yellow-500 block w-full px-3 py-2"
-                           placeholder="Enter your notes"
+                           placeholder={t("user.checkout.notes_placeholder")}
                            rows={3}
                            value={formikBag.values.notes}
                            onChange={formikBag.handleChange}
                         ></textarea>
                      </div>
-                     <div className="w-10/12 mb-3">
+                     <div className="w-full mb-3">
                         <label className="block mb-2">
-                           Hình thức thanh toán (*):
+                           {t("user.checkout.payment_method")} (*):
                         </label>
                         <div className="flex flex-col w-full">
                            <div>
@@ -249,7 +249,7 @@ const CheckoutPage = React.memo(() => {
                                  className="ms-3 cursor-pointer"
                                  htmlFor="vnpay"
                               >
-                                 Thanh toán qua VNPAY
+                                 {t("user.checkout.payment_by_vnpay")}
                               </label>
                            </div>
                            <div>
@@ -267,7 +267,7 @@ const CheckoutPage = React.memo(() => {
                                  className="ms-3 cursor-pointer"
                                  htmlFor="momo"
                               >
-                                 Thanh toán qua MOMO
+                                 {t("user.checkout.payment_by_momo")}
                               </label>
                            </div>
                            <div>
@@ -286,7 +286,7 @@ const CheckoutPage = React.memo(() => {
                                  className="ms-3 cursor-pointer"
                                  htmlFor="transfer"
                               >
-                                 Thanh toán chuyển khoảng
+                                 {t("user.checkout.payment_by_transfer")}
                               </label>
                            </div>
                            <div>
@@ -304,7 +304,7 @@ const CheckoutPage = React.memo(() => {
                                  className="ms-3 cursor-pointer"
                                  htmlFor="cod"
                               >
-                                 Thanh toán khi nhận hàng
+                                 {t("user.checkout.payment_by_cod")}
                               </label>
                            </div>
                         </div>
@@ -315,44 +315,44 @@ const CheckoutPage = React.memo(() => {
                               </span>
                            )}
                      </div>
-                     <hr className="w-10/12 pb-5" />
-                     <div className="flex w-9/12 justify-around">
+                     <hr className="w-full pb-5" />
+                     <div className="flex w-9/12 mb-5 justify-around">
                         <button
                            type="button"
                            onClick={handleSubmit}
-                           className="text-white block px-20 py-1 bg-green-600 hover:bg-green-700 rounded"
+                           className="text-white block px-20 py-2 bg-green-600 hover:bg-green-700 rounded uppercase"
                         >
-                           PAYMENT
+                           {t("user.checkout.btn_payment")}
                         </button>
                         <button
                            type="button"
                            onClick={() => navigate(-1)}
-                           className="text-white block px-20 py-1 bg-blue-500 hover:bg-blue-600 rounded"
+                           className="text-white block px-20 py-2 bg-blue-500 hover:bg-blue-600 rounded uppercase"
                         >
-                           RETURN
+                           {t("user.checkout.btn_return")}
                         </button>
                      </div>
                   </div>
                </div>
                <div className="w-2/5 relative overflow-x-auto">
-                  <div className="text-xl font-bold w-full mb-4">
-                     SHOPPING CART
+                  <div className="text-xl font-bold w-full mb-4 uppercase">
+                     {t("user.checkout.title2")}
                   </div>
                   <div className="border-solid border-2 border-gray-100 rounded">
                      <table className="w-full text-sm text-left text-gray-500 rounded">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                            <tr>
                               <th scope="col" className="px-6 py-3">
-                                 Product name
+                                 {t("user.checkout.heading1")}
                               </th>
                               <th scope="col" className="px-6 py-3">
-                                 Quantity
+                                 {t("user.checkout.heading2")}
                               </th>
                               <th scope="col" className="px-6 py-3">
-                                 Price
+                                 {t("user.checkout.heading3")}
                               </th>
                               <th scope="col" className="px-6 py-3">
-                                 Total
+                                 {t("user.checkout.heading4")}
                               </th>
                            </tr>
                         </thead>
@@ -399,16 +399,16 @@ const CheckoutPage = React.memo(() => {
                      </table>
                      <div className="flex flex-col w-full m-auto items-center text-base p-6">
                         <div className="flex w-full justify-between">
-                           <div>Tổng tiền sản phẩm:</div>
+                           <div>{t("user.checkout.heading5")}:</div>
                            <div>{formatCurrency(totalPrices || 0)}</div>
                         </div>
                         <div className="flex w-full justify-between">
-                           <div>Tổng tiền vận chuyển:</div>
+                           <div>{t("user.checkout.heading6")}:</div>
                            <div>{formatCurrency(shippingCost || 0)}</div>
                         </div>
                         <hr className="w-full my-3" />
                         <div className="flex w-full justify-between">
-                           <div>Tổng tiền cần thanh toán:</div>
+                           <div>{t("user.checkout.heading7")}:</div>
                            <div>
                               {formatCurrency(formikBag.values.total || 0)}
                            </div>

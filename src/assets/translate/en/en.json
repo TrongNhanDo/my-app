@@ -230,6 +230,37 @@
          "empty_shopping_cart": "Empty shopping cart",
          "see_product": "Products list"
       },
+      "checkout": {
+         "title": "CONFIRM AND PAYMENT",
+         "title1": "CUSTOMER INFORMATION",
+         "title2": "SHOPPING CART",
+         "fullname": "Fullname",
+         "fullname_placeholder": "Enter your full name",
+         "gender": "Gender",
+         "female": "Female",
+         "male": "Male",
+         "others": "Others",
+         "phone": "Phone",
+         "phone_placeholder": "Enter your phone",
+         "address": "Address",
+         "address_placeholder": "Enter your address",
+         "notes": "Notes",
+         "notes_placeholder": "Enter your notes",
+         "payment_method": "Payment Method",
+         "payment_by_vnpay": "Payment by VNPAY",
+         "payment_by_momo": "Payment by MOMO",
+         "payment_by_transfer": "Payment by Bank Transfer",
+         "payment_by_cod": "Payment on delivery",
+         "heading1": "product name",
+         "heading2": "quantity",
+         "heading3": "price",
+         "heading4": "total",
+         "heading5": "Total products cost",
+         "heading6": "Total shipping cost",
+         "heading7": "Total amount to pay",
+         "btn_payment": "payment",
+         "btn_return": "return"
+      },
       "error": {
          "required": "This field is required",
          "email_required": "Email can not be blank",
@@ -238,7 +269,8 @@
          "confirmPwd_required": "Confirm password can not be blank",
          "password_min_length": "Password must more than {{0}} characters",
          "password_max_length": "Password must less than {{0}} characters",
-         "incorrect_confirmPwd": "Confirm password is incorrect"
+         "incorrect_confirmPwd": "Confirm password is incorrect",
+         "mail_formed": "The value is not in the correct format"
       }
    },
    "admin": {

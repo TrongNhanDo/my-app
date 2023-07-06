@@ -230,6 +230,37 @@
          "empty_shopping_cart": "Giỏ hàng rỗng",
          "see_product": "Danh sách sản phẩm"
       },
+      "checkout": {
+         "title": "xác nhận và thanh toán",
+         "title1": "thông tin khách hàng",
+         "title2": "giỏ hàng",
+         "fullname": "Họ và tên",
+         "fullname_placeholder": "Nhập tên họ tên của người nhận hàng",
+         "gender": "Giới tính",
+         "female": "Nam",
+         "male": "Nữ",
+         "others": "Khác",
+         "phone": "Điện thoại",
+         "phone_placeholder": "Nhập số điện thoại người nhận hàng",
+         "address": "Địa chỉ",
+         "address_placeholder": "Nhập địa chỉ nhận hàng",
+         "notes": "Ghi chú",
+         "notes_placeholder": "Nhập ghi chú",
+         "payment_method": "Phương thức thanh toán",
+         "payment_by_vnpay": "Thanh toán qua VNPAY",
+         "payment_by_momo": "Thanh toán qua MOMO",
+         "payment_by_transfer": "Thanh toán qua chuyển khoảng",
+         "payment_by_cod": "Thanh toán khi nhận hàng",
+         "heading1": "tên sản phẩm",
+         "heading2": "số lượng",
+         "heading3": "đơn giá",
+         "heading4": "thành tiền",
+         "heading5": "Tổng tiền sản phẩm",
+         "heading6": "Tổng tiền vận chuyển",
+         "heading7": "Tổng tiền cần thanh toán",
+         "btn_payment": "thanh toán",
+         "btn_return": "quay về"
+      },
       "error": {
          "required": "Thông tin này là thông tin bắt buộc",
          "email_required": "Email không được để trống",
@@ -238,7 +269,8 @@
          "confirmPwd_required": "Mật khẩu xác nhận không được để trống",
          "password_min_length": "Mật khẩu phải nhiều hơn {{0}} ký tự",
          "password_max_length": "Mật khẩu phải ít hơn {{0}} ký tự",
-         "incorrect_confirmPwd": "Mật khẩu xác nhận không chính xác"
+         "incorrect_confirmPwd": "Mật khẩu xác nhận không chính xác",
+         "mail_formed": "Giá trị không đúng định dạng"
       }
    },
    "admin": {
