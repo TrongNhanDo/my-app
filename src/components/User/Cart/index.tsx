@@ -22,6 +22,8 @@ const CartList = React.memo(() => {
    const [loading, setLoading] = useState<boolean>(false);
    const { setSumProduct, userId } = useContext(SumProductContext);
    const [isChangeForm, setIsChangeForm] = useState<boolean>(false);
+   const [eventId, setEventId] = useState<string>("");
+   const shippingCost = 30000;
 
    useEffect(() => {
       const currentUserId = sessionStorage.getItem("userId");
@@ -63,13 +65,22 @@ const CartList = React.memo(() => {
    const onSubmit = useCallback(
       async (formikValues: FormikProps) => {
          setLoading(true);
-         await callApi("carts/update-cart/", "post", formikValues).catch(
-            (err) => console.log({ err })
-         );
-         setLoading(false);
-         fetchApi();
+         if (eventId === "update") {
+            await callApi("carts/update-cart/", "post", formikValues).catch(
+               (err) => console.log({ err })
+            );
+            setLoading(false);
+            fetchApi();
+         } else if (eventId === "checkout") {
+            navigate("/checkout", {
+               state: {
+                  userId: formikValues.userId,
+                  shippingCost: shippingCost,
+               },
+            });
+         }
       },
-      [fetchApi]
+      [fetchApi, eventId, navigate]
    );
 
    const formikBag = useFormik({
@@ -78,13 +89,17 @@ const CartList = React.memo(() => {
       onSubmit: (value) => onSubmit(value),
    });
 
-   const handleSubmit = useCallback(() => {
-      try {
-         formikBag.submitForm();
-      } catch (error) {
-         console.log({ error });
-      }
-   }, [formikBag]);
+   const handleSubmit = useCallback(
+      (ev: string) => {
+         try {
+            setEventId(ev);
+            formikBag.submitForm();
+         } catch (error) {
+            console.log({ error });
+         }
+      },
+      [formikBag]
+   );
 
    useEffect(() => {
       fetchApi();
@@ -261,17 +276,17 @@ const CartList = React.memo(() => {
                   <div className="flex w-full items-center justify-around mt-5">
                      <Link
                         to="/product-list"
-                        className="block py-1 px-3 bg-orange-600 text-white rounded hover:bg-orange-500"
+                        className="block py-1 px-3 bg-orange-600 text-white rounded hover:bg-orange-700"
                      >
                         {t("user.cart.btn_continue")}
                      </Link>
                      <button
                         type="button"
-                        onClick={handleSubmit}
+                        onClick={() => handleSubmit("update")}
                         disabled={!isChangeForm}
                         className={`block py-1 px-3 text-white rounded ${
                            isChangeForm
-                              ? "bg-green-600 hover:bg-green-500"
+                              ? "bg-green-600 hover:bg-green-700"
                               : "bg-gray-400 cursor-not-allowed"
                         }`}
                      >
@@ -279,57 +294,35 @@ const CartList = React.memo(() => {
                      </button>
                   </div>
                </div>
-               <div
-                  id="summary"
-                  className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200 rounded"
-               >
-                  <h1 className="font-semibold text-2xl border-b pb-8">
-                     {t("user.cart.title2")}
-                  </h1>
-                  <div className="flex justify-between mt-10 mb-5">
-                     <span className="font-semibold text-sm uppercase">
-                        {t("user.cart.product") + ": "}
-                        {totalProducts || 0}
-                     </span>
-                     <span className="font-semibold text-sm">
-                        {t("user.cart.header4")}:{" "}
-                        {formatCurrency(totalPrices || 0)}
-                     </span>
-                  </div>
-                  <div>
-                     <label className="font-medium inline-block mb-3 text-sm uppercase">
-                        {t("user.cart.shipping_method")}
-                     </label>
-                     <select className="block p-2 text-gray-600 w-full text-sm rounded">
-                        <option>{t("user.cart.shipping_method1")}</option>
-                        <option>{t("user.cart.shipping_method2")}</option>
-                     </select>
-                  </div>
-                  <div className="py-10">
-                     <label
-                        htmlFor="promo"
-                        className="font-semibold inline-block mb-3 text-sm uppercase"
-                     >
-                        {t("user.cart.promotion_code")}
-                     </label>
-                     <input
-                        type="text"
-                        id="promo"
-                        placeholder={t("user.cart.promotion_code_placeholder")}
-                        className="p-2 text-sm w-full rounded"
-                     />
-                  </div>
-                  <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase rounded">
-                     {t("user.cart.btn_apply")}
-                  </button>
-                  <div className="border-t mt-8">
-                     <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-                        <span>{t("user.cart.total_cost")}</span>
-                        <span>{formatCurrency(totalPrices || 0)}</span>
+               <div className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200 rounded font-bold">
+                  <div className="text-2xl">{t("user.cart.title2")}</div>
+                  <hr className="w-full my-5" />
+                  <div className="flex w-full justify-between">
+                     <div className="text-sm">
+                        {t("user.cart.product") + ":"}
                      </div>
+                     <div className="">{totalProducts || 0}</div>
+                  </div>
+                  <div className="flex w-full my-5 justify-between">
+                     <div className="text-sm">TOTAL AMOUNT:</div>
+                     <div className="">{formatCurrency(totalPrices || 0)}</div>
+                  </div>
+                  <div className="flex w-full my-5 justify-between">
+                     <div className="text-sm">SHIPPING COST:</div>
+                     <div className="">{formatCurrency(shippingCost)}</div>
+                  </div>
+                  <hr className="w-full my-5" />
+                  <div className="flex w-full my-5 justify-between">
+                     <div className="text-sm">TOTAL:</div>
+                     <div className="">
+                        {formatCurrency(totalPrices + shippingCost)}
+                     </div>
+                  </div>
+                  <div className="border-t mt-8">
                      <button
                         type="button"
-                        className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded"
+                        className="bg-indigo-500 hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded"
+                        onClick={() => handleSubmit("checkout")}
                      >
                         {t("user.cart.btn_checkout")}
                      </button>

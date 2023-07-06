@@ -37,6 +37,7 @@ import UserProductList from "./components/User/Product/product-list";
 import UserProductDetail from "./components/User/Product/product-detail";
 import CartList from "./components/User/Cart";
 import MyAccount from "./components/User/Account/Detail";
+import CheckoutPage from "./components/User/Checkout";
 
 function App() {
    return (
@@ -111,6 +112,7 @@ function App() {
                element={<UserProductDetail />}
             />
             <Route path="/carts" element={<CartList />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/my-account" element={<MyAccount />} />
 
             {/* 404 page */}
