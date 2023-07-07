@@ -316,7 +316,7 @@ const CheckoutPage = React.memo(() => {
                            )}
                      </div>
                      <hr className="w-full pb-5" />
-                     <div className="flex w-9/12 mb-5 justify-around">
+                     <div className="flex w-full mb-5 justify-around">
                         <button
                            type="button"
                            onClick={handleSubmit}
