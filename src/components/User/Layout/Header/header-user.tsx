@@ -55,7 +55,7 @@ const HeaderUser = React.memo(() => {
       } else {
          document.body.style.overflow = "unset";
       }
-   });
+   }, [modal]);
 
    return (
       <>

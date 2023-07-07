@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { useContext, useEffect, useMemo } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import LoginForm from "./components/User/Account/Login/login-form";
 import RegisterFrom from "./components/User/Account/Register/register-form";
@@ -38,8 +39,36 @@ import UserProductDetail from "./components/User/Product/product-detail";
 import CartList from "./components/User/Cart";
 import MyAccount from "./components/User/Account/Detail";
 import CheckoutPage from "./components/User/Checkout";
+import { SumProductContext } from "./context/SumProductContext";
+import * as Constants from "./contants";
+import AdminLogin from "./components/Admin/Login";
 
 function App() {
+   const { userId, roleId } = useContext(SumProductContext);
+   const navigate = useNavigate();
+   const location = useLocation();
+
+   const currentPathname = useMemo(() => {
+      return location && location.pathname ? location.pathname : "";
+   }, [location]);
+
+   useEffect(() => {
+      const isAdmin = currentPathname.includes("/admin");
+      if (isAdmin) {
+         if (userId && roleId) {
+            if (Constants.AccessRole.includes(roleId.toString())) {
+               // OK
+            } else if (roleId.toString() === "1") {
+               navigate("/");
+            } else {
+               navigate("/admin/login");
+            }
+         } else {
+            navigate("/admin/login");
+         }
+      }
+   }, [userId, roleId, currentPathname, navigate]);
+
    return (
       <>
          <Header />
@@ -48,9 +77,26 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterFrom />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/shopping-guide" element={<ShoppingGuide />} />
+            <Route path="/questions" element={<QuestionsFrequently />} />
+            <Route path="/policy" element={<Policy />} />
+            <Route path="/warranty" element={<Warranty />} />
+            <Route path="/security" element={<Security />} />
+            <Route path="/delivery-and-payment" element={<DeliveryPayment />} />
+            <Route path="/product-list" element={<UserProductList />} />
+            <Route
+               path="/product-detail/:productId"
+               element={<UserProductDetail />}
+            />
+            <Route path="/carts" element={<CartList />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/my-account" element={<MyAccount />} />
 
             {/* route for admin */}
             <Route path="/admin" element={<AdminHome />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/product-list" element={<ProductList />} />
             <Route path="/admin/add-product" element={<AddProduct />} />
             <Route
@@ -97,23 +143,6 @@ function App() {
             <Route path="/admin/role-detail/:id" element={<RoleDetail />} />
             <Route path="/admin/add-role" element={<AddRole />} />
             <Route path="/admin/order-list" element={<AdminHome />} />
-
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/shopping-guide" element={<ShoppingGuide />} />
-            <Route path="/questions" element={<QuestionsFrequently />} />
-            <Route path="/policy" element={<Policy />} />
-            <Route path="/warranty" element={<Warranty />} />
-            <Route path="/security" element={<Security />} />
-            <Route path="/delivery-and-payment" element={<DeliveryPayment />} />
-            <Route path="/product-list" element={<UserProductList />} />
-            <Route
-               path="/product-detail/:productId"
-               element={<UserProductDetail />}
-            />
-            <Route path="/carts" element={<CartList />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/my-account" element={<MyAccount />} />
 
             {/* 404 page */}
             <Route path="*" element={<PageNotFound />} />
