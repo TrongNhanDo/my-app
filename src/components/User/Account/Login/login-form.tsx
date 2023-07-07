@@ -10,7 +10,7 @@ import Loader from "../../../Common/Loader/loader";
 
 const LoginForm = React.memo(() => {
    const { t } = useTranslation();
-   const { setUserId } = useContext(SumProductContext);
+   const { setUserId, setRoleId } = useContext(SumProductContext);
    const navigate = useNavigate();
    const [msg, setMsg] = useState<string>();
    const [loading, setLoading] = useState<boolean>(false);
@@ -30,10 +30,13 @@ const LoginForm = React.memo(() => {
             ).catch((err) => setMsg(err.response.data.message));
             setLoading(false);
 
-            if (response) {
+            if (response && response.data) {
                const currentUserId = response.data._id || "";
+               const currentRoleId = response.data.roleId || "";
                setUserId(currentUserId);
                sessionStorage.setItem("userId", currentUserId);
+               setRoleId(currentRoleId);
+               sessionStorage.setItem("roleId", currentRoleId);
                setMsg("");
                navigate("/");
             }
@@ -41,7 +44,7 @@ const LoginForm = React.memo(() => {
             console.log({ error });
          }
       },
-      [navigate, setUserId]
+      [navigate, setUserId, setRoleId]
    );
 
    const formikBag = useFormik({

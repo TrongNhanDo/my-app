@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import i18n from "../../../../i18n/i18n";
 import { useTranslation } from "react-i18next";
 import { SumProductContext } from "../../../../context/SumProductContext";
@@ -7,8 +7,16 @@ import Loader from "../../../Common/Loader/loader";
 
 const HeaderUser = React.memo(() => {
    const { t } = useTranslation();
-   const { sumProduct, setSumProduct, userId, setUserId, locale, setLocale } =
-      useContext(SumProductContext);
+   const navigate = useNavigate();
+   const {
+      sumProduct,
+      setSumProduct,
+      userId,
+      setUserId,
+      locale,
+      setLocale,
+      setRoleId,
+   } = useContext(SumProductContext);
    const [loading, setLoading] = useState<boolean>(false);
    const [modal, setModal] = useState<boolean>(false);
 
@@ -27,13 +35,15 @@ const HeaderUser = React.memo(() => {
          setModal(false);
          setLoading(true);
          await setUserId("");
+         await setRoleId("");
          await setSumProduct(0);
          await sessionStorage.removeItem("userId");
          setLoading(false);
+         navigate("/");
       } catch (error) {
          console.log({ error });
       }
-   }, [setSumProduct, setUserId]);
+   }, [setSumProduct, setUserId, navigate, setRoleId]);
 
    useEffect(() => {
       i18n.changeLanguage(locale);

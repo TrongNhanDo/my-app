@@ -13,6 +13,8 @@ type ContextProps = {
    setSumProduct: React.Dispatch<React.SetStateAction<number>>;
    userId: string;
    setUserId: React.Dispatch<React.SetStateAction<string>>;
+   roleId: string | number;
+   setRoleId: React.Dispatch<React.SetStateAction<string | number>>;
    locale: string;
    setLocale: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -22,6 +24,8 @@ export const SumProductContext = createContext<ContextProps>({
    setSumProduct: () => 0,
    userId: "",
    setUserId: () => "",
+   roleId: "",
+   setRoleId: () => "",
    locale: "eng",
    setLocale: () => "eng",
 });
@@ -34,7 +38,22 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [sumProduct, setSumProduct] = useState<number>(0);
    const [userId, setUserId] = useState<string>("");
+   const [roleId, setRoleId] = useState<string | number>("");
    const [locale, setLocale] = useState<string>("eng");
+
+   useEffect(() => {
+      const currentUserId = sessionStorage.getItem("userId");
+      if (currentUserId) {
+         setUserId(currentUserId);
+      }
+   }, []);
+
+   useEffect(() => {
+      const currentRoleId = sessionStorage.getItem("roleId");
+      if (currentRoleId) {
+         setRoleId(currentRoleId);
+      }
+   }, []);
 
    const fetchApi = useCallback(async () => {
       if (userId) {
@@ -61,13 +80,6 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
    }, []);
 
    useEffect(() => {
-      const currentUserId = sessionStorage.getItem("userId");
-      if (currentUserId) {
-         setUserId(currentUserId);
-      }
-   }, []);
-
-   useEffect(() => {
       if (viewData && viewData.length) {
          const total = viewData.reduce((sum, cur) => sum + cur.amount, 0);
          setSumProduct(total);
@@ -81,6 +93,8 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
             setSumProduct,
             userId,
             setUserId,
+            roleId,
+            setRoleId,
             locale,
             setLocale,
          }}
