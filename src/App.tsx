@@ -44,7 +44,8 @@ import * as Constants from "./contants";
 import AdminLogin from "./components/Admin/Login";
 
 function App() {
-   const { userId, roleId } = useContext(SumProductContext);
+   const { userId, roleId, setUserId, setRoleId, setSumProduct } =
+      useContext(SumProductContext);
    const navigate = useNavigate();
    const location = useLocation();
 
@@ -58,16 +59,37 @@ function App() {
          if (userId && roleId) {
             if (Constants.AccessRole.includes(roleId.toString())) {
                // OK
-            } else if (roleId.toString() === "1") {
-               navigate("/");
             } else {
+               setUserId("");
+               setRoleId("");
+               setSumProduct(0);
+               sessionStorage.removeItem("userId");
                navigate("/admin/login");
             }
          } else {
             navigate("/admin/login");
          }
+      } else {
+         if (
+            userId &&
+            roleId &&
+            Constants.AccessRole.includes(roleId.toString())
+         ) {
+            setUserId("");
+            setRoleId("");
+            setSumProduct(0);
+            sessionStorage.removeItem("userId");
+         }
       }
-   }, [userId, roleId, currentPathname, navigate]);
+   }, [
+      userId,
+      roleId,
+      currentPathname,
+      navigate,
+      setRoleId,
+      setUserId,
+      setSumProduct,
+   ]);
 
    return (
       <>
