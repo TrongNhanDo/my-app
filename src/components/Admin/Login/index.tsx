@@ -24,7 +24,7 @@ const AdminLogin = React.memo(() => {
                password: formikValues.password || "",
             };
             const response = await callApi(
-               "users/login",
+               "users/login-admin",
                "post",
                payload
             ).catch((err) => setMsg(err.response.data.message));

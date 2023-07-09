@@ -24,7 +24,7 @@ const LoginForm = React.memo(() => {
                password: formikValues.password || "",
             };
             const response = await callApi(
-               "users/login",
+               "users/login-user",
                "post",
                payload
             ).catch((err) => setMsg(err.response.data.message));
