@@ -24,7 +24,7 @@ const HeaderUser = React.memo(() => {
       (e: React.ChangeEvent<HTMLSelectElement>) => {
          const languageValue = e.target.value;
          setLocale(languageValue);
-         localStorage.setItem("locale", languageValue);
+         sessionStorage.setItem("locale", languageValue);
          i18n.changeLanguage(languageValue);
       },
       [setLocale]

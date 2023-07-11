@@ -3,6 +3,7 @@ import React, {
    createContext,
    useCallback,
    useEffect,
+   useMemo,
    useState,
 } from "react";
 import { callApi } from "../api/callApi/callApi";
@@ -41,19 +42,23 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
    const [roleId, setRoleId] = useState<string | number>("");
    const [locale, setLocale] = useState<string>("eng");
 
-   useEffect(() => {
-      const currentUserId = sessionStorage.getItem("userId");
-      if (currentUserId) {
-         setUserId(currentUserId);
-      }
+   const localUserId = useMemo(() => {
+      return sessionStorage.getItem("userId") || "";
+   }, []);
+
+   const localRoleId = useMemo(() => {
+      return sessionStorage.getItem("roleId") || "";
+   }, []);
+
+   const localLocale = useMemo(() => {
+      return sessionStorage.getItem("locale") || "";
    }, []);
 
    useEffect(() => {
-      const currentRoleId = sessionStorage.getItem("roleId");
-      if (currentRoleId) {
-         setRoleId(currentRoleId);
-      }
-   }, []);
+      setUserId(localUserId);
+      setRoleId(localRoleId);
+      setLocale(localLocale);
+   }, [localUserId, localRoleId, localLocale]);
 
    const fetchApi = useCallback(async () => {
       if (userId) {
@@ -71,13 +76,6 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
    useEffect(() => {
       fetchApi();
    }, [fetchApi]);
-
-   useEffect(() => {
-      const currentLocale = localStorage.getItem("locale");
-      if (currentLocale) {
-         setLocale(currentLocale);
-      }
-   }, []);
 
    useEffect(() => {
       if (viewData && viewData.length) {

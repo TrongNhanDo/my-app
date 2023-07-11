@@ -44,7 +44,7 @@ import * as Constants from "./contants";
 import AdminLogin from "./components/Admin/Login";
 
 function App() {
-   const { userId, roleId, setUserId, setRoleId, setSumProduct } =
+   const { setUserId, setRoleId, setSumProduct } =
       useContext(SumProductContext);
    const navigate = useNavigate();
    const location = useLocation();
@@ -53,11 +53,19 @@ function App() {
       return location && location.pathname ? location.pathname : "";
    }, [location]);
 
+   const currentUserId = useMemo(() => {
+      return sessionStorage.getItem("userId") || "";
+   }, []);
+
+   const currentRoleId = useMemo(() => {
+      return sessionStorage.getItem("roleId") || "";
+   }, []);
+
    useEffect(() => {
       const isAdmin = currentPathname.includes("/admin");
       if (isAdmin) {
-         if (userId && roleId) {
-            if (Constants.AccessRole.includes(roleId.toString())) {
+         if (currentUserId && currentRoleId) {
+            if (Constants.AccessRole.includes(currentRoleId.toString())) {
                // OK
             } else {
                setUserId("");
@@ -71,9 +79,9 @@ function App() {
          }
       } else {
          if (
-            userId &&
-            roleId &&
-            Constants.AccessRole.includes(roleId.toString())
+            currentUserId &&
+            currentRoleId &&
+            Constants.AccessRole.includes(currentRoleId.toString())
          ) {
             setUserId("");
             setRoleId("");
@@ -82,8 +90,8 @@ function App() {
          }
       }
    }, [
-      userId,
-      roleId,
+      currentUserId,
+      currentRoleId,
       currentPathname,
       navigate,
       setRoleId,
