@@ -119,7 +119,7 @@ const ProductList = React.memo(() => {
             <button
                key={index}
                type="button"
-               className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+               className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                onClick={() => changePage(dataPerpage, index)}
             >
                {index}
@@ -266,7 +266,7 @@ const ProductList = React.memo(() => {
                               id="productName"
                               name="productName"
                               placeholder="Enter product name"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base mt-1 ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base mt-1 ${
                                  formikBag.errors.productName &&
                                  formikBag.touched.productName
                                     ? "bg-yellow"
@@ -287,7 +287,7 @@ const ProductList = React.memo(() => {
                            <select
                               name="ageId"
                               id="ageId"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.ageId &&
                                  formikBag.touched.ageId
                                     ? "bg-yellow"
@@ -323,7 +323,7 @@ const ProductList = React.memo(() => {
                            <select
                               name="branchId"
                               id="branchId"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.branchId &&
                                  formikBag.touched.branchId
                                     ? "bg-yellow"
@@ -359,7 +359,7 @@ const ProductList = React.memo(() => {
                            <select
                               name="skillId"
                               id="skillId"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.skillId &&
                                  formikBag.touched.skillId
                                     ? "bg-yellow"
@@ -425,7 +425,7 @@ const ProductList = React.memo(() => {
                               id="price"
                               placeholder="Enter product's price"
                               value={formikBag.values.price || ""}
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.price &&
                                  formikBag.touched.price
                                     ? "bg-yellow"
@@ -448,7 +448,7 @@ const ProductList = React.memo(() => {
                               id="amount"
                               placeholder="Enter amount's price"
                               value={formikBag.values.amount || ""}
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.amount &&
                                  formikBag.touched.amount
                                     ? "bg-yellow"
@@ -471,7 +471,7 @@ const ProductList = React.memo(() => {
                               rows={5}
                               value={formikBag.values.describes || ""}
                               placeholder="Enter describe about product"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.describes &&
                                  formikBag.touched.describes
                                     ? "bg-yellow"
@@ -511,7 +511,7 @@ const ProductList = React.memo(() => {
             </div>
             {Pagination.length > 1 && <div className="flex">{Pagination}</div>}
             <div className="overflow-x-auto shadow-md sm:rounded-lg">
-               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+               <table className="w-full text-sm text-left text-gray-500">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-300">
                      <tr>
                         <th scope="col" className="px-6 py-3">
@@ -599,7 +599,7 @@ const ProductList = React.memo(() => {
                                  <td className="px-6 py-4 text-right">
                                     <Link
                                        to={`/admin/product-detail/${value._id}`}
-                                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                       className="font-medium text-blue-600 hover:underline"
                                     >
                                        Detail
                                     </Link>

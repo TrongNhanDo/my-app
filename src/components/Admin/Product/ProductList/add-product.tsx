@@ -127,9 +127,9 @@ const AddProduct = React.memo(() => {
             </h2>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-auto w-2/3">
                <form onSubmit={formikBag.handleSubmit}>
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <table className="w-full text-sm text-left text-gray-500">
                      <tbody>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr className="bg-white border-b hover:bg-gray-50">
                            <td className="px-6 py-4">
                               <label htmlFor="productName">Product Name:</label>
                               <input
@@ -137,7 +137,7 @@ const AddProduct = React.memo(() => {
                                  id="productName"
                                  name="productName"
                                  placeholder="Enter product name"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base mt-1 ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base mt-1 ${
                                     formikBag.errors.productName &&
                                     formikBag.touched.productName
                                        ? "bg-yellow"
@@ -154,13 +154,13 @@ const AddProduct = React.memo(() => {
                                  )}
                            </td>
                         </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr className="bg-white border-b hover:bg-gray-50">
                            <td className="px-6 py-4">
                               <label htmlFor="productName">Age Category:</label>
                               <select
                                  name="ageId"
                                  id="ageId"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.ageId &&
                                     formikBag.touched.ageId
                                        ? "bg-yellow"
@@ -192,7 +192,7 @@ const AddProduct = React.memo(() => {
                                  )}
                            </td>
                         </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr className="bg-white border-b hover:bg-gray-50">
                            <td className="px-6 py-4">
                               <label htmlFor="productName">
                                  Branch Category:
@@ -200,7 +200,7 @@ const AddProduct = React.memo(() => {
                               <select
                                  name="branchId"
                                  id="branchId"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.branchId &&
                                     formikBag.touched.branchId
                                        ? "bg-yellow"
@@ -232,7 +232,7 @@ const AddProduct = React.memo(() => {
                                  )}
                            </td>
                         </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr className="bg-white border-b hover:bg-gray-50">
                            <td className="px-6 py-4">
                               <label htmlFor="productName">
                                  Skill Category:
@@ -240,7 +240,7 @@ const AddProduct = React.memo(() => {
                               <select
                                  name="skillId"
                                  id="skillId"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.skillId &&
                                     formikBag.touched.skillId
                                        ? "bg-yellow"
@@ -272,7 +272,7 @@ const AddProduct = React.memo(() => {
                                  )}
                            </td>
                         </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr className="bg-white border-b hover:bg-gray-50">
                            <td className="px-6 py-4 w-1/5">
                               <label
                                  htmlFor="productName"
@@ -304,7 +304,7 @@ const AddProduct = React.memo(() => {
                               )}
                            </td>
                         </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr className="bg-white border-b hover:bg-gray-50">
                            <td className="px-6 py-4 text-base">
                               <label htmlFor="productName">Price:</label>
                               <input
@@ -313,7 +313,7 @@ const AddProduct = React.memo(() => {
                                  id="price"
                                  placeholder="Enter product's price"
                                  value={formikBag.values.price || ""}
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.price &&
                                     formikBag.touched.price
                                        ? "bg-yellow"
@@ -329,7 +329,7 @@ const AddProduct = React.memo(() => {
                                  )}
                            </td>
                         </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr className="bg-white border-b hover:bg-gray-50">
                            <td className="px-6 py-4 text-base">
                               <label htmlFor="productName">Amount:</label>
                               <input
@@ -338,7 +338,7 @@ const AddProduct = React.memo(() => {
                                  id="amount"
                                  placeholder="Enter amount's price"
                                  value={formikBag.values.amount || ""}
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.amount &&
                                     formikBag.touched.amount
                                        ? "bg-yellow"
@@ -354,7 +354,7 @@ const AddProduct = React.memo(() => {
                                  )}
                            </td>
                         </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr className="bg-white border-b hover:bg-gray-50">
                            <td className="px-6 py-4 text-base">
                               <label htmlFor="productName">Describes:</label>
                               <textarea
@@ -363,7 +363,7 @@ const AddProduct = React.memo(() => {
                                  rows={5}
                                  value={formikBag.values.describes || ""}
                                  placeholder="Enter describe about product"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.describes &&
                                     formikBag.touched.describes
                                        ? "bg-yellow"
@@ -387,14 +387,14 @@ const AddProduct = React.memo(() => {
                <>
                   <button
                      type="button"
-                     className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 px-20"
+                     className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 px-20"
                      onClick={handleSubmit}
                   >
                      Update
                   </button>
                   <button
                      type="button"
-                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-20 ms-10"
+                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 focus:outline-none px-20 ms-10"
                      onClick={() => navigate(-1)}
                   >
                      Back

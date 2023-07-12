@@ -22,7 +22,7 @@ const Header = React.memo(() => {
                      className="h-8 mr-3"
                      alt={`${import.meta.env.VITE_WEB_NAME} Logo`}
                   />
-                  <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                  <span className="self-center text-2xl font-semibold whitespace-nowrap">
                      {import.meta.env.VITE_WEB_NAME}
                   </span>
                </Link>

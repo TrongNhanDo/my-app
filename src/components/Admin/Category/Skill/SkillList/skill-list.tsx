@@ -76,7 +76,7 @@ const SkillList = React.memo(() => {
             <button
                key={index}
                type="button"
-               className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+               className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
                onClick={() => changePage(dataPerPage, index)}
             >
                {index}
@@ -187,7 +187,7 @@ const SkillList = React.memo(() => {
                                  name="skillId"
                                  id="skillId"
                                  type="text"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.skillId &&
                                     formikBag.touched.skillId
                                        ? "bg-yellow"
@@ -209,7 +209,7 @@ const SkillList = React.memo(() => {
                                  label="Skill Name:"
                                  name="skillName"
                                  id="skillName"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-1 ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.skillName &&
                                     formikBag.touched.skillName
                                        ? "bg-yellow"
@@ -251,7 +251,7 @@ const SkillList = React.memo(() => {
             </div>
             {Pagination.length > 1 && <div className="flex">{Pagination}</div>}
             <div className="overflow-x-auto shadow-md sm:rounded-lg">
-               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+               <table className="w-full text-sm text-left text-gray-500">
                   <thead className="text-xs text-gray-700 uppercase bg-gray-300">
                      <tr>
                         <th scope="col" className="px-6 py-3">
@@ -298,7 +298,7 @@ const SkillList = React.memo(() => {
                               <td className="px-6 py-4 text-right">
                                  <Link
                                     to={`/admin/skill-category-detail/${value._id}`}
-                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    className="font-medium text-blue-600 hover:underline"
                                  >
                                     Detail
                                  </Link>
