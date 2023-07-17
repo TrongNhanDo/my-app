@@ -261,6 +261,38 @@
          "btn_payment": "payment",
          "btn_return": "return"
       },
+      "genuine_product": {
+         "title": "GENUINE PRODUCT",
+         "text1": "Yay - For Kids works directly with reputable, long-standing toy manufacturers, meeting export standards to Europe and America and having many quality certifications such as EN71, ASTM.",
+         "text2": "This allows Yay - For Kids to apply a One-for-One policy for products with technical defects or lack of details during production and packaging.",
+         "text3": "Please see the genuine authorization letter attached below ↓",
+         "heading1": "Authorization letter of MIDEER",
+         "heading2": "Authorization letter of TOI",
+         "heading3": "Authorization letter of AVENIR",
+         "heading4": "Authorization letter of JOAN MIRO - TOOKY TOY",
+         "heading5": "Authorization letter of I'M PINKY - Korea children cosmetics"
+      },
+      "gift_wrapping": {
+         "title": "free gift-wrapping",
+         "heading1": "With only a bill from 200.000đ, get a free gift-wrapping offer now",
+         "text1": "Every little friend loves to receive cute, lovely, love-filled gifts from the giver.",
+         "text2": "At Yay - For Kids, we understand that and are always dedicated in every gift package.",
+         "text3": "With each bill from only 200,000 VND, customers will receive a part of Free Gift Package.",
+         "text4": "Please make a note when purchasing, or contact Yay - For Kids via communication channels (hotline, zalo, facebook) to receive this offer.",
+         "heading2": "Notes include:",
+         "text5": "» Name (Name displayed on gift packaging)",
+         "text6": "» Age",
+         "text7": "» Gender",
+         "text8": "» Topic (Birthday, 1/6, Christmas, Tet…)",
+         "text9": "Yay wraps themed gifts through each festival season, hoping to always be a bridge to send customers' feelings to the recipient.",
+         "text10": "Beautiful gift wrapping through the festive seasons"
+      },
+      "express_delivery": {
+         "title": "EXPRESS DELIVERY",
+         "text1": "With each order from 250,000 VND, Yay - For Kids applies the promotion code Free Shipping Nationwide for Standard Delivery service.",
+         "text2": "Delivery time is about 1-2 days for orders within Ho Chi Minh City; and 3-4 days for applications outside the province.",
+         "text3": "If customers have urgent delivery needs, please pay the costs incurred for express delivery service."
+      },
       "error": {
          "required": "This field is required",
          "email_required": "Email can not be blank",

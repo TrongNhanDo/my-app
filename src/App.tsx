@@ -42,6 +42,9 @@ import CheckoutPage from "./components/User/Checkout";
 import { SumProductContext } from "./context/SumProductContext";
 import * as Constants from "./contants";
 import AdminLogin from "./components/Admin/Login";
+import GenuineProduct from "./components/User/Customer/GenuineProduct";
+import GiftWrapping from "./components/User/Customer/GiftWrapping";
+import ExpressDelivery from "./components/User/Customer/ExpressDelivery";
 
 function App() {
    const { setUserId, setRoleId, setSumProduct } =
@@ -123,6 +126,9 @@ function App() {
             <Route path="/carts" element={<CartList />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/my-account" element={<MyAccount />} />
+            <Route path="/genuine-product" element={<GenuineProduct />} />
+            <Route path="/free-gift-wrapping" element={<GiftWrapping />} />
+            <Route path="/express-delivery" element={<ExpressDelivery />} />
 
             {/* route for admin */}
             <Route path="/admin" element={<AdminHome />} />

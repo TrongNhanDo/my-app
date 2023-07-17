@@ -261,6 +261,38 @@
          "btn_payment": "thanh toán",
          "btn_return": "quay về"
       },
+      "genuine_product": {
+         "title": "sản phẩm chính hãng",
+         "text1": "Yay – For Kids làm việc trực tiếp với các hãng sản xuất đồ chơi uy tín, lâu năm, đạt chuẩn xuất khẩu Châu Âu, Châu Mỹ và có nhiều chứng nhận chất lượng như EN71, ASTM.",
+         "text2": "Điều này cho phép Yay – For Kids áp dụng chính sách Một Đổi Một cho các sản phẩm bị lỗi kỹ thuật hoặc thiếu chi tiết trong quá trình sản xuất, đóng gói.",
+         "text3": "Vui lòng xem giấy ủy quyền chính hãng đính kèm bên dưới ↓",
+         "heading1": "Giấy ủy quyền MIDEER",
+         "heading2": "Giấy ủy quyền TOI",
+         "heading3": "Giấy ủy quyền AVENIR",
+         "heading4": "Giấy ủy quyền JOAN MIRO - TOOKY TOY",
+         "heading5": "Giấy ủy quyền I'M PINKY - Mỹ phẩm trẻ em Hàn Quốc"
+      },
+      "gift_wrapping": {
+         "title": "miễn phí gói quà",
+         "heading1": "Chỉ với hóa đơn từ 200k, nhận ngay ưu đãi Gói Quà Miễn Phí.",
+         "text1": "Bạn nhỏ nào cũng thích được nhận những món quà xinh xắn, đáng yêu, đong đầy tình cảm của người tặng.",
+         "text2": "Ở Yay – For Kids, chúng tôi hiểu được điều đó và luôn tận tâm trong từng gói quà.",
+         "text3": "Với mỗi hóa đơn chỉ từ 200.000đ, khách hàng sẽ nhận được một phần Gói Quà Miễn Phí.",
+         "text4": "Vui lòng ghi chú khi mua hàng, hoặc liên hệ với Yay – For Kids qua các kênh liên lạc (hotline, zalo, facebook) để nhận ưu đãi này.",
+         "heading2": "Nội dung ghi chú bao gồm: ",
+         "text5": "» Tên bé (tên thể hiện trên gói quà)",
+         "text6": "» Độ tuổi",
+         "text7": "» Giới tính",
+         "text8": "» Chủ đề (Sinh nhật, 1/6, Giáng Sinh, Tết…)",
+         "text9": "Yay gói quà theo chủ đề qua từng mùa Lễ Hội, hy vọng sẽ luôn là cầu nối để trao gửi tình cảm của khách hàng đến với người nhận.",
+         "text10": "Gói quà đẹp qua các mùa lễ hội"
+      },
+      "express_delivery": {
+         "title": "giao hàng hỏa tốc",
+         "text1": "Với mỗi đơn hàng có giá trị từ 250.000đ, Yay – For Kids áp dụng mã khuyến mãi Miễn Phí Giao Hàng Toàn Quốc đối với dịch vụ Giao Hàng Tiêu Chuẩn. ",
+         "text2": "Thời gian giao hàng khoảng từ 1 – 2 ngày đối với đơn trong Thành Phố Hồ Chí Minh; và 3 – 4 ngày đối với đơn ngoài tỉnh.",
+         "text3": "Nếu khách hàng có nhu cầu giao gấp nhận ngay, vui lòng thanh toán các chi phí phát sinh cho dịch vụ giao hàng hỏa tốc."
+      },
       "error": {
          "required": "Thông tin này là thông tin bắt buộc",
          "email_required": "Email không được để trống",
