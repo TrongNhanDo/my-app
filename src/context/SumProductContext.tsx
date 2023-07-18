@@ -43,16 +43,16 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
    const [locale, setLocale] = useState<string>("eng");
 
    const localUserId = useMemo(() => {
-      return sessionStorage.getItem("userId") || "";
-   }, []);
+      return userId || sessionStorage.getItem("userId") || "";
+   }, [userId]);
 
    const localRoleId = useMemo(() => {
-      return sessionStorage.getItem("roleId") || "";
-   }, []);
+      return roleId || sessionStorage.getItem("roleId") || "";
+   }, [roleId]);
 
    const localLocale = useMemo(() => {
-      return sessionStorage.getItem("locale") || "";
-   }, []);
+      return locale || sessionStorage.getItem("locale") || "";
+   }, [locale]);
 
    useEffect(() => {
       setUserId(localUserId);

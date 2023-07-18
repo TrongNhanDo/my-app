@@ -33,11 +33,11 @@ const AdminLogin = React.memo(() => {
             if (response && response.data) {
                const currentUserId = response.data._id || "";
                const currentRoleId = response.data.roleId || "";
-               setUserId(currentUserId);
-               sessionStorage.setItem("userId", currentUserId);
-               setRoleId(currentRoleId);
-               sessionStorage.setItem("roleId", currentRoleId);
-               setMsg("");
+               await setUserId(currentUserId);
+               await sessionStorage.setItem("userId", currentUserId);
+               await setRoleId(currentRoleId);
+               await sessionStorage.setItem("roleId", currentRoleId);
+               await setMsg("");
                navigate("/admin");
             }
          } catch (error) {

@@ -47,7 +47,7 @@ import GiftWrapping from "./components/User/Customer/GiftWrapping";
 import ExpressDelivery from "./components/User/Customer/ExpressDelivery";
 
 function App() {
-   const { setUserId, setRoleId, setSumProduct } =
+   const { setUserId, setRoleId, setSumProduct, userId, roleId } =
       useContext(SumProductContext);
    const navigate = useNavigate();
    const location = useLocation();
@@ -57,12 +57,12 @@ function App() {
    }, [location]);
 
    const currentUserId = useMemo(() => {
-      return sessionStorage.getItem("userId") || "";
-   }, []);
+      return userId || sessionStorage.getItem("userId") || "";
+   }, [userId]);
 
    const currentRoleId = useMemo(() => {
-      return sessionStorage.getItem("roleId") || "";
-   }, []);
+      return roleId || sessionStorage.getItem("roleId") || "";
+   }, [roleId]);
 
    useEffect(() => {
       const isAdmin = currentPathname.includes("/admin");

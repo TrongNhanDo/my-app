@@ -18,6 +18,7 @@ const HeaderAdmin = React.memo(() => {
          await setRoleId("");
          await setSumProduct(0);
          await sessionStorage.removeItem("userId");
+         await sessionStorage.removeItem("roleId");
          setLoading(false);
          navigate("/admin/login");
       } catch (error) {

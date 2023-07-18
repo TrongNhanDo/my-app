@@ -25,18 +25,21 @@ const CartList = React.memo(() => {
    const [eventId, setEventId] = useState<string>("");
    const shippingCost = 30000;
 
+   const currentUserId = useMemo(() => {
+      return userId || sessionStorage.getItem("userId") || "";
+   }, [userId]);
+
    useEffect(() => {
-      const currentUserId = sessionStorage.getItem("userId");
       if (!currentUserId) {
          navigate("/login");
       }
-   }, [navigate]);
+   }, [navigate, currentUserId]);
 
    const fetchApi = useCallback(async () => {
       setLoading(true);
       setIsChangeForm(false);
       const response = await callApi("carts/get-by-userId", "post", {
-         userId,
+         currentUserId,
       }).catch((err) => console.log({ err }));
 
       const data: CartItemType[] = response.data;
@@ -44,7 +47,7 @@ const CartList = React.memo(() => {
          setViewData(data);
       }
       setLoading(false);
-   }, [userId]);
+   }, [currentUserId]);
 
    const handleDelete = useCallback(
       async (cartId: string) => {
