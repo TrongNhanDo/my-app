@@ -9,7 +9,7 @@ import { SumProductContext } from "../../../../context/SumProductContext";
 import Loader from "../../../Common/Loader/loader";
 
 const LoginForm = React.memo(() => {
-   const { t } = useTranslation();
+   const { t } = useTranslation(["user_login", "user_error"]);
    const { setUserId, setRoleId } = useContext(SumProductContext);
    const navigate = useNavigate();
    const [msg, setMsg] = useState<string>();
@@ -58,7 +58,7 @@ const LoginForm = React.memo(() => {
          {loading && <Loader />}
          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl uppercase text-center">
-               {t("user.login.title")}
+               {t("title")}
             </div>
             {msg && (
                <div className="w-full mt-2 text-red-600 text-center">{msg}</div>
@@ -72,7 +72,7 @@ const LoginForm = React.memo(() => {
                      htmlFor="email"
                      className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                     {t("user.login.email")}:
+                     {t("email")}:
                   </label>
                   <input
                      type="email"
@@ -83,7 +83,7 @@ const LoginForm = React.memo(() => {
                         formikBag.touched.email &&
                         "bg-yellow"
                      }`}
-                     placeholder={t("user.login.email_placeholder")}
+                     placeholder={t("email_placeholder")}
                      value={formikBag.values.email || ""}
                      onChange={formikBag.handleChange}
                   />
@@ -98,13 +98,13 @@ const LoginForm = React.memo(() => {
                      htmlFor="password"
                      className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                     {t("user.login.password")}:
+                     {t("password")}:
                   </label>
                   <input
                      type="password"
                      name="password"
                      id="password"
-                     placeholder={t("user.login.password_placeholder")}
+                     placeholder={t("password_placeholder")}
                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
                         formikBag.errors.password &&
                         formikBag.touched.password &&
@@ -130,11 +130,8 @@ const LoginForm = React.memo(() => {
                         />
                      </div>
                      <div className="ml-3 text-sm">
-                        <label
-                           htmlFor="remember"
-                           className="text-gray-500"
-                        >
-                           {t("user.login.remember_login")}
+                        <label htmlFor="remember" className="text-gray-500">
+                           {t("remember_login")}
                         </label>
                      </div>
                   </div>
@@ -142,19 +139,19 @@ const LoginForm = React.memo(() => {
                      to="/forget-password"
                      className="text-gray-500 underline"
                   >
-                     {t("user.login.forget_password")}
+                     {t("forget_password")}
                   </Link>
                </div>
                <button
                   type="submit"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-full"
                >
-                  {t("user.login.submit")}
+                  {t("submit")}
                </button>
                <p className="text-sm font-light text-gray-500">
-                  {t("user.login.text1")}{" "}
+                  {t("text1")}{" "}
                   <Link to="/register" className="font-medium underline">
-                     {t("user.login.register")}
+                     {t("register")}
                   </Link>
                </p>
             </form>

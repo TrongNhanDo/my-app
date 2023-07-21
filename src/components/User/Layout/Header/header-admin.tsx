@@ -1,14 +1,27 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "../../../../i18n/i18n";
 import { SumProductContext } from "../../../../context/SumProductContext";
 import Loader from "../../../Common/Loader/loader";
 
 const HeaderAdmin = React.memo(() => {
+   const { t } = useTranslation(["admin_header"]);
    const navigate = useNavigate();
-   const { setUserId, setRoleId, setSumProduct, userId } =
+   const { setUserId, setRoleId, setSumProduct, userId, locale, setLocale } =
       useContext(SumProductContext);
    const [modal, setModal] = useState<boolean>(false);
    const [loading, setLoading] = useState<boolean>(false);
+
+   const changeLanguage = useCallback(
+      (e: React.ChangeEvent<HTMLSelectElement>) => {
+         const languageValue = e.target.value;
+         setLocale(languageValue);
+         sessionStorage.setItem("locale", languageValue);
+         i18n.changeLanguage(languageValue);
+      },
+      [setLocale]
+   );
 
    const handleLogout = useCallback(async () => {
       try {
@@ -25,6 +38,10 @@ const HeaderAdmin = React.memo(() => {
          console.log({ error });
       }
    }, [setSumProduct, setUserId, navigate, setRoleId]);
+
+   useEffect(() => {
+      i18n.changeLanguage(locale);
+   }, [locale]);
 
    useEffect(() => {
       if (modal) {
@@ -74,7 +91,7 @@ const HeaderAdmin = React.memo(() => {
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                         aria-current="page"
                      >
-                        Home
+                        {t("home")}
                      </Link>
                   </li>
                   <li>
@@ -82,7 +99,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/role-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        Roles
+                        {t("role")}
                      </Link>
                   </li>
                   <li>
@@ -90,7 +107,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/user-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        Users
+                        {t("user")}
                      </Link>
                   </li>
                   <li>
@@ -98,7 +115,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/product-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        Products
+                        {t("product")}
                      </Link>
                   </li>
                   <li>
@@ -106,7 +123,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/age-category-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        Ages
+                        {t("age")}
                      </Link>
                   </li>
                   <li>
@@ -114,7 +131,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/branch-category-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        Branches
+                        {t("branch")}
                      </Link>
                   </li>
                   <li>
@@ -122,7 +139,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/skill-category-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        Skills
+                        {t("skill")}
                      </Link>
                   </li>
                   <li>
@@ -130,7 +147,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/account-detail"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        My Account
+                        {t("my_account")}
                      </Link>
                   </li>
                   <li>
@@ -139,8 +156,19 @@ const HeaderAdmin = React.memo(() => {
                         onClick={() => setModal(true)}
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        Logout
+                        {t("logout")}
                      </button>
+                  </li>
+                  <li>
+                     <select
+                        id="countries"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2"
+                        value={locale}
+                        onChange={changeLanguage}
+                     >
+                        <option value="eng">English</option>
+                        <option value="vie">Vietnamese</option>
+                     </select>
                   </li>
                </>
             )}

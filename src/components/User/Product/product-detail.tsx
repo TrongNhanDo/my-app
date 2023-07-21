@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { SumProductContext } from "../../../context/SumProductContext";
 
 const UserProductDetail = React.memo(() => {
-   const { t } = useTranslation();
+   const { t } = useTranslation(["user_product_detail", "user_error"]);
    const { productId } = useParams();
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(true);
@@ -171,7 +171,7 @@ const UserProductDetail = React.memo(() => {
                      {viewData ? viewData.productName : ""}
                   </div>
                   <div className="mt-3">
-                     {t("user.product_detail.branch")}:{" "}
+                     {t("branch")}:{" "}
                      <span className="text-xl font-bold">
                         {viewData && viewData.branch
                            ? viewData.branch.branchName
@@ -179,7 +179,7 @@ const UserProductDetail = React.memo(() => {
                      </span>
                   </div>
                   <div className="mt-3">
-                     {t("user.product_detail.skill")}:{" "}
+                     {t("skill")}:{" "}
                      <span className="text-xl font-bold">
                         {viewData && viewData.skill
                            ? viewData.skill.skillName
@@ -187,13 +187,13 @@ const UserProductDetail = React.memo(() => {
                      </span>
                   </div>
                   <div className="mt-3">
-                     {t("user.product_detail.age")}:{" "}
+                     {t("age")}:{" "}
                      <span className="text-xl font-bold">
                         {viewData && viewData.age ? viewData.age.ageName : ""}
                      </span>
                   </div>
                   <div className="mt-3">
-                     {t("user.product_detail.price")}:{" "}
+                     {t("price")}:{" "}
                      <span className="text-2xl font-bold">
                         {viewData ? formatCurrency(viewData.price || 0) : ""}
                      </span>
@@ -205,10 +205,10 @@ const UserProductDetail = React.memo(() => {
                         )}
                      </div>
                      <div className="underline mx-2">0</div>
-                     {t("user.product_detail.rate")}
+                     {t("rate")}
                   </div>
                   <div className="flex mt-5 items-center">
-                     {t("user.product_detail.amount")}:
+                     {t("amount")}:
                      <input
                         type="number"
                         name="amount"
@@ -225,43 +225,39 @@ const UserProductDetail = React.memo(() => {
                         className="block bg-orange-200 hover:bg-orange-400 py-1 px-5 rounded"
                         onClick={() => handleSubmit(false)}
                      >
-                        {t("user.product_detail.btn_add")}
+                        {t("btn_add")}
                      </button>
                      <button
                         type="button"
                         onClick={() => handleSubmit(true)}
                         className="block bg-orange-400 hover:bg-orange-200 py-1 px-5 rounded ms-5"
                      >
-                        {t("user.product_detail.btn_buy")}
+                        {t("btn_buy")}
                      </button>
                   </div>
                </form>
                <div className="mt-10">
-                  <div className="text-xl font-bold ">
-                     {t("user.product_detail.heading1")}
-                  </div>
+                  <div className="text-xl font-bold ">{t("heading1")}</div>
                   <form className="mt-3">
                      <input
                         type="email"
                         name="customer-email"
                         id="customer-email"
-                        placeholder={t("user.product_detail.email_placeholder")}
+                        placeholder={t("email_placeholder")}
                         className="px-4 py-2 rounded border-solid border-2 border-gray-200"
                      />
                      <button
                         type="button"
                         className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
                      >
-                        {t("user.product_detail.btn_send")}
+                        {t("btn_send")}
                      </button>
                   </form>
                </div>
             </div>
          </div>
          <div className="flex flex-col w-full mt-20">
-            <div className="text-xl font-bold">
-               {t("user.product_detail.description")}
-            </div>
+            <div className="text-xl font-bold">{t("description")}</div>
             <div className="mt-4">
                {viewData && viewData.describes ? viewData.describes : ""}
             </div>

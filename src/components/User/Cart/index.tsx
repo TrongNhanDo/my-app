@@ -16,7 +16,7 @@ import { validationSchema } from "./validations";
 import { SumProductContext } from "../../../context/SumProductContext";
 
 const CartList = React.memo(() => {
-   const { t } = useTranslation();
+   const { t } = useTranslation(["user_cart", "user_error"]);
    const navigate = useNavigate();
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [loading, setLoading] = useState<boolean>(false);
@@ -147,28 +147,26 @@ const CartList = React.memo(() => {
             <div className="flex shadow-md">
                <div className="w-3/4 bg-white px-10 py-10 rounded">
                   <div className="flex justify-between border-b pb-8">
-                     <h1 className="font-semibold text-2xl">
-                        {t("user.cart.title")}
-                     </h1>
+                     <h1 className="font-semibold text-2xl">{t("title")}</h1>
                      <h2 className="font-semibold text-2xl">
-                        {totalProducts + " " + t("user.cart.product")}
+                        {totalProducts + " " + t("product")}
                      </h2>
                   </div>
                   <div className="flex mt-10 mb-5">
                      <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/6">
-                        {t("user.cart.header1")}
+                        {t("header1")}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        {t("user.cart.header2")}
+                        {t("header2")}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        {t("user.cart.header3")}
+                        {t("header3")}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        {t("user.cart.header4")}
+                        {t("header4")}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        {t("user.cart.header5")}
+                        {t("header5")}
                      </h3>
                   </div>
                   <hr />
@@ -281,7 +279,7 @@ const CartList = React.memo(() => {
                         to="/product-list"
                         className="block py-1 px-3 bg-orange-600 text-white rounded hover:bg-orange-700"
                      >
-                        {t("user.cart.btn_continue")}
+                        {t("btn_continue")}
                      </Link>
                      <button
                         type="button"
@@ -293,17 +291,15 @@ const CartList = React.memo(() => {
                               : "bg-gray-400 cursor-not-allowed"
                         }`}
                      >
-                        {t("user.cart.btn_update")}
+                        {t("btn_update")}
                      </button>
                   </div>
                </div>
                <div className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200 rounded font-bold">
-                  <div className="text-2xl">{t("user.cart.title2")}</div>
+                  <div className="text-2xl">{t("title2")}</div>
                   <hr className="w-full my-5" />
                   <div className="flex w-full justify-between">
-                     <div className="text-sm">
-                        {t("user.cart.product") + ":"}
-                     </div>
+                     <div className="text-sm">{t("product") + ":"}</div>
                      <div className="">{totalProducts || 0}</div>
                   </div>
                   <div className="flex w-full my-5 justify-between">
@@ -327,7 +323,7 @@ const CartList = React.memo(() => {
                         className="bg-indigo-500 hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded"
                         onClick={() => handleSubmit("checkout")}
                      >
-                        {t("user.cart.btn_checkout")}
+                        {t("btn_checkout")}
                      </button>
                   </div>
                </div>
@@ -335,13 +331,13 @@ const CartList = React.memo(() => {
          ) : (
             <div className="flex flex-col w-full rounded items-center bg-white mt-10 py-10">
                <span className="text-2xl font-bold">
-                  {t("user.cart.empty_shopping_cart")}
+                  {t("empty_shopping_cart")}
                </span>
                <Link
                   to="/product-list"
                   className="mt-5 underline text-blue-600 hover:text-blue-400"
                >
-                  {t("user.cart.see_product")}
+                  {t("see_product")}
                </Link>
             </div>
          )}

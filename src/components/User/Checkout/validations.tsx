@@ -3,16 +3,16 @@ import * as Yup from "yup";
 
 export const validationSchema = (t: TFunction) => {
    const validate = Yup.object().shape({
-      fullname: Yup.string().required(t("user.error.required")),
-      gender: Yup.string().required(t("user.error.required")),
+      fullname: Yup.string().required(t("error:required")),
+      gender: Yup.string().required(t("error:required")),
       phone: Yup.string()
-         .required(t("user.error.required"))
+         .required(t("error:required"))
          .matches(
             /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/,
-            t("user.error.mail_formed")
+            t("error:mail_formed")
          ),
-      address: Yup.string().required(t("user.error.required")),
-      payment_method: Yup.string().required(t("user.error.required")),
+      address: Yup.string().required(t("error:required")),
+      payment_method: Yup.string().required(t("error:required")),
    });
 
    return validate;

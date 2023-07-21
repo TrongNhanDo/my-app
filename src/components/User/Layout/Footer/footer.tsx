@@ -11,7 +11,7 @@ type FormikBagProps = {
 };
 
 const Footer = React.memo(() => {
-   const { t } = useTranslation();
+   const { t } = useTranslation(["user_footer"]);
    const currentPathname = useLocation().pathname;
    const [isAdmin, setIsAdmin] = useState<boolean>(false);
    const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -72,7 +72,7 @@ const Footer = React.memo(() => {
                <div className="flex w-9/12 m-auto py-5 px-4">
                   <div className="flex flex-col w-1/4">
                      <div className="font-bold uppercase mb-3">
-                        {t("user.footer.receive_news")}
+                        {t("receive_news")}
                      </div>
                      <form onSubmit={formikBag.handleSubmit}>
                         <input
@@ -89,7 +89,7 @@ const Footer = React.memo(() => {
                            onClick={handleSubmit}
                            className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
                         >
-                           {t("user.footer.btn_send")}
+                           {t("btn_send")}
                         </button>
                      </form>
                      {formikBag.errors.email && formikBag.touched.email && (
@@ -98,9 +98,9 @@ const Footer = React.memo(() => {
                         </span>
                      )}
                      <div className="font-bold text-base mt-3">
-                        {t("user.footer.hotline")}
+                        {t("hotline")}
                      </div>
-                     <div className="text-sm">{t("user.footer.work_time")}</div>
+                     <div className="text-sm">{t("work_time")}</div>
                      <div className="flex mt-1 items-center">
                         <div className="text-3xl">📞</div>
                         <div className="flex flex-col font-bold ps-4">
@@ -134,18 +134,18 @@ const Footer = React.memo(() => {
                            to="https://goo.gl/maps/ZoCGsEcjkwhWkw9R6"
                            target="_blank"
                         >
-                           {t("user.footer.address")}
+                           {t("address")}
                         </Link>
                      </div>
                   </div>
                   <div className="flex flex-col w-1/4 ps-10 pe-5">
                      <div className="font-bold uppercase mb-3">
-                        {t("user.footer.information")}
+                        {t("information")}
                      </div>
                      <ul>
                         <li className="py-2">
                            <Link to="/about" className="hover:text-blue-500">
-                              {t("user.footer.about_shop")}
+                              {t("about_shop")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -153,7 +153,7 @@ const Footer = React.memo(() => {
                               to="/shopping-guide"
                               className="hover:text-blue-500"
                            >
-                              {t("user.footer.shopping_guide")}
+                              {t("shopping_guide")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -161,7 +161,7 @@ const Footer = React.memo(() => {
                               to="/delivery-and-payment"
                               className="hover:text-blue-500"
                            >
-                              {t("user.footer.payment_delivery")}
+                              {t("payment_delivery")}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -169,36 +169,36 @@ const Footer = React.memo(() => {
                               to="/questions"
                               className="hover:text-blue-500"
                            >
-                              {t("user.footer.frequently_question")}
+                              {t("frequently_question")}
                            </Link>
                         </li>
                         <li className="py-2">
                            <Link to="/policy" className="hover:text-blue-500">
-                              {t("user.footer.term_service")}
+                              {t("term_service")}
                            </Link>
                         </li>
                      </ul>
                   </div>
                   <div className="flex flex-col w-1/4 ps-5 pe-10">
                      <div className="font-bold uppercase mb-3">
-                        {t("user.footer.policy")}
+                        {t("policy")}
                      </div>
                      <ul>
                         <li className="py-2">
                            <Link to="/warranty" className="hover:text-blue-500">
-                              {t("user.footer.warranty")}
+                              {t("warranty")}
                            </Link>
                         </li>
                         <li>
                            <Link to="/security" className="hover:text-blue-500">
-                              {t("user.footer.security")}
+                              {t("security")}
                            </Link>
                         </li>
                      </ul>
                   </div>
                   <div className="flex flex-col w-1/4">
                      <div className="font-bold uppercase mb-3">
-                        {t("user.footer.follow")}
+                        {t("follow")}
                      </div>
                      <ul className="flex">
                         <li>
@@ -239,7 +239,7 @@ const Footer = React.memo(() => {
                         </li>
                      </ul>
                      <div className="font-bold uppercase mb-3 mt-4">
-                        {t("user.footer.payment")}
+                        {t("payment")}
                      </div>
                      <ul className="flex">
                         <li>
@@ -293,9 +293,7 @@ const Footer = React.memo(() => {
             </div>
          )}
          <div className="flex w-full bg-footer1 flex-col items-center p-3 text-sm">
-            <div className="flex font-bold text-base">
-               {t("user.footer.copyright")}
-            </div>
+            <div className="flex font-bold text-base">{t("copyright")}</div>
          </div>
       </footer>
    );

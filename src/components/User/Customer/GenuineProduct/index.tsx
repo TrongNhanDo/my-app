@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Sidebar from "../../../Common/Sidebar";
 
 const GenuineProduct = React.memo(() => {
-   const { t } = useTranslation();
+   const { t } = useTranslation(["user_genuine_product"]);
    const [check1, setCheck1] = useState(false);
    const [check2, setCheck2] = useState(false);
    const [check3, setCheck3] = useState(false);
@@ -17,12 +17,12 @@ const GenuineProduct = React.memo(() => {
          </div>
          <div className="w-3/4 bg-white rounded p-5 text-justify">
             <div className="uppercase text-2xl font-bold text-center">
-               {t("user.genuine_product.title")}
+               {t("title")}
             </div>
             <div className="text-base mt-5">
-               <div>{t("user.genuine_product.text1")}</div>
-               <div className="my-3">{t("user.genuine_product.text2")}</div>
-               <div>{t("user.genuine_product.text3")}</div>
+               <div>{t("text1")}</div>
+               <div className="my-3">{t("text2")}</div>
+               <div>{t("text3")}</div>
             </div>
             <div className="text-base mt-3">
                <div>
@@ -32,7 +32,7 @@ const GenuineProduct = React.memo(() => {
                      onClick={() => setCheck1(!check1)}
                   >
                      {check1 ? "🔽 " : "▶️ "}
-                     {t("user.genuine_product.heading1")}
+                     {t("heading1")}
                   </button>
                   {check1 && (
                      <img
@@ -49,7 +49,7 @@ const GenuineProduct = React.memo(() => {
                      onClick={() => setCheck2(!check2)}
                   >
                      {check2 ? "🔽 " : "▶️ "}
-                     {t("user.genuine_product.heading2")}
+                     {t("heading2")}
                   </button>
                   {check2 && (
                      <img
@@ -66,7 +66,7 @@ const GenuineProduct = React.memo(() => {
                      onClick={() => setCheck3(!check3)}
                   >
                      {check3 ? "🔽 " : "▶️ "}
-                     {t("user.genuine_product.heading3")}
+                     {t("heading3")}
                   </button>
                   {check3 && (
                      <img
@@ -83,7 +83,7 @@ const GenuineProduct = React.memo(() => {
                      onClick={() => setCheck4(!check4)}
                   >
                      {check4 ? "🔽 " : "▶️ "}
-                     {t("user.genuine_product.heading4")}
+                     {t("heading4")}
                   </button>
                   {check4 && (
                      <img
@@ -100,7 +100,7 @@ const GenuineProduct = React.memo(() => {
                      onClick={() => setCheck5(!check5)}
                   >
                      {check5 ? "🔽 " : "▶️ "}
-                     {t("user.genuine_product.heading5")}
+                     {t("heading5")}
                   </button>
                   {check5 && (
                      <img

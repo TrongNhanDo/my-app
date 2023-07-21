@@ -9,7 +9,7 @@ import { FormikValueType, initValueFormik } from "./types";
 import { validationSchema } from "./validations";
 
 const AdminLogin = React.memo(() => {
-   const { t } = useTranslation();
+   const { t } = useTranslation(["admin_login"]);
    const { setUserId, setRoleId } = useContext(SumProductContext);
    const navigate = useNavigate();
    const [msg, setMsg] = useState<string>();

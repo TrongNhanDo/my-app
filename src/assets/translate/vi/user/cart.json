@@ -1,0 +1,22 @@
+{
+   "title": "GIỎ HÀNG",
+   "product": "Sản phẩm",
+   "header1": "CHI TIẾT SẢN PHẨM",
+   "header2": "Số lượng",
+   "header3": "Giá",
+   "header4": "Thành tiền",
+   "header5": "Xóa",
+   "btn_continue": "Tiếp tục mua sắm",
+   "btn_update": "Cập nhật giỏ hàng",
+   "title2": "Tóm tắt đơn hàng",
+   "shipping_method": "Phương thức giao hàng",
+   "promotion_code": "Mã giảm giá",
+   "promotion_code_placeholder": "Nhập mã giảm giá",
+   "btn_apply": "Áp dụng",
+   "total_cost": "Tổng tiền",
+   "btn_checkout": "THANH TOÁN",
+   "shipping_method1": "Giao hàng tiêu chuẩn",
+   "shipping_method2": "Giao hàng hỏa tốc ( nội thành )",
+   "empty_shopping_cart": "Giỏ hàng rỗng",
+   "see_product": "Danh sách sản phẩm"
+}

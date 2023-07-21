@@ -1,0 +1,14 @@
+{
+   "branch": "Branch",
+   "skill": "Skill",
+   "age": "Age",
+   "price": "Price",
+   "rate": "Rate",
+   "amount": "Amount",
+   "btn_add": "Add to cart",
+   "btn_buy": "Buy now",
+   "heading1": "SIGN UP TO GET NOTIFICATIONS WHEN THIS ITEM IS BACK",
+   "email_placeholder": "Enter your email",
+   "btn_send": "SEND",
+   "description": "Product description:"
+}

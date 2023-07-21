@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchForm = React.memo(() => {
-   const { t } = useTranslation();
+   const { t } = useTranslation(["user_product", "user_error"]);
    const navigate = useNavigate();
    const [searchParamValues] = useSearchParams();
    const [ageId, setAgeId] = useState<string>("");
@@ -72,9 +72,7 @@ const SearchForm = React.memo(() => {
    return (
       <>
          <div className="flex flex-col w-full">
-            <span className="text-xl font-bold">
-               {t("user.product.base_on_branch")} 🔽
-            </span>
+            <span className="text-xl font-bold">{t("base_on_branch")} 🔽</span>
             <div className="flex mt-4">
                <div className="w-1/2">
                   <input
@@ -87,7 +85,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch1" className="ps-3 cursor-pointer">
-                     {t("user.product.branch1")}
+                     {t("branch1")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -101,7 +99,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch2" className="ps-3 cursor-pointer">
-                     {t("user.product.branch2")}
+                     {t("branch2")}
                   </label>
                </div>
             </div>
@@ -117,7 +115,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch3" className="ps-3 cursor-pointer">
-                     {t("user.product.branch3")}
+                     {t("branch3")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -131,7 +129,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch4" className="ps-3 cursor-pointer">
-                     {t("user.product.branch4")}
+                     {t("branch4")}
                   </label>
                </div>
             </div>
@@ -147,7 +145,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch5" className="ps-3 cursor-pointer">
-                     {t("user.product.branch5")}
+                     {t("branch5")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -161,14 +159,12 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch6" className="ps-3 cursor-pointer">
-                     {t("user.product.branch6")}
+                     {t("branch6")}
                   </label>
                </div>
             </div>
             <hr className="my-5" />
-            <span className="text-xl font-bold">
-               {t("user.product.base_on_age")} 🔽
-            </span>
+            <span className="text-xl font-bold">{t("base_on_age")} 🔽</span>
             <div className="flex mt-4">
                <div className="w-1/2">
                   <input
@@ -181,7 +177,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age1" className="ps-3 cursor-pointer">
-                     {t("user.product.age1")}
+                     {t("age1")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -195,7 +191,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age2" className="ps-3 cursor-pointer">
-                     {t("user.product.age2")}
+                     {t("age2")}
                   </label>
                </div>
             </div>
@@ -211,7 +207,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age3" className="ps-3 cursor-pointer">
-                     {t("user.product.age3")}
+                     {t("age3")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -225,7 +221,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age4" className="ps-3 cursor-pointer">
-                     {t("user.product.age4")}
+                     {t("age4")}
                   </label>
                </div>
             </div>
@@ -241,7 +237,7 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age5" className="ps-3 cursor-pointer">
-                     {t("user.product.age5")}
+                     {t("age5")}
                   </label>
                </div>
                <div className="w-1/2">
@@ -255,13 +251,13 @@ const SearchForm = React.memo(() => {
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age6" className="ps-3 cursor-pointer">
-                     {t("user.product.age6")}
+                     {t("age6")}
                   </label>
                </div>
             </div>
             <hr className="my-5" />
             <span className="text-xl font-bold mb-4">
-               {t("user.product.base_on_skill")} 🔽
+               {t("base_on_skill")} 🔽
             </span>
             <div className="w-full">
                <input
@@ -274,7 +270,7 @@ const SearchForm = React.memo(() => {
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill1" className="ps-3 cursor-pointer">
-                  {t("user.product.skill1")}
+                  {t("skill1")}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -288,7 +284,7 @@ const SearchForm = React.memo(() => {
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill2" className="ps-3 cursor-pointer">
-                  {t("user.product.skill2")}
+                  {t("skill2")}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -302,7 +298,7 @@ const SearchForm = React.memo(() => {
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill3" className="ps-3 cursor-pointer">
-                  {t("user.product.skill3")}
+                  {t("skill3")}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -316,7 +312,7 @@ const SearchForm = React.memo(() => {
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill4" className="ps-3 cursor-pointer">
-                  {t("user.product.skill4")}
+                  {t("skill4")}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -330,7 +326,7 @@ const SearchForm = React.memo(() => {
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill5" className="ps-3 cursor-pointer">
-                  {t("user.product.skill5")}
+                  {t("skill5")}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -344,7 +340,7 @@ const SearchForm = React.memo(() => {
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill6" className="ps-3 cursor-pointer">
-                  {t("user.product.skill6")}
+                  {t("skill6")}
                </label>
             </div>
          </div>
@@ -355,7 +351,7 @@ const SearchForm = React.memo(() => {
                name="productName"
                id="productName"
                className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-               placeholder={t("user.product.name_placeholder")}
+               placeholder={t("name_placeholder")}
                value={productName}
                onChange={(e) => setProductName(e.target.value)}
             />
@@ -371,7 +367,7 @@ const SearchForm = React.memo(() => {
                }`}
                onClick={handleClearSearch}
             >
-               {t("user.product.uncheck")}
+               {t("uncheck")}
             </Link>
             <button
                type="button"
@@ -383,7 +379,7 @@ const SearchForm = React.memo(() => {
                onClick={handleSubmit}
                disabled={!isSelected}
             >
-               {t("user.product.search")}
+               {t("search")}
             </button>
          </div>
       </>

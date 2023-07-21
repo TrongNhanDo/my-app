@@ -3,7 +3,7 @@ import Sidebar from "../../../Common/Sidebar";
 import { useTranslation } from "react-i18next";
 
 const QuestionsFrequently = React.memo(() => {
-   const { t } = useTranslation();
+   const { t } = useTranslation(["user_frequently_question"]);
    const [check1, setCheck1] = useState<boolean>(false);
    const [check2, setCheck2] = useState<boolean>(false);
    const [check3, setCheck3] = useState<boolean>(false);
@@ -15,7 +15,7 @@ const QuestionsFrequently = React.memo(() => {
          </div>
          <div className="w-3/4 bg-white rounded p-5 text-justify">
             <div className="uppercase text-2xl font-bold text-center">
-               {t("user.frequently_question.title")}
+               {t("title")}
             </div>
             <div className="flex flex-col mt-5">
                <button
@@ -24,11 +24,11 @@ const QuestionsFrequently = React.memo(() => {
                   onClick={() => setCheck1(!check1)}
                >
                   {check1 ? "🔽 " : "▶️ "}
-                  {t("user.frequently_question.heading1")}
+                  {t("heading1")}
                </button>
                {check1 && (
                   <div>
-                     <i>{t("user.frequently_question.text1")}</i>
+                     <i>{t("text1")}</i>
                   </div>
                )}
                <button
@@ -37,11 +37,11 @@ const QuestionsFrequently = React.memo(() => {
                   onClick={() => setCheck2(!check2)}
                >
                   {check2 ? "🔽 " : "▶️ "}
-                  {t("user.frequently_question.heading2")}
+                  {t("heading2")}
                </button>
                {check2 && (
                   <div>
-                     <i>{t("user.frequently_question.text2")}</i>
+                     <i>{t("text2")}</i>
                   </div>
                )}
                <button
@@ -50,11 +50,11 @@ const QuestionsFrequently = React.memo(() => {
                   onClick={() => setCheck3(!check3)}
                >
                   {check3 ? "🔽 " : "▶️ "}
-                  {t("user.frequently_question.heading3")}
+                  {t("heading3")}
                </button>
                {check3 && (
                   <div>
-                     <i>{t("user.frequently_question.text3")}</i>
+                     <i>{t("text3")}</i>
                   </div>
                )}
             </div>

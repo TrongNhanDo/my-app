@@ -1,0 +1,12 @@
+{
+   "title": "ĐĂNG KÝ",
+   "email": "Email",
+   "email_placeholder": "Nhập email",
+   "password": "Mật khẩu",
+   "password_placeholder": "Nhập mật khẩu",
+   "confirmPwd": "Xác nhận mật khẩu",
+   "confirmPwd_placeholder": "Nhập mật khẩu xác nhận",
+   "submit": "Đăng ký",
+   "text1": "Nếu bạn đã có tài khoản?",
+   "login": "Đăng nhập"
+}
