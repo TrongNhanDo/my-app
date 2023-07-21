@@ -57,7 +57,10 @@ const LoginForm = React.memo(() => {
 
    useEffect(() => {
       if (checkPass) {
-         formikBag.setFieldError("confirmPwd", t("error:incorrect_confirmPwd"));
+         formikBag.setFieldError(
+            "confirmPwd",
+            t("user_error:incorrect_confirmPwd")
+         );
          setCheckPass(false);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -24,6 +24,8 @@ import SHOPPING_GUIDE_EN from "../assets/translate/en/user/shopping_guide.json";
 import TERM_SERVICE_EN from "../assets/translate/en/user/term_service.json";
 /** english - admin */
 import ADMIN_HEADER_EN from "../assets/translate/en/admin/header.json";
+import ADMIN_LOGIN_EN from "../assets/translate/en/admin/login.json";
+import ADMIN_ERROR_EN from "../assets/translate/en/admin/error.json";
 /** vietnamese - user */
 import ABOUT_VI from "../assets/translate/vi/user/about.json";
 import CART_VI from "../assets/translate/vi/user/cart.json";
@@ -48,6 +50,8 @@ import SHOPPING_GUIDE_VI from "../assets/translate/vi/user/shopping_guide.json";
 import TERM_SERVICE_VI from "../assets/translate/vi/user/term_service.json";
 /** vietnamese - admin */
 import ADMIN_HEADER_VI from "../assets/translate/vi/admin/header.json";
+import ADMIN_LOGIN_VI from "../assets/translate/vi/admin/login.json";
+import ADMIN_ERROR_VI from "../assets/translate/vi/admin/error.json";
 
 const resources = {
    eng: {
@@ -75,6 +79,8 @@ const resources = {
       user_term_service: TERM_SERVICE_EN,
       /** admin */
       admin_header: ADMIN_HEADER_EN,
+      admin_login: ADMIN_LOGIN_EN,
+      admin_error: ADMIN_ERROR_EN,
    },
    vie: {
       /** user */
@@ -101,6 +107,8 @@ const resources = {
       user_term_service: TERM_SERVICE_VI,
       /** admin */
       admin_header: ADMIN_HEADER_VI,
+      admin_login: ADMIN_LOGIN_VI,
+      admin_error: ADMIN_ERROR_VI,
    },
 };
 
