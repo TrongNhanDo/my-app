@@ -39,7 +39,7 @@ const CartList = React.memo(() => {
       setLoading(true);
       setIsChangeForm(false);
       const response = await callApi("carts/get-by-userId", "post", {
-         currentUserId,
+         userId: currentUserId,
       }).catch((err) => console.log({ err }));
 
       const data: CartItemType[] = response.data;
