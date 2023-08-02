@@ -1,25 +1,25 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useFormik } from "formik";
-import { validationSchema } from "./validations";
-import { ActionValues } from "../Common/constants";
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { validationSchema } from './validations';
+import { ActionValues } from '../Common/constants';
 import {
    ActionReducerType,
    FormikBagType,
    InitFormikValue,
    InitStateReducerType,
    StateReducerType,
-} from "./types";
-import { callApi } from "../../../../api/callApi/callApi";
-import Loader from "../../../Common/Loader/loader";
-import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
-import { formatDate, scrollTop } from "../../../Common/Logic/logics";
+} from './types';
+import { callApi } from '../../../../api/callApi/callApi';
+import Loader from '../../../Common/Loader/loader';
+import { ErrorMessages } from '../../../Common/ErrorMessage/error-message';
+import { formatDate, scrollTop } from '../../../Common/Logic/logics';
 
 const RoleDetail = React.memo(() => {
    const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
-   const [msg, setMsg] = useState<string>("");
+   const [msg, setMsg] = useState<string>('');
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
@@ -37,7 +37,7 @@ const RoleDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `roles/${id}`;
-      const response = await callApi(url, "get").catch((err) =>
+      const response = await callApi(url, 'get').catch((err) =>
          console.log({ err })
       );
       dispatch({
@@ -49,17 +49,17 @@ const RoleDetail = React.memo(() => {
 
    const deleteAge = useCallback(
       async (id: string) => {
-         if (confirm("Are you sure you want to delete this age category?")) {
+         if (confirm('Are you sure you want to delete this age category?')) {
             setIsLoading(true);
-            const response = await callApi("roles", "delete", {
+            const response = await callApi('roles', 'delete', {
                id: id,
             }).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
-               alert("Delete role success");
+               alert('Delete role success');
                navigate(-1);
             } else {
-               alert("Delete role fail");
+               alert('Delete role fail');
             }
          }
       },
@@ -67,13 +67,13 @@ const RoleDetail = React.memo(() => {
    );
 
    const onSubmit = async (formikValues: FormikBagType) => {
-      setMsg("");
+      setMsg('');
       if (
          formikValues.roleName &&
          data.role &&
          formikValues.roleName === data.role.roleName
       ) {
-         setMsg("There must be at least one data change");
+         setMsg('There must be at least one data change');
       } else {
          // show loader while update information
          setIsLoading(true);
@@ -81,13 +81,13 @@ const RoleDetail = React.memo(() => {
             ...formikValues,
             id: id,
          };
-         const response = await callApi("roles", "patch", requestPayload).catch(
-            (err) => setMsg(err.response.data.message || "")
+         const response = await callApi('roles', 'patch', requestPayload).catch(
+            (err) => setMsg(err.response.data.message || '')
          );
          // close loader when updated information
          setIsLoading(false);
          if (response) {
-            setMsg("Update role success");
+            setMsg('Update role success');
             fetchApi();
          }
       }
@@ -114,8 +114,8 @@ const RoleDetail = React.memo(() => {
    }, []);
 
    useEffect(() => {
-      if (data.role && data.role.roleName !== "") {
-         formikBag.setFieldValue("roleName", data.role.roleName);
+      if (data.role && data.role.roleName !== '') {
+         formikBag.setFieldValue('roleName', data.role.roleName);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [data]);
@@ -153,10 +153,10 @@ const RoleDetail = React.memo(() => {
                               Role Id
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.role ? data.role.roleId : ""}
+                              {data.role ? data.role.roleId : ''}
                            </td>
                            <td className="px-6 py-4">
-                              {data.role ? data.role.roleId : ""}
+                              {data.role ? data.role.roleId : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -167,7 +167,7 @@ const RoleDetail = React.memo(() => {
                               Role Name
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.role ? data.role.roleName : ""}
+                              {data.role ? data.role.roleName : ''}
                            </td>
                            <td className="px-6 py-4">
                               <input
@@ -177,10 +177,10 @@ const RoleDetail = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.roleName &&
                                     formikBag.touched.roleName
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
-                                 value={formikBag.values.roleName || ""}
+                                 value={formikBag.values.roleName || ''}
                                  onChange={formikBag.handleChange}
                               />
                               {formikBag.errors.roleName &&
@@ -201,12 +201,12 @@ const RoleDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {data.role && data.role.createdAt
                                  ? formatDate(data.role.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.role && data.role.createdAt
                                  ? formatDate(data.role.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -219,12 +219,12 @@ const RoleDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {data.role && data.role.updatedAt
                                  ? formatDate(data.role.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.role && data.role.updatedAt
                                  ? formatDate(data.role.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                      </tbody>
@@ -243,7 +243,7 @@ const RoleDetail = React.memo(() => {
                   <button
                      type="button"
                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 ms-10 px-20"
-                     onClick={() => deleteAge(data.role ? data.role._id : "")}
+                     onClick={() => deleteAge(data.role ? data.role._id : '')}
                   >
                      Delete
                   </button>

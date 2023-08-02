@@ -5,9 +5,9 @@ import React, {
    useEffect,
    useMemo,
    useState,
-} from "react";
-import { callApi } from "../api/callApi/callApi";
-import { CartItemType } from "../components/User/Cart/types";
+} from 'react';
+import { callApi } from '../api/callApi/callApi';
+import { CartItemType } from '../components/User/Cart/types';
 
 type ContextProps = {
    sumProduct: number;
@@ -23,12 +23,12 @@ type ContextProps = {
 export const SumProductContext = createContext<ContextProps>({
    sumProduct: 0,
    setSumProduct: () => 0,
-   userId: "",
-   setUserId: () => "",
-   roleId: "",
-   setRoleId: () => "",
-   locale: "eng",
-   setLocale: () => "eng",
+   userId: '',
+   setUserId: () => '',
+   roleId: '',
+   setRoleId: () => '',
+   locale: 'eng',
+   setLocale: () => 'eng',
 });
 
 type Props = {
@@ -38,20 +38,20 @@ type Props = {
 export const ContextProvider: React.FC<Props> = ({ children }) => {
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [sumProduct, setSumProduct] = useState<number>(0);
-   const [userId, setUserId] = useState<string>("");
-   const [roleId, setRoleId] = useState<string | number>("");
-   const [locale, setLocale] = useState<string>("eng");
+   const [userId, setUserId] = useState<string>('');
+   const [roleId, setRoleId] = useState<string | number>('');
+   const [locale, setLocale] = useState<string>('eng');
 
    const localUserId = useMemo(() => {
-      return userId || sessionStorage.getItem("userId") || "";
+      return userId || sessionStorage.getItem('userId') || '';
    }, [userId]);
 
    const localRoleId = useMemo(() => {
-      return roleId || sessionStorage.getItem("roleId") || "";
+      return roleId || sessionStorage.getItem('roleId') || '';
    }, [roleId]);
 
    const localLocale = useMemo(() => {
-      return locale || sessionStorage.getItem("locale") || "";
+      return locale || sessionStorage.getItem('locale') || '';
    }, [locale]);
 
    useEffect(() => {
@@ -62,7 +62,7 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
 
    const fetchApi = useCallback(async () => {
       if (userId) {
-         const response = await callApi("carts/get-by-userId", "post", {
+         const response = await callApi('carts/get-by-userId', 'post', {
             userId: userId,
          }).catch((err) => console.log({ err }));
 

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { checkIsAdmin } from "../../../Common/Logic/logics";
-import HeaderAdmin from "./header-admin";
-import HeaderUser from "./header-user";
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { checkIsAdmin } from '../../../Common/Logic/logics';
+import HeaderAdmin from './header-admin';
+import HeaderUser from './header-user';
 
 const Header = React.memo(() => {
    const currentPathname = useLocation().pathname;
@@ -16,7 +16,7 @@ const Header = React.memo(() => {
       <div>
          <nav className="border-gray-200 bg-footer2">
             <div className="w-9/12 flex flex-wrap items-center justify-between mx-auto p-4">
-               <Link to={isAdmin ? "admin" : ""} className="flex items-center">
+               <Link to={isAdmin ? 'admin' : ''} className="flex items-center">
                   <img
                      src="https://congcaphe.com/_next/static/images/vn-66e76189e15384f6034e56f129991d96.png"
                      className="h-8 mr-3"

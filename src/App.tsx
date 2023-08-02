@@ -1,50 +1,50 @@
-import { useContext, useEffect, useMemo } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import "./App.css";
-import LoginForm from "./components/User/Account/Login/login-form";
-import RegisterFrom from "./components/User/Account/Register/register-form";
-import Header from "./components/User/Layout/Header/header";
-import HomePage from "./components/User/HomePage";
-import AdminHome from "./components/Admin/HomePage";
-import UserList from "./components/Admin/Account/UserList/user-list";
-import PageNotFound from "./components/Common/Error/error";
-import UserDetail from "./components/Admin/Account/UserDetail/user-detail";
-import AddNewUser from "./components/Admin/Account/UserList/add-user";
-import ProductList from "./components/Admin/Product/ProductList/product-list";
-import ProductDetail from "./components/Admin/Product/ProductDetail/product-detail";
-import AddProduct from "./components/Admin/Product/ProductList/add-product";
-import AgeCategoryList from "./components/Admin/Category/Age/AgeList/age-list";
-import AgeCategoryDetail from "./components/Admin/Category/Age/AgeDetail/age-detail";
-import AddAgeCategory from "./components/Admin/Category/Age/AgeAdd/add-age-category";
-import BranchList from "./components/Admin/Category/Branch/BranchList/branch-list";
-import BranchCategoryDetail from "./components/Admin/Category/Branch/BranchDetail/branch-detail";
-import AddBranchCategory from "./components/Admin/Category/Branch/AddBranch/add-branch-category";
-import SkillList from "./components/Admin/Category/Skill/SkillList/skill-list";
-import SkillCategoryDetail from "./components/Admin/Category/Skill/SkillDetail/skill-detail";
-import AddSkillCategory from "./components/Admin/Category/Skill/AddSkill/add-skill-category";
-import RoleList from "./components/Admin/Role/RoleList/role-list";
-import RoleDetail from "./components/Admin/Role/RoleDetail/role-detail";
-import AddRole from "./components/Admin/Role/RoleAdd/add-role";
-import Footer from "./components/User/Layout/Footer/footer";
-import About from "./components/User/About";
-import Contact from "./components/User/Contact";
-import ShoppingGuide from "./components/User/Customer/ShoppingGuide";
-import QuestionsFrequently from "./components/User/Customer/Questions";
-import Policy from "./components/User/Customer/Policy";
-import Warranty from "./components/User/Customer/Warranty";
-import Security from "./components/User/Customer/Security";
-import DeliveryPayment from "./components/User/Customer/DeliveryPayment";
-import UserProductList from "./components/User/Product/product-list";
-import UserProductDetail from "./components/User/Product/product-detail";
-import CartList from "./components/User/Cart";
-import MyAccount from "./components/User/Account/Detail";
-import CheckoutPage from "./components/User/Checkout";
-import { SumProductContext } from "./context/SumProductContext";
-import * as Constants from "./contants";
-import AdminLogin from "./components/Admin/Login";
-import GenuineProduct from "./components/User/Customer/GenuineProduct";
-import GiftWrapping from "./components/User/Customer/GiftWrapping";
-import ExpressDelivery from "./components/User/Customer/ExpressDelivery";
+import { useContext, useEffect, useMemo } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import './App.css';
+import LoginForm from './components/User/Account/Login/login-form';
+import RegisterFrom from './components/User/Account/Register/register-form';
+import Header from './components/User/Layout/Header/header';
+import HomePage from './components/User/HomePage';
+import AdminHome from './components/Admin/HomePage';
+import UserList from './components/Admin/Account/UserList/user-list';
+import PageNotFound from './components/Common/Error/error';
+import UserDetail from './components/Admin/Account/UserDetail/user-detail';
+import AddNewUser from './components/Admin/Account/UserList/add-user';
+import ProductList from './components/Admin/Product/ProductList/product-list';
+import ProductDetail from './components/Admin/Product/ProductDetail/product-detail';
+import AddProduct from './components/Admin/Product/ProductList/add-product';
+import AgeCategoryList from './components/Admin/Category/Age/AgeList/age-list';
+import AgeCategoryDetail from './components/Admin/Category/Age/AgeDetail/age-detail';
+import AddAgeCategory from './components/Admin/Category/Age/AgeAdd/add-age-category';
+import BranchList from './components/Admin/Category/Branch/BranchList/branch-list';
+import BranchCategoryDetail from './components/Admin/Category/Branch/BranchDetail/branch-detail';
+import AddBranchCategory from './components/Admin/Category/Branch/AddBranch/add-branch-category';
+import SkillList from './components/Admin/Category/Skill/SkillList/skill-list';
+import SkillCategoryDetail from './components/Admin/Category/Skill/SkillDetail/skill-detail';
+import AddSkillCategory from './components/Admin/Category/Skill/AddSkill/add-skill-category';
+import RoleList from './components/Admin/Role/RoleList/role-list';
+import RoleDetail from './components/Admin/Role/RoleDetail/role-detail';
+import AddRole from './components/Admin/Role/RoleAdd/add-role';
+import Footer from './components/User/Layout/Footer/footer';
+import About from './components/User/About';
+import Contact from './components/User/Contact';
+import ShoppingGuide from './components/User/Customer/ShoppingGuide';
+import QuestionsFrequently from './components/User/Customer/Questions';
+import Policy from './components/User/Customer/Policy';
+import Warranty from './components/User/Customer/Warranty';
+import Security from './components/User/Customer/Security';
+import DeliveryPayment from './components/User/Customer/DeliveryPayment';
+import UserProductList from './components/User/Product/product-list';
+import UserProductDetail from './components/User/Product/product-detail';
+import CartList from './components/User/Cart';
+import MyAccount from './components/User/Account/Detail';
+import CheckoutPage from './components/User/Checkout';
+import { SumProductContext } from './context/SumProductContext';
+import * as Constants from './contants';
+import AdminLogin from './components/Admin/Login';
+import GenuineProduct from './components/User/Customer/GenuineProduct';
+import GiftWrapping from './components/User/Customer/GiftWrapping';
+import ExpressDelivery from './components/User/Customer/ExpressDelivery';
 
 function App() {
    const { setUserId, setRoleId, setSumProduct, userId, roleId } =
@@ -53,32 +53,32 @@ function App() {
    const location = useLocation();
 
    const currentPathname = useMemo(() => {
-      return location && location.pathname ? location.pathname : "";
+      return location && location.pathname ? location.pathname : '';
    }, [location]);
 
    const currentUserId = useMemo(() => {
-      return userId || sessionStorage.getItem("userId") || "";
+      return userId || sessionStorage.getItem('userId') || '';
    }, [userId]);
 
    const currentRoleId = useMemo(() => {
-      return roleId || sessionStorage.getItem("roleId") || "";
+      return roleId || sessionStorage.getItem('roleId') || '';
    }, [roleId]);
 
    useEffect(() => {
-      const isAdmin = currentPathname.includes("/admin");
+      const isAdmin = currentPathname.includes('/admin');
       if (isAdmin) {
          if (currentUserId && currentRoleId) {
             if (Constants.AccessRole.includes(currentRoleId.toString())) {
                // OK
             } else {
-               setUserId("");
-               setRoleId("");
+               setUserId('');
+               setRoleId('');
                setSumProduct(0);
-               sessionStorage.removeItem("userId");
-               navigate("/admin/login");
+               sessionStorage.removeItem('userId');
+               navigate('/admin/login');
             }
          } else {
-            navigate("/admin/login");
+            navigate('/admin/login');
          }
       } else {
          if (
@@ -86,10 +86,10 @@ function App() {
             currentRoleId &&
             Constants.AccessRole.includes(currentRoleId.toString())
          ) {
-            setUserId("");
-            setRoleId("");
+            setUserId('');
+            setRoleId('');
             setSumProduct(0);
-            sessionStorage.removeItem("userId");
+            sessionStorage.removeItem('userId');
          }
       }
    }, [

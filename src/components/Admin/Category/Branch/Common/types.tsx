@@ -8,6 +8,6 @@ export type BranchType = {
 };
 
 export const ActionValues = {
-   SET_BRANCHES: "SET_BRANCHES",
-   GET_BRANCH: "GET_BRANCH",
+   SET_BRANCHES: 'SET_BRANCHES',
+   GET_BRANCH: 'GET_BRANCH',
 };

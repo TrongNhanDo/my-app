@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { callApi } from "../../../api/callApi/callApi";
-import { DataPropsType, ProductType } from "./types";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { callApi } from '../../../api/callApi/callApi';
+import { DataPropsType, ProductType } from './types';
 import {
    formatCurrency,
    renderStar,
    scrollTop,
-} from "../../Common/Logic/logics";
-import Loader from "../../Common/Loader/loader";
-import SearchForm from "./form-search";
-import { useTranslation } from "react-i18next";
+} from '../../Common/Logic/logics';
+import Loader from '../../Common/Loader/loader';
+import SearchForm from './form-search';
+import { useTranslation } from 'react-i18next';
 
 const UserProductList = React.memo(() => {
-   const { t } = useTranslation(["user_product", "user_error"]);
+   const { t } = useTranslation(['user_product', 'user_error']);
    const [searchParams] = useSearchParams();
    const [viewData, setViewData] = useState<DataPropsType>();
    const [showLoading, setShowLoading] = useState<boolean>(true);
@@ -20,10 +20,10 @@ const UserProductList = React.memo(() => {
    const [currentPage, setCurrentPage] = useState<number>(1);
 
    const queryParams = useMemo(() => {
-      const ageId = searchParams.get("ageId") || "";
-      const branchId = searchParams.get("branchId") || "";
-      const skillId = searchParams.get("skillId") || "";
-      const productName = searchParams.get("productName") || "";
+      const ageId = searchParams.get('ageId') || '';
+      const branchId = searchParams.get('branchId') || '';
+      const skillId = searchParams.get('skillId') || '';
+      const productName = searchParams.get('productName') || '';
       return {
          ageId: ageId.trim(),
          branchId: branchId.trim(),
@@ -35,7 +35,7 @@ const UserProductList = React.memo(() => {
    const fetchApi = useCallback(async () => {
       setShowLoading(true);
       setCurrentPage(1);
-      const response = await callApi("products/paginate", "post", {
+      const response = await callApi('products/paginate', 'post', {
          perPage: dataPerPage,
          page: 1,
          ...queryParams,
@@ -50,7 +50,7 @@ const UserProductList = React.memo(() => {
       async (perPage: number, page: number) => {
          setShowLoading(true);
          setCurrentPage(page);
-         const response = await callApi("products/paginate", "post", {
+         const response = await callApi('products/paginate', 'post', {
             perPage: perPage || 10,
             page: page || 1,
             ...queryParams,
@@ -74,8 +74,8 @@ const UserProductList = React.memo(() => {
                   type="button"
                   className={`focus:outline-none text-white focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ${
                      isCurrentPage
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "hover:bg-green-800 bg-green-700"
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'hover:bg-green-800 bg-green-700'
                   }`}
                   onClick={() => changePage(dataPerPage, index)}
                   disabled={isCurrentPage}
@@ -114,45 +114,45 @@ const UserProductList = React.memo(() => {
                                        value.images && value.images[0]
                                           ? value.images[0]
                                           : import.meta.env
-                                               .VITE_IMAGE_NOT_FOUND || ""
+                                               .VITE_IMAGE_NOT_FOUND || ''
                                     }
                                     alt=""
                                     className="w-full h-52 object-cover rounded"
                                  />
                                  <div className="font-bold mt-2 mb-1 line-clamp-2 text-center">
-                                    {value.productName || ""}
+                                    {value.productName || ''}
                                  </div>
                                  <div className="text-center">
-                                    {t("branch")}:{" "}
+                                    {t('branch')}:{' '}
                                     <span className="font-bold">
                                        {value.branch && value.branch.branchName
                                           ? value.branch.branchName
-                                          : ""}
+                                          : ''}
                                     </span>
                                  </div>
                                  <div className="text-center my-1">
-                                    {t("age")}:{" "}
+                                    {t('age')}:{' '}
                                     <span className="font-bold">
                                        {value.age && value.age.ageName
                                           ? value.age.ageName
-                                          : ""}
+                                          : ''}
                                     </span>
                                  </div>
                                  <div className="text-center">
-                                    {t("skill")}:{" "}
+                                    {t('skill')}:{' '}
                                     <span className="font-bold">
                                        {value.skill && value.skill.skillName
                                           ? value.skill.skillName
-                                          : ""}
+                                          : ''}
                                     </span>
                                  </div>
                                  <div className="flex justify-center my-1">
-                                    {renderStar(value.rate || 0)} {"(0)"}
+                                    {renderStar(value.rate || 0)} {'(0)'}
                                  </div>
                                  <div className="text-center font-bold text-xl text-orange-800">
                                     {value.price
                                        ? formatCurrency(value.price)
-                                       : "0"}
+                                       : '0'}
                                  </div>
                               </Link>
                            </div>
@@ -169,7 +169,7 @@ const UserProductList = React.memo(() => {
                ) : (
                   <>
                      <div className="flex justify-center py-10">
-                        {t("updating_product")}
+                        {t('updating_product')}
                      </div>
                   </>
                )}

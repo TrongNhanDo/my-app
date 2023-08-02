@@ -1,9 +1,9 @@
-import { Currency } from "react-tender";
-import { format } from "date-fns";
+import { Currency } from 'react-tender';
+import { format } from 'date-fns';
 
 export const formatDate = (inputDate: string) => {
    const date = new Date(inputDate);
-   return format(date, "HH:mm:ss dd/MM/yyyy");
+   return format(date, 'HH:mm:ss dd/MM/yyyy');
 };
 
 export const formatCurrency = (
@@ -14,8 +14,8 @@ export const formatCurrency = (
    return (
       <Currency
          value={parseFloat(money.toString()) || 0}
-         currency={currency || "VND"}
-         locale={locale || "vi"}
+         currency={currency || 'VND'}
+         locale={locale || 'vi'}
       />
    );
 };
@@ -29,7 +29,7 @@ export const scrollTop = () => {
 };
 
 export const checkIsAdmin = (pathname: string) => {
-   if (pathname && pathname.includes("admin")) {
+   if (pathname && pathname.includes('admin')) {
       return true;
    }
 
@@ -47,7 +47,7 @@ export const renderStar = (rate: number) => {
             disabled={true}
          >
             {index <= rate ? (
-               <i className="fa-solid fa-star" style={{ color: "#d2d51a" }}></i>
+               <i className="fa-solid fa-star" style={{ color: '#d2d51a' }}></i>
             ) : (
                <i className="fa-regular fa-star"></i>
             )}

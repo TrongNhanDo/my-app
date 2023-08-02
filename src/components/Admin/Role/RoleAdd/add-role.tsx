@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
-import { FormikBagType, InitFormikBag } from "./types";
-import { validationSchema } from "./validations";
-import { callApi } from "../../../../api/callApi/callApi";
-import Loader from "../../../Common/Loader/loader";
-import { Input } from "../../../Common/Input/input";
-import { scrollTop } from "../../../Common/Logic/logics";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { FormikBagType, InitFormikBag } from './types';
+import { validationSchema } from './validations';
+import { callApi } from '../../../../api/callApi/callApi';
+import Loader from '../../../Common/Loader/loader';
+import { Input } from '../../../Common/Input/input';
+import { scrollTop } from '../../../Common/Logic/logics';
 
 const AddRole = React.memo(() => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
-   const [error, setError] = useState<string>("");
+   const [error, setError] = useState<string>('');
    const [success, setSuccess] = useState<boolean>(false);
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
@@ -21,9 +21,9 @@ const AddRole = React.memo(() => {
          ...formikValues,
          roleName: formikValues.roleName.trim(),
       };
-      await callApi("roles", "post", requestPayload)
+      await callApi('roles', 'post', requestPayload)
          .then(() => {
-            setError("Insert new role success");
+            setError('Insert new role success');
             setSuccess(true);
          })
          .catch((err) => {
@@ -63,7 +63,7 @@ const AddRole = React.memo(() => {
                   <div className="text-2xl font-bold text-center">
                      INSERT NEW AGE CATEGORY
                   </div>
-                  {error && error !== "" && (
+                  {error && error !== '' && (
                      <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
                         {error}
                      </div>
@@ -77,11 +77,11 @@ const AddRole = React.memo(() => {
                      type="text"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                         formikBag.errors.roleId && formikBag.touched.roleId
-                           ? "bg-yellow"
-                           : ""
+                           ? 'bg-yellow'
+                           : ''
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.roleId || ""}
+                     value={formikBag.values.roleId || ''}
                   />
                   {formikBag.errors.roleId && formikBag.touched.roleId && (
                      <p className="text-orange-600">
@@ -97,11 +97,11 @@ const AddRole = React.memo(() => {
                      id="roleName"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                         formikBag.errors.roleName && formikBag.touched.roleName
-                           ? "bg-yellow"
-                           : ""
+                           ? 'bg-yellow'
+                           : ''
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.roleName || ""}
+                     value={formikBag.values.roleName || ''}
                   />
                   {formikBag.errors.roleName && formikBag.touched.roleName && (
                      <p className="text-orange-600">

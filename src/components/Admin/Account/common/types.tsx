@@ -8,11 +8,11 @@ export type RoleType = {
 };
 
 export const InitRole = {
-   _id: "",
+   _id: '',
    roleId: 0,
-   roleName: "",
-   createdAt: "",
-   updatedAt: "",
+   roleName: '',
+   createdAt: '',
+   updatedAt: '',
    __v: 0,
 };
 
@@ -56,6 +56,6 @@ export type InputInsertType = {
 };
 
 export const ActionTypes = {
-   SET_USERS: "SET_USERS",
-   SELECTED_USER: "SELECTED_USER",
+   SET_USERS: 'SET_USERS',
+   SELECTED_USER: 'SELECTED_USER',
 };

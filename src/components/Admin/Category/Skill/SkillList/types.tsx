@@ -1,4 +1,4 @@
-import { SkillType } from "../Common/types";
+import { SkillType } from '../Common/types';
 
 export type StateReducerType = {
    skills: SkillType[] | null;
@@ -25,6 +25,6 @@ export type FormikBagType = {
 };
 
 export const InitFormikBag = {
-   skillId: "",
-   skillName: "",
+   skillId: '',
+   skillName: '',
 };

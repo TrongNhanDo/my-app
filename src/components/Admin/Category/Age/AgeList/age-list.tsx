@@ -4,23 +4,23 @@ import React, {
    useMemo,
    useReducer,
    useState,
-} from "react";
-import { Link } from "react-router-dom";
-import Loader from "../../../../Common/Loader/loader";
-import { formatDate } from "../../../../Common/Logic/logics";
-import { callApi } from "../../../../../api/callApi/callApi";
-import { AgeType, InitReducer, InputActionType } from "../Common/types";
-import { ActionValues } from "../Common/constants";
-import { useFormik } from "formik";
-import { FormikBagType, InitFormikBag } from "./types";
-import { validationSchema } from "./validations";
-import { ModalCustom } from "../../../../Common/Modal/modal-custom";
-import { Input } from "../../../../Common/Input/input";
+} from 'react';
+import { Link } from 'react-router-dom';
+import Loader from '../../../../Common/Loader/loader';
+import { formatDate } from '../../../../Common/Logic/logics';
+import { callApi } from '../../../../../api/callApi/callApi';
+import { AgeType, InitReducer, InputActionType } from '../Common/types';
+import { ActionValues } from '../Common/constants';
+import { useFormik } from 'formik';
+import { FormikBagType, InitFormikBag } from './types';
+import { validationSchema } from './validations';
+import { ModalCustom } from '../../../../Common/Modal/modal-custom';
+import { Input } from '../../../../Common/Input/input';
 
 const AgeCategoryList = React.memo(() => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
-   const [error, setError] = useState<string>("");
+   const [error, setError] = useState<string>('');
    const [success, setSuccess] = useState<boolean>(false);
    const [modal, setModal] = useState<boolean>(false);
 
@@ -46,7 +46,7 @@ const AgeCategoryList = React.memo(() => {
 
    const [data, dispatch] = useReducer(reducer, initState);
    const fetchApi = useCallback(async () => {
-      const response = await callApi("ages/paginate", "post", {
+      const response = await callApi('ages/paginate', 'post', {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
@@ -60,7 +60,7 @@ const AgeCategoryList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("ages/paginate", "post", {
+      const response = await callApi('ages/paginate', 'post', {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
@@ -101,9 +101,9 @@ const AgeCategoryList = React.memo(() => {
             ...formikValues,
             ageName: formikValues.ageName.trim(),
          };
-         await callApi("ages", "post", requestPayload)
+         await callApi('ages', 'post', requestPayload)
             .then(() => {
-               setError("Insert new age success");
+               setError('Insert new age success');
                setSuccess(true);
             })
             .catch((err) => {
@@ -133,7 +133,7 @@ const AgeCategoryList = React.memo(() => {
       try {
          formikBag.resetForm();
          setModal(false);
-         setError("");
+         setError('');
       } catch (error) {
          console.log({ error });
       }
@@ -148,9 +148,9 @@ const AgeCategoryList = React.memo(() => {
 
    useEffect(() => {
       if (modal) {
-         document.body.style.overflow = "hidden";
+         document.body.style.overflow = 'hidden';
       } else {
-         document.body.style.overflow = "unset";
+         document.body.style.overflow = 'unset';
       }
    });
 
@@ -178,7 +178,7 @@ const AgeCategoryList = React.memo(() => {
                            </button>
                         </div>
                         <hr className="w-full my-3 h-0.5" />
-                        {error && error !== "" && (
+                        {error && error !== '' && (
                            <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
                               {error}
                            </div>
@@ -193,11 +193,11 @@ const AgeCategoryList = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.ageId &&
                                     formikBag.touched.ageId
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.ageId || ""}
+                                 value={formikBag.values.ageId || ''}
                               />
                               {formikBag.errors.ageId &&
                                  formikBag.touched.ageId && (
@@ -215,11 +215,11 @@ const AgeCategoryList = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.ageName &&
                                     formikBag.touched.ageName
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.ageName || ""}
+                                 value={formikBag.values.ageName || ''}
                               />
                               {formikBag.errors.ageName &&
                                  formikBag.touched.ageName && (
@@ -286,9 +286,9 @@ const AgeCategoryList = React.memo(() => {
                               className="bg-white border-b hover:bg-gray-100 text-black"
                            >
                               <td className="px-6 py-4">{index + 1}</td>
-                              <td className="px-6 py-4">{value.ageId || ""}</td>
+                              <td className="px-6 py-4">{value.ageId || ''}</td>
                               <td className="px-6 py-4">
-                                 {value.ageName || ""}
+                                 {value.ageName || ''}
                               </td>
                               <td className="px-6 py-4">
                                  {formatDate(value.createdAt)}

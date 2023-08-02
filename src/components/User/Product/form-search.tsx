@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 const SearchForm = React.memo(() => {
-   const { t } = useTranslation(["user_product", "user_error"]);
+   const { t } = useTranslation(['user_product', 'user_error']);
    const navigate = useNavigate();
    const [searchParamValues] = useSearchParams();
-   const [ageId, setAgeId] = useState<string>("");
-   const [branchId, setBranchId] = useState<string>("");
-   const [skillId, setSkillId] = useState<string>("");
-   const [productName, setProductName] = useState<string>("");
+   const [ageId, setAgeId] = useState<string>('');
+   const [branchId, setBranchId] = useState<string>('');
+   const [skillId, setSkillId] = useState<string>('');
+   const [productName, setProductName] = useState<string>('');
 
    const isSelected = useMemo(() => {
       if (ageId || branchId || skillId || productName) {
@@ -23,56 +23,56 @@ const SearchForm = React.memo(() => {
          return;
       }
 
-      const url = `?ageId=${ageId ? ageId.trim() : ""}&branchId=${
-         branchId ? branchId.trim() : ""
-      }&skillId=${skillId ? skillId.trim() : ""}&productName=${
-         productName ? productName.trim() : ""
+      const url = `?ageId=${ageId ? ageId.trim() : ''}&branchId=${
+         branchId ? branchId.trim() : ''
+      }&skillId=${skillId ? skillId.trim() : ''}&productName=${
+         productName ? productName.trim() : ''
       }`;
 
       navigate(url, { replace: true });
    }, [navigate, ageId, branchId, skillId, productName, isSelected]);
 
    const handleClearSearch = useCallback(() => {
-      setAgeId("");
-      setBranchId("");
-      setSkillId("");
-      setProductName("");
+      setAgeId('');
+      setBranchId('');
+      setSkillId('');
+      setProductName('');
    }, []);
 
    useEffect(() => {
-      if (searchParamValues.get("ageId")) {
-         const item = searchParamValues.get("ageId") || "";
+      if (searchParamValues.get('ageId')) {
+         const item = searchParamValues.get('ageId') || '';
          setAgeId(item);
       } else {
-         setAgeId("");
+         setAgeId('');
       }
 
-      if (searchParamValues.get("branchId")) {
-         const item = searchParamValues.get("branchId") || "";
+      if (searchParamValues.get('branchId')) {
+         const item = searchParamValues.get('branchId') || '';
          setBranchId(item);
       } else {
-         setBranchId("");
+         setBranchId('');
       }
 
-      if (searchParamValues.get("skillId")) {
-         const item = searchParamValues.get("skillId") || "";
+      if (searchParamValues.get('skillId')) {
+         const item = searchParamValues.get('skillId') || '';
          setSkillId(item);
       } else {
-         setSkillId("");
+         setSkillId('');
       }
 
-      if (searchParamValues.get("productName")) {
-         const item = searchParamValues.get("productName") || "";
+      if (searchParamValues.get('productName')) {
+         const item = searchParamValues.get('productName') || '';
          setProductName(item);
       } else {
-         setProductName("");
+         setProductName('');
       }
    }, [searchParamValues]);
 
    return (
       <>
          <div className="flex flex-col w-full">
-            <span className="text-xl font-bold">{t("base_on_branch")} 🔽</span>
+            <span className="text-xl font-bold">{t('base_on_branch')} 🔽</span>
             <div className="flex mt-4">
                <div className="w-1/2">
                   <input
@@ -81,11 +81,11 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="1"
                      className="cursor-pointer"
-                     checked={branchId === "1"}
+                     checked={branchId === '1'}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch1" className="ps-3 cursor-pointer">
-                     {t("branch1")}
+                     {t('branch1')}
                   </label>
                </div>
                <div className="w-1/2">
@@ -95,11 +95,11 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="2"
                      className="cursor-pointer"
-                     checked={branchId === "2"}
+                     checked={branchId === '2'}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch2" className="ps-3 cursor-pointer">
-                     {t("branch2")}
+                     {t('branch2')}
                   </label>
                </div>
             </div>
@@ -111,11 +111,11 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="3"
                      className="cursor-pointer"
-                     checked={branchId === "3"}
+                     checked={branchId === '3'}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch3" className="ps-3 cursor-pointer">
-                     {t("branch3")}
+                     {t('branch3')}
                   </label>
                </div>
                <div className="w-1/2">
@@ -125,11 +125,11 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="4"
                      className="cursor-pointer"
-                     checked={branchId === "4"}
+                     checked={branchId === '4'}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch4" className="ps-3 cursor-pointer">
-                     {t("branch4")}
+                     {t('branch4')}
                   </label>
                </div>
             </div>
@@ -141,11 +141,11 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="5"
                      className="cursor-pointer"
-                     checked={branchId === "5"}
+                     checked={branchId === '5'}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch5" className="ps-3 cursor-pointer">
-                     {t("branch5")}
+                     {t('branch5')}
                   </label>
                </div>
                <div className="w-1/2">
@@ -155,16 +155,16 @@ const SearchForm = React.memo(() => {
                      name="branchId"
                      value="6"
                      className="cursor-pointer"
-                     checked={branchId === "6"}
+                     checked={branchId === '6'}
                      onChange={(e) => setBranchId(e.target.value)}
                   />
                   <label htmlFor="branch6" className="ps-3 cursor-pointer">
-                     {t("branch6")}
+                     {t('branch6')}
                   </label>
                </div>
             </div>
             <hr className="my-5" />
-            <span className="text-xl font-bold">{t("base_on_age")} 🔽</span>
+            <span className="text-xl font-bold">{t('base_on_age')} 🔽</span>
             <div className="flex mt-4">
                <div className="w-1/2">
                   <input
@@ -173,11 +173,11 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="1"
                      className="cursor-pointer"
-                     checked={ageId === "1"}
+                     checked={ageId === '1'}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age1" className="ps-3 cursor-pointer">
-                     {t("age1")}
+                     {t('age1')}
                   </label>
                </div>
                <div className="w-1/2">
@@ -187,11 +187,11 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="2"
                      className="cursor-pointer"
-                     checked={ageId === "2"}
+                     checked={ageId === '2'}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age2" className="ps-3 cursor-pointer">
-                     {t("age2")}
+                     {t('age2')}
                   </label>
                </div>
             </div>
@@ -203,11 +203,11 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="3"
                      className="cursor-pointer"
-                     checked={ageId === "3"}
+                     checked={ageId === '3'}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age3" className="ps-3 cursor-pointer">
-                     {t("age3")}
+                     {t('age3')}
                   </label>
                </div>
                <div className="w-1/2">
@@ -217,11 +217,11 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="4"
                      className="cursor-pointer"
-                     checked={ageId === "4"}
+                     checked={ageId === '4'}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age4" className="ps-3 cursor-pointer">
-                     {t("age4")}
+                     {t('age4')}
                   </label>
                </div>
             </div>
@@ -233,11 +233,11 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="5"
                      className="cursor-pointer"
-                     checked={ageId === "5"}
+                     checked={ageId === '5'}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age5" className="ps-3 cursor-pointer">
-                     {t("age5")}
+                     {t('age5')}
                   </label>
                </div>
                <div className="w-1/2">
@@ -247,17 +247,17 @@ const SearchForm = React.memo(() => {
                      name="ageId"
                      value="6"
                      className="cursor-pointer"
-                     checked={ageId === "6"}
+                     checked={ageId === '6'}
                      onChange={(e) => setAgeId(e.target.value)}
                   />
                   <label htmlFor="age6" className="ps-3 cursor-pointer">
-                     {t("age6")}
+                     {t('age6')}
                   </label>
                </div>
             </div>
             <hr className="my-5" />
             <span className="text-xl font-bold mb-4">
-               {t("base_on_skill")} 🔽
+               {t('base_on_skill')} 🔽
             </span>
             <div className="w-full">
                <input
@@ -266,11 +266,11 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="1"
                   className="cursor-pointer"
-                  checked={skillId === "1"}
+                  checked={skillId === '1'}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill1" className="ps-3 cursor-pointer">
-                  {t("skill1")}
+                  {t('skill1')}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -280,11 +280,11 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="2"
                   className="cursor-pointer"
-                  checked={skillId === "2"}
+                  checked={skillId === '2'}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill2" className="ps-3 cursor-pointer">
-                  {t("skill2")}
+                  {t('skill2')}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -294,11 +294,11 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="3"
                   className="cursor-pointer"
-                  checked={skillId === "3"}
+                  checked={skillId === '3'}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill3" className="ps-3 cursor-pointer">
-                  {t("skill3")}
+                  {t('skill3')}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -308,11 +308,11 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="4"
                   className="cursor-pointer"
-                  checked={skillId === "4"}
+                  checked={skillId === '4'}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill4" className="ps-3 cursor-pointer">
-                  {t("skill4")}
+                  {t('skill4')}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -322,11 +322,11 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="5"
                   className="cursor-pointer"
-                  checked={skillId === "5"}
+                  checked={skillId === '5'}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill5" className="ps-3 cursor-pointer">
-                  {t("skill5")}
+                  {t('skill5')}
                </label>
             </div>
             <div className="w-full mt-2">
@@ -336,11 +336,11 @@ const SearchForm = React.memo(() => {
                   name="skillId"
                   value="6"
                   className="cursor-pointer"
-                  checked={skillId === "6"}
+                  checked={skillId === '6'}
                   onChange={(e) => setSkillId(e.target.value)}
                />
                <label htmlFor="skill6" className="ps-3 cursor-pointer">
-                  {t("skill6")}
+                  {t('skill6')}
                </label>
             </div>
          </div>
@@ -351,7 +351,7 @@ const SearchForm = React.memo(() => {
                name="productName"
                id="productName"
                className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-               placeholder={t("name_placeholder")}
+               placeholder={t('name_placeholder')}
                value={productName}
                onChange={(e) => setProductName(e.target.value)}
             />
@@ -362,24 +362,24 @@ const SearchForm = React.memo(() => {
                to="/product-list"
                className={`w-fit py-2 px-3 w-2/6 rounded text-white ${
                   isSelected
-                     ? "hover:bg-red-500 bg-red-600"
-                     : "cursor-not-allowed bg-gray-500"
+                     ? 'hover:bg-red-500 bg-red-600'
+                     : 'cursor-not-allowed bg-gray-500'
                }`}
                onClick={handleClearSearch}
             >
-               {t("uncheck")}
+               {t('uncheck')}
             </Link>
             <button
                type="button"
                className={`block py-2 w-3/6 rounded text-white ${
                   isSelected
-                     ? "hover:bg-green-700 bg-green-500"
-                     : "cursor-not-allowed bg-gray-500"
+                     ? 'hover:bg-green-700 bg-green-500'
+                     : 'cursor-not-allowed bg-gray-500'
                }`}
                onClick={handleSubmit}
                disabled={!isSelected}
             >
-               {t("search")}
+               {t('search')}
             </button>
          </div>
       </>

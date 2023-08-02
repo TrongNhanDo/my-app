@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export const validationSchema = () => {
    const validation = Yup.object().shape({
@@ -13,7 +13,7 @@ export const validationSchema = () => {
 
 export const validationConfirmPwd = (value1: string, value2: string) => {
    if (value1 && value2 && value1 !== value2) {
-      return "Confirm password not matched with password";
+      return 'Confirm password not matched with password';
    }
-   return "";
+   return '';
 };

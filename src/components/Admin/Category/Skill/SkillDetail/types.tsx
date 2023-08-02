@@ -1,15 +1,15 @@
-import { SkillType } from "../Common/types";
+import { SkillType } from '../Common/types';
 
 export type StateReducerType = {
    skill: SkillType | null;
 };
 
 export const InitSkillValue = {
-   _id: "",
+   _id: '',
    skillId: 0,
-   skillName: "",
-   createdAt: "",
-   updatedAt: "",
+   skillName: '',
+   createdAt: '',
+   updatedAt: '',
    __v: 0,
 };
 

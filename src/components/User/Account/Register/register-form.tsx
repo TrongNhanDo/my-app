@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useFormik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
-import { callApi } from "../../../../api/callApi/callApi";
-import { validationSchema } from "./validations";
-import { FormikValueType, initValueFormik } from "./types";
-import Loader from "../../../Common/Loader/loader";
-import { useTranslation } from "react-i18next";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
+import { callApi } from '../../../../api/callApi/callApi';
+import { validationSchema } from './validations';
+import { FormikValueType, initValueFormik } from './types';
+import Loader from '../../../Common/Loader/loader';
+import { useTranslation } from 'react-i18next';
 
 const LoginForm = React.memo(() => {
-   const { t } = useTranslation(["user_register", "user_error"]);
+   const { t } = useTranslation(['user_register', 'user_error']);
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [checkPass, setCheckPass] = useState<boolean>(false);
@@ -22,11 +22,11 @@ const LoginForm = React.memo(() => {
             }
             setShowLoading(true);
             const payload = {
-               username: formikValues.email || "",
-               password: formikValues.password || "",
+               username: formikValues.email || '',
+               password: formikValues.password || '',
                roleId: 1,
             };
-            const response = await callApi("users", "post", payload).catch(
+            const response = await callApi('users', 'post', payload).catch(
                (err) =>
                   alert(
                      err &&
@@ -34,13 +34,13 @@ const LoginForm = React.memo(() => {
                         err.response.data &&
                         err.response.data.message
                         ? err.response.data.message
-                        : ""
+                        : ''
                   )
             );
             setShowLoading(false);
             if (response) {
-               alert("Register success");
-               navigate("/login");
+               alert('Register success');
+               navigate('/login');
             }
          } catch (error) {
             console.log({ error });
@@ -58,8 +58,8 @@ const LoginForm = React.memo(() => {
    useEffect(() => {
       if (checkPass) {
          formikBag.setFieldError(
-            "confirmPwd",
-            t("user_error:incorrect_confirmPwd")
+            'confirmPwd',
+            t('user_error:incorrect_confirmPwd')
          );
          setCheckPass(false);
       }
@@ -71,7 +71,7 @@ const LoginForm = React.memo(() => {
          {showLoading && <Loader />}
          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl uppercase text-center">
-               {t("title")}
+               {t('title')}
             </div>
             <form
                className="space-y-4 md:space-y-6"
@@ -82,7 +82,7 @@ const LoginForm = React.memo(() => {
                      htmlFor="email"
                      className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                     {t("email")}:
+                     {t('email')}:
                   </label>
                   <input
                      type="email"
@@ -91,10 +91,10 @@ const LoginForm = React.memo(() => {
                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
                         formikBag.errors.email &&
                         formikBag.touched.email &&
-                        "bg-yellow"
+                        'bg-yellow'
                      }`}
-                     placeholder={t("email_placeholder")}
-                     value={formikBag.values.email || ""}
+                     placeholder={t('email_placeholder')}
+                     value={formikBag.values.email || ''}
                      onChange={formikBag.handleChange}
                   />
                   {formikBag.errors.email && formikBag.touched.email && (
@@ -108,19 +108,19 @@ const LoginForm = React.memo(() => {
                      htmlFor="password"
                      className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                     {t("password")}:
+                     {t('password')}:
                   </label>
                   <input
                      type="password"
                      name="password"
                      id="password"
-                     placeholder={t("password_placeholder")}
+                     placeholder={t('password_placeholder')}
                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
                         formikBag.errors.password &&
                         formikBag.touched.password &&
-                        "bg-yellow"
+                        'bg-yellow'
                      }`}
-                     value={formikBag.values.password || ""}
+                     value={formikBag.values.password || ''}
                      onChange={formikBag.handleChange}
                   />
                   {formikBag.errors.password && formikBag.touched.password && (
@@ -134,19 +134,19 @@ const LoginForm = React.memo(() => {
                      htmlFor="confirmPwd"
                      className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                     {t("confirmPwd")}:
+                     {t('confirmPwd')}:
                   </label>
                   <input
                      type="password"
                      name="confirmPwd"
                      id="confirmPwd"
-                     placeholder={t("confirmPwd_placeholder")}
+                     placeholder={t('confirmPwd_placeholder')}
                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
                         formikBag.errors.confirmPwd &&
                         formikBag.touched.confirmPwd &&
-                        "bg-yellow"
+                        'bg-yellow'
                      }`}
-                     value={formikBag.values.confirmPwd || ""}
+                     value={formikBag.values.confirmPwd || ''}
                      onChange={formikBag.handleChange}
                   />
                   {formikBag.errors.confirmPwd &&
@@ -160,12 +160,12 @@ const LoginForm = React.memo(() => {
                   type="submit"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-full"
                >
-                  {t("submit")}
+                  {t('submit')}
                </button>
                <p className="text-sm font-light text-gray-500">
-                  {t("text1")}{" "}
+                  {t('text1')}{' '}
                   <Link to="/login" className="font-medium underline">
-                     {t("login")}
+                     {t('login')}
                   </Link>
                </p>
             </form>

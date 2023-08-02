@@ -1,4 +1,4 @@
-import { AgeType, BranchType, ProductType, SkillType } from "../common/types";
+import { AgeType, BranchType, ProductType, SkillType } from '../common/types';
 
 export type ActionReducerType = {
    type: string;
@@ -33,9 +33,9 @@ export const InitFormikValues = {
    ageId: 1,
    branchId: 1,
    skillId: 1,
-   productName: "",
-   price: "",
-   describes: "",
+   productName: '',
+   price: '',
+   describes: '',
    amount: 0,
    images: [],
 };

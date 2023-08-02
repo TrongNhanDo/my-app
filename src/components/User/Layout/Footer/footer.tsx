@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { checkIsAdmin } from "../../../Common/Logic/logics";
-import { useFormik } from "formik";
-import { validationSchema } from "./validations";
-import { callApi } from "../../../../api/callApi/callApi";
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { checkIsAdmin } from '../../../Common/Logic/logics';
+import { useFormik } from 'formik';
+import { validationSchema } from './validations';
+import { callApi } from '../../../../api/callApi/callApi';
 
 type FormikBagProps = {
    email: string;
 };
 
 const Footer = React.memo(() => {
-   const { t } = useTranslation(["user_footer"]);
+   const { t } = useTranslation(['user_footer']);
    const currentPathname = useLocation().pathname;
    const [isAdmin, setIsAdmin] = useState<boolean>(false);
    const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -22,7 +22,7 @@ const Footer = React.memo(() => {
 
    const onSubmit = useCallback(async (formikValues: FormikBagProps) => {
       try {
-         const response = await callApi("mails", "post", {
+         const response = await callApi('mails', 'post', {
             email: formikValues.email,
          }).catch((err) => {
             setIsSuccess(false);
@@ -32,12 +32,12 @@ const Footer = React.memo(() => {
                   err.response.data &&
                   err.response.data.message
                   ? err.response.data.message
-                  : ""
+                  : ''
             );
          });
          if (response) {
             setIsSuccess(true);
-            alert("You have successfully registered!");
+            alert('You have successfully registered!');
          }
       } catch (error) {
          console.log({ error });
@@ -45,7 +45,7 @@ const Footer = React.memo(() => {
    }, []);
 
    const formikBag = useFormik({
-      initialValues: { email: "" },
+      initialValues: { email: '' },
       validationSchema: validationSchema(t),
       onSubmit: (value) => onSubmit(value),
    });
@@ -72,7 +72,7 @@ const Footer = React.memo(() => {
                <div className="flex w-9/12 m-auto py-5 px-4">
                   <div className="flex flex-col w-1/4">
                      <div className="font-bold uppercase mb-3">
-                        {t("receive_news")}
+                        {t('receive_news')}
                      </div>
                      <form onSubmit={formikBag.handleSubmit}>
                         <input
@@ -89,7 +89,7 @@ const Footer = React.memo(() => {
                            onClick={handleSubmit}
                            className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
                         >
-                           {t("btn_send")}
+                           {t('btn_send')}
                         </button>
                      </form>
                      {formikBag.errors.email && formikBag.touched.email && (
@@ -98,9 +98,9 @@ const Footer = React.memo(() => {
                         </span>
                      )}
                      <div className="font-bold text-base mt-3">
-                        {t("hotline")}
+                        {t('hotline')}
                      </div>
-                     <div className="text-sm">{t("work_time")}</div>
+                     <div className="text-sm">{t('work_time')}</div>
                      <div className="flex mt-1 items-center">
                         <div className="text-3xl">📞</div>
                         <div className="flex flex-col font-bold ps-4">
@@ -134,18 +134,18 @@ const Footer = React.memo(() => {
                            to="https://goo.gl/maps/ZoCGsEcjkwhWkw9R6"
                            target="_blank"
                         >
-                           {t("address")}
+                           {t('address')}
                         </Link>
                      </div>
                   </div>
                   <div className="flex flex-col w-1/4 ps-10 pe-5">
                      <div className="font-bold uppercase mb-3">
-                        {t("information")}
+                        {t('information')}
                      </div>
                      <ul>
                         <li className="py-2">
                            <Link to="/about" className="hover:text-blue-500">
-                              {t("about_shop")}
+                              {t('about_shop')}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -153,7 +153,7 @@ const Footer = React.memo(() => {
                               to="/shopping-guide"
                               className="hover:text-blue-500"
                            >
-                              {t("shopping_guide")}
+                              {t('shopping_guide')}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -161,7 +161,7 @@ const Footer = React.memo(() => {
                               to="/delivery-and-payment"
                               className="hover:text-blue-500"
                            >
-                              {t("payment_delivery")}
+                              {t('payment_delivery')}
                            </Link>
                         </li>
                         <li className="py-2">
@@ -169,36 +169,36 @@ const Footer = React.memo(() => {
                               to="/questions"
                               className="hover:text-blue-500"
                            >
-                              {t("frequently_question")}
+                              {t('frequently_question')}
                            </Link>
                         </li>
                         <li className="py-2">
                            <Link to="/policy" className="hover:text-blue-500">
-                              {t("term_service")}
+                              {t('term_service')}
                            </Link>
                         </li>
                      </ul>
                   </div>
                   <div className="flex flex-col w-1/4 ps-5 pe-10">
                      <div className="font-bold uppercase mb-3">
-                        {t("policy")}
+                        {t('policy')}
                      </div>
                      <ul>
                         <li className="py-2">
                            <Link to="/warranty" className="hover:text-blue-500">
-                              {t("warranty")}
+                              {t('warranty')}
                            </Link>
                         </li>
                         <li>
                            <Link to="/security" className="hover:text-blue-500">
-                              {t("security")}
+                              {t('security')}
                            </Link>
                         </li>
                      </ul>
                   </div>
                   <div className="flex flex-col w-1/4">
                      <div className="font-bold uppercase mb-3">
-                        {t("follow")}
+                        {t('follow')}
                      </div>
                      <ul className="flex">
                         <li>
@@ -239,7 +239,7 @@ const Footer = React.memo(() => {
                         </li>
                      </ul>
                      <div className="font-bold uppercase mb-3 mt-4">
-                        {t("payment")}
+                        {t('payment')}
                      </div>
                      <ul className="flex">
                         <li>
@@ -293,7 +293,7 @@ const Footer = React.memo(() => {
             </div>
          )}
          <div className="flex w-full bg-footer1 flex-col items-center p-3 text-sm">
-            <div className="flex font-bold text-base">{t("copyright")}</div>
+            <div className="flex font-bold text-base">{t('copyright')}</div>
          </div>
       </footer>
    );

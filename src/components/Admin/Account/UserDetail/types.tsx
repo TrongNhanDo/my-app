@@ -1,13 +1,13 @@
-import { InitRole, RoleType, UserType } from "../common/types";
+import { InitRole, RoleType, UserType } from '../common/types';
 
 export const InitUserValue = {
    active: false,
-   createdAt: "",
+   createdAt: '',
    roleId: 0,
-   updatedAt: "",
-   username: "",
+   updatedAt: '',
+   username: '',
    __v: 0,
-   _id: "",
+   _id: '',
    role: InitRole,
 };
 

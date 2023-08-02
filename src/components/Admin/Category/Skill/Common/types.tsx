@@ -8,6 +8,6 @@ export type SkillType = {
 };
 
 export const ActionValues = {
-   SET_SKILLS: "SET_SKILLS",
-   GET_SKILL: "GET_SKILL",
+   SET_SKILLS: 'SET_SKILLS',
+   GET_SKILL: 'GET_SKILL',
 };

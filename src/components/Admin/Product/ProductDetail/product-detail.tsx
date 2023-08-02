@@ -1,31 +1,31 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useFormik } from "formik";
-import { callApi } from "../../../../api/callApi/callApi";
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { callApi } from '../../../../api/callApi/callApi';
 import {
    formatCurrency,
    formatDate,
    scrollTop,
-} from "../../../Common/Logic/logics";
-import { checkChangeValue, validationSchema } from "./validations";
-import Loader from "../../../Common/Loader/loader";
-import { ActionValues, AgeType, BranchType, SkillType } from "../common/types";
+} from '../../../Common/Logic/logics';
+import { checkChangeValue, validationSchema } from './validations';
+import Loader from '../../../Common/Loader/loader';
+import { ActionValues, AgeType, BranchType, SkillType } from '../common/types';
 import {
    ActionReducerType,
    FormikBagType,
    StateReducerType,
    initFormikValues,
    initStateReducer,
-} from "./types";
-import { ErrorMessages } from "../../../Common/ErrorMessage/error-message";
-import { upLoadImage } from "../../../../api/callApi/callApiUpload";
+} from './types';
+import { ErrorMessages } from '../../../Common/ErrorMessage/error-message';
+import { upLoadImage } from '../../../../api/callApi/callApiUpload';
 
 const ProductDetail = React.memo(() => {
    const navigate = useNavigate();
    const { productId } = useParams();
-   const DEFAULT_IMAGE = import.meta.env.VITE_DEFAULT_IMAGE_URL || "";
+   const DEFAULT_IMAGE = import.meta.env.VITE_DEFAULT_IMAGE_URL || '';
    const [showLoader, setShowLoader] = useState<boolean>(true);
-   const [msg, setMsg] = useState<string>("");
+   const [msg, setMsg] = useState<string>('');
    const [images, setImages] = useState<File[]>();
    const [notChange, setNotChange] = useState<boolean>(false);
 
@@ -44,19 +44,19 @@ const ProductDetail = React.memo(() => {
    const fetchApi = useCallback(async () => {
       const url = `products/${productId}`;
       // product
-      const response = await callApi(url, "get").catch((err) =>
+      const response = await callApi(url, 'get').catch((err) =>
          console.log({ err })
       );
       // data for age dropdown
-      const ageResponse = await callApi("ages", "get").catch((err) =>
+      const ageResponse = await callApi('ages', 'get').catch((err) =>
          console.log({ err })
       );
       // data for branch dropdown
-      const branchResponse = await callApi("branches", "get").catch((err) =>
+      const branchResponse = await callApi('branches', 'get').catch((err) =>
          console.log({ err })
       );
       // data for skill dropdown
-      const skillResponse = await callApi("skills", "get").catch((err) =>
+      const skillResponse = await callApi('skills', 'get').catch((err) =>
          console.log({ err })
       );
       dispatch({
@@ -73,17 +73,17 @@ const ProductDetail = React.memo(() => {
 
    const deleteUser = useCallback(
       async (productId: string) => {
-         if (confirm("Are you sure you want to delete this product?")) {
+         if (confirm('Are you sure you want to delete this product?')) {
             setShowLoader(true);
-            const response = await callApi("products", "delete", {
+            const response = await callApi('products', 'delete', {
                productId: productId,
             }).catch((err) => console.log({ err }));
             setShowLoader(false);
             if (response) {
-               alert("Delete account success");
+               alert('Delete account success');
                navigate(-1);
             } else {
-               alert("Delete account fail");
+               alert('Delete account fail');
             }
          }
       },
@@ -91,11 +91,11 @@ const ProductDetail = React.memo(() => {
    );
 
    const onSubmit = async (formikValues: FormikBagType) => {
-      setMsg("");
+      setMsg('');
       const isNotChange = checkChangeValue(formikValues, viewData.product);
       if (isNotChange) {
          setNotChange(true);
-         setMsg("There must be at least one data change");
+         setMsg('There must be at least one data change');
       } else {
          setNotChange(false);
          setShowLoader(true);
@@ -106,20 +106,20 @@ const ProductDetail = React.memo(() => {
                images: arrayUrl,
             };
             const response = await callApi(
-               "products",
-               "patch",
+               'products',
+               'patch',
                requestPayload
             ).catch((err) => console.log({ err }));
             // close loader when updated information
             setShowLoader(false);
             if (response) {
-               setMsg("Update product success");
+               setMsg('Update product success');
                fetchApi();
             } else {
-               setMsg("Update product fail");
+               setMsg('Update product fail');
             }
          } else {
-            setMsg("Upload image fail");
+            setMsg('Upload image fail');
          }
       }
       scrollTop();
@@ -147,10 +147,10 @@ const ProductDetail = React.memo(() => {
                <img
                   className="inline-block"
                   style={{
-                     width: "150px",
-                     height: "150px",
-                     marginRight: "10px",
-                     objectFit: "cover",
+                     width: '150px',
+                     height: '150px',
+                     marginRight: '10px',
+                     objectFit: 'cover',
                   }}
                   key={index}
                   src={URL.createObjectURL(images[index])}
@@ -166,7 +166,7 @@ const ProductDetail = React.memo(() => {
    const handleChangImage = (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files;
       const myFiles = files ? Array.from(files) : [];
-      formikBag.setFieldValue("images", myFiles);
+      formikBag.setFieldValue('images', myFiles);
       setImages(myFiles);
    };
 
@@ -177,17 +177,17 @@ const ProductDetail = React.memo(() => {
    useEffect(() => {
       if (viewData.product) {
          formikBag.setFieldValue(
-            "productName",
-            viewData.product.productName || ""
+            'productName',
+            viewData.product.productName || ''
          );
-         formikBag.setFieldValue("ageId", viewData.product.ageId || 1);
-         formikBag.setFieldValue("branchId", viewData.product.branchId || 1);
-         formikBag.setFieldValue("skillId", viewData.product.skillId || 1);
-         formikBag.setFieldValue("price", viewData.product.price || 0);
-         formikBag.setFieldValue("describes", viewData.product.describes || "");
-         formikBag.setFieldValue("amount", viewData.product.amount || 0);
-         formikBag.setFieldValue("images", viewData.product.images || []);
-         formikBag.setFieldValue("productId", viewData.product._id || []);
+         formikBag.setFieldValue('ageId', viewData.product.ageId || 1);
+         formikBag.setFieldValue('branchId', viewData.product.branchId || 1);
+         formikBag.setFieldValue('skillId', viewData.product.skillId || 1);
+         formikBag.setFieldValue('price', viewData.product.price || 0);
+         formikBag.setFieldValue('describes', viewData.product.describes || '');
+         formikBag.setFieldValue('amount', viewData.product.amount || 0);
+         formikBag.setFieldValue('images', viewData.product.images || []);
+         formikBag.setFieldValue('productId', viewData.product._id || []);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [viewData]);
@@ -225,7 +225,7 @@ const ProductDetail = React.memo(() => {
                               ProductName
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {viewData.product.productName || ""}
+                              {viewData.product.productName || ''}
                            </td>
                            <td className="px-6 py-4">
                               <input
@@ -236,10 +236,10 @@ const ProductDetail = React.memo(() => {
                                     notChange ||
                                     (formikBag.errors.productName &&
                                        formikBag.touched.productName)
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
-                                 value={formikBag.values.productName || ""}
+                                 value={formikBag.values.productName || ''}
                                  onChange={formikBag.handleChange}
                               />
                               {formikBag.errors.productName &&
@@ -261,7 +261,7 @@ const ProductDetail = React.memo(() => {
                               {viewData.product.age &&
                               viewData.product.age.ageName
                                  ? viewData.product.age.ageName
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4">
                               <select
@@ -271,8 +271,8 @@ const ProductDetail = React.memo(() => {
                                     notChange ||
                                     (formikBag.errors.ageId &&
                                        formikBag.touched.ageId)
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  value={formikBag.values.ageId}
                                  onChange={formikBag.handleChange}
@@ -310,7 +310,7 @@ const ProductDetail = React.memo(() => {
                               {viewData.product.branch &&
                               viewData.product.branch.branchName
                                  ? viewData.product.branch.branchName
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4">
                               <select
@@ -320,8 +320,8 @@ const ProductDetail = React.memo(() => {
                                     notChange ||
                                     (formikBag.errors.branchId &&
                                        formikBag.touched.branchId)
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  value={formikBag.values.branchId}
                                  onChange={formikBag.handleChange}
@@ -359,7 +359,7 @@ const ProductDetail = React.memo(() => {
                               {viewData.product.skill &&
                               viewData.product.skill.skillName
                                  ? viewData.product.skill.skillName
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4">
                               <select
@@ -369,8 +369,8 @@ const ProductDetail = React.memo(() => {
                                     notChange &&
                                     formikBag.errors.skillId &&
                                     formikBag.touched.skillId
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  value={formikBag.values.skillId}
                                  onChange={formikBag.handleChange}
@@ -412,26 +412,26 @@ const ProductDetail = React.memo(() => {
                                        key={index}
                                        className="inline-block"
                                        style={{
-                                          width: "150px",
-                                          height: "150px",
-                                          objectFit: "cover",
-                                          marginRight: "10px",
+                                          width: '150px',
+                                          height: '150px',
+                                          objectFit: 'cover',
+                                          marginRight: '10px',
                                        }}
-                                       src={value || ""}
-                                       alt={value || ""}
+                                       src={value || ''}
+                                       alt={value || ''}
                                     />
                                  ))
                               ) : (
                                  <img
                                     className="inline-block"
                                     style={{
-                                       width: "150px",
-                                       height: "150px",
-                                       objectFit: "cover",
-                                       marginRight: "10px",
+                                       width: '150px',
+                                       height: '150px',
+                                       objectFit: 'cover',
+                                       marginRight: '10px',
                                     }}
-                                    src={DEFAULT_IMAGE || ""}
-                                    alt={DEFAULT_IMAGE || ""}
+                                    src={DEFAULT_IMAGE || ''}
+                                    alt={DEFAULT_IMAGE || ''}
                                  />
                               )}
                            </td>
@@ -446,8 +446,8 @@ const ProductDetail = React.memo(() => {
                                     notChange ||
                                     (formikBag.errors.images &&
                                        formikBag.touched.images)
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                               />
                               {formikBag.errors.images &&
@@ -480,18 +480,18 @@ const ProductDetail = React.memo(() => {
                                  type="text"
                                  name="price"
                                  id="price"
-                                 value={formikBag.values.price || ""}
+                                 value={formikBag.values.price || ''}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     notChange ||
                                     (formikBag.errors.price &&
                                        formikBag.touched.price)
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  } ${
                                     formikBag.errors.price &&
                                     formikBag.touched.price
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
                               />
@@ -518,13 +518,13 @@ const ProductDetail = React.memo(() => {
                                  type="text"
                                  name="amount"
                                  id="amount"
-                                 value={formikBag.values.amount || ""}
+                                 value={formikBag.values.amount || ''}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     notChange ||
                                     (formikBag.errors.amount &&
                                        formikBag.touched.amount)
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
                               />
@@ -558,20 +558,20 @@ const ProductDetail = React.memo(() => {
                               Describes
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {viewData.product.describes || ""}
+                              {viewData.product.describes || ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               <textarea
                                  name="describes"
                                  id="describes"
                                  rows={5}
-                                 value={formikBag.values.describes || ""}
+                                 value={formikBag.values.describes || ''}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     notChange ||
                                     (formikBag.errors.describes &&
                                        formikBag.touched.describes)
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
                               />
@@ -593,12 +593,12 @@ const ProductDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {viewData.product.createdAt
                                  ? formatDate(viewData.product.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {viewData.product.createdAt
                                  ? formatDate(viewData.product.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -611,12 +611,12 @@ const ProductDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {viewData.product.updatedAt
                                  ? formatDate(viewData.product.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {viewData.product.updatedAt
                                  ? formatDate(viewData.product.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                      </tbody>
@@ -634,7 +634,7 @@ const ProductDetail = React.memo(() => {
                <button
                   type="button"
                   className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 ms-10 px-20"
-                  onClick={() => deleteUser(viewData.product._id || "")}
+                  onClick={() => deleteUser(viewData.product._id || '')}
                >
                   Delete
                </button>

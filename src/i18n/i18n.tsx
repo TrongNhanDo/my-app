@@ -1,57 +1,57 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 /** english - user */
-import ABOUT_EN from "../assets/translate/en/user/about.json";
-import CART_EN from "../assets/translate/en/user/cart.json";
-import CHECKOUT_EN from "../assets/translate/en/user/checkout.json";
-import CONTACT_EN from "../assets/translate/en/user/contact.json";
-import ERROR_EN from "../assets/translate/en/user/error.json";
-import EXCHANGE_WARRANTY_EN from "../assets/translate/en/user/exchange_warranty.json";
-import EXPRESS_DELIVERY_EN from "../assets/translate/en/user/express_delivery.json";
-import FOOTER_EN from "../assets/translate/en/user/footer.json";
-import FREQUENTLY_QUESTION_EN from "../assets/translate/en/user/frequently_question.json";
-import GENUINE_PRODUCT_EN from "../assets/translate/en/user/genuine_product.json";
-import GIFT_WRAPPING_EN from "../assets/translate/en/user/gift_wrapping.json";
-import HEADER_EN from "../assets/translate/en/user/header.json";
-import HOME_EN from "../assets/translate/en/user/home.json";
-import LOGIN_EN from "../assets/translate/en/user/login.json";
-import PAYMENT_DELIVERY_EN from "../assets/translate/en/user/payment_delivery.json";
-import PRODUCT_DETAIL_EN from "../assets/translate/en/user/product_detail.json";
-import PRODUCT_EN from "../assets/translate/en/user/product.json";
-import REGISTER_EN from "../assets/translate/en/user/register.json";
-import SECURITY_EN from "../assets/translate/en/user/security.json";
-import SHOPPING_GUIDE_EN from "../assets/translate/en/user/shopping_guide.json";
-import TERM_SERVICE_EN from "../assets/translate/en/user/term_service.json";
+import ABOUT_EN from '../assets/translate/en/user/about.json';
+import CART_EN from '../assets/translate/en/user/cart.json';
+import CHECKOUT_EN from '../assets/translate/en/user/checkout.json';
+import CONTACT_EN from '../assets/translate/en/user/contact.json';
+import ERROR_EN from '../assets/translate/en/user/error.json';
+import EXCHANGE_WARRANTY_EN from '../assets/translate/en/user/exchange_warranty.json';
+import EXPRESS_DELIVERY_EN from '../assets/translate/en/user/express_delivery.json';
+import FOOTER_EN from '../assets/translate/en/user/footer.json';
+import FREQUENTLY_QUESTION_EN from '../assets/translate/en/user/frequently_question.json';
+import GENUINE_PRODUCT_EN from '../assets/translate/en/user/genuine_product.json';
+import GIFT_WRAPPING_EN from '../assets/translate/en/user/gift_wrapping.json';
+import HEADER_EN from '../assets/translate/en/user/header.json';
+import HOME_EN from '../assets/translate/en/user/home.json';
+import LOGIN_EN from '../assets/translate/en/user/login.json';
+import PAYMENT_DELIVERY_EN from '../assets/translate/en/user/payment_delivery.json';
+import PRODUCT_DETAIL_EN from '../assets/translate/en/user/product_detail.json';
+import PRODUCT_EN from '../assets/translate/en/user/product.json';
+import REGISTER_EN from '../assets/translate/en/user/register.json';
+import SECURITY_EN from '../assets/translate/en/user/security.json';
+import SHOPPING_GUIDE_EN from '../assets/translate/en/user/shopping_guide.json';
+import TERM_SERVICE_EN from '../assets/translate/en/user/term_service.json';
 /** english - admin */
-import ADMIN_HEADER_EN from "../assets/translate/en/admin/header.json";
-import ADMIN_LOGIN_EN from "../assets/translate/en/admin/login.json";
-import ADMIN_ERROR_EN from "../assets/translate/en/admin/error.json";
+import ADMIN_HEADER_EN from '../assets/translate/en/admin/header.json';
+import ADMIN_LOGIN_EN from '../assets/translate/en/admin/login.json';
+import ADMIN_ERROR_EN from '../assets/translate/en/admin/error.json';
 /** vietnamese - user */
-import ABOUT_VI from "../assets/translate/vi/user/about.json";
-import CART_VI from "../assets/translate/vi/user/cart.json";
-import CHECKOUT_VI from "../assets/translate/vi/user/checkout.json";
-import CONTACT_VI from "../assets/translate/vi/user/contact.json";
-import ERROR_VI from "../assets/translate/vi/user/error.json";
-import EXCHANGE_WARRANTY_VI from "../assets/translate/vi/user/exchange_warranty.json";
-import EXPRESS_DELIVERY_VI from "../assets/translate/vi/user/express_delivery.json";
-import FOOTER_VI from "../assets/translate/vi/user/footer.json";
-import FREQUENTLY_QUESTION_VI from "../assets/translate/vi/user/frequently_question.json";
-import GENUINE_PRODUCT_VI from "../assets/translate/vi/user/genuine_product.json";
-import GIFT_WRAPPING_VI from "../assets/translate/vi/user/gift_wrapping.json";
-import HEADER_VI from "../assets/translate/vi/user/header.json";
-import HOME_VI from "../assets/translate/vi/user/home.json";
-import LOGIN_VI from "../assets/translate/vi/user/login.json";
-import PAYMENT_DELIVERY_VI from "../assets/translate/vi/user/payment_delivery.json";
-import PRODUCT_DETAIL_VI from "../assets/translate/vi/user/product_detail.json";
-import PRODUCT_VI from "../assets/translate/vi/user/product.json";
-import REGISTER_VI from "../assets/translate/vi/user/register.json";
-import SECURITY_VI from "../assets/translate/vi/user/security.json";
-import SHOPPING_GUIDE_VI from "../assets/translate/vi/user/shopping_guide.json";
-import TERM_SERVICE_VI from "../assets/translate/vi/user/term_service.json";
+import ABOUT_VI from '../assets/translate/vi/user/about.json';
+import CART_VI from '../assets/translate/vi/user/cart.json';
+import CHECKOUT_VI from '../assets/translate/vi/user/checkout.json';
+import CONTACT_VI from '../assets/translate/vi/user/contact.json';
+import ERROR_VI from '../assets/translate/vi/user/error.json';
+import EXCHANGE_WARRANTY_VI from '../assets/translate/vi/user/exchange_warranty.json';
+import EXPRESS_DELIVERY_VI from '../assets/translate/vi/user/express_delivery.json';
+import FOOTER_VI from '../assets/translate/vi/user/footer.json';
+import FREQUENTLY_QUESTION_VI from '../assets/translate/vi/user/frequently_question.json';
+import GENUINE_PRODUCT_VI from '../assets/translate/vi/user/genuine_product.json';
+import GIFT_WRAPPING_VI from '../assets/translate/vi/user/gift_wrapping.json';
+import HEADER_VI from '../assets/translate/vi/user/header.json';
+import HOME_VI from '../assets/translate/vi/user/home.json';
+import LOGIN_VI from '../assets/translate/vi/user/login.json';
+import PAYMENT_DELIVERY_VI from '../assets/translate/vi/user/payment_delivery.json';
+import PRODUCT_DETAIL_VI from '../assets/translate/vi/user/product_detail.json';
+import PRODUCT_VI from '../assets/translate/vi/user/product.json';
+import REGISTER_VI from '../assets/translate/vi/user/register.json';
+import SECURITY_VI from '../assets/translate/vi/user/security.json';
+import SHOPPING_GUIDE_VI from '../assets/translate/vi/user/shopping_guide.json';
+import TERM_SERVICE_VI from '../assets/translate/vi/user/term_service.json';
 /** vietnamese - admin */
-import ADMIN_HEADER_VI from "../assets/translate/vi/admin/header.json";
-import ADMIN_LOGIN_VI from "../assets/translate/vi/admin/login.json";
-import ADMIN_ERROR_VI from "../assets/translate/vi/admin/error.json";
+import ADMIN_HEADER_VI from '../assets/translate/vi/admin/header.json';
+import ADMIN_LOGIN_VI from '../assets/translate/vi/admin/login.json';
+import ADMIN_ERROR_VI from '../assets/translate/vi/admin/error.json';
 
 const resources = {
    eng: {
@@ -114,9 +114,9 @@ const resources = {
 
 i18n.use(initReactI18next).init({
    resources,
-   lng: "eng",
+   lng: 'eng',
    ns: Object.keys(resources.eng),
-   fallbackLng: "eng",
+   fallbackLng: 'eng',
    interpolation: {
       escapeValue: false,
    },

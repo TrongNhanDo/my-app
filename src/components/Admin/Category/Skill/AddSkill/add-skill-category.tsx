@@ -1,17 +1,17 @@
-import { useFormik } from "formik";
-import React, { useCallback, useEffect, useState } from "react";
-import Loader from "../../../../Common/Loader/loader";
-import { FormikBagType, InitFormikBag } from "./types";
-import { Input } from "../../../../Common/Input/input";
-import { useNavigate } from "react-router-dom";
-import { validationSchema } from "./validations";
-import { callApi } from "../../../../../api/callApi/callApi";
-import { scrollTop } from "../../../../Common/Logic/logics";
+import { useFormik } from 'formik';
+import React, { useCallback, useEffect, useState } from 'react';
+import Loader from '../../../../Common/Loader/loader';
+import { FormikBagType, InitFormikBag } from './types';
+import { Input } from '../../../../Common/Input/input';
+import { useNavigate } from 'react-router-dom';
+import { validationSchema } from './validations';
+import { callApi } from '../../../../../api/callApi/callApi';
+import { scrollTop } from '../../../../Common/Logic/logics';
 
 const AddSkillCategory = React.memo(() => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
-   const [error, setError] = useState<string>("");
+   const [error, setError] = useState<string>('');
    const [success, setSuccess] = useState<boolean>(false);
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
@@ -21,13 +21,13 @@ const AddSkillCategory = React.memo(() => {
          skillId: formikValues.skillId,
          skillName: formikValues.skillName.trim(),
       };
-      await callApi("skills", "post", requestPayload)
+      await callApi('skills', 'post', requestPayload)
          .then(() => {
-            setError("Insert new skill category success");
+            setError('Insert new skill category success');
             setSuccess(true);
          })
          .catch((err) => {
-            setError(err.response.data.message || "");
+            setError(err.response.data.message || '');
          });
       setShowLoading(false);
       scrollTop();
@@ -63,7 +63,7 @@ const AddSkillCategory = React.memo(() => {
                   <div className="text-2xl font-bold text-center uppercase">
                      insert new skill category
                   </div>
-                  {error && error !== "" && (
+                  {error && error !== '' && (
                      <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
                         {error}
                      </div>
@@ -77,11 +77,11 @@ const AddSkillCategory = React.memo(() => {
                      type="text"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                         formikBag.errors.skillId && formikBag.touched.skillId
-                           ? "bg-yellow"
-                           : ""
+                           ? 'bg-yellow'
+                           : ''
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.skillId || ""}
+                     value={formikBag.values.skillId || ''}
                   />
                   {formikBag.errors.skillId && formikBag.touched.skillId && (
                      <p className="text-orange-600">
@@ -98,11 +98,11 @@ const AddSkillCategory = React.memo(() => {
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                         formikBag.errors.skillName &&
                         formikBag.touched.skillName
-                           ? "bg-yellow"
-                           : ""
+                           ? 'bg-yellow'
+                           : ''
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.skillName || ""}
+                     value={formikBag.values.skillName || ''}
                   />
                   {formikBag.errors.skillName &&
                      formikBag.touched.skillName && (

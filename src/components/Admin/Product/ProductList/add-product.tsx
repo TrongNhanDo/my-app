@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
-import { callApi } from "../../../../api/callApi/callApi";
-import { AgeType, BranchType, SkillType } from "../common/types";
-import { validationSchema } from "./validations";
-import Loader from "../../../Common/Loader/loader";
-import { FormikBagType, InitFormikValues, StateReducerType } from "./types";
-import { upLoadImage } from "../../../../api/callApi/callApiUpload";
-import { scrollTop } from "../../../Common/Logic/logics";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { callApi } from '../../../../api/callApi/callApi';
+import { AgeType, BranchType, SkillType } from '../common/types';
+import { validationSchema } from './validations';
+import Loader from '../../../Common/Loader/loader';
+import { FormikBagType, InitFormikValues, StateReducerType } from './types';
+import { upLoadImage } from '../../../../api/callApi/callApiUpload';
+import { scrollTop } from '../../../Common/Logic/logics';
 
 const AddProduct = React.memo(() => {
    const navigate = useNavigate();
@@ -18,15 +18,15 @@ const AddProduct = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       // data for age dropdown
-      const ageResponse = await callApi("ages", "get").catch((err) =>
+      const ageResponse = await callApi('ages', 'get').catch((err) =>
          console.log({ err })
       );
       // data for branch dropdown
-      const branchResponse = await callApi("branches", "get").catch((err) =>
+      const branchResponse = await callApi('branches', 'get').catch((err) =>
          console.log({ err })
       );
       // data for skill dropdown
-      const skillResponse = await callApi("skills", "get").catch((err) =>
+      const skillResponse = await callApi('skills', 'get').catch((err) =>
          console.log({ err })
       );
       setViewData({
@@ -45,18 +45,18 @@ const AddProduct = React.memo(() => {
             ...formikValues,
             images: arrayUrl,
          };
-         await callApi("products", "post", requestPayload)
+         await callApi('products', 'post', requestPayload)
             .then(() => {
                setSuccess(true);
                setImages([]);
-               alert("Add product success");
+               alert('Add product success');
             })
             .catch((err) => {
                console.log({ err });
-               alert("Add product fail");
+               alert('Add product fail');
             });
       } else {
-         alert("Upload image fail");
+         alert('Upload image fail');
       }
       setShowLoader(false);
       scrollTop();
@@ -79,7 +79,7 @@ const AddProduct = React.memo(() => {
    const handleChangImage = (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files;
       const myFiles = files ? Array.from(files) : [];
-      formikBag.setFieldValue("images", myFiles);
+      formikBag.setFieldValue('images', myFiles);
       setImages(myFiles);
    };
 
@@ -91,10 +91,10 @@ const AddProduct = React.memo(() => {
                <img
                   className="inline-block"
                   style={{
-                     width: "200px",
-                     height: "200px",
-                     marginRight: "10px",
-                     objectFit: "cover",
+                     width: '200px',
+                     height: '200px',
+                     marginRight: '10px',
+                     objectFit: 'cover',
                   }}
                   key={index}
                   src={URL.createObjectURL(images[index])}
@@ -140,10 +140,10 @@ const AddProduct = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base mt-1 ${
                                     formikBag.errors.productName &&
                                     formikBag.touched.productName
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
-                                 value={formikBag.values.productName || ""}
+                                 value={formikBag.values.productName || ''}
                                  onChange={formikBag.handleChange}
                               />
                               {formikBag.errors.productName &&
@@ -163,8 +163,8 @@ const AddProduct = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.ageId &&
                                     formikBag.touched.ageId
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  value={formikBag.values.ageId}
                                  onChange={formikBag.handleChange}
@@ -203,8 +203,8 @@ const AddProduct = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.branchId &&
                                     formikBag.touched.branchId
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  value={formikBag.values.branchId}
                                  onChange={formikBag.handleChange}
@@ -243,8 +243,8 @@ const AddProduct = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.skillId &&
                                     formikBag.touched.skillId
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  value={formikBag.values.skillId}
                                  onChange={formikBag.handleChange}
@@ -288,8 +288,8 @@ const AddProduct = React.memo(() => {
                                     className={`${
                                        formikBag.errors.images &&
                                        formikBag.touched.images
-                                          ? "bg-yellow"
-                                          : ""
+                                          ? 'bg-yellow'
+                                          : ''
                                     }`}
                                  />
                               </label>
@@ -312,12 +312,12 @@ const AddProduct = React.memo(() => {
                                  name="price"
                                  id="price"
                                  placeholder="Enter product's price"
-                                 value={formikBag.values.price || ""}
+                                 value={formikBag.values.price || ''}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.price &&
                                     formikBag.touched.price
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
                               />
@@ -337,12 +337,12 @@ const AddProduct = React.memo(() => {
                                  name="amount"
                                  id="amount"
                                  placeholder="Enter amount's price"
-                                 value={formikBag.values.amount || ""}
+                                 value={formikBag.values.amount || ''}
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.amount &&
                                     formikBag.touched.amount
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
                               />
@@ -361,13 +361,13 @@ const AddProduct = React.memo(() => {
                                  name="describes"
                                  id="describes"
                                  rows={5}
-                                 value={formikBag.values.describes || ""}
+                                 value={formikBag.values.describes || ''}
                                  placeholder="Enter describe about product"
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.describes &&
                                     formikBag.touched.describes
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
                               />

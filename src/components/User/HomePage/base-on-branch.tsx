@@ -1,19 +1,19 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const BaseOnBranch = React.memo(() => {
-   const { t } = useTranslation(["user_home"]);
+   const { t } = useTranslation(['user_home']);
 
    return (
       <div className="w-full flex flex-col bg-white rounded p-5 mt-5">
          <div className="flex w-full items-center">
             <div className="uppercase text-2xl font-bold w-1/2">
-               {t("base_on_branch")}
+               {t('base_on_branch')}
             </div>
             <div className="w-1/2 flex justify-end">
                <Link to="/product-list" className="hover:text-blue-500">
-                  {t("see_more")}
+                  {t('see_more')}
                </Link>
             </div>
          </div>

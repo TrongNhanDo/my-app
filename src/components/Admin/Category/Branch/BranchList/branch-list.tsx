@@ -4,28 +4,28 @@ import React, {
    useMemo,
    useReducer,
    useState,
-} from "react";
-import { Link } from "react-router-dom";
-import { useFormik } from "formik";
+} from 'react';
+import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
 import {
    ActionReducerType,
    FormikBagType,
    InitFormikBag,
    InitStateReducerType,
    StateReducerType,
-} from "./types";
-import { ActionValues, BranchType } from "../Common/types";
-import { callApi } from "../../../../../api/callApi/callApi";
-import Loader from "../../../../Common/Loader/loader";
-import { formatDate } from "../../../../Common/Logic/logics";
-import { Input } from "../../../../Common/Input/input";
-import { ModalCustom } from "../../../../Common/Modal/modal-custom";
-import { validationSchema } from "./validations";
+} from './types';
+import { ActionValues, BranchType } from '../Common/types';
+import { callApi } from '../../../../../api/callApi/callApi';
+import Loader from '../../../../Common/Loader/loader';
+import { formatDate } from '../../../../Common/Logic/logics';
+import { Input } from '../../../../Common/Input/input';
+import { ModalCustom } from '../../../../Common/Modal/modal-custom';
+import { validationSchema } from './validations';
 
 const BranchList = React.memo(() => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
-   const [error, setError] = useState<string>("");
+   const [error, setError] = useState<string>('');
    const [success, setSuccess] = useState<boolean>(false);
    const [modal, setModal] = useState<boolean>(false);
 
@@ -44,7 +44,7 @@ const BranchList = React.memo(() => {
 
    const [data, dispatch] = useReducer(reducer, InitStateReducerType);
    const fetchApi = useCallback(async () => {
-      const response = await callApi("branches/paginate", "post", {
+      const response = await callApi('branches/paginate', 'post', {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
@@ -58,7 +58,7 @@ const BranchList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("branches/paginate", "post", {
+      const response = await callApi('branches/paginate', 'post', {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
@@ -99,9 +99,9 @@ const BranchList = React.memo(() => {
             ...formikValues,
             branchName: formikValues.branchName.trim(),
          };
-         await callApi("branches", "post", requestPayload)
+         await callApi('branches', 'post', requestPayload)
             .then(() => {
-               setError("Insert new branch success");
+               setError('Insert new branch success');
                setSuccess(true);
             })
             .catch((err) => {
@@ -131,7 +131,7 @@ const BranchList = React.memo(() => {
       try {
          formikBag.resetForm();
          setModal(false);
-         setError("");
+         setError('');
       } catch (error) {
          console.log({ error });
       }
@@ -146,9 +146,9 @@ const BranchList = React.memo(() => {
 
    useEffect(() => {
       if (modal) {
-         document.body.style.overflow = "hidden";
+         document.body.style.overflow = 'hidden';
       } else {
-         document.body.style.overflow = "unset";
+         document.body.style.overflow = 'unset';
       }
    });
 
@@ -176,7 +176,7 @@ const BranchList = React.memo(() => {
                            </button>
                         </div>
                         <hr className="w-full my-3 h-0.5" />
-                        {error && error !== "" && (
+                        {error && error !== '' && (
                            <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
                               {error}
                            </div>
@@ -191,11 +191,11 @@ const BranchList = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.branchId &&
                                     formikBag.touched.branchId
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.branchId || ""}
+                                 value={formikBag.values.branchId || ''}
                               />
                               {formikBag.errors.branchId &&
                                  formikBag.touched.branchId && (
@@ -213,11 +213,11 @@ const BranchList = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.branchName &&
                                     formikBag.touched.branchName
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.branchName || ""}
+                                 value={formikBag.values.branchName || ''}
                               />
                               {formikBag.errors.branchName &&
                                  formikBag.touched.branchName && (
@@ -286,10 +286,10 @@ const BranchList = React.memo(() => {
                               >
                                  <td className="px-6 py-4">{index + 1}</td>
                                  <td className="px-6 py-4">
-                                    {value.branchId || ""}
+                                    {value.branchId || ''}
                                  </td>
                                  <td className="px-6 py-4">
-                                    {value.branchName || ""}
+                                    {value.branchName || ''}
                                  </td>
                                  <td className="px-6 py-4">
                                     {formatDate(value.createdAt)}

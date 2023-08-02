@@ -1,5 +1,5 @@
-import * as Yup from "yup";
-import { FormikPropType, UserType } from "../common/types";
+import * as Yup from 'yup';
+import { FormikPropType, UserType } from '../common/types';
 
 export const validationSchema = () => {
    const validation = Yup.object().shape({

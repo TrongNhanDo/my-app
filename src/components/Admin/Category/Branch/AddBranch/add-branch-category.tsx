@@ -1,17 +1,17 @@
-import { useFormik } from "formik";
-import React, { useCallback, useEffect, useState } from "react";
-import Loader from "../../../../Common/Loader/loader";
-import { FormikBagType, InitFormikBag } from "./types";
-import { Input } from "../../../../Common/Input/input";
-import { useNavigate } from "react-router-dom";
-import { validationSchema } from "./validations";
-import { callApi } from "../../../../../api/callApi/callApi";
-import { scrollTop } from "../../../../Common/Logic/logics";
+import { useFormik } from 'formik';
+import React, { useCallback, useEffect, useState } from 'react';
+import Loader from '../../../../Common/Loader/loader';
+import { FormikBagType, InitFormikBag } from './types';
+import { Input } from '../../../../Common/Input/input';
+import { useNavigate } from 'react-router-dom';
+import { validationSchema } from './validations';
+import { callApi } from '../../../../../api/callApi/callApi';
+import { scrollTop } from '../../../../Common/Logic/logics';
 
 const AddBranchCategory = React.memo(() => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
-   const [error, setError] = useState<string>("");
+   const [error, setError] = useState<string>('');
    const [success, setSuccess] = useState<boolean>(false);
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
@@ -21,9 +21,9 @@ const AddBranchCategory = React.memo(() => {
          branchId: formikValues.branchId,
          branchName: formikValues.branchName.trim(),
       };
-      await callApi("branches", "post", requestPayload)
+      await callApi('branches', 'post', requestPayload)
          .then(() => {
-            setError("Insert new branch category success");
+            setError('Insert new branch category success');
             setSuccess(true);
          })
          .catch((err) => {
@@ -63,7 +63,7 @@ const AddBranchCategory = React.memo(() => {
                   <div className="text-2xl font-bold text-center">
                      INSERT NEW BRANCH CATEGORY
                   </div>
-                  {error && error !== "" && (
+                  {error && error !== '' && (
                      <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
                         {error}
                      </div>
@@ -77,11 +77,11 @@ const AddBranchCategory = React.memo(() => {
                      type="text"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                         formikBag.errors.branchId && formikBag.touched.branchId
-                           ? "bg-yellow"
-                           : ""
+                           ? 'bg-yellow'
+                           : ''
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.branchId || ""}
+                     value={formikBag.values.branchId || ''}
                   />
                   {formikBag.errors.branchId && formikBag.touched.branchId && (
                      <p className="text-orange-600">
@@ -98,11 +98,11 @@ const AddBranchCategory = React.memo(() => {
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                         formikBag.errors.branchName &&
                         formikBag.touched.branchName
-                           ? "bg-yellow"
-                           : ""
+                           ? 'bg-yellow'
+                           : ''
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.branchName || ""}
+                     value={formikBag.values.branchName || ''}
                   />
                   {formikBag.errors.branchName &&
                      formikBag.touched.branchName && (

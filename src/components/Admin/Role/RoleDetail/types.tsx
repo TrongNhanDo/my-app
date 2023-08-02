@@ -1,4 +1,4 @@
-import { RoleType } from "../Common/types";
+import { RoleType } from '../Common/types';
 
 export type ActionReducerType = {
    type: string;
@@ -10,11 +10,11 @@ export type StateReducerType = {
 };
 
 export const InitRoleValue = {
-   _id: "",
+   _id: '',
    roleId: 0,
-   roleName: "",
-   createdAt: "",
-   updatedAt: "",
+   roleName: '',
+   createdAt: '',
+   updatedAt: '',
    __v: 0,
 };
 
@@ -27,5 +27,5 @@ export type FormikBagType = {
 };
 
 export const InitFormikValue = {
-   roleName: "",
+   roleName: '',
 };

@@ -4,24 +4,24 @@ import React, {
    useMemo,
    useReducer,
    useState,
-} from "react";
-import { Link } from "react-router-dom";
-import { useFormik } from "formik";
-import { InitReducer, InputActionType, RoleType } from "../Common/types";
-import { ActionValues } from "../Common/constants";
-import { callApi } from "../../../../api/callApi/callApi";
-import Loader from "../../../Common/Loader/loader";
-import { formatDate } from "../../../Common/Logic/logics";
-import { Input } from "../../../Common/Input/input";
-import { FormikBagType, InitFormikBag } from "./types";
-import { validationSchema } from "./validations";
-import { ModalCustom } from "../../../Common/Modal/modal-custom";
+} from 'react';
+import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { InitReducer, InputActionType, RoleType } from '../Common/types';
+import { ActionValues } from '../Common/constants';
+import { callApi } from '../../../../api/callApi/callApi';
+import Loader from '../../../Common/Loader/loader';
+import { formatDate } from '../../../Common/Logic/logics';
+import { Input } from '../../../Common/Input/input';
+import { FormikBagType, InitFormikBag } from './types';
+import { validationSchema } from './validations';
+import { ModalCustom } from '../../../Common/Modal/modal-custom';
 
 const RoleList = React.memo(() => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const [modal, setModal] = useState<boolean>(false);
-   const [error, setError] = useState<string>("");
+   const [error, setError] = useState<string>('');
    const [success, setSuccess] = useState<boolean>(false);
 
    const reducer = (state: InitReducer, action: InputActionType) => {
@@ -47,7 +47,7 @@ const RoleList = React.memo(() => {
    const [data, dispatch] = useReducer(reducer, initState);
    const fetchApi = useCallback(async () => {
       // get data paginate
-      const response = await callApi("roles/paginate", "post", {
+      const response = await callApi('roles/paginate', 'post', {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
@@ -61,7 +61,7 @@ const RoleList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("roles/paginate", "post", {
+      const response = await callApi('roles/paginate', 'post', {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
@@ -98,9 +98,9 @@ const RoleList = React.memo(() => {
             ...formikValues,
             roleName: formikValues.roleName.trim(),
          };
-         await callApi("roles", "post", requestPayload)
+         await callApi('roles', 'post', requestPayload)
             .then(() => {
-               setError("Insert new role success");
+               setError('Insert new role success');
                setSuccess(true);
             })
             .catch((err) => {
@@ -130,7 +130,7 @@ const RoleList = React.memo(() => {
       try {
          formikBag.resetForm();
          setModal(false);
-         setError("");
+         setError('');
       } catch (error) {
          console.log({ error });
       }
@@ -149,9 +149,9 @@ const RoleList = React.memo(() => {
 
    useEffect(() => {
       if (modal) {
-         document.body.style.overflow = "hidden";
+         document.body.style.overflow = 'hidden';
       } else {
-         document.body.style.overflow = "unset";
+         document.body.style.overflow = 'unset';
       }
    });
 
@@ -179,7 +179,7 @@ const RoleList = React.memo(() => {
                            </button>
                         </div>
                         <hr className="w-full my-3 h-0.5" />
-                        {error && error !== "" && (
+                        {error && error !== '' && (
                            <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
                               {error}
                            </div>
@@ -194,11 +194,11 @@ const RoleList = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.roleId &&
                                     formikBag.touched.roleId
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.roleId || ""}
+                                 value={formikBag.values.roleId || ''}
                               />
                               {formikBag.errors.roleId &&
                                  formikBag.touched.roleId && (
@@ -216,11 +216,11 @@ const RoleList = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.roleName &&
                                     formikBag.touched.roleName
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.roleName || ""}
+                                 value={formikBag.values.roleName || ''}
                               />
                               {formikBag.errors.roleName &&
                                  formikBag.touched.roleName && (
@@ -288,10 +288,10 @@ const RoleList = React.memo(() => {
                            >
                               <td className="px-6 py-4">{index + 1}</td>
                               <td className="px-6 py-4">
-                                 {value.roleId || ""}
+                                 {value.roleId || ''}
                               </td>
                               <td className="px-6 py-4">
-                                 {value.roleName || ""}
+                                 {value.roleName || ''}
                               </td>
                               <td className="px-6 py-4">
                                  {formatDate(value.createdAt)}

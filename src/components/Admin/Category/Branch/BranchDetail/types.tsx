@@ -1,15 +1,15 @@
-import { BranchType } from "../Common/types";
+import { BranchType } from '../Common/types';
 
 export type StateReducerType = {
    branch: BranchType | null;
 };
 
 export const InitBranchValue = {
-   _id: "",
+   _id: '',
    branchId: 0,
-   branchName: "",
-   createdAt: "",
-   updatedAt: "",
+   branchName: '',
+   createdAt: '',
+   updatedAt: '',
    __v: 0,
 };
 

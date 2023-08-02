@@ -1,24 +1,24 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useFormik } from "formik";
-import { callApi } from "../../../../../api/callApi/callApi";
-import { formatDate, scrollTop } from "../../../../Common/Logic/logics";
-import Loader from "../../../../Common/Loader/loader";
-import { validationSchema } from "./validations";
-import { ActionValues } from "../Common/constants";
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { callApi } from '../../../../../api/callApi/callApi';
+import { formatDate, scrollTop } from '../../../../Common/Logic/logics';
+import Loader from '../../../../Common/Loader/loader';
+import { validationSchema } from './validations';
+import { ActionValues } from '../Common/constants';
 import {
    ActionReducerType,
    FormikBagType,
    InitStateReducerType,
    StateReducerType,
-} from "./types";
-import { ErrorMessages } from "../../../../Common/ErrorMessage/error-message";
+} from './types';
+import { ErrorMessages } from '../../../../Common/ErrorMessage/error-message';
 
 const AgeCategoryDetail = React.memo(() => {
    const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
-   const [msg, setMsg] = useState<string>("");
+   const [msg, setMsg] = useState<string>('');
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
@@ -36,7 +36,7 @@ const AgeCategoryDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `ages/${id}`;
-      const response = await callApi(url, "get").catch((err) =>
+      const response = await callApi(url, 'get').catch((err) =>
          console.log({ err })
       );
       dispatch({
@@ -48,17 +48,17 @@ const AgeCategoryDetail = React.memo(() => {
 
    const deleteAge = useCallback(
       async (id: string) => {
-         if (confirm("Are you sure you want to delete this age category?")) {
+         if (confirm('Are you sure you want to delete this age category?')) {
             setIsLoading(true);
-            const response = await callApi("ages", "delete", {
+            const response = await callApi('ages', 'delete', {
                id: id,
             }).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
-               alert("Delete age category success");
+               alert('Delete age category success');
                navigate(-1);
             } else {
-               alert("Delete age category fail");
+               alert('Delete age category fail');
             }
          }
       },
@@ -66,13 +66,13 @@ const AgeCategoryDetail = React.memo(() => {
    );
 
    const onSubmit = async (formikValues: FormikBagType) => {
-      setMsg("");
+      setMsg('');
       if (
          formikValues.ageName &&
          data.age &&
          formikValues.ageName === data.age.ageName
       ) {
-         setMsg("There must be at least one data change");
+         setMsg('There must be at least one data change');
       } else {
          // show loader while update information
          setIsLoading(true);
@@ -80,13 +80,13 @@ const AgeCategoryDetail = React.memo(() => {
             ...formikValues,
             id: id,
          };
-         const response = await callApi("ages", "patch", requestPayload).catch(
-            (err) => setMsg(err.response.data.message || "")
+         const response = await callApi('ages', 'patch', requestPayload).catch(
+            (err) => setMsg(err.response.data.message || '')
          );
          // close loader when updated information
          setIsLoading(false);
          if (response) {
-            setMsg("Update age category success");
+            setMsg('Update age category success');
             fetchApi();
          }
       }
@@ -95,7 +95,7 @@ const AgeCategoryDetail = React.memo(() => {
 
    const formikBag = useFormik({
       initialValues: {
-         ageName: "",
+         ageName: '',
       },
       validationSchema,
       onSubmit: (value) => onSubmit(value),
@@ -115,8 +115,8 @@ const AgeCategoryDetail = React.memo(() => {
    }, []);
 
    useEffect(() => {
-      if (data.age && data.age.ageName !== "") {
-         formikBag.setFieldValue("ageName", data.age.ageName);
+      if (data.age && data.age.ageName !== '') {
+         formikBag.setFieldValue('ageName', data.age.ageName);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [data]);
@@ -154,10 +154,10 @@ const AgeCategoryDetail = React.memo(() => {
                               Age ID
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.age ? data.age.ageId : ""}
+                              {data.age ? data.age.ageId : ''}
                            </td>
                            <td className="px-6 py-4">
-                              {data.age ? data.age.ageId : ""}
+                              {data.age ? data.age.ageId : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -168,7 +168,7 @@ const AgeCategoryDetail = React.memo(() => {
                               Age Name
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.age ? data.age.ageName : ""}
+                              {data.age ? data.age.ageName : ''}
                            </td>
                            <td className="px-6 py-4">
                               <input
@@ -178,10 +178,10 @@ const AgeCategoryDetail = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.ageName &&
                                     formikBag.touched.ageName
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
-                                 value={formikBag.values.ageName || ""}
+                                 value={formikBag.values.ageName || ''}
                                  onChange={formikBag.handleChange}
                               />
                               {formikBag.errors.ageName &&
@@ -202,12 +202,12 @@ const AgeCategoryDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {data.age && data.age.createdAt
                                  ? formatDate(data.age.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.age && data.age.createdAt
                                  ? formatDate(data.age.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -220,12 +220,12 @@ const AgeCategoryDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {data.age && data.age.updatedAt
                                  ? formatDate(data.age.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.age && data.age.updatedAt
                                  ? formatDate(data.age.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                      </tbody>
@@ -244,7 +244,7 @@ const AgeCategoryDetail = React.memo(() => {
                   <button
                      type="button"
                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 ms-10 px-20"
-                     onClick={() => deleteAge(data.age ? data.age._id : "")}
+                     onClick={() => deleteAge(data.age ? data.age._id : '')}
                   >
                      Delete
                   </button>

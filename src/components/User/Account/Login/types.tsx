@@ -4,6 +4,6 @@ export type FormikValueType = {
 };
 
 export const initValueFormik = {
-   email: "",
-   password: "",
+   email: '',
+   password: '',
 };

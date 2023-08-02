@@ -1,4 +1,4 @@
-import { BranchType } from "../Common/types";
+import { BranchType } from '../Common/types';
 
 export type StateReducerType = {
    branches: BranchType[] | null;
@@ -25,6 +25,6 @@ export type FormikBagType = {
 };
 
 export const InitFormikBag = {
-   branchId: "",
-   branchName: "",
+   branchId: '',
+   branchName: '',
 };

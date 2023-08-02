@@ -1,9 +1,9 @@
-import React from "react";
-import Sidebar from "../../../Common/Sidebar";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import Sidebar from '../../../Common/Sidebar';
+import { useTranslation } from 'react-i18next';
 
 const Security = React.memo(() => {
-   const { t } = useTranslation(["user_security"]);
+   const { t } = useTranslation(['user_security']);
 
    return (
       <div className="div-contai flex">
@@ -12,10 +12,10 @@ const Security = React.memo(() => {
          </div>
          <div className="w-3/4 bg-white rounded p-5 text-justify">
             <div className="uppercase text-2xl font-bold text-center">
-               {t("title")}
+               {t('title')}
             </div>
             <div className="flex flex-col mt-5">
-               {t("updating_content")}
+               {t('updating_content')}
                {/* <div className="wrapper-question mona-content">
                   <div
                      className="mailmunch-forms-before-post"

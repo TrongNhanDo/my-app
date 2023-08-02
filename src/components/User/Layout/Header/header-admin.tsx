@@ -1,12 +1,12 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import i18n from "../../../../i18n/i18n";
-import { SumProductContext } from "../../../../context/SumProductContext";
-import Loader from "../../../Common/Loader/loader";
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../../../i18n/i18n';
+import { SumProductContext } from '../../../../context/SumProductContext';
+import Loader from '../../../Common/Loader/loader';
 
 const HeaderAdmin = React.memo(() => {
-   const { t } = useTranslation(["admin_header"]);
+   const { t } = useTranslation(['admin_header']);
    const navigate = useNavigate();
    const { setUserId, setRoleId, setSumProduct, userId, locale, setLocale } =
       useContext(SumProductContext);
@@ -17,7 +17,7 @@ const HeaderAdmin = React.memo(() => {
       (e: React.ChangeEvent<HTMLSelectElement>) => {
          const languageValue = e.target.value;
          setLocale(languageValue);
-         sessionStorage.setItem("locale", languageValue);
+         sessionStorage.setItem('locale', languageValue);
          i18n.changeLanguage(languageValue);
       },
       [setLocale]
@@ -27,13 +27,13 @@ const HeaderAdmin = React.memo(() => {
       try {
          setModal(false);
          setLoading(true);
-         await setUserId("");
-         await setRoleId("");
+         await setUserId('');
+         await setRoleId('');
          await setSumProduct(0);
-         await sessionStorage.removeItem("userId");
-         await sessionStorage.removeItem("roleId");
+         await sessionStorage.removeItem('userId');
+         await sessionStorage.removeItem('roleId');
          setLoading(false);
-         navigate("/admin/login");
+         navigate('/admin/login');
       } catch (error) {
          console.log({ error });
       }
@@ -45,9 +45,9 @@ const HeaderAdmin = React.memo(() => {
 
    useEffect(() => {
       if (modal) {
-         document.body.style.overflow = "hidden";
+         document.body.style.overflow = 'hidden';
       } else {
-         document.body.style.overflow = "unset";
+         document.body.style.overflow = 'unset';
       }
    }, [modal]);
 
@@ -91,7 +91,7 @@ const HeaderAdmin = React.memo(() => {
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                         aria-current="page"
                      >
-                        {t("home")}
+                        {t('home')}
                      </Link>
                   </li>
                   <li>
@@ -99,7 +99,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/role-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        {t("role")}
+                        {t('role')}
                      </Link>
                   </li>
                   <li>
@@ -107,7 +107,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/user-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        {t("user")}
+                        {t('user')}
                      </Link>
                   </li>
                   <li>
@@ -115,7 +115,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/product-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        {t("product")}
+                        {t('product')}
                      </Link>
                   </li>
                   <li>
@@ -123,7 +123,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/age-category-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        {t("age")}
+                        {t('age')}
                      </Link>
                   </li>
                   <li>
@@ -131,7 +131,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/branch-category-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        {t("branch")}
+                        {t('branch')}
                      </Link>
                   </li>
                   <li>
@@ -139,7 +139,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/skill-category-list"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        {t("skill")}
+                        {t('skill')}
                      </Link>
                   </li>
                   <li>
@@ -147,7 +147,7 @@ const HeaderAdmin = React.memo(() => {
                         to="/admin/account-detail"
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        {t("my_account")}
+                        {t('my_account')}
                      </Link>
                   </li>
                   <li>
@@ -156,7 +156,7 @@ const HeaderAdmin = React.memo(() => {
                         onClick={() => setModal(true)}
                         className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                      >
-                        {t("logout")}
+                        {t('logout')}
                      </button>
                   </li>
                   <li>

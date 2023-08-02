@@ -7,7 +7,7 @@ import {
    ProductType,
    SkillInitValue,
    SkillType,
-} from "../common/types";
+} from '../common/types';
 
 export type StateReducerType = {
    product: ProductType;
@@ -49,10 +49,10 @@ export const initFormikValues = {
    ageId: 0,
    branchId: 0,
    skillId: 0,
-   productName: "",
-   price: "",
-   describes: "",
+   productName: '',
+   price: '',
+   describes: '',
    amount: 0,
    images: [],
-   productId: "",
+   productId: '',
 };

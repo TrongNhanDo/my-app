@@ -4,9 +4,9 @@ import React, {
    useMemo,
    useReducer,
    useState,
-} from "react";
-import { Link } from "react-router-dom";
-import { useFormik } from "formik";
+} from 'react';
+import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
 import {
    ActionType,
    ActionTypes,
@@ -14,24 +14,24 @@ import {
    InputInsertType,
    RoleType,
    UserType,
-} from "../common/types";
-import { callApi } from "../../../../api/callApi/callApi";
-import { formatDate } from "../../../Common/Logic/logics";
-import Loader from "../../../Common/Loader/loader";
-import { validationSchema } from "./validations";
-import { ModalCustom } from "../../../Common/Modal/modal-custom";
-import { Input } from "../../../Common/Input/input";
+} from '../common/types';
+import { callApi } from '../../../../api/callApi/callApi';
+import { formatDate } from '../../../Common/Logic/logics';
+import Loader from '../../../Common/Loader/loader';
+import { validationSchema } from './validations';
+import { ModalCustom } from '../../../Common/Modal/modal-custom';
+import { Input } from '../../../Common/Input/input';
 
 const UserList = React.memo(() => {
    const [showLoader, setShowLoader] = useState<boolean>(true);
    const dataPerPage = parseInt(import.meta.env.VITE_PER_PAGE || 10);
    const [success, setSuccess] = useState<boolean>(false);
-   const [error, setError] = useState<string>("");
+   const [error, setError] = useState<string>('');
    const [modal, setModal] = useState<boolean>(false);
    const [roleValues, setRoleValues] = useState<RoleType[]>([]);
 
    const fetchRole = useCallback(async () => {
-      const response = await callApi("roles", "get").catch((err) =>
+      const response = await callApi('roles', 'get').catch((err) =>
          console.log({ err })
       );
       setRoleValues(response.data ? response.data : []);
@@ -65,7 +65,7 @@ const UserList = React.memo(() => {
    const [data, dispatch] = useReducer(reducer, initState);
 
    const fetchApi = useCallback(async () => {
-      const response = await callApi("users/paginate", "post", {
+      const response = await callApi('users/paginate', 'post', {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
@@ -79,7 +79,7 @@ const UserList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi("users/paginate", "post", {
+      const response = await callApi('users/paginate', 'post', {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
@@ -116,8 +116,8 @@ const UserList = React.memo(() => {
          formikValues.password !== formikValues.confirmPwd
       ) {
          formikBag.setFieldError(
-            "confirmPwd",
-            "Confirm password not matched with password"
+            'confirmPwd',
+            'Confirm password not matched with password'
          );
       } else {
          setShowLoader(true);
@@ -126,13 +126,13 @@ const UserList = React.memo(() => {
             username: formikValues.username.trim(),
             password: formikValues.password.trim(),
          };
-         await callApi("users", "post", requestPayload)
+         await callApi('users', 'post', requestPayload)
             .then(() => {
-               setError("Insert new account success");
+               setError('Insert new account success');
                setSuccess(true);
             })
             .catch((err) => {
-               setError(err.response.data.message || "");
+               setError(err.response.data.message || '');
             });
          setShowLoader(false);
       }
@@ -140,9 +140,9 @@ const UserList = React.memo(() => {
 
    const formikBag = useFormik({
       initialValues: {
-         username: "",
-         password: "",
-         confirmPwd: "",
+         username: '',
+         password: '',
+         confirmPwd: '',
          roleId: 1,
       },
       validationSchema,
@@ -161,7 +161,7 @@ const UserList = React.memo(() => {
       try {
          formikBag.resetForm();
          setModal(false);
-         setError("");
+         setError('');
       } catch (error) {
          console.log({ error });
       }
@@ -169,9 +169,9 @@ const UserList = React.memo(() => {
 
    useEffect(() => {
       if (modal) {
-         document.body.style.overflow = "hidden";
+         document.body.style.overflow = 'hidden';
       } else {
-         document.body.style.overflow = "unset";
+         document.body.style.overflow = 'unset';
       }
    }, [modal]);
 
@@ -211,7 +211,7 @@ const UserList = React.memo(() => {
                            </button>
                         </div>
                         <hr className="w-full my-3 h-0.5" />
-                        {error && error !== "" && (
+                        {error && error !== '' && (
                            <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
                               {error}
                            </div>
@@ -226,11 +226,11 @@ const UserList = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                                     formikBag.errors.username &&
                                     formikBag.touched.username
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.username || ""}
+                                 value={formikBag.values.username || ''}
                               />
                               {formikBag.errors.username &&
                                  formikBag.touched.username && (
@@ -247,7 +247,7 @@ const UserList = React.memo(() => {
                                  type="password"
                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.password || ""}
+                                 value={formikBag.values.password || ''}
                               />
                               {formikBag.errors.password &&
                                  formikBag.touched.password && (
@@ -264,7 +264,7 @@ const UserList = React.memo(() => {
                                  type="password"
                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                  onChange={formikBag.handleChange}
-                                 value={formikBag.values.confirmPwd || ""}
+                                 value={formikBag.values.confirmPwd || ''}
                               />
                               {formikBag.errors.confirmPwd &&
                                  formikBag.touched.confirmPwd && (
@@ -355,26 +355,26 @@ const UserList = React.memo(() => {
                            >
                               <td className="px-6 py-4">{index + 1}</td>
                               <td className="px-6 py-4">
-                                 {value.username || ""}
+                                 {value.username || ''}
                               </td>
                               <td className="px-6 py-4">
                                  {value.role && value.role.roleName
                                     ? value.role.roleName
-                                    : ""}
+                                    : ''}
                               </td>
                               <td className="px-6 py-4">
                                  {value.createdAt
                                     ? formatDate(value.createdAt)
-                                    : ""}
+                                    : ''}
                               </td>
                               <td className="px-6 py-4">
                                  {value.createdAt
                                     ? formatDate(value.updatedAt)
-                                    : ""}
+                                    : ''}
                               </td>
                               <td className="px-6 py-4 text-right">
                                  <Link
-                                    to={`/admin/user-detail/${value._id || ""}`}
+                                    to={`/admin/user-detail/${value._id || ''}`}
                                     className="font-medium text-blue-600 hover:underline"
                                  >
                                     Detail

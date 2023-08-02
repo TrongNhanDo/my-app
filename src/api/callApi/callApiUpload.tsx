@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const callApiUpload = (
    url: string,
@@ -9,7 +9,7 @@ export const callApiUpload = (
       method: method,
       url: url,
       headers: {
-         "Content-Type": "multipart/form-data",
+         'Content-Type': 'multipart/form-data',
       },
       data: data,
    };
@@ -25,13 +25,13 @@ export const upLoadImage = async (
    const API_URL = import.meta.env.VITE_CLOUDINARY_API_URL;
    const arrayUrl: string[] = [];
    const formData = new FormData();
-   formData.append("upload_preset", PRESET_NAME);
-   formData.append("folder", FOLDER_NAME);
+   formData.append('upload_preset', PRESET_NAME);
+   formData.append('folder', FOLDER_NAME);
    if (images && images.length) {
       for (const file of images) {
-         formData.append("file", file);
-         await callApiUpload(API_URL, "POST", formData)
-            .then((res) => (res.data.url ? arrayUrl.push(res.data.url) : ""))
+         formData.append('file', file);
+         await callApiUpload(API_URL, 'POST', formData)
+            .then((res) => (res.data.url ? arrayUrl.push(res.data.url) : ''))
             .catch((err) => console.log(err));
       }
    }

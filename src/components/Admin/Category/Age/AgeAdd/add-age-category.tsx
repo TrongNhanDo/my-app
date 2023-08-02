@@ -1,17 +1,17 @@
-import { useFormik } from "formik";
-import React, { useCallback, useEffect, useState } from "react";
-import Loader from "../../../../Common/Loader/loader";
-import { FormikBagType, InitFormikBag } from "./types";
-import { Input } from "../../../../Common/Input/input";
-import { useNavigate } from "react-router-dom";
-import { validationSchema } from "./validations";
-import { callApi } from "../../../../../api/callApi/callApi";
-import { scrollTop } from "../../../../Common/Logic/logics";
+import { useFormik } from 'formik';
+import React, { useCallback, useEffect, useState } from 'react';
+import Loader from '../../../../Common/Loader/loader';
+import { FormikBagType, InitFormikBag } from './types';
+import { Input } from '../../../../Common/Input/input';
+import { useNavigate } from 'react-router-dom';
+import { validationSchema } from './validations';
+import { callApi } from '../../../../../api/callApi/callApi';
+import { scrollTop } from '../../../../Common/Logic/logics';
 
 const AddAgeCategory = React.memo(() => {
    const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
-   const [error, setError] = useState<string>("");
+   const [error, setError] = useState<string>('');
    const [success, setSuccess] = useState<boolean>(false);
 
    const onSubmit = useCallback(async (formikValues: FormikBagType) => {
@@ -21,9 +21,9 @@ const AddAgeCategory = React.memo(() => {
          ageId: formikValues.ageId,
          ageName: formikValues.ageName.trim(),
       };
-      await callApi("ages", "post", requestPayload)
+      await callApi('ages', 'post', requestPayload)
          .then(() => {
-            setError("Insert new age category success");
+            setError('Insert new age category success');
             setSuccess(true);
          })
          .catch((err) => {
@@ -63,7 +63,7 @@ const AddAgeCategory = React.memo(() => {
                   <div className="text-2xl font-bold text-center">
                      INSERT NEW AGE CATEGORY
                   </div>
-                  {error && error !== "" && (
+                  {error && error !== '' && (
                      <div className="bg-lime-300 w-full text-orange-600 mt-4 py-2 px-5 rounded-md">
                         {error}
                      </div>
@@ -77,11 +77,11 @@ const AddAgeCategory = React.memo(() => {
                      type="text"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                         formikBag.errors.ageId && formikBag.touched.ageId
-                           ? "bg-yellow"
-                           : ""
+                           ? 'bg-yellow'
+                           : ''
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.ageId || ""}
+                     value={formikBag.values.ageId || ''}
                   />
                   {formikBag.errors.ageId && formikBag.touched.ageId && (
                      <p className="text-orange-600">{formikBag.errors.ageId}</p>
@@ -95,11 +95,11 @@ const AddAgeCategory = React.memo(() => {
                      id="ageName"
                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1 ${
                         formikBag.errors.ageName && formikBag.touched.ageName
-                           ? "bg-yellow"
-                           : ""
+                           ? 'bg-yellow'
+                           : ''
                      }`}
                      onChange={formikBag.handleChange}
-                     value={formikBag.values.ageName || ""}
+                     value={formikBag.values.ageName || ''}
                   />
                   {formikBag.errors.ageName && formikBag.touched.ageName && (
                      <p className="text-orange-600">

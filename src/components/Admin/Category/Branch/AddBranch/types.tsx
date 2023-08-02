@@ -4,6 +4,6 @@ export type FormikBagType = {
 };
 
 export const InitFormikBag = {
-   branchId: "",
-   branchName: "",
+   branchId: '',
+   branchName: '',
 };

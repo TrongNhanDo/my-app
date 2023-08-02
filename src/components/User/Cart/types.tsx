@@ -63,12 +63,12 @@ export type FormikProps = {
 };
 
 export const FormikInitValues = {
-   userId: "",
+   userId: '',
    cartItem: [
       {
-         productId: "",
-         amount: "1",
-         price: "",
+         productId: '',
+         amount: '1',
+         price: '',
       },
    ],
 };

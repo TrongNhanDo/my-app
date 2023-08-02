@@ -1,24 +1,24 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
    ActionReducerType,
    FormikBagType,
    InitStateReducerType,
    StateReducerType,
-} from "./types";
-import { ActionValues } from "../Common/types";
-import { callApi } from "../../../../../api/callApi/callApi";
-import { useFormik } from "formik";
-import { validationSchema } from "./vadidations";
-import Loader from "../../../../Common/Loader/loader";
-import { formatDate, scrollTop } from "../../../../Common/Logic/logics";
-import { ErrorMessages } from "../../../../Common/ErrorMessage/error-message";
+} from './types';
+import { ActionValues } from '../Common/types';
+import { callApi } from '../../../../../api/callApi/callApi';
+import { useFormik } from 'formik';
+import { validationSchema } from './vadidations';
+import Loader from '../../../../Common/Loader/loader';
+import { formatDate, scrollTop } from '../../../../Common/Logic/logics';
+import { ErrorMessages } from '../../../../Common/ErrorMessage/error-message';
 
 const SkillCategoryDetail = React.memo(() => {
    const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
-   const [msg, setMsg] = useState<string>("");
+   const [msg, setMsg] = useState<string>('');
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
@@ -36,7 +36,7 @@ const SkillCategoryDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `skills/${id}`;
-      const response = await callApi(url, "get").catch((err) =>
+      const response = await callApi(url, 'get').catch((err) =>
          console.log({ err })
       );
       dispatch({
@@ -48,17 +48,17 @@ const SkillCategoryDetail = React.memo(() => {
 
    const deleteAge = useCallback(
       async (id: string) => {
-         if (confirm("Are you sure you want to delete this skill category?")) {
+         if (confirm('Are you sure you want to delete this skill category?')) {
             setIsLoading(true);
-            const response = await callApi("skills", "delete", {
+            const response = await callApi('skills', 'delete', {
                id: id,
             }).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
-               alert("Delete branch category success");
+               alert('Delete branch category success');
                navigate(-1);
             } else {
-               alert("Delete branch category fail");
+               alert('Delete branch category fail');
             }
          }
       },
@@ -67,13 +67,13 @@ const SkillCategoryDetail = React.memo(() => {
 
    const onSubmit = useCallback(
       async (formikValues: FormikBagType) => {
-         setMsg("");
+         setMsg('');
          if (
             formikValues.skillName &&
             data.skill &&
             formikValues.skillName === data.skill.skillName
          ) {
-            setMsg("There must be at least one data change");
+            setMsg('There must be at least one data change');
          } else {
             // show loader while update information
             setIsLoading(true);
@@ -82,17 +82,17 @@ const SkillCategoryDetail = React.memo(() => {
                id: id,
             };
             const response = await callApi(
-               "skills",
-               "patch",
+               'skills',
+               'patch',
                requestPayload
             ).catch((err) => console.log({ err }));
             // close loader when updated information
             setIsLoading(false);
             if (response) {
-               setMsg("Update category success");
+               setMsg('Update category success');
                fetchApi();
             } else {
-               setMsg("Skill Category Name already existed");
+               setMsg('Skill Category Name already existed');
             }
          }
          scrollTop();
@@ -102,7 +102,7 @@ const SkillCategoryDetail = React.memo(() => {
 
    const formikBag = useFormik({
       initialValues: {
-         skillName: "",
+         skillName: '',
       },
       validationSchema,
       onSubmit: (value) => onSubmit(value),
@@ -122,8 +122,8 @@ const SkillCategoryDetail = React.memo(() => {
    }, []);
 
    useEffect(() => {
-      if (data.skill && data.skill.skillName !== "") {
-         formikBag.setFieldValue("skillName", data.skill.skillName);
+      if (data.skill && data.skill.skillName !== '') {
+         formikBag.setFieldValue('skillName', data.skill.skillName);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [data]);
@@ -161,10 +161,10 @@ const SkillCategoryDetail = React.memo(() => {
                               Skill ID
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.skill ? data.skill.skillId : ""}
+                              {data.skill ? data.skill.skillId : ''}
                            </td>
                            <td className="px-6 py-4">
-                              {data.skill ? data.skill.skillId : ""}
+                              {data.skill ? data.skill.skillId : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -175,7 +175,7 @@ const SkillCategoryDetail = React.memo(() => {
                               Skill Name
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.skill ? data.skill.skillName : ""}
+                              {data.skill ? data.skill.skillName : ''}
                            </td>
                            <td className="px-6 py-4">
                               <input
@@ -185,10 +185,10 @@ const SkillCategoryDetail = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.skillName &&
                                     formikBag.touched.skillName
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
-                                 value={formikBag.values.skillName || ""}
+                                 value={formikBag.values.skillName || ''}
                                  onChange={formikBag.handleChange}
                               />
                               {formikBag.errors.skillName &&
@@ -209,12 +209,12 @@ const SkillCategoryDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {data.skill && data.skill.createdAt
                                  ? formatDate(data.skill.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.skill && data.skill.createdAt
                                  ? formatDate(data.skill.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -227,12 +227,12 @@ const SkillCategoryDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {data.skill && data.skill.updatedAt
                                  ? formatDate(data.skill.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.skill && data.skill.updatedAt
                                  ? formatDate(data.skill.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                      </tbody>
@@ -251,7 +251,7 @@ const SkillCategoryDetail = React.memo(() => {
                   <button
                      type="button"
                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 ms-10 px-20"
-                     onClick={() => deleteAge(data.skill ? data.skill._id : "")}
+                     onClick={() => deleteAge(data.skill ? data.skill._id : '')}
                   >
                      Delete
                   </button>

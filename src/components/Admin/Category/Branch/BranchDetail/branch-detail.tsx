@@ -1,24 +1,24 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
    ActionReducerType,
    FormikBagType,
    InitStateReducerType,
    StateReducerType,
-} from "./types";
-import { ActionValues } from "../Common/types";
-import { callApi } from "../../../../../api/callApi/callApi";
-import { useFormik } from "formik";
-import { validationSchema } from "./vadidations";
-import Loader from "../../../../Common/Loader/loader";
-import { formatDate, scrollTop } from "../../../../Common/Logic/logics";
-import { ErrorMessages } from "../../../../Common/ErrorMessage/error-message";
+} from './types';
+import { ActionValues } from '../Common/types';
+import { callApi } from '../../../../../api/callApi/callApi';
+import { useFormik } from 'formik';
+import { validationSchema } from './vadidations';
+import Loader from '../../../../Common/Loader/loader';
+import { formatDate, scrollTop } from '../../../../Common/Logic/logics';
+import { ErrorMessages } from '../../../../Common/ErrorMessage/error-message';
 
 const BranchCategoryDetail = React.memo(() => {
    const { id } = useParams();
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState<boolean>(true);
-   const [msg, setMsg] = useState<string>("");
+   const [msg, setMsg] = useState<string>('');
 
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
@@ -36,7 +36,7 @@ const BranchCategoryDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `branches/${id}`;
-      const response = await callApi(url, "get").catch((err) =>
+      const response = await callApi(url, 'get').catch((err) =>
          console.log({ err })
       );
       dispatch({
@@ -48,17 +48,17 @@ const BranchCategoryDetail = React.memo(() => {
 
    const deleteAge = useCallback(
       async (id: string) => {
-         if (confirm("Are you sure you want to delete this branch category?")) {
+         if (confirm('Are you sure you want to delete this branch category?')) {
             setIsLoading(true);
-            const response = await callApi("branches", "delete", {
+            const response = await callApi('branches', 'delete', {
                id: id,
             }).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
-               alert("Delete branch category success");
+               alert('Delete branch category success');
                navigate(-1);
             } else {
-               alert("Delete branch category fail");
+               alert('Delete branch category fail');
             }
          }
       },
@@ -67,13 +67,13 @@ const BranchCategoryDetail = React.memo(() => {
 
    const onSubmit = useCallback(
       async (formikValues: FormikBagType) => {
-         setMsg("");
+         setMsg('');
          if (
             formikValues.branchName &&
             data.branch &&
             formikValues.branchName === data.branch.branchName
          ) {
-            setMsg("There must be at least one data change");
+            setMsg('There must be at least one data change');
          } else {
             // show loader while update information
             setIsLoading(true);
@@ -82,17 +82,17 @@ const BranchCategoryDetail = React.memo(() => {
                id: id,
             };
             const response = await callApi(
-               "branches",
-               "patch",
+               'branches',
+               'patch',
                requestPayload
             ).catch((err) => console.log({ err }));
             // close loader when updated information
             setIsLoading(false);
             if (response) {
-               setMsg("Update account success");
+               setMsg('Update account success');
                fetchApi();
             } else {
-               setMsg("Age Category Name already existed");
+               setMsg('Age Category Name already existed');
             }
          }
          scrollTop();
@@ -102,7 +102,7 @@ const BranchCategoryDetail = React.memo(() => {
 
    const formikBag = useFormik({
       initialValues: {
-         branchName: "",
+         branchName: '',
       },
       validationSchema,
       onSubmit: (value) => onSubmit(value),
@@ -122,8 +122,8 @@ const BranchCategoryDetail = React.memo(() => {
    }, []);
 
    useEffect(() => {
-      if (data.branch && data.branch.branchName !== "") {
-         formikBag.setFieldValue("branchName", data.branch.branchName);
+      if (data.branch && data.branch.branchName !== '') {
+         formikBag.setFieldValue('branchName', data.branch.branchName);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [data]);
@@ -161,10 +161,10 @@ const BranchCategoryDetail = React.memo(() => {
                               Branch ID
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.branch ? data.branch.branchId : ""}
+                              {data.branch ? data.branch.branchId : ''}
                            </td>
                            <td className="px-6 py-4">
-                              {data.branch ? data.branch.branchId : ""}
+                              {data.branch ? data.branch.branchId : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -175,7 +175,7 @@ const BranchCategoryDetail = React.memo(() => {
                               Branch Name
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {data.branch ? data.branch.branchName : ""}
+                              {data.branch ? data.branch.branchName : ''}
                            </td>
                            <td className="px-6 py-4">
                               <input
@@ -185,10 +185,10 @@ const BranchCategoryDetail = React.memo(() => {
                                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.branchName &&
                                     formikBag.touched.branchName
-                                       ? "bg-yellow"
-                                       : ""
+                                       ? 'bg-yellow'
+                                       : ''
                                  }`}
-                                 value={formikBag.values.branchName || ""}
+                                 value={formikBag.values.branchName || ''}
                                  onChange={formikBag.handleChange}
                               />
                               {formikBag.errors.branchName &&
@@ -209,12 +209,12 @@ const BranchCategoryDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {data.branch && data.branch.createdAt
                                  ? formatDate(data.branch.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.branch && data.branch.createdAt
                                  ? formatDate(data.branch.createdAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                         <tr className="bg-white border-b hover:bg-gray-100 text-black">
@@ -227,12 +227,12 @@ const BranchCategoryDetail = React.memo(() => {
                            <td className="px-6 py-4 text-base">
                               {data.branch && data.branch.updatedAt
                                  ? formatDate(data.branch.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.branch && data.branch.updatedAt
                                  ? formatDate(data.branch.updatedAt)
-                                 : ""}
+                                 : ''}
                            </td>
                         </tr>
                      </tbody>
@@ -252,7 +252,7 @@ const BranchCategoryDetail = React.memo(() => {
                      type="button"
                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 ms-10 px-20"
                      onClick={() =>
-                        deleteAge(data.branch ? data.branch._id : "")
+                        deleteAge(data.branch ? data.branch._id : '')
                      }
                   >
                      Delete

@@ -7,11 +7,11 @@ export type BranchType = {
 };
 
 export const BranchInitValue = {
-   _id: "",
+   _id: '',
    branchId: 0,
-   branchName: "",
-   createdAt: "",
-   updatedAt: "",
+   branchName: '',
+   createdAt: '',
+   updatedAt: '',
 };
 
 export type AgeType = {
@@ -23,11 +23,11 @@ export type AgeType = {
 };
 
 export const AgeInitValue = {
-   _id: "",
+   _id: '',
    ageId: 0,
-   ageName: "",
-   createdAt: "",
-   updatedAt: "",
+   ageName: '',
+   createdAt: '',
+   updatedAt: '',
 };
 
 export type SkillType = {
@@ -39,11 +39,11 @@ export type SkillType = {
 };
 
 export const SkillInitValue = {
-   _id: "",
+   _id: '',
    skillId: 0,
-   skillName: "",
-   createdAt: "",
-   updatedAt: "",
+   skillName: '',
+   createdAt: '',
+   updatedAt: '',
 };
 
 export type ProductType = {
@@ -65,24 +65,24 @@ export type ProductType = {
 };
 
 export const InitProductValues = {
-   _id: "",
+   _id: '',
    ageId: 0,
    branchId: 0,
    skillId: 0,
-   productName: "",
-   price: "",
-   describes: "",
+   productName: '',
+   price: '',
+   describes: '',
    amount: 0,
    rate: 0,
    images: [],
-   createdAt: "",
-   updatedAt: "",
+   createdAt: '',
+   updatedAt: '',
    age: AgeInitValue,
    branch: BranchInitValue,
    skill: SkillInitValue,
 };
 
 export const ActionValues = {
-   GET_PRODUCTS: "GET_PRODUCTS",
-   SELECTED_PRODUCT: "SELECTED_PRODUCT",
+   GET_PRODUCTS: 'GET_PRODUCTS',
+   SELECTED_PRODUCT: 'SELECTED_PRODUCT',
 };

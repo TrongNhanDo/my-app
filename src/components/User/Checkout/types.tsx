@@ -54,6 +54,7 @@ export type CartItemType = {
 };
 
 export type FormikBagProps = {
+   userId: string;
    fullname: string;
    gender: string;
    phone: string;
@@ -61,14 +62,23 @@ export type FormikBagProps = {
    notes: string;
    payment_method: string;
    total: string;
+   productsList: OrderProductType[];
+};
+
+export type OrderProductType = {
+   productId: string;
+   amount: string;
+   price: string;
 };
 
 export const FormikBagInitialValues = {
-   fullname: "",
-   gender: "female",
-   phone: "",
-   address: "",
-   notes: "",
-   payment_method: "cod",
-   total: "0",
+   userId: '',
+   fullname: '',
+   gender: 'female',
+   phone: '',
+   address: '',
+   notes: '',
+   payment_method: 'cod',
+   total: '0',
+   productsList: [],
 };

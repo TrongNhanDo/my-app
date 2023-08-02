@@ -17,11 +17,11 @@ export type AgeType = {
 };
 
 export const InitAgeValue = {
-   _id: "",
+   _id: '',
    ageId: 0,
-   ageName: "",
-   createdAt: "",
-   updatedAt: "",
+   ageName: '',
+   createdAt: '',
+   updatedAt: '',
    __v: 0,
 };
 

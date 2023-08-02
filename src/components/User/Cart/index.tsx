@@ -4,41 +4,41 @@ import React, {
    useEffect,
    useMemo,
    useState,
-} from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useFormik } from "formik";
-import { callApi } from "../../../api/callApi/callApi";
-import { CartItemType, FormikInitValues, FormikProps } from "./types";
-import { formatCurrency } from "../../Common/Logic/logics";
-import Loader from "../../Common/Loader/loader";
-import { validationSchema } from "./validations";
-import { SumProductContext } from "../../../context/SumProductContext";
+} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
+import { callApi } from '../../../api/callApi/callApi';
+import { CartItemType, FormikInitValues, FormikProps } from './types';
+import { formatCurrency } from '../../Common/Logic/logics';
+import Loader from '../../Common/Loader/loader';
+import { validationSchema } from './validations';
+import { SumProductContext } from '../../../context/SumProductContext';
 
 const CartList = React.memo(() => {
-   const { t } = useTranslation(["user_cart", "user_error"]);
+   const { t } = useTranslation(['user_cart', 'user_error']);
    const navigate = useNavigate();
    const [viewData, setViewData] = useState<CartItemType[]>();
    const [loading, setLoading] = useState<boolean>(false);
    const { setSumProduct, userId } = useContext(SumProductContext);
    const [isChangeForm, setIsChangeForm] = useState<boolean>(false);
-   const [eventId, setEventId] = useState<string>("");
+   const [eventId, setEventId] = useState<string>('');
    const shippingCost = 30000;
 
    const currentUserId = useMemo(() => {
-      return userId || sessionStorage.getItem("userId") || "";
+      return userId || sessionStorage.getItem('userId') || '';
    }, [userId]);
 
    useEffect(() => {
       if (!currentUserId) {
-         navigate("/login");
+         navigate('/login');
       }
    }, [navigate, currentUserId]);
 
    const fetchApi = useCallback(async () => {
       setLoading(true);
       setIsChangeForm(false);
-      const response = await callApi("carts/get-by-userId", "post", {
+      const response = await callApi('carts/get-by-userId', 'post', {
          userId: currentUserId,
       }).catch((err) => console.log({ err }));
 
@@ -53,7 +53,7 @@ const CartList = React.memo(() => {
       async (cartId: string) => {
          try {
             setLoading(true);
-            await callApi("carts", "delete", { id: cartId }).catch((err) =>
+            await callApi('carts', 'delete', { id: cartId }).catch((err) =>
                console.log({ err })
             );
             setLoading(false);
@@ -68,14 +68,14 @@ const CartList = React.memo(() => {
    const onSubmit = useCallback(
       async (formikValues: FormikProps) => {
          setLoading(true);
-         if (eventId === "update") {
-            await callApi("carts/update-cart/", "post", formikValues).catch(
+         if (eventId === 'update') {
+            await callApi('carts/update-cart/', 'post', formikValues).catch(
                (err) => console.log({ err })
             );
             setLoading(false);
             fetchApi();
-         } else if (eventId === "checkout") {
-            navigate("/checkout", {
+         } else if (eventId === 'checkout') {
+            navigate('/checkout', {
                state: {
                   userId: formikValues.userId,
                   shippingCost: shippingCost,
@@ -127,7 +127,7 @@ const CartList = React.memo(() => {
 
    useEffect(() => {
       if (viewData && viewData.length) {
-         formikBag.setFieldValue("userId", viewData[0].userId || "");
+         formikBag.setFieldValue('userId', viewData[0].userId || '');
          viewData.map((value: CartItemType, index: number) => {
             formikBag.setFieldValue(
                `cartItem[${index}].productId`,
@@ -147,26 +147,26 @@ const CartList = React.memo(() => {
             <div className="flex shadow-md">
                <div className="w-3/4 bg-white px-10 py-10 rounded">
                   <div className="flex justify-between border-b pb-8">
-                     <h1 className="font-semibold text-2xl">{t("title")}</h1>
+                     <h1 className="font-semibold text-2xl">{t('title')}</h1>
                      <h2 className="font-semibold text-2xl">
-                        {totalProducts + " " + t("product")}
+                        {totalProducts + ' ' + t('product')}
                      </h2>
                   </div>
                   <div className="flex mt-10 mb-5">
                      <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/6">
-                        {t("header1")}
+                        {t('header1')}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        {t("header2")}
+                        {t('header2')}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        {t("header3")}
+                        {t('header3')}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        {t("header4")}
+                        {t('header4')}
                      </h3>
                      <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
-                        {t("header5")}
+                        {t('header5')}
                      </h3>
                   </div>
                   <hr />
@@ -205,7 +205,7 @@ const CartList = React.memo(() => {
                                              {value.product &&
                                              value.product.productName
                                                 ? value.product.productName
-                                                : ""}
+                                                : ''}
                                           </span>
                                           <span className="text-sm">
                                              {value.product &&
@@ -214,7 +214,7 @@ const CartList = React.memo(() => {
                                              value.product.branch.branchName
                                                 ? value.product.branch
                                                      .branchName
-                                                : ""}
+                                                : ''}
                                           </span>
                                           <span className="text-sm">
                                              {value.product &&
@@ -222,7 +222,7 @@ const CartList = React.memo(() => {
                                              value.product.age &&
                                              value.product.age.ageName
                                                 ? value.product.age.ageName
-                                                : ""}
+                                                : ''}
                                           </span>
                                           <span className="text-sm">
                                              {value.product &&
@@ -230,7 +230,7 @@ const CartList = React.memo(() => {
                                              value.product.skill &&
                                              value.product.skill.skillName
                                                 ? value.product.skill.skillName
-                                                : ""}
+                                                : ''}
                                           </span>
                                        </div>
                                     </div>
@@ -262,7 +262,7 @@ const CartList = React.memo(() => {
                                           className="font-semibold text-sm w-fit hover:bg-red-600 p-1 rounded"
                                           type="button"
                                           onClick={() =>
-                                             handleDelete(value._id || "")
+                                             handleDelete(value._id || '')
                                           }
                                        >
                                           ❌
@@ -279,27 +279,27 @@ const CartList = React.memo(() => {
                         to="/product-list"
                         className="block py-1 px-3 bg-orange-600 text-white rounded hover:bg-orange-700"
                      >
-                        {t("btn_continue")}
+                        {t('btn_continue')}
                      </Link>
                      <button
                         type="button"
-                        onClick={() => handleSubmit("update")}
+                        onClick={() => handleSubmit('update')}
                         disabled={!isChangeForm}
                         className={`block py-1 px-3 text-white rounded ${
                            isChangeForm
-                              ? "bg-green-600 hover:bg-green-700"
-                              : "bg-gray-400 cursor-not-allowed"
+                              ? 'bg-green-600 hover:bg-green-700'
+                              : 'bg-gray-400 cursor-not-allowed'
                         }`}
                      >
-                        {t("btn_update")}
+                        {t('btn_update')}
                      </button>
                   </div>
                </div>
                <div className="w-1/4 px-8 py-10 border-solid border-2 border-gray-200 rounded font-bold">
-                  <div className="text-2xl">{t("title2")}</div>
+                  <div className="text-2xl">{t('title2')}</div>
                   <hr className="w-full my-5" />
                   <div className="flex w-full justify-between">
-                     <div className="text-sm">{t("product") + ":"}</div>
+                     <div className="text-sm">{t('product') + ':'}</div>
                      <div className="">{totalProducts || 0}</div>
                   </div>
                   <div className="flex w-full my-5 justify-between">
@@ -321,9 +321,9 @@ const CartList = React.memo(() => {
                      <button
                         type="button"
                         className="bg-indigo-500 hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full rounded"
-                        onClick={() => handleSubmit("checkout")}
+                        onClick={() => handleSubmit('checkout')}
                      >
-                        {t("btn_checkout")}
+                        {t('btn_checkout')}
                      </button>
                   </div>
                </div>
@@ -331,13 +331,13 @@ const CartList = React.memo(() => {
          ) : (
             <div className="flex flex-col w-full rounded items-center bg-white mt-10 py-10">
                <span className="text-2xl font-bold">
-                  {t("empty_shopping_cart")}
+                  {t('empty_shopping_cart')}
                </span>
                <Link
                   to="/product-list"
                   className="mt-5 underline text-blue-600 hover:text-blue-400"
                >
-                  {t("see_product")}
+                  {t('see_product')}
                </Link>
             </div>
          )}

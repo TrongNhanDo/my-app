@@ -1,6 +1,6 @@
-import * as Yup from "yup";
-import { ProductType } from "../common/types";
-import { FormikBagType } from "./types";
+import * as Yup from 'yup';
+import { ProductType } from '../common/types';
+import { FormikBagType } from './types';
 
 export const validationSchema = () => {
    const validation = Yup.object().shape({
@@ -10,23 +10,23 @@ export const validationSchema = () => {
       productName: Yup.string().required(),
       price: Yup.string()
          .required()
-         .matches(/^[0-9]+$/, "Price must be a number")
+         .matches(/^[0-9]+$/, 'Price must be a number')
          .test({
-            message: "price must be more than 1000",
+            message: 'price must be more than 1000',
             test: (value) => parseFloat(value) >= 1000,
          }),
       describes: Yup.string().required(),
       amount: Yup.string()
          .required()
-         .matches(/^[0-9]+$/, "price must be a number")
+         .matches(/^[0-9]+$/, 'price must be a number')
          .test({
-            message: "amount must be more than 1",
+            message: 'amount must be more than 1',
             test: (value) => parseFloat(value) >= 1,
          }),
       images: Yup.array()
          .required()
          .test({
-            message: "images is a required field",
+            message: 'images is a required field',
             test: (value) => (value.length ? true : false),
          }),
    });
