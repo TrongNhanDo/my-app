@@ -55,7 +55,7 @@ export type CartItemType = {
 
 export type FormikBagProps = {
    userId: string;
-   fullname: string;
+   name: string;
    gender: string;
    phone: string;
    address: string;
@@ -74,7 +74,7 @@ export type OrderProductType = {
 
 export const FormikBagInitialValues = {
    userId: '',
-   fullname: '',
+   name: '',
    gender: 'female',
    phone: '',
    address: '',

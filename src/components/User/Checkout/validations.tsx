@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 
 export const validationSchema = (t: TFunction) => {
    const validate = Yup.object().shape({
-      fullname: Yup.string().required(t('user_error:required')),
+      name: Yup.string().required(t('user_error:required')),
       gender: Yup.string().required(t('user_error:required')),
       phone: Yup.string()
          .required(t('user_error:required'))

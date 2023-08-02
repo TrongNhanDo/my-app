@@ -7,6 +7,12 @@ import { CartItemType, FormikBagInitialValues, FormikBagProps } from './types';
 import { formatCurrency } from '../../Common/Logic/logics';
 import Loader from '../../Common/Loader/loader';
 import { validationSchema } from './validations';
+import {
+   paymentByCod,
+   paymentByMoMo,
+   paymentByTransfer,
+   paymentByVnPay,
+} from './payment';
 
 const CheckoutPage = React.memo(() => {
    const { t } = useTranslation(['user_checkout', 'user_error']);
@@ -44,9 +50,27 @@ const CheckoutPage = React.memo(() => {
       }
    }, [fetchApi, navigate, userId, shippingCost]);
 
-   const onSubmit = useCallback((formikValues: FormikBagProps) => {
-      // to do
-      console.log({ formikValues });
+   const onSubmit = useCallback(async (formikValues: FormikBagProps) => {
+      let result = false;
+      switch (formikValues.payment_method) {
+         case 'vnpay':
+            result = await paymentByVnPay(formikValues);
+            break;
+         case 'momo':
+            result = await paymentByMoMo(formikValues);
+            break;
+         case 'transfer':
+            result = await paymentByTransfer(formikValues);
+            break;
+         default:
+            result = await paymentByCod(formikValues);
+            break;
+      }
+      if (result) {
+         console.log('success');
+      } else {
+         console.log('fail');
+      }
    }, []);
 
    const formikBag = useFormik({
@@ -104,28 +128,26 @@ const CheckoutPage = React.memo(() => {
                   </div>
                   <div className="flex flex-col w-10/12">
                      <div className="w-full mb-3">
-                        <label htmlFor="fullname" className="block mb-2">
-                           {t('fullname')} (*):
+                        <label htmlFor="name" className="block mb-2">
+                           {t('name')} (*):
                         </label>
                         <input
-                           type="fullname"
-                           id="fullname"
+                           type="name"
+                           id="name"
                            className={`bg-gray-50 border border-gray-300 rounded-lg focus:border-yellow-500 block w-full px-3 py-2 ${
-                              formikBag.errors.fullname &&
-                              formikBag.touched.fullname
+                              formikBag.errors.name && formikBag.touched.name
                                  ? 'border-solid border-2 border-red-400'
                                  : ''
                            }`}
                            placeholder={t('fullname_placeholder')}
-                           value={formikBag.values.fullname}
+                           value={formikBag.values.name}
                            onChange={formikBag.handleChange}
                         />
-                        {formikBag.errors.fullname &&
-                           formikBag.touched.fullname && (
-                              <span className="text-red-600">
-                                 {formikBag.errors.fullname}
-                              </span>
-                           )}
+                        {formikBag.errors.name && formikBag.touched.name && (
+                           <span className="text-red-600">
+                              {formikBag.errors.name}
+                           </span>
+                        )}
                      </div>
                      <div className="w-full mb-3">
                         <label htmlFor="gender" className="block mb-2">
