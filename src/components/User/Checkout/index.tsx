@@ -80,6 +80,10 @@ const CheckoutPage = React.memo(() => {
                `productsList[${index}].price`,
                value.price || ''
             );
+            formikBag.setFieldValue(
+               `productsList[${index}].total`,
+               (Number(value.price || 0) * (value.amount || 0)).toString() || ''
+            );
          });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

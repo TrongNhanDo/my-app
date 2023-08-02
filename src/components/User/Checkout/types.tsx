@@ -69,6 +69,7 @@ export type OrderProductType = {
    productId: string;
    amount: string;
    price: string;
+   total: string;
 };
 
 export const FormikBagInitialValues = {
