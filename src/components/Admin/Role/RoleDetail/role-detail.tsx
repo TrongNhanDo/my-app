@@ -13,7 +13,12 @@ import {
 import { callApi } from '../../../../api/callApi/callApi';
 import Loader from '../../../Common/Loader/loader';
 import { ErrorMessages } from '../../../Common/ErrorMessage/error-message';
-import { formatDate, scrollTop } from '../../../Common/Logic/logics';
+import {
+   ToastTypeOptions,
+   formatDate,
+   scrollTop,
+   showToast,
+} from '../../../Common/Logic/logics';
 
 const RoleDetail = React.memo(() => {
    const { id } = useParams();
@@ -56,10 +61,10 @@ const RoleDetail = React.memo(() => {
             }).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
-               alert('Delete role success');
+               showToast('Delete role success', ToastTypeOptions.Success);
                navigate(-1);
             } else {
-               alert('Delete role fail');
+               showToast('Delete role fail', ToastTypeOptions.Error);
             }
          }
       },

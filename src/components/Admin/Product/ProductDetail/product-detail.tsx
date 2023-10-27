@@ -2,21 +2,11 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { callApi } from '../../../../api/callApi/callApi';
-import {
-   formatCurrency,
-   formatDate,
-   scrollTop,
-} from '../../../Common/Logic/logics';
+import * as Logics from '../../../Common/Logic/logics';
 import { checkChangeValue, validationSchema } from './validations';
 import Loader from '../../../Common/Loader/loader';
 import { ActionValues, AgeType, BranchType, SkillType } from '../common/types';
-import {
-   ActionReducerType,
-   FormikBagType,
-   StateReducerType,
-   initFormikValues,
-   initStateReducer,
-} from './types';
+import * as Types from './types';
 import { ErrorMessages } from '../../../Common/ErrorMessage/error-message';
 import { upLoadImage } from '../../../../api/callApi/callApiUpload';
 
@@ -29,7 +19,10 @@ const ProductDetail = React.memo(() => {
    const [images, setImages] = useState<File[]>();
    const [notChange, setNotChange] = useState<boolean>(false);
 
-   const reducer = (state: StateReducerType, action: ActionReducerType) => {
+   const reducer = (
+      state: Types.StateReducerType,
+      action: Types.ActionReducerType
+   ) => {
       const { type, payload } = action;
       switch (type) {
          case ActionValues.SELECTED_PRODUCT:
@@ -39,7 +32,7 @@ const ProductDetail = React.memo(() => {
       }
    };
 
-   const [viewData, dispatch] = useReducer(reducer, initStateReducer);
+   const [viewData, dispatch] = useReducer(reducer, Types.initStateReducer);
 
    const fetchApi = useCallback(async () => {
       const url = `products/${productId}`;
@@ -80,17 +73,23 @@ const ProductDetail = React.memo(() => {
             }).catch((err) => console.log({ err }));
             setShowLoader(false);
             if (response) {
-               alert('Delete account success');
+               Logics.showToast(
+                  'Delete account success',
+                  Logics.ToastTypeOptions.Success
+               );
                navigate(-1);
             } else {
-               alert('Delete account fail');
+               Logics.showToast(
+                  'Delete account fail',
+                  Logics.ToastTypeOptions.Error
+               );
             }
          }
       },
       [navigate]
    );
 
-   const onSubmit = async (formikValues: FormikBagType) => {
+   const onSubmit = async (formikValues: Types.FormikBagType) => {
       setMsg('');
       const isNotChange = checkChangeValue(formikValues, viewData.product);
       if (isNotChange) {
@@ -122,11 +121,11 @@ const ProductDetail = React.memo(() => {
             setMsg('Upload image fail');
          }
       }
-      scrollTop();
+      Logics.scrollTop();
    };
 
    const formikBag = useFormik({
-      initialValues: initFormikValues,
+      initialValues: Types.initFormikValues,
       validationSchema,
       onSubmit: (value) => onSubmit(value),
    });
@@ -469,7 +468,7 @@ const ProductDetail = React.memo(() => {
                               Price
                            </th>
                            <td className="px-6 py-4 text-base">
-                              {formatCurrency(
+                              {Logics.formatCurrency(
                                  viewData.product.price
                                     ? parseFloat(viewData.product.price)
                                     : 0
@@ -592,12 +591,12 @@ const ProductDetail = React.memo(() => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {viewData.product.createdAt
-                                 ? formatDate(viewData.product.createdAt)
+                                 ? Logics.formatDate(viewData.product.createdAt)
                                  : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {viewData.product.createdAt
-                                 ? formatDate(viewData.product.createdAt)
+                                 ? Logics.formatDate(viewData.product.createdAt)
                                  : ''}
                            </td>
                         </tr>
@@ -610,12 +609,12 @@ const ProductDetail = React.memo(() => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {viewData.product.updatedAt
-                                 ? formatDate(viewData.product.updatedAt)
+                                 ? Logics.formatDate(viewData.product.updatedAt)
                                  : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {viewData.product.updatedAt
-                                 ? formatDate(viewData.product.updatedAt)
+                                 ? Logics.formatDate(viewData.product.updatedAt)
                                  : ''}
                            </td>
                         </tr>

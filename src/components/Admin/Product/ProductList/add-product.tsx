@@ -7,7 +7,11 @@ import { validationSchema } from './validations';
 import Loader from '../../../Common/Loader/loader';
 import { FormikBagType, InitFormikValues, StateReducerType } from './types';
 import { upLoadImage } from '../../../../api/callApi/callApiUpload';
-import { scrollTop } from '../../../Common/Logic/logics';
+import {
+   ToastTypeOptions,
+   scrollTop,
+   showToast,
+} from '../../../Common/Logic/logics';
 
 const AddProduct = React.memo(() => {
    const navigate = useNavigate();
@@ -49,14 +53,14 @@ const AddProduct = React.memo(() => {
             .then(() => {
                setSuccess(true);
                setImages([]);
-               alert('Add product success');
+               showToast('Add product success', ToastTypeOptions.Success);
             })
             .catch((err) => {
                console.log({ err });
-               alert('Add product fail');
+               showToast('Add product fail', ToastTypeOptions.Error);
             });
       } else {
-         alert('Upload image fail');
+         showToast('Upload image fail', ToastTypeOptions.Error);
       }
       setShowLoader(false);
       scrollTop();

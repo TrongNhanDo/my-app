@@ -1,5 +1,7 @@
 import { useContext, useEffect, useMemo } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import LoginForm from './components/User/Account/Login/login-form';
 import RegisterFrom from './components/User/Account/Register/register-form';
@@ -184,6 +186,7 @@ function App() {
             <Route path="*" element={<PageNotFound />} />
          </Routes>
          <Footer />
+         <ToastContainer newestOnTop />
       </>
    );
 }

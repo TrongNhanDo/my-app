@@ -1,17 +1,12 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-   ActionReducerType,
-   FormikBagType,
-   InitStateReducerType,
-   StateReducerType,
-} from './types';
+import * as Types from './types';
 import { ActionValues } from '../Common/types';
 import { callApi } from '../../../../../api/callApi/callApi';
 import { useFormik } from 'formik';
 import { validationSchema } from './vadidations';
 import Loader from '../../../../Common/Loader/loader';
-import { formatDate, scrollTop } from '../../../../Common/Logic/logics';
+import * as Logics from '../../../../Common/Logic/logics';
 import { ErrorMessages } from '../../../../Common/ErrorMessage/error-message';
 
 const BranchCategoryDetail = React.memo(() => {
@@ -20,7 +15,10 @@ const BranchCategoryDetail = React.memo(() => {
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [msg, setMsg] = useState<string>('');
 
-   const reducer = (state: StateReducerType, action: ActionReducerType) => {
+   const reducer = (
+      state: Types.StateReducerType,
+      action: Types.ActionReducerType
+   ) => {
       const { type, payload } = action;
       switch (type) {
          case ActionValues.GET_BRANCH:
@@ -32,7 +30,7 @@ const BranchCategoryDetail = React.memo(() => {
       }
    };
 
-   const [data, dispatch] = useReducer(reducer, InitStateReducerType);
+   const [data, dispatch] = useReducer(reducer, Types.InitStateReducerType);
 
    const fetchApi = useCallback(async () => {
       const url = `branches/${id}`;
@@ -55,10 +53,16 @@ const BranchCategoryDetail = React.memo(() => {
             }).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
-               alert('Delete branch category success');
+               Logics.showToast(
+                  'Delete branch category success',
+                  Logics.ToastTypeOptions.Success
+               );
                navigate(-1);
             } else {
-               alert('Delete branch category fail');
+               Logics.showToast(
+                  'Delete branch category fail',
+                  Logics.ToastTypeOptions.Error
+               );
             }
          }
       },
@@ -66,7 +70,7 @@ const BranchCategoryDetail = React.memo(() => {
    );
 
    const onSubmit = useCallback(
-      async (formikValues: FormikBagType) => {
+      async (formikValues: Types.FormikBagType) => {
          setMsg('');
          if (
             formikValues.branchName &&
@@ -95,7 +99,7 @@ const BranchCategoryDetail = React.memo(() => {
                setMsg('Age Category Name already existed');
             }
          }
-         scrollTop();
+         Logics.scrollTop();
       },
       [data, fetchApi, id]
    );
@@ -208,12 +212,12 @@ const BranchCategoryDetail = React.memo(() => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {data.branch && data.branch.createdAt
-                                 ? formatDate(data.branch.createdAt)
+                                 ? Logics.formatDate(data.branch.createdAt)
                                  : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.branch && data.branch.createdAt
-                                 ? formatDate(data.branch.createdAt)
+                                 ? Logics.formatDate(data.branch.createdAt)
                                  : ''}
                            </td>
                         </tr>
@@ -226,12 +230,12 @@ const BranchCategoryDetail = React.memo(() => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {data.branch && data.branch.updatedAt
-                                 ? formatDate(data.branch.updatedAt)
+                                 ? Logics.formatDate(data.branch.updatedAt)
                                  : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.branch && data.branch.updatedAt
-                                 ? formatDate(data.branch.updatedAt)
+                                 ? Logics.formatDate(data.branch.updatedAt)
                                  : ''}
                            </td>
                         </tr>

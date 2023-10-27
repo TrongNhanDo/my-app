@@ -2,16 +2,11 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { callApi } from '../../../../../api/callApi/callApi';
-import { formatDate, scrollTop } from '../../../../Common/Logic/logics';
+import * as Logics from '../../../../Common/Logic/logics';
 import Loader from '../../../../Common/Loader/loader';
 import { validationSchema } from './validations';
 import { ActionValues } from '../Common/constants';
-import {
-   ActionReducerType,
-   FormikBagType,
-   InitStateReducerType,
-   StateReducerType,
-} from './types';
+import * as Types from './types';
 import { ErrorMessages } from '../../../../Common/ErrorMessage/error-message';
 
 const AgeCategoryDetail = React.memo(() => {
@@ -20,7 +15,10 @@ const AgeCategoryDetail = React.memo(() => {
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [msg, setMsg] = useState<string>('');
 
-   const reducer = (state: StateReducerType, action: ActionReducerType) => {
+   const reducer = (
+      state: Types.StateReducerType,
+      action: Types.ActionReducerType
+   ) => {
       const { type, payload } = action;
       switch (type) {
          case ActionValues.SELECTED_AGE:
@@ -32,7 +30,7 @@ const AgeCategoryDetail = React.memo(() => {
       }
    };
 
-   const [data, dispatch] = useReducer(reducer, InitStateReducerType);
+   const [data, dispatch] = useReducer(reducer, Types.InitStateReducerType);
 
    const fetchApi = useCallback(async () => {
       const url = `ages/${id}`;
@@ -55,17 +53,23 @@ const AgeCategoryDetail = React.memo(() => {
             }).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
-               alert('Delete age category success');
+               Logics.showToast(
+                  'Delete age category success',
+                  Logics.ToastTypeOptions.Success
+               );
                navigate(-1);
             } else {
-               alert('Delete age category fail');
+               Logics.showToast(
+                  'Delete age category fail',
+                  Logics.ToastTypeOptions.Error
+               );
             }
          }
       },
       [navigate]
    );
 
-   const onSubmit = async (formikValues: FormikBagType) => {
+   const onSubmit = async (formikValues: Types.FormikBagType) => {
       setMsg('');
       if (
          formikValues.ageName &&
@@ -90,7 +94,7 @@ const AgeCategoryDetail = React.memo(() => {
             fetchApi();
          }
       }
-      scrollTop();
+      Logics.scrollTop();
    };
 
    const formikBag = useFormik({
@@ -201,12 +205,12 @@ const AgeCategoryDetail = React.memo(() => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {data.age && data.age.createdAt
-                                 ? formatDate(data.age.createdAt)
+                                 ? Logics.formatDate(data.age.createdAt)
                                  : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.age && data.age.createdAt
-                                 ? formatDate(data.age.createdAt)
+                                 ? Logics.formatDate(data.age.createdAt)
                                  : ''}
                            </td>
                         </tr>
@@ -219,12 +223,12 @@ const AgeCategoryDetail = React.memo(() => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {data.age && data.age.updatedAt
-                                 ? formatDate(data.age.updatedAt)
+                                 ? Logics.formatDate(data.age.updatedAt)
                                  : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.age && data.age.updatedAt
-                                 ? formatDate(data.age.updatedAt)
+                                 ? Logics.formatDate(data.age.updatedAt)
                                  : ''}
                            </td>
                         </tr>

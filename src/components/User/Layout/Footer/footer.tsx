@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { checkIsAdmin } from '../../../Common/Logic/logics';
+import * as Logics from '../../../Common/Logic/logics';
 import { useFormik } from 'formik';
 import { validationSchema } from './validations';
 import { callApi } from '../../../../api/callApi/callApi';
@@ -17,7 +17,7 @@ const Footer = React.memo(() => {
    const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
    useEffect(() => {
-      setIsAdmin(checkIsAdmin(currentPathname));
+      setIsAdmin(Logics.checkIsAdmin(currentPathname));
    }, [currentPathname]);
 
    const onSubmit = useCallback(async (formikValues: FormikBagProps) => {
@@ -26,18 +26,22 @@ const Footer = React.memo(() => {
             email: formikValues.email,
          }).catch((err) => {
             setIsSuccess(false);
-            alert(
+            Logics.showToast(
                err &&
                   err.response &&
                   err.response.data &&
                   err.response.data.message
                   ? err.response.data.message
-                  : ''
+                  : '',
+               Logics.ToastTypeOptions.Error
             );
          });
          if (response) {
             setIsSuccess(true);
-            alert('You have successfully registered!');
+            Logics.showToast(
+               'You have successfully registered!',
+               Logics.ToastTypeOptions.Success
+            );
          }
       } catch (error) {
          console.log({ error });

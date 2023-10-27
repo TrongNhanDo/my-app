@@ -1,4 +1,5 @@
 import { Currency } from 'react-tender';
+import { ToastPosition, TypeOptions, toast } from 'react-toastify';
 import { format } from 'date-fns';
 
 export const formatDate = (inputDate: string) => {
@@ -55,4 +56,40 @@ export const renderStar = (rate: number) => {
       );
    }
    return stars;
+};
+
+export enum ToastTypeOptions {
+   Info = 'info',
+   Success = 'success',
+   Warning = 'warning',
+   Error = 'error',
+}
+
+export enum ToastPositionOptions {
+   TopRight = 'top-right',
+   TopCenter = 'top-center',
+   TopLeft = 'top-left',
+   BotRight = 'bottom-right',
+   BotCenter = 'bottom-center',
+   BotLeft = 'bottom-left',
+}
+
+export const showToast = (
+   message?: string,
+   type?: TypeOptions,
+   position?: ToastPosition
+) => {
+   if (!message) return;
+   return toast(message, {
+      position: position ? position : 'top-right',
+      type: type ? type : 'default',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+      pauseOnFocusLoss: false,
+   });
 };

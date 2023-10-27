@@ -2,13 +2,8 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { callApi } from '../../../../api/callApi/callApi';
-import {
-   ActionTypes,
-   FormikPropType,
-   RoleType,
-   UserType,
-} from '../common/types';
-import { formatDate, scrollTop } from '../../../Common/Logic/logics';
+import * as CommonTypes from '../common/types';
+import * as Logics from '../../../Common/Logic/logics';
 import Loader from '../../../Common/Loader/loader';
 import { checkChangeValues, validationSchema } from './validations';
 import {
@@ -27,7 +22,7 @@ const UserDetail = React.memo(() => {
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
-         case ActionTypes.SELECTED_USER:
+         case CommonTypes.ActionTypes.SELECTED_USER:
             return {
                user: payload?.user,
                roles: payload?.roles,
@@ -48,7 +43,7 @@ const UserDetail = React.memo(() => {
          console.log({ err })
       );
       dispatch({
-         type: ActionTypes.SELECTED_USER,
+         type: CommonTypes.ActionTypes.SELECTED_USER,
          payload: {
             user: response.data || [],
             roles: fetchRole.data || [],
@@ -66,21 +61,27 @@ const UserDetail = React.memo(() => {
             }).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
-               alert('Delete account success');
+               Logics.showToast(
+                  'Delete account success',
+                  Logics.ToastTypeOptions.Success
+               );
                navigate(-1);
             } else {
-               alert('Delete account fail');
+               Logics.showToast(
+                  'Delete account fail',
+                  Logics.ToastTypeOptions.Error
+               );
             }
          }
       },
       [navigate]
    );
 
-   const onSubmit = async (formikValues: FormikPropType) => {
+   const onSubmit = async (formikValues: CommonTypes.FormikPropType) => {
       setMsg('');
       const isNotChange = checkChangeValues(
          formikValues,
-         data.user as UserType
+         data.user as CommonTypes.UserType
       );
       if (isNotChange) {
          setMsg('There must be at least one data change');
@@ -99,7 +100,7 @@ const UserDetail = React.memo(() => {
          }
          setIsLoading(false);
       }
-      scrollTop();
+      Logics.scrollTop();
    };
 
    const formikBag = useFormik({
@@ -215,7 +216,10 @@ const UserDetail = React.memo(() => {
                               >
                                  {data.roles &&
                                     data.roles.map(
-                                       (value: RoleType, index: number) => (
+                                       (
+                                          value: CommonTypes.RoleType,
+                                          index: number
+                                       ) => (
                                           <option
                                              key={index}
                                              value={value.roleId}
@@ -260,12 +264,12 @@ const UserDetail = React.memo(() => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {data.user && data.user.createdAt
-                                 ? formatDate(data.user.createdAt)
+                                 ? Logics.formatDate(data.user.createdAt)
                                  : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.user && data.user.createdAt
-                                 ? formatDate(data.user.createdAt)
+                                 ? Logics.formatDate(data.user.createdAt)
                                  : ''}
                            </td>
                         </tr>
@@ -278,12 +282,12 @@ const UserDetail = React.memo(() => {
                            </th>
                            <td className="px-6 py-4 text-base">
                               {data.user && data.user.updatedAt
-                                 ? formatDate(data.user.updatedAt)
+                                 ? Logics.formatDate(data.user.updatedAt)
                                  : ''}
                            </td>
                            <td className="px-6 py-4 text-base">
                               {data.user && data.user.updatedAt
-                                 ? formatDate(data.user.updatedAt)
+                                 ? Logics.formatDate(data.user.updatedAt)
                                  : ''}
                            </td>
                         </tr>

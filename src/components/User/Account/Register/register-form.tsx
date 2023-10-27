@@ -6,6 +6,7 @@ import { validationSchema } from './validations';
 import { FormikValueType, initValueFormik } from './types';
 import Loader from '../../../Common/Loader/loader';
 import { useTranslation } from 'react-i18next';
+import { ToastTypeOptions, showToast } from '../../../Common/Logic/logics';
 
 const LoginForm = React.memo(() => {
    const { t } = useTranslation(['user_register', 'user_error']);
@@ -28,18 +29,19 @@ const LoginForm = React.memo(() => {
             };
             const response = await callApi('users', 'post', payload).catch(
                (err) =>
-                  alert(
+                  showToast(
                      err &&
                         err.response &&
                         err.response.data &&
                         err.response.data.message
                         ? err.response.data.message
-                        : ''
+                        : '',
+                     ToastTypeOptions.Error
                   )
             );
             setShowLoading(false);
             if (response) {
-               alert('Register success');
+               showToast('Register successfully');
                navigate('/login');
             }
          } catch (error) {

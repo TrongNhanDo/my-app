@@ -15,7 +15,11 @@ import {
    ProductType,
    SkillType,
 } from '../common/types';
-import { formatDate } from '../../../Common/Logic/logics';
+import {
+   ToastTypeOptions,
+   formatDate,
+   showToast,
+} from '../../../Common/Logic/logics';
 import { callApi } from '../../../../api/callApi/callApi';
 import {
    ActionReducerType,
@@ -145,14 +149,14 @@ const ProductList = React.memo(() => {
             .then(() => {
                setSuccess(true);
                setImages([]);
-               alert('Add product success');
+               showToast('Add product success', ToastTypeOptions.Success);
             })
             .catch((err) => {
                console.log({ err });
-               alert('Add product fail');
+               showToast('Add product fail', ToastTypeOptions.Error);
             });
       } else {
-         alert('Upload image fail');
+         showToast('Upload image fail', ToastTypeOptions.Error);
       }
       setShowLoader(false);
    }, []);
