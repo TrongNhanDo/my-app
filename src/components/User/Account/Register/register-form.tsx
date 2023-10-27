@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { callApi } from '../../../../api/callApi/callApi';
 import { validationSchema } from './validations';
 import { FormikValueType, initValueFormik } from './types';
@@ -10,46 +10,47 @@ import { ToastTypeOptions, showToast } from '../../../Common/Logic/logics';
 
 const LoginForm = React.memo(() => {
    const { t } = useTranslation(['user_register', 'user_error']);
-   const navigate = useNavigate();
    const [showLoading, setShowLoading] = useState<boolean>(false);
    const [checkPass, setCheckPass] = useState<boolean>(false);
+   const [isRegisterFail, setIsRegisterFail] = useState<boolean>(false);
+   const [isRegisterSuccess, setIsRegisterSuccess] = useState<boolean>(false);
 
-   const onSubmit = useCallback(
-      async (formikValues: FormikValueType) => {
-         try {
-            if (formikValues.password !== formikValues.confirmPwd) {
-               setCheckPass(true);
-               return;
-            }
-            setShowLoading(true);
-            const payload = {
-               username: formikValues.email || '',
-               password: formikValues.password || '',
-               roleId: 1,
-            };
-            const response = await callApi('users', 'post', payload).catch(
-               (err) =>
-                  showToast(
-                     err &&
-                        err.response &&
-                        err.response.data &&
-                        err.response.data.message
-                        ? err.response.data.message
-                        : '',
-                     ToastTypeOptions.Error
-                  )
-            );
-            setShowLoading(false);
-            if (response) {
-               showToast('Register successfully', ToastTypeOptions.Success);
-               navigate('/login');
-            }
-         } catch (error) {
-            console.log({ error });
+   const onSubmit = useCallback(async (formikValues: FormikValueType) => {
+      try {
+         if (formikValues.password !== formikValues.confirmPwd) {
+            setCheckPass(true);
+            return;
          }
-      },
-      [navigate]
-   );
+         setShowLoading(true);
+         const payload = {
+            username: formikValues.email || '',
+            password: formikValues.password || '',
+            roleId: 1,
+         };
+         await callApi('users', 'post', payload)
+            .then(() => {
+               setIsRegisterFail(false);
+               setIsRegisterSuccess(true);
+               showToast('Register successfully', ToastTypeOptions.Success);
+            })
+            .catch((err) => {
+               setIsRegisterFail(true);
+               setIsRegisterSuccess(false);
+               showToast(
+                  err &&
+                     err.response &&
+                     err.response.data &&
+                     err.response.data.message
+                     ? err.response.data.message
+                     : '',
+                  ToastTypeOptions.Error
+               );
+            });
+         setShowLoading(false);
+      } catch (error) {
+         console.log({ error });
+      }
+   }, []);
 
    const formikBag = useFormik({
       initialValues: initValueFormik,
@@ -67,6 +68,21 @@ const LoginForm = React.memo(() => {
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [checkPass]);
+
+   useEffect(() => {
+      if (isRegisterFail) {
+         formikBag.setFieldValue('password', '', false);
+         formikBag.setFieldValue('confirmPwd', '', false);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [isRegisterFail]);
+
+   useEffect(() => {
+      if (isRegisterSuccess) {
+         formikBag.resetForm();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [isRegisterSuccess]);
 
    return (
       <div className="div-contai w-1/3 bg-white shadow">
