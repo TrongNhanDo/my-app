@@ -41,7 +41,7 @@ const LoginForm = React.memo(() => {
             );
             setShowLoading(false);
             if (response) {
-               showToast('Register successfully');
+               showToast('Register successfully', ToastTypeOptions.Success);
                navigate('/login');
             }
          } catch (error) {
