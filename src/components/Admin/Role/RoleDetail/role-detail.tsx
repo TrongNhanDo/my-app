@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as ReactSimpleDialogs from 'react-simple-dialogs';
+// import * as ReactSimpleDialogs from 'react-simple-dialogs';
 import { validationSchema } from './validations';
 import * as Constants from '../Common/constants';
 import {
