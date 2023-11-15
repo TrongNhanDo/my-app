@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { validationSchema } from './validations';
-import { ActionValues } from '../Common/constants';
+import * as Constants from '../Common/constants';
 import {
    ActionReducerType,
    FormikBagType,
@@ -26,10 +26,16 @@ const RoleDetail = React.memo(() => {
    const [isLoading, setIsLoading] = useState<boolean>(true);
    const [msg, setMsg] = useState<string>('');
 
+   useEffect(() => {
+      if (!id) {
+         navigate(-1);
+      }
+   }, [id, navigate]);
+
    const reducer = (state: StateReducerType, action: ActionReducerType) => {
       const { type, payload } = action;
       switch (type) {
-         case ActionValues.SELECTED_ROLE:
+         case Constants.ActionValues.SELECTED_ROLE:
             return {
                role: payload,
             };
@@ -42,34 +48,32 @@ const RoleDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `roles/${id}`;
-      const response = await callApi(url, 'get').catch((err) =>
-         console.log({ err })
-      );
+      const response = await callApi(url, 'get').catch(() => {
+         navigate(Constants.BasePath.ROLE_LIST);
+      });
       dispatch({
-         type: ActionValues.SELECTED_ROLE,
+         type: Constants.ActionValues.SELECTED_ROLE,
          payload: response.data || [],
       });
       setIsLoading(false);
-   }, [id]);
+   }, [id, navigate]);
 
-   const deleteAge = useCallback(
-      async (id: string) => {
-         if (confirm('Are you sure you want to delete this age category?')) {
-            setIsLoading(true);
-            const response = await callApi('roles', 'delete', {
-               id: id,
-            }).catch((err) => console.log({ err }));
-            setIsLoading(false);
-            if (response) {
-               showToast('Delete role success', ToastTypeOptions.Success);
-               navigate(-1);
-            } else {
-               showToast('Delete role fail', ToastTypeOptions.Error);
-            }
+   const deleteAge = useCallback(async () => {
+      if (confirm('Are you sure you want to delete this role?')) {
+         setIsLoading(true);
+         const response = await callApi('roles', 'delete', { id }).catch(
+            (err) => console.log({ err })
+         );
+         setIsLoading(false);
+         if (response) {
+            await showToast('Delete role success', ToastTypeOptions.Success);
+         } else {
+            showToast('Delete role fail', ToastTypeOptions.Error);
          }
-      },
-      [navigate]
-   );
+      } else {
+         return;
+      }
+   }, [id]);
 
    const onSubmit = async (formikValues: FormikBagType) => {
       setMsg('');
@@ -92,7 +96,7 @@ const RoleDetail = React.memo(() => {
          // close loader when updated information
          setIsLoading(false);
          if (response) {
-            setMsg('Update role success');
+            showToast('Update successfully', ToastTypeOptions.Success);
             fetchApi();
          }
       }
@@ -219,7 +223,7 @@ const RoleDetail = React.memo(() => {
                               scope="row"
                               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                            >
-                              Updated At
+                              Updated Date
                            </th>
                            <td className="px-6 py-4 text-base">
                               {data.role && data.role.updatedAt
@@ -248,7 +252,7 @@ const RoleDetail = React.memo(() => {
                   <button
                      type="button"
                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 ms-10 px-20"
-                     onClick={() => deleteAge(data.role ? data.role._id : '')}
+                     onClick={deleteAge}
                   >
                      Delete
                   </button>

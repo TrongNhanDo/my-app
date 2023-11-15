@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { callApi } from '../../../api/callApi/callApi';
@@ -119,7 +119,7 @@ const AdminLogin = React.memo(() => {
                      </span>
                   )}
                </div>
-               <div className="flex items-center justify-between">
+               {/* <div className="flex items-center justify-between">
                   <div className="flex items-start">
                      <div className="flex items-center h-5">
                         <input
@@ -141,19 +141,19 @@ const AdminLogin = React.memo(() => {
                   >
                      {t('forget_password')}
                   </Link>
-               </div>
+               </div> */}
                <button
                   type="submit"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-full"
                >
                   {t('submit')}
                </button>
-               <p className="text-sm font-light text-gray-500">
+               {/* <p className="text-sm font-light text-gray-500">
                   {t('text1')}{' '}
                   <Link to="/register" className="font-medium underline">
                      {t('register')}
                   </Link>
-               </p>
+               </p> */}
             </form>
          </div>
       </div>

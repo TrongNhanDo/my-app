@@ -77,13 +77,14 @@ export enum ToastPositionOptions {
 export const showToast = (
    message?: string,
    type?: TypeOptions,
-   position?: ToastPosition
+   position?: ToastPosition,
+   closeTime?: number
 ) => {
    if (!message) return;
    return toast(message, {
       position: position ? position : 'top-right',
       type: type ? type : 'default',
-      autoClose: 3000,
+      autoClose: closeTime || 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

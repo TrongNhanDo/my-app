@@ -11,7 +11,7 @@ import { InitReducer, InputActionType, RoleType } from '../Common/types';
 import { ActionValues } from '../Common/constants';
 import { callApi } from '../../../../api/callApi/callApi';
 import Loader from '../../../Common/Loader/loader';
-import { formatDate } from '../../../Common/Logic/logics';
+import * as CommonLogics from '../../../Common/Logic/logics';
 import { Input } from '../../../Common/Input/input';
 import { FormikBagType, InitFormikBag } from './types';
 import { validationSchema } from './validations';
@@ -100,8 +100,11 @@ const RoleList = React.memo(() => {
          };
          await callApi('roles', 'post', requestPayload)
             .then(() => {
-               setError('Insert new role success');
                setSuccess(true);
+               CommonLogics.showToast(
+                  'Insert new role success',
+                  CommonLogics.ToastTypeOptions.Success
+               );
             })
             .catch((err) => {
                setError(err.response.data.message);
@@ -138,6 +141,7 @@ const RoleList = React.memo(() => {
 
    useEffect(() => {
       if (success) {
+         handleClose();
          formikBag.resetForm();
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -294,10 +298,10 @@ const RoleList = React.memo(() => {
                                  {value.roleName || ''}
                               </td>
                               <td className="px-6 py-4">
-                                 {formatDate(value.createdAt)}
+                                 {CommonLogics.formatDate(value.createdAt)}
                               </td>
                               <td className="px-6 py-4">
-                                 {formatDate(value.updatedAt)}
+                                 {CommonLogics.formatDate(value.updatedAt)}
                               </td>
                               <td className="px-6 py-4 text-right">
                                  <Link

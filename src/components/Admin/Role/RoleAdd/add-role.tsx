@@ -6,7 +6,7 @@ import { validationSchema } from './validations';
 import { callApi } from '../../../../api/callApi/callApi';
 import Loader from '../../../Common/Loader/loader';
 import { Input } from '../../../Common/Input/input';
-import { scrollTop } from '../../../Common/Logic/logics';
+import * as CommonLogics from '../../../Common/Logic/logics';
 
 const AddRole = React.memo(() => {
    const navigate = useNavigate();
@@ -23,14 +23,17 @@ const AddRole = React.memo(() => {
       };
       await callApi('roles', 'post', requestPayload)
          .then(() => {
-            setError('Insert new role success');
+            CommonLogics.showToast(
+               'Insert new role success',
+               CommonLogics.ToastTypeOptions.Success
+            );
             setSuccess(true);
          })
          .catch((err) => {
             setError(err.response.data.message);
          });
       setShowLoading(false);
-      scrollTop();
+      CommonLogics.scrollTop();
    }, []);
 
    const formikBag = useFormik({
