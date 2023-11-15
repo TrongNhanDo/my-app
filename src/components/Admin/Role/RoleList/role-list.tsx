@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
+import * as ReactSimpleDialogs from 'react-simple-dialogs';
 import { InitReducer, InputActionType, RoleType } from '../Common/types';
 import { ActionValues } from '../Common/constants';
 import { callApi } from '../../../../api/callApi/callApi';
@@ -115,6 +116,36 @@ const RoleList = React.memo(() => {
       [fetchApi]
    );
 
+   const deleteRole = useCallback(
+      async (roleId: string) => {
+         if (
+            await ReactSimpleDialogs.simpleConfirm(
+               'Are you sure you want to delete this role?'
+            )
+         ) {
+            setShowLoader(true);
+            const response = await callApi('roles', 'delete', {
+               id: roleId,
+            }).catch((err) => console.log({ err }));
+            setShowLoader(false);
+            if (response) {
+               CommonLogics.showToast(
+                  'Delete role success',
+                  CommonLogics.ToastTypeOptions.Success
+               );
+               await fetchApi();
+               setShowLoader(false);
+            } else {
+               CommonLogics.showToast(
+                  'Delete role fail',
+                  CommonLogics.ToastTypeOptions.Error
+               );
+            }
+         }
+      },
+      [fetchApi]
+   );
+
    const formikBag = useFormik({
       initialValues: InitFormikBag,
       validationSchema,
@@ -162,6 +193,7 @@ const RoleList = React.memo(() => {
    return (
       <div className="div-contai mb-10">
          {showLoader && <Loader />}
+         <ReactSimpleDialogs.SimpleDialogContainer />
          <div>
             <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10 mb-5">
                LIST OF AGE CATEGORIES
@@ -277,9 +309,7 @@ const RoleList = React.memo(() => {
                         <th scope="col" className="px-6 py-3">
                            updated at
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                           <span className="sr-only">Edit</span>
-                        </th>
+                        <th scope="col" colSpan={2} className="px-6 py-3"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -310,6 +340,14 @@ const RoleList = React.memo(() => {
                                  >
                                     Detail
                                  </Link>
+                              </td>
+                              <td className="px-6 py-4 text-right">
+                                 <button
+                                    onClick={() => deleteRole(value._id)}
+                                    className="font-medium text-red-600 hover:underline"
+                                 >
+                                    Delete
+                                 </button>
                               </td>
                            </tr>
                         ))}

@@ -173,7 +173,7 @@ const UserDetail = React.memo(() => {
                                  type="email"
                                  id="username"
                                  name="username"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black ${
+                                 className={`bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black ${
                                     formikBag.errors.username &&
                                     formikBag.touched.username
                                        ? 'bg-yellow'
@@ -205,7 +205,7 @@ const UserDetail = React.memo(() => {
                            <td className="px-6 py-4">
                               <select
                                  id="roleId"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black text-base ${
+                                 className={`bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black text-base ${
                                     formikBag.errors.roleId &&
                                     formikBag.touched.roleId
                                        ? 'bg-yellow'

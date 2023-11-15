@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
+import * as ReactSimpleDialogs from 'react-simple-dialogs';
 import { validationSchema } from './validations';
 import * as Constants from '../Common/constants';
 import {
@@ -58,22 +59,24 @@ const RoleDetail = React.memo(() => {
       setIsLoading(false);
    }, [id, navigate]);
 
-   const deleteAge = useCallback(async () => {
-      if (confirm('Are you sure you want to delete this role?')) {
-         setIsLoading(true);
-         const response = await callApi('roles', 'delete', { id }).catch(
-            (err) => console.log({ err })
-         );
-         setIsLoading(false);
-         if (response) {
-            await showToast('Delete role success', ToastTypeOptions.Success);
-         } else {
-            showToast('Delete role fail', ToastTypeOptions.Error);
-         }
-      } else {
-         return;
-      }
-   }, [id]);
+   // const deleteAge = useCallback(async () => {
+   //    if (
+   //       await ReactSimpleDialogs.simpleConfirm(
+   //          'Are you sure you want to delete this role?'
+   //       )
+   //    ) {
+   //       setIsLoading(true);
+   //       const response = await callApi('roles', 'delete', { id }).catch(
+   //          (err) => console.log({ err })
+   //       );
+   //       setIsLoading(false);
+   //       if (response) {
+   //          showToast('Delete role success', ToastTypeOptions.Success);
+   //       } else {
+   //          showToast('Delete role fail', ToastTypeOptions.Error);
+   //       }
+   //    }
+   // }, [id]);
 
    const onSubmit = async (formikValues: FormikBagType) => {
       setMsg('');
@@ -132,6 +135,7 @@ const RoleDetail = React.memo(() => {
    return (
       <div>
          {isLoading && <Loader />}
+         {/* <ReactSimpleDialogs.SimpleDialogContainer /> */}
          <div className="div-contai mt-10">
             <h2 className="text-4xl font-extrabold text-current my-3 text-center mt-10">
                ROLE DETAIL
@@ -183,7 +187,7 @@ const RoleDetail = React.memo(() => {
                                  type="text"
                                  id="roleName"
                                  name="roleName"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.roleName &&
                                     formikBag.touched.roleName
                                        ? 'bg-yellow'
@@ -249,13 +253,13 @@ const RoleDetail = React.memo(() => {
                   >
                      Update
                   </button>
-                  <button
+                  {/* <button
                      type="button"
                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 ms-10 px-20"
                      onClick={deleteAge}
                   >
                      Delete
-                  </button>
+                  </button> */}
                   <button
                      type="button"
                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 mr-2 mb-2 focus:outline-none px-20 ms-10"
