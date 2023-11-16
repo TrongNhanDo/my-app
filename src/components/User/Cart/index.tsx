@@ -8,9 +8,12 @@ import React, {
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { callApi } from '../../../api/callApi/callApi';
 import { CartItemType, FormikInitValues, FormikProps } from './types';
-import { formatCurrency } from '../../Common/Logic/logics';
+import {
+   MethodProps,
+   callApi,
+   formatCurrency,
+} from '../../Common/Logic/logics';
 import Loader from '../../Common/Loader/loader';
 import { validationSchema } from './validations';
 import { SumProductContext } from '../../../context/SumProductContext';
@@ -38,7 +41,7 @@ const CartList = React.memo(() => {
    const fetchApi = useCallback(async () => {
       setLoading(true);
       setIsChangeForm(false);
-      const response = await callApi('carts/get-by-userId', 'post', {
+      const response = await callApi('carts/get-by-userId', MethodProps.POST, {
          userId: currentUserId,
       }).catch((err) => console.log({ err }));
 
@@ -53,8 +56,8 @@ const CartList = React.memo(() => {
       async (cartId: string) => {
          try {
             setLoading(true);
-            await callApi('carts', 'delete', { id: cartId }).catch((err) =>
-               console.log({ err })
+            await callApi('carts', MethodProps.DELETE, { id: cartId }).catch(
+               (err) => console.log({ err })
             );
             setLoading(false);
             fetchApi();
@@ -69,9 +72,11 @@ const CartList = React.memo(() => {
       async (formikValues: FormikProps) => {
          setLoading(true);
          if (eventId === 'update') {
-            await callApi('carts/update-cart/', 'post', formikValues).catch(
-               (err) => console.log({ err })
-            );
+            await callApi(
+               'carts/update-cart/',
+               MethodProps.POST,
+               formikValues
+            ).catch((err) => console.log({ err }));
             setLoading(false);
             fetchApi();
          } else if (eventId === 'checkout') {
@@ -156,16 +161,16 @@ const CartList = React.memo(() => {
                      <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/6">
                         {t('header1')}
                      </h3>
-                     <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
+                     <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/6 text-center">
                         {t('header2')}
                      </h3>
-                     <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
+                     <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/6 text-center">
                         {t('header3')}
                      </h3>
-                     <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
+                     <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/6 text-center">
                         {t('header4')}
                      </h3>
-                     <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/6 text-center">
+                     <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/6 text-center">
                         {t('header5')}
                      </h3>
                   </div>

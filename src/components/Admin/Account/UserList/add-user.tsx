@@ -4,9 +4,8 @@ import { useFormik } from 'formik';
 import { validationSchema } from './validations';
 import { InputInsertType, RoleType } from '../common/types';
 import { Input } from '../../../Common/Input/input';
-import { callApi } from '../../../../api/callApi/callApi';
 import Loader from '../../../Common/Loader/loader';
-import { scrollTop } from '../../../Common/Logic/logics';
+import { scrollTop, callApi, MethodProps } from '../../../Common/Logic/logics';
 
 const AddNewUser = React.memo(() => {
    const navigate = useNavigate();
@@ -23,7 +22,7 @@ const AddNewUser = React.memo(() => {
    };
 
    const fetchRole = async () => {
-      const response = await callApi('roles', 'get').catch((err) =>
+      const response = await callApi('roles', MethodProps.GET).catch((err) =>
          console.log({ err })
       );
       setRoleValues(response.data ? response.data : []);
@@ -48,7 +47,7 @@ const AddNewUser = React.memo(() => {
             username: formikValues.username.trim(),
             password: formikValues.password.trim(),
          };
-         await callApi('users', 'post', requestPayload)
+         await callApi('users', MethodProps.POST, requestPayload)
             .then(() => {
                setError('Insert new account success');
                setSuccess(true);
@@ -158,7 +157,7 @@ const AddNewUser = React.memo(() => {
                   <select
                      id="roleId"
                      name="roleId"
-                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base"
+                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base"
                      onChange={formikBag.handleChange}
                      value={formikBag.values.roleId}
                   >

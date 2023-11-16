@@ -6,8 +6,8 @@ import React, {
    useMemo,
    useState,
 } from 'react';
-import { callApi } from '../api/callApi/callApi';
 import { CartItemType } from '../components/User/Cart/types';
+import { MethodProps, callApi } from '../components/Common/Logic/logics';
 
 type ContextProps = {
    sumProduct: number;
@@ -62,9 +62,13 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
 
    const fetchApi = useCallback(async () => {
       if (userId) {
-         const response = await callApi('carts/get-by-userId', 'post', {
-            userId: userId,
-         }).catch((err) => console.log({ err }));
+         const response = await callApi(
+            'carts/get-by-userId',
+            MethodProps.POST,
+            {
+               userId: userId,
+            }
+         ).catch((err) => console.log({ err }));
 
          const data: CartItemType[] = response.data;
          if (data) {

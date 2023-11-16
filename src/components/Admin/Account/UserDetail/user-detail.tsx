@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { callApi } from '../../../../api/callApi/callApi';
 import * as CommonTypes from '../common/types';
 import * as Logics from '../../../Common/Logic/logics';
 import Loader from '../../../Common/Loader/loader';
@@ -36,12 +35,13 @@ const UserDetail = React.memo(() => {
 
    const fetchApi = async () => {
       const url = `users/${userId}`;
-      const response = await callApi(url, 'get').catch((err) =>
-         console.log({ err })
+      const response = await Logics.callApi(url, Logics.MethodProps.GET).catch(
+         (err) => console.log({ err })
       );
-      const fetchRole = await callApi('roles', 'get').catch((err) =>
-         console.log({ err })
-      );
+      const fetchRole = await Logics.callApi(
+         'roles',
+         Logics.MethodProps.GET
+      ).catch((err) => console.log({ err }));
       dispatch({
          type: CommonTypes.ActionTypes.SELECTED_USER,
          payload: {
@@ -56,9 +56,13 @@ const UserDetail = React.memo(() => {
       async (userId: string) => {
          if (confirm('Are you sure you want to delete this account?')) {
             setIsLoading(true);
-            const response = await callApi('users', 'delete', {
-               id: userId,
-            }).catch((err) => console.log({ err }));
+            const response = await Logics.callApi(
+               'users',
+               Logics.MethodProps.DELETE,
+               {
+                  id: userId,
+               }
+            ).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
                Logics.showToast(
@@ -91,9 +95,11 @@ const UserDetail = React.memo(() => {
             ...formikValues,
             id: userId,
          };
-         const response = await callApi('users', 'patch', requestPayload).catch(
-            (err) => setMsg(err.response.data.message || '')
-         );
+         const response = await Logics.callApi(
+            'users',
+            Logics.MethodProps.PATCH,
+            requestPayload
+         ).catch((err) => setMsg(err.response.data.message || ''));
          if (response) {
             setMsg('Update account success');
             fetchApi();

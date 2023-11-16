@@ -11,11 +11,12 @@ import {
    InitStateReducerType,
    StateReducerType,
 } from './types';
-import { callApi } from '../../../../api/callApi/callApi';
 import Loader from '../../../Common/Loader/loader';
 import { ErrorMessages } from '../../../Common/ErrorMessage/error-message';
 import {
+   MethodProps,
    ToastTypeOptions,
+   callApi,
    formatDate,
    scrollTop,
    showToast,
@@ -49,7 +50,7 @@ const RoleDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `roles/${id}`;
-      const response = await callApi(url, 'get').catch(() => {
+      const response = await callApi(url, MethodProps.GET).catch(() => {
          navigate(Constants.BasePath.ROLE_LIST);
       });
       dispatch({
@@ -93,9 +94,11 @@ const RoleDetail = React.memo(() => {
             ...formikValues,
             id: id,
          };
-         const response = await callApi('roles', 'patch', requestPayload).catch(
-            (err) => setMsg(err.response.data.message || '')
-         );
+         const response = await callApi(
+            'roles',
+            MethodProps.PATCH,
+            requestPayload
+         ).catch((err) => setMsg(err.response.data.message || ''));
          // close loader when updated information
          setIsLoading(false);
          if (response) {

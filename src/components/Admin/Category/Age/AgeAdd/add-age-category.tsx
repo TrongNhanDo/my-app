@@ -5,8 +5,11 @@ import { FormikBagType, InitFormikBag } from './types';
 import { Input } from '../../../../Common/Input/input';
 import { useNavigate } from 'react-router-dom';
 import { validationSchema } from './validations';
-import { callApi } from '../../../../../api/callApi/callApi';
-import { scrollTop } from '../../../../Common/Logic/logics';
+import {
+   scrollTop,
+   callApi,
+   MethodProps,
+} from '../../../../Common/Logic/logics';
 
 const AddAgeCategory = React.memo(() => {
    const navigate = useNavigate();
@@ -21,7 +24,7 @@ const AddAgeCategory = React.memo(() => {
          ageId: formikValues.ageId,
          ageName: formikValues.ageName.trim(),
       };
-      await callApi('ages', 'post', requestPayload)
+      await callApi('ages', MethodProps.POST, requestPayload)
          .then(() => {
             setError('Insert new age category success');
             setSuccess(true);

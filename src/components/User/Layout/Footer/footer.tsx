@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import * as Logics from '../../../Common/Logic/logics';
 import { useFormik } from 'formik';
 import { validationSchema } from './validations';
-import { callApi } from '../../../../api/callApi/callApi';
 
 type FormikBagProps = {
    email: string;
@@ -22,9 +21,13 @@ const Footer = React.memo(() => {
 
    const onSubmit = useCallback(async (formikValues: FormikBagProps) => {
       try {
-         const response = await callApi('mails', 'post', {
-            email: formikValues.email,
-         }).catch((err) => {
+         const response = await Logics.callApi(
+            'mails',
+            Logics.MethodProps.POST,
+            {
+               email: formikValues.email,
+            }
+         ).catch((err) => {
             setIsSuccess(false);
             Logics.showToast(
                err &&

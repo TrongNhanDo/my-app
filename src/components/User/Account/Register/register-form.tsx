@@ -1,12 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
-import { callApi } from '../../../../api/callApi/callApi';
 import { validationSchema } from './validations';
 import { FormikValueType, initValueFormik } from './types';
 import Loader from '../../../Common/Loader/loader';
 import { useTranslation } from 'react-i18next';
-import { ToastTypeOptions, showToast } from '../../../Common/Logic/logics';
+import {
+   MethodProps,
+   ToastTypeOptions,
+   callApi,
+   showToast,
+} from '../../../Common/Logic/logics';
 
 const LoginForm = React.memo(() => {
    const { t } = useTranslation(['user_register', 'user_error']);
@@ -27,7 +31,7 @@ const LoginForm = React.memo(() => {
             password: formikValues.password || '',
             roleId: 1,
          };
-         await callApi('users', 'post', payload)
+         await callApi('users', MethodProps.POST, payload)
             .then(() => {
                setIsRegisterFail(false);
                setIsRegisterSuccess(true);

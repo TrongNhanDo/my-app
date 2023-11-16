@@ -15,9 +15,12 @@ import {
    StateReducerType,
 } from './types';
 import { ActionValues, SkillType } from '../Common/types';
-import { callApi } from '../../../../../api/callApi/callApi';
 import Loader from '../../../../Common/Loader/loader';
-import { formatDate } from '../../../../Common/Logic/logics';
+import {
+   formatDate,
+   callApi,
+   MethodProps,
+} from '../../../../Common/Logic/logics';
 import { ModalCustom } from '../../../../Common/Modal/modal-custom';
 import { validationSchema } from './validations';
 import { Input } from '../../../../Common/Input/input';
@@ -43,7 +46,7 @@ const SkillList = React.memo(() => {
 
    const [data, dispatch] = useReducer(reducer, InitStateReducerType);
    const fetchApi = useCallback(async () => {
-      const response = await callApi('skills/paginate', 'post', {
+      const response = await callApi('skills/paginate', MethodProps.POST, {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
@@ -57,7 +60,7 @@ const SkillList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi('skills/paginate', 'post', {
+      const response = await callApi('skills/paginate', MethodProps.POST, {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
@@ -98,7 +101,7 @@ const SkillList = React.memo(() => {
             ...formikValues,
             skillName: formikValues.skillName.trim(),
          };
-         await callApi('skills', 'post', requestPayload)
+         await callApi('skills', MethodProps.POST, requestPayload)
             .then(() => {
                setError('Insert new skill success');
                setSuccess(true);

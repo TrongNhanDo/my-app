@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { callApi } from '../../../../../api/callApi/callApi';
 import * as Logics from '../../../../Common/Logic/logics';
 import Loader from '../../../../Common/Loader/loader';
 import { validationSchema } from './validations';
@@ -34,8 +33,8 @@ const AgeCategoryDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `ages/${id}`;
-      const response = await callApi(url, 'get').catch((err) =>
-         console.log({ err })
+      const response = await Logics.callApi(url, Logics.MethodProps.GET).catch(
+         (err) => console.log({ err })
       );
       dispatch({
          type: ActionValues.SELECTED_AGE,
@@ -48,9 +47,13 @@ const AgeCategoryDetail = React.memo(() => {
       async (id: string) => {
          if (confirm('Are you sure you want to delete this age category?')) {
             setIsLoading(true);
-            const response = await callApi('ages', 'delete', {
-               id: id,
-            }).catch((err) => console.log({ err }));
+            const response = await Logics.callApi(
+               'ages',
+               Logics.MethodProps.DELETE,
+               {
+                  id: id,
+               }
+            ).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
                Logics.showToast(
@@ -84,9 +87,11 @@ const AgeCategoryDetail = React.memo(() => {
             ...formikValues,
             id: id,
          };
-         const response = await callApi('ages', 'patch', requestPayload).catch(
-            (err) => setMsg(err.response.data.message || '')
-         );
+         const response = await Logics.callApi(
+            'ages',
+            Logics.MethodProps.PATCH,
+            requestPayload
+         ).catch((err) => setMsg(err.response.data.message || ''));
          // close loader when updated information
          setIsLoading(false);
          if (response) {
@@ -179,7 +184,7 @@ const AgeCategoryDetail = React.memo(() => {
                                  type="text"
                                  id="ageName"
                                  name="ageName"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.ageName &&
                                     formikBag.touched.ageName
                                        ? 'bg-yellow'

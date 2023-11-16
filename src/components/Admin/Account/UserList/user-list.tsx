@@ -15,8 +15,7 @@ import {
    RoleType,
    UserType,
 } from '../common/types';
-import { callApi } from '../../../../api/callApi/callApi';
-import { formatDate } from '../../../Common/Logic/logics';
+import { formatDate, callApi, MethodProps } from '../../../Common/Logic/logics';
 import Loader from '../../../Common/Loader/loader';
 import { validationSchema } from './validations';
 import { ModalCustom } from '../../../Common/Modal/modal-custom';
@@ -31,7 +30,7 @@ const UserList = React.memo(() => {
    const [roleValues, setRoleValues] = useState<RoleType[]>([]);
 
    const fetchRole = useCallback(async () => {
-      const response = await callApi('roles', 'get').catch((err) =>
+      const response = await callApi('roles', MethodProps.GET).catch((err) =>
          console.log({ err })
       );
       setRoleValues(response.data ? response.data : []);
@@ -65,7 +64,7 @@ const UserList = React.memo(() => {
    const [data, dispatch] = useReducer(reducer, initState);
 
    const fetchApi = useCallback(async () => {
-      const response = await callApi('users/paginate', 'post', {
+      const response = await callApi('users/paginate', MethodProps.POST, {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
@@ -79,7 +78,7 @@ const UserList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi('users/paginate', 'post', {
+      const response = await callApi('users/paginate', MethodProps.POST, {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
@@ -126,7 +125,7 @@ const UserList = React.memo(() => {
             username: formikValues.username.trim(),
             password: formikValues.password.trim(),
          };
-         await callApi('users', 'post', requestPayload)
+         await callApi('users', MethodProps.POST, requestPayload)
             .then(() => {
                setError('Insert new account success');
                setSuccess(true);
@@ -196,7 +195,7 @@ const UserList = React.memo(() => {
             <div className="flex justify-center mb-2">
                <button
                   type="button"
-                  className="block bg-blue-300 hover:bg-blue-400 hover:bg-blue-400 px-3 py-2 rounded"
+                  className="block bg-blue-300 hover:bg-blue-400 px-3 py-2 rounded"
                   onClick={() => setModal(true)}
                >
                   INSERT NEW ACCOUNT
@@ -278,7 +277,7 @@ const UserList = React.memo(() => {
                               <select
                                  id="roleId"
                                  name="roleId"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base"
+                                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base"
                                  onChange={formikBag.handleChange}
                                  value={formikBag.values.roleId}
                               >

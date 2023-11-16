@@ -16,11 +16,13 @@ import {
    SkillType,
 } from '../common/types';
 import {
+   MethodProps,
    ToastTypeOptions,
+   callApi,
    formatDate,
    showToast,
+   upLoadImage,
 } from '../../../Common/Logic/logics';
-import { callApi } from '../../../../api/callApi/callApi';
 import {
    ActionReducerType,
    FormikBagType,
@@ -29,7 +31,6 @@ import {
    StateReducerType,
 } from './types';
 import { validationSchema } from './validations';
-import { upLoadImage } from '../../../../api/callApi/callApiUpload';
 import { ModalCustom } from '../../../Common/Modal/modal-custom';
 
 const ProductList = React.memo(() => {
@@ -44,16 +45,16 @@ const ProductList = React.memo(() => {
 
    const fetchApiDropdown = useCallback(async () => {
       // data for age dropdown
-      const ageResponse = await callApi('ages', 'get').catch((err) =>
+      const ageResponse = await callApi('ages', MethodProps.GET).catch((err) =>
          console.log({ err })
       );
       // data for branch dropdown
-      const branchResponse = await callApi('branches', 'get').catch((err) =>
-         console.log({ err })
+      const branchResponse = await callApi('branches', MethodProps.GET).catch(
+         (err) => console.log({ err })
       );
       // data for skill dropdown
-      const skillResponse = await callApi('skills', 'get').catch((err) =>
-         console.log({ err })
+      const skillResponse = await callApi('skills', MethodProps.GET).catch(
+         (err) => console.log({ err })
       );
       setViewData({
          ageCategory: ageResponse.data || [],
@@ -90,7 +91,7 @@ const ProductList = React.memo(() => {
    const [data, dispatch] = useReducer(reducer, initState);
 
    const fetchApi = useCallback(async () => {
-      const response = await callApi('products/paginate', 'post', {
+      const response = await callApi('products/paginate', MethodProps.POST, {
          perPage: dataPerpage,
          page: 1,
       });
@@ -104,7 +105,7 @@ const ProductList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi('products/paginate', 'post', {
+      const response = await callApi('products/paginate', MethodProps.POST, {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
@@ -145,7 +146,7 @@ const ProductList = React.memo(() => {
             ...formikValues,
             images: arrayUrl,
          };
-         await callApi('products', 'post', requestPayload)
+         await callApi('products', MethodProps.POST, requestPayload)
             .then(() => {
                setSuccess(true);
                setImages([]);
@@ -270,7 +271,7 @@ const ProductList = React.memo(() => {
                               id="productName"
                               name="productName"
                               placeholder="Enter product name"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base mt-1 ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base mt-1 ${
                                  formikBag.errors.productName &&
                                  formikBag.touched.productName
                                     ? 'bg-yellow'
@@ -291,7 +292,7 @@ const ProductList = React.memo(() => {
                            <select
                               name="ageId"
                               id="ageId"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.ageId &&
                                  formikBag.touched.ageId
                                     ? 'bg-yellow'
@@ -327,7 +328,7 @@ const ProductList = React.memo(() => {
                            <select
                               name="branchId"
                               id="branchId"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.branchId &&
                                  formikBag.touched.branchId
                                     ? 'bg-yellow'
@@ -363,7 +364,7 @@ const ProductList = React.memo(() => {
                            <select
                               name="skillId"
                               id="skillId"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.skillId &&
                                  formikBag.touched.skillId
                                     ? 'bg-yellow'
@@ -429,7 +430,7 @@ const ProductList = React.memo(() => {
                               id="price"
                               placeholder="Enter product's price"
                               value={formikBag.values.price || ''}
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.price &&
                                  formikBag.touched.price
                                     ? 'bg-yellow'
@@ -452,7 +453,7 @@ const ProductList = React.memo(() => {
                               id="amount"
                               placeholder="Enter amount's price"
                               value={formikBag.values.amount || ''}
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.amount &&
                                  formikBag.touched.amount
                                     ? 'bg-yellow'
@@ -475,7 +476,7 @@ const ProductList = React.memo(() => {
                               rows={5}
                               value={formikBag.values.describes || ''}
                               placeholder="Enter describe about product"
-                              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                              className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                  formikBag.errors.describes &&
                                  formikBag.touched.describes
                                     ? 'bg-yellow'

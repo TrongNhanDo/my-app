@@ -2,9 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { callApi } from '../../../api/callApi/callApi';
 import { CartItemType, FormikBagInitialValues, FormikBagProps } from './types';
-import { formatCurrency } from '../../Common/Logic/logics';
+import {
+   MethodProps,
+   callApi,
+   formatCurrency,
+} from '../../Common/Logic/logics';
 import Loader from '../../Common/Loader/loader';
 import { validationSchema } from './validations';
 import {
@@ -24,7 +27,7 @@ const CheckoutPage = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       setLoading(true);
-      const response = await callApi('carts/get-by-userId', 'post', {
+      const response = await callApi('carts/get-by-userId', MethodProps.POST, {
          userId: userId,
       }).catch((err) => console.log({ err }));
 

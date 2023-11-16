@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { FormikBagType, InitFormikBag } from './types';
 import { validationSchema } from './validations';
-import { callApi } from '../../../../api/callApi/callApi';
 import Loader from '../../../Common/Loader/loader';
 import { Input } from '../../../Common/Input/input';
 import * as CommonLogics from '../../../Common/Logic/logics';
@@ -21,7 +20,11 @@ const AddRole = React.memo(() => {
          ...formikValues,
          roleName: formikValues.roleName.trim(),
       };
-      await callApi('roles', 'post', requestPayload)
+      await CommonLogics.callApi(
+         'roles',
+         CommonLogics.MethodProps.POST,
+         requestPayload
+      )
          .then(() => {
             CommonLogics.showToast(
                'Insert new role success',

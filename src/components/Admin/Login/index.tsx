@@ -2,11 +2,11 @@ import React, { useCallback, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { callApi } from '../../../api/callApi/callApi';
 import { SumProductContext } from '../../../context/SumProductContext';
 import Loader from '../../Common/Loader/loader';
 import { FormikValueType, initValueFormik } from './types';
 import { validationSchema } from './validations';
+import { callApi, MethodProps } from '../../Common/Logic/logics';
 
 const AdminLogin = React.memo(() => {
    const { t } = useTranslation(['admin_login', 'admin_error']);
@@ -25,7 +25,7 @@ const AdminLogin = React.memo(() => {
             };
             const response = await callApi(
                'users/login-admin',
-               'post',
+               MethodProps.POST,
                payload
             ).catch((err) => setMsg(err.response.data.message));
             setLoading(false);

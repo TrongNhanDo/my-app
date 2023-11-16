@@ -7,8 +7,11 @@ import React, {
 } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../../../../Common/Loader/loader';
-import { formatDate } from '../../../../Common/Logic/logics';
-import { callApi } from '../../../../../api/callApi/callApi';
+import {
+   formatDate,
+   callApi,
+   MethodProps,
+} from '../../../../Common/Logic/logics';
 import { AgeType, InitReducer, InputActionType } from '../Common/types';
 import { ActionValues } from '../Common/constants';
 import { useFormik } from 'formik';
@@ -46,7 +49,7 @@ const AgeCategoryList = React.memo(() => {
 
    const [data, dispatch] = useReducer(reducer, initState);
    const fetchApi = useCallback(async () => {
-      const response = await callApi('ages/paginate', 'post', {
+      const response = await callApi('ages/paginate', MethodProps.POST, {
          perPage: dataPerPage,
          page: 1,
       }).catch((err) => console.log({ err }));
@@ -60,7 +63,7 @@ const AgeCategoryList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi('ages/paginate', 'post', {
+      const response = await callApi('ages/paginate', MethodProps.POST, {
          perPage: perPage || 10,
          page: page || 1,
       }).catch((err) => console.log({ err }));
@@ -101,7 +104,7 @@ const AgeCategoryList = React.memo(() => {
             ...formikValues,
             ageName: formikValues.ageName.trim(),
          };
-         await callApi('ages', 'post', requestPayload)
+         await callApi('ages', MethodProps.POST, requestPayload)
             .then(() => {
                setError('Insert new age success');
                setSuccess(true);

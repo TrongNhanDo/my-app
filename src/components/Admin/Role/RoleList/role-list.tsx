@@ -10,7 +10,6 @@ import { useFormik } from 'formik';
 import * as ReactSimpleDialogs from 'react-simple-dialogs';
 import { InitReducer, InputActionType, RoleType } from '../Common/types';
 import { ActionValues } from '../Common/constants';
-import { callApi } from '../../../../api/callApi/callApi';
 import Loader from '../../../Common/Loader/loader';
 import * as CommonLogics from '../../../Common/Logic/logics';
 import { Input } from '../../../Common/Input/input';
@@ -48,10 +47,14 @@ const RoleList = React.memo(() => {
    const [data, dispatch] = useReducer(reducer, initState);
    const fetchApi = useCallback(async () => {
       // get data paginate
-      const response = await callApi('roles/paginate', 'post', {
-         perPage: dataPerPage,
-         page: 1,
-      }).catch((err) => console.log({ err }));
+      const response = await CommonLogics.callApi(
+         'roles/paginate',
+         CommonLogics.MethodProps.POST,
+         {
+            perPage: dataPerPage,
+            page: 1,
+         }
+      ).catch((err) => console.log({ err }));
       const data: InitReducer = response.data || null;
       dispatch({
          type: ActionValues.SET_ROLES,
@@ -62,10 +65,14 @@ const RoleList = React.memo(() => {
 
    const changePage = useCallback(async (perPage: number, page: number) => {
       setShowLoader(true);
-      const response = await callApi('roles/paginate', 'post', {
-         perPage: perPage || 10,
-         page: page || 1,
-      }).catch((err) => console.log({ err }));
+      const response = await CommonLogics.callApi(
+         'roles/paginate',
+         CommonLogics.MethodProps.POST,
+         {
+            perPage: perPage || 10,
+            page: page || 1,
+         }
+      ).catch((err) => console.log({ err }));
       const data: InitReducer = response.data || null;
       dispatch({
          type: ActionValues.SET_ROLES,
@@ -99,7 +106,11 @@ const RoleList = React.memo(() => {
             ...formikValues,
             roleName: formikValues.roleName.trim(),
          };
-         await callApi('roles', 'post', requestPayload)
+         await CommonLogics.callApi(
+            'roles',
+            CommonLogics.MethodProps.POST,
+            requestPayload
+         )
             .then(() => {
                setSuccess(true);
                CommonLogics.showToast(
@@ -124,9 +135,13 @@ const RoleList = React.memo(() => {
             )
          ) {
             setShowLoader(true);
-            const response = await callApi('roles', 'delete', {
-               id: roleId,
-            }).catch((err) => console.log({ err }));
+            const response = await CommonLogics.callApi(
+               'roles',
+               CommonLogics.MethodProps.DELETE,
+               {
+                  id: roleId,
+               }
+            ).catch((err) => console.log({ err }));
             setShowLoader(false);
             if (response) {
                CommonLogics.showToast(

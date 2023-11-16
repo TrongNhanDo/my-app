@@ -1,22 +1,22 @@
-import { callApi } from '../../../api/callApi/callApi';
+import { MethodProps, callApi } from '../../Common/Logic/logics';
 import { FormikBagProps } from './types';
 
 export const paymentByCod = async (value: FormikBagProps): Promise<boolean> => {
    try {
-      const response = await callApi('orders', 'post', { ...value }).catch(
-         (err) => {
-            console.log({
-               error:
-                  err &&
-                  err.response &&
-                  err.response.data &&
-                  err.response.data.message
-                     ? err.response.data.message
-                     : '',
-            });
-            return false;
-         }
-      );
+      const response = await callApi('orders', MethodProps.POST, {
+         ...value,
+      }).catch((err) => {
+         console.log({
+            error:
+               err &&
+               err.response &&
+               err.response.data &&
+               err.response.data.message
+                  ? err.response.data.message
+                  : '',
+         });
+         return false;
+      });
       if (response) {
          return true;
       }

@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { callApi } from '../../../api/callApi/callApi';
 import { DataPropsType, ProductType } from './types';
 import {
+   MethodProps,
+   callApi,
    formatCurrency,
    renderStar,
    scrollTop,
@@ -35,7 +36,7 @@ const UserProductList = React.memo(() => {
    const fetchApi = useCallback(async () => {
       setShowLoading(true);
       setCurrentPage(1);
-      const response = await callApi('products/paginate', 'post', {
+      const response = await callApi('products/paginate', MethodProps.POST, {
          perPage: dataPerPage,
          page: 1,
          ...queryParams,
@@ -50,7 +51,7 @@ const UserProductList = React.memo(() => {
       async (perPage: number, page: number) => {
          setShowLoading(true);
          setCurrentPage(page);
-         const response = await callApi('products/paginate', 'post', {
+         const response = await callApi('products/paginate', MethodProps.POST, {
             perPage: perPage || 10,
             page: page || 1,
             ...queryParams,

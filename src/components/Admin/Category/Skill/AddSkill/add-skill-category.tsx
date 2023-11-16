@@ -5,8 +5,11 @@ import { FormikBagType, InitFormikBag } from './types';
 import { Input } from '../../../../Common/Input/input';
 import { useNavigate } from 'react-router-dom';
 import { validationSchema } from './validations';
-import { callApi } from '../../../../../api/callApi/callApi';
-import { scrollTop } from '../../../../Common/Logic/logics';
+import {
+   scrollTop,
+   callApi,
+   MethodProps,
+} from '../../../../Common/Logic/logics';
 
 const AddSkillCategory = React.memo(() => {
    const navigate = useNavigate();
@@ -21,7 +24,7 @@ const AddSkillCategory = React.memo(() => {
          skillId: formikValues.skillId,
          skillName: formikValues.skillName.trim(),
       };
-      await callApi('skills', 'post', requestPayload)
+      await callApi('skills', MethodProps.POST, requestPayload)
          .then(() => {
             setError('Insert new skill category success');
             setSuccess(true);

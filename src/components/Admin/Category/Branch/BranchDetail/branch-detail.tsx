@@ -2,9 +2,8 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Types from './types';
 import { ActionValues } from '../Common/types';
-import { callApi } from '../../../../../api/callApi/callApi';
 import { useFormik } from 'formik';
-import { validationSchema } from './vadidations';
+import { validationSchema } from './validations';
 import Loader from '../../../../Common/Loader/loader';
 import * as Logics from '../../../../Common/Logic/logics';
 import { ErrorMessages } from '../../../../Common/ErrorMessage/error-message';
@@ -34,8 +33,8 @@ const BranchCategoryDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `branches/${id}`;
-      const response = await callApi(url, 'get').catch((err) =>
-         console.log({ err })
+      const response = await Logics.callApi(url, Logics.MethodProps.GET).catch(
+         (err) => console.log({ err })
       );
       dispatch({
          type: ActionValues.GET_BRANCH,
@@ -48,9 +47,13 @@ const BranchCategoryDetail = React.memo(() => {
       async (id: string) => {
          if (confirm('Are you sure you want to delete this branch category?')) {
             setIsLoading(true);
-            const response = await callApi('branches', 'delete', {
-               id: id,
-            }).catch((err) => console.log({ err }));
+            const response = await Logics.callApi(
+               'branches',
+               Logics.MethodProps.DELETE,
+               {
+                  id: id,
+               }
+            ).catch((err) => console.log({ err }));
             setIsLoading(false);
             if (response) {
                Logics.showToast(
@@ -85,9 +88,9 @@ const BranchCategoryDetail = React.memo(() => {
                ...formikValues,
                id: id,
             };
-            const response = await callApi(
+            const response = await Logics.callApi(
                'branches',
-               'patch',
+               Logics.MethodProps.PATCH,
                requestPayload
             ).catch((err) => console.log({ err }));
             // close loader when updated information
@@ -186,7 +189,7 @@ const BranchCategoryDetail = React.memo(() => {
                                  type="text"
                                  id="branchName"
                                  name="branchName"
-                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
+                                 className={`bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-base ${
                                     formikBag.errors.branchName &&
                                     formikBag.touched.branchName
                                        ? 'bg-yellow'

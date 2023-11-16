@@ -1,9 +1,13 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { callApi } from '../../../api/callApi/callApi';
 import { FormikProps, ProductType } from './types';
 import Loader from '../../Common/Loader/loader';
-import { formatCurrency, renderStar } from '../../Common/Logic/logics';
+import {
+   MethodProps,
+   callApi,
+   formatCurrency,
+   renderStar,
+} from '../../Common/Logic/logics';
 import { useFormik } from 'formik';
 import { validationSchema } from './validations';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +25,7 @@ const UserProductDetail = React.memo(() => {
 
    const fetchApi = useCallback(async () => {
       const url = `products/${productId}`;
-      const response = await callApi(url, 'get').catch((err) =>
+      const response = await callApi(url, MethodProps.GET).catch((err) =>
          console.log({ err })
       );
       if (!response || !response.data) {
@@ -40,8 +44,8 @@ const UserProductDetail = React.memo(() => {
                setShowLoading(true);
                const newValue = sumProduct + parseInt(formikBagValues.amount);
                setSumProduct(newValue);
-               await callApi('carts', 'post', formikBagValues).catch((err) =>
-                  console.log({ err })
+               await callApi('carts', MethodProps.POST, formikBagValues).catch(
+                  (err) => console.log({ err })
                );
                setShowLoading(false);
                if (isBuyNow) {

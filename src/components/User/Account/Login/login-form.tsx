@@ -1,12 +1,12 @@
+import { useFormik } from 'formik';
 import React, { useCallback, useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { callApi } from '../../../../api/callApi/callApi';
+import { useTranslation } from 'react-i18next';
 import { validationSchema } from './validations';
 import { FormikValueType, initValueFormik } from './types';
-import { useTranslation } from 'react-i18next';
 import { SumProductContext } from '../../../../context/SumProductContext';
 import Loader from '../../../Common/Loader/loader';
+import { MethodProps, callApi } from '../../../Common/Logic/logics';
 
 const LoginForm = React.memo(() => {
    const { t } = useTranslation(['user_login', 'user_error']);
@@ -25,7 +25,7 @@ const LoginForm = React.memo(() => {
             };
             const response = await callApi(
                'users/login-user',
-               'post',
+               MethodProps.POST,
                payload
             ).catch((err) => setMsg(err.response.data.message));
             setLoading(false);
