@@ -3,20 +3,20 @@ import Sidebar from '../../../Common/Sidebar';
 import { useTranslation } from 'react-i18next';
 
 const Security = React.memo(() => {
-   const { t } = useTranslation(['user_security']);
+  const { t } = useTranslation(['user_security']);
 
-   return (
-      <div className="div-contai flex">
-         <div className="w-1/4">
-            <Sidebar />
-         </div>
-         <div className="w-3/4 bg-white rounded p-5 text-justify">
-            <div className="uppercase text-2xl font-bold text-center">
-               {t('title')}
-            </div>
-            <div className="flex flex-col mt-5">
-               {t('updating_content')}
-               {/* <div className="wrapper-question mona-content">
+  return (
+    <div className="div-contai flex">
+      <div className="w-1/4">
+        <Sidebar />
+      </div>
+      <div className="w-3/4 bg-white rounded p-5 text-justify">
+        <div className="uppercase text-2xl font-bold text-center">
+          {t('title')}
+        </div>
+        <div className="flex flex-col mt-5">
+          {t('updating_content')}
+          {/* <div className="wrapper-question mona-content">
                   <div
                      className="mailmunch-forms-before-post"
                      style={{ display: "none !important" }}
@@ -935,10 +935,10 @@ const Security = React.memo(() => {
                      style={{ display: "none !important" }}
                   />
                </div> */}
-            </div>
-         </div>
+        </div>
       </div>
-   );
+    </div>
+  );
 });
 
 export default Security;

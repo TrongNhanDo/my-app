@@ -7,16 +7,16 @@ import Content1 from './content1';
 import NewProducts from './new-products';
 
 const HomePage = React.memo(() => {
-   return (
-      <div className="div-contai">
-         <Banner />
-         <Content1 />
-         <NewProducts />
-         <BaseOnAge />
-         <BaseOnSkill />
-         <BaseOnBranch />
-      </div>
-   );
+  return (
+    <div className="div-contai">
+      <Banner />
+      <Content1 />
+      <NewProducts />
+      <BaseOnAge />
+      <BaseOnSkill />
+      <BaseOnBranch />
+    </div>
+  );
 });
 
 export default HomePage;

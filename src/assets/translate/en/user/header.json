@@ -1,12 +1,12 @@
 {
-   "home": "Home",
-   "product": "Products",
-   "service": "Services",
-   "about": "About",
-   "contact": "Contact",
-   "cart": "Carts",
-   "login": "Login",
-   "register": "Register",
-   "account": "My Account",
-   "logout": "Logout"
+  "home": "Home",
+  "product": "Products",
+  "service": "Services",
+  "about": "About",
+  "contact": "Contact",
+  "cart": "Carts",
+  "login": "Login",
+  "register": "Register",
+  "account": "My Account",
+  "logout": "Logout"
 }

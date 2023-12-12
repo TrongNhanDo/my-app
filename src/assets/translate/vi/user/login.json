@@ -1,12 +1,12 @@
 {
-   "title": "ĐĂNG NHẬP",
-   "email": "Email",
-   "email_placeholder": "Nhập email của bạn",
-   "password": "Mật khẩu",
-   "password_placeholder": "Nhập mật khẩu của bạn",
-   "remember_login": "Ghi nhớ đăng nhập",
-   "forget_password": "Quên mật khẩu",
-   "submit": "Đăng nhập",
-   "text1": "Đăng ký nếu bạn chưa có tài khoản trước đó?",
-   "register": "Đăng ký"
+  "title": "ĐĂNG NHẬP",
+  "email": "Email",
+  "email_placeholder": "Nhập email của bạn",
+  "password": "Mật khẩu",
+  "password_placeholder": "Nhập mật khẩu của bạn",
+  "remember_login": "Ghi nhớ đăng nhập",
+  "forget_password": "Quên mật khẩu",
+  "submit": "Đăng nhập",
+  "text1": "Đăng ký nếu bạn chưa có tài khoản trước đó?",
+  "register": "Đăng ký"
 }

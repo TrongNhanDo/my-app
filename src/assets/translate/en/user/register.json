@@ -1,12 +1,12 @@
 {
-   "title": "REGISTER",
-   "email": "Email",
-   "email_placeholder": "Enter email",
-   "password": "Password",
-   "password_placeholder": "Enter password",
-   "confirmPwd": "Confirm password",
-   "confirmPwd_placeholder": "Enter confirm password",
-   "submit": "Register",
-   "text1": "If you had an account?",
-   "login": "Login"
+  "title": "REGISTER",
+  "email": "Email",
+  "email_placeholder": "Enter email",
+  "password": "Password",
+  "password_placeholder": "Enter password",
+  "confirmPwd": "Confirm password",
+  "confirmPwd_placeholder": "Enter confirm password",
+  "submit": "Register",
+  "text1": "If you had an account?",
+  "login": "Login"
 }

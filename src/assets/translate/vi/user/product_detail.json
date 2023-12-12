@@ -1,14 +1,14 @@
 {
-   "branch": "Thương hiệu",
-   "skill": "Kĩ năng",
-   "age": "Độ tuổi",
-   "rate": "Nhận xét",
-   "price": "Giá",
-   "amount": "Số lượng",
-   "btn_add": "Thêm vào giỏ hàng",
-   "btn_buy": "Mua ngay",
-   "heading1": "ĐĂNG KÝ NHẬN THÔNG BÁO KHI MÓN HÀNG NÀY QUAY TRỞ LẠI",
-   "email_placeholder": "Nhập email của bạn",
-   "btn_send": "GỬI",
-   "description": "Mô tả sản phẩm:"
+  "branch": "Thương hiệu",
+  "skill": "Kĩ năng",
+  "age": "Độ tuổi",
+  "rate": "Nhận xét",
+  "price": "Giá",
+  "amount": "Số lượng",
+  "btn_add": "Thêm vào giỏ hàng",
+  "btn_buy": "Mua ngay",
+  "heading1": "ĐĂNG KÝ NHẬN THÔNG BÁO KHI MÓN HÀNG NÀY QUAY TRỞ LẠI",
+  "email_placeholder": "Nhập email của bạn",
+  "btn_send": "GỬI",
+  "description": "Mô tả sản phẩm:"
 }

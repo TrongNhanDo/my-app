@@ -1,8 +1,8 @@
 {
-   "new_product": "NEW PRODUCTS",
-   "base_on_age": "BASE ON AGE",
-   "base_on_skill": "BASE ON SKILL",
-   "base_on_branch": "BRANCH",
-   "see_more": "See more",
-   "updating_product": "Product are being updated"
+  "new_product": "NEW PRODUCTS",
+  "base_on_age": "BASE ON AGE",
+  "base_on_skill": "BASE ON SKILL",
+  "base_on_branch": "BRANCH",
+  "see_more": "See more",
+  "updating_product": "Product are being updated"
 }

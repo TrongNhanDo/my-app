@@ -1,11 +1,11 @@
 {
-   "home": "Home",
-   "role": "Roles",
-   "user": "Users",
-   "product": "Products",
-   "age": "Ages",
-   "branch": "Branches",
-   "skill": "Skills",
-   "my_account": "My Account",
-   "logout": "Log out"
+  "home": "Home",
+  "role": "Roles",
+  "user": "Users",
+  "product": "Products",
+  "age": "Ages",
+  "branch": "Branches",
+  "skill": "Skills",
+  "my_account": "My Account",
+  "logout": "Log out"
 }

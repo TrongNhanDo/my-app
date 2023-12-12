@@ -1,12 +1,12 @@
 {
-   "title": "LOGIN",
-   "email": "Email",
-   "email_placeholder": "Enter your email",
-   "password": "Password",
-   "password_placeholder": "Enter your password",
-   "remember_login": "Remember login",
-   "forget_password": "Forget password",
-   "submit": "Login",
-   "text1": "Register if you don't have an account before?",
-   "register": "Register"
+  "title": "LOGIN",
+  "email": "Email",
+  "email_placeholder": "Enter your email",
+  "password": "Password",
+  "password_placeholder": "Enter your password",
+  "remember_login": "Remember login",
+  "forget_password": "Forget password",
+  "submit": "Login",
+  "text1": "Register if you don't have an account before?",
+  "register": "Register"
 }

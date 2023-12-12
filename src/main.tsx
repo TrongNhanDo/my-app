@@ -7,11 +7,11 @@ import './i18n/i18n';
 import { ContextProvider } from './context/SumProductContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-   <React.StrictMode>
-      <HashRouter>
-         <ContextProvider>
-            <App />
-         </ContextProvider>
-      </HashRouter>
-   </React.StrictMode>
+  <React.StrictMode>
+    <HashRouter>
+      <ContextProvider>
+        <App />
+      </ContextProvider>
+    </HashRouter>
+  </React.StrictMode>
 );

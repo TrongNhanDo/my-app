@@ -1,9 +1,9 @@
 export type FormikBagType = {
-   skillId: string;
-   skillName: string;
+  skillId: string;
+  skillName: string;
 };
 
 export const InitFormikBag = {
-   skillId: '',
-   skillName: '',
+  skillId: '',
+  skillName: '',
 };

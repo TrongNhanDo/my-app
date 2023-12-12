@@ -1,9 +1,9 @@
 export type FormikBagType = {
-   roleId: string;
-   roleName: string;
+  roleId: string;
+  roleName: string;
 };
 
 export const InitFormikBag = {
-   roleId: '',
-   roleName: '',
+  roleId: '',
+  roleName: '',
 };

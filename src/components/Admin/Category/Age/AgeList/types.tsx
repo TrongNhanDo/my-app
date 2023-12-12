@@ -1,9 +1,9 @@
 export type FormikBagType = {
-   ageId: string;
-   ageName: string;
+  ageId: string;
+  ageName: string;
 };
 
 export const InitFormikBag = {
-   ageId: '',
-   ageName: '',
+  ageId: '',
+  ageName: '',
 };

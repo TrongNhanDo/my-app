@@ -1,12 +1,12 @@
 {
-   "home": "Trang chủ",
-   "product": "Sản phẩm",
-   "service": "Dịch vụ",
-   "about": "Giới thiệu",
-   "contact": "Liên hệ",
-   "cart": "Giỏ hàng",
-   "login": "Đăng nhập",
-   "register": "Đăng ký",
-   "account": "Tài khoản",
-   "logout": "Đăng xuất"
+  "home": "Trang chủ",
+  "product": "Sản phẩm",
+  "service": "Dịch vụ",
+  "about": "Giới thiệu",
+  "contact": "Liên hệ",
+  "cart": "Giỏ hàng",
+  "login": "Đăng nhập",
+  "register": "Đăng ký",
+  "account": "Tài khoản",
+  "logout": "Đăng xuất"
 }

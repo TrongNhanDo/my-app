@@ -49,146 +49,137 @@ import GiftWrapping from './components/User/Customer/GiftWrapping';
 import ExpressDelivery from './components/User/Customer/ExpressDelivery';
 
 function App() {
-   const { setUserId, setRoleId, setSumProduct, userId, roleId } =
-      useContext(SumProductContext);
-   const navigate = useNavigate();
-   const location = useLocation();
+  const { setUserId, setRoleId, setSumProduct, userId, roleId } =
+    useContext(SumProductContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-   const currentPathname = useMemo(() => {
-      return location && location.pathname ? location.pathname : '';
-   }, [location]);
+  const currentPathname = useMemo(() => {
+    return location && location.pathname ? location.pathname : '';
+  }, [location]);
 
-   const currentUserId = useMemo(() => {
-      return userId || sessionStorage.getItem('userId') || '';
-   }, [userId]);
+  const currentUserId = useMemo(() => {
+    return userId || sessionStorage.getItem('userId') || '';
+  }, [userId]);
 
-   const currentRoleId = useMemo(() => {
-      return roleId || sessionStorage.getItem('roleId') || '';
-   }, [roleId]);
+  const currentRoleId = useMemo(() => {
+    return roleId || sessionStorage.getItem('roleId') || '';
+  }, [roleId]);
 
-   useEffect(() => {
-      const isAdmin = currentPathname.includes('/admin');
-      if (isAdmin) {
-         if (currentUserId && currentRoleId) {
-            if (Constants.AccessRole.includes(currentRoleId.toString())) {
-               // OK
-            } else {
-               setUserId('');
-               setRoleId('');
-               setSumProduct(0);
-               sessionStorage.removeItem('userId');
-               navigate('/admin/login');
-            }
-         } else {
-            navigate('/admin/login');
-         }
+  useEffect(() => {
+    const isAdmin = currentPathname.includes('/admin');
+    if (isAdmin) {
+      if (currentUserId && currentRoleId) {
+        if (Constants.AccessRole.includes(currentRoleId.toString())) {
+          // OK
+        } else {
+          setUserId('');
+          setRoleId('');
+          setSumProduct(0);
+          sessionStorage.removeItem('userId');
+          navigate('/admin/login');
+        }
       } else {
-         if (
-            currentUserId &&
-            currentRoleId &&
-            Constants.AccessRole.includes(currentRoleId.toString())
-         ) {
-            setUserId('');
-            setRoleId('');
-            setSumProduct(0);
-            sessionStorage.removeItem('userId');
-         }
+        navigate('/admin/login');
       }
-   }, [
-      currentUserId,
-      currentRoleId,
-      currentPathname,
-      navigate,
-      setRoleId,
-      setUserId,
-      setSumProduct,
-   ]);
+    } else {
+      if (
+        currentUserId &&
+        currentRoleId &&
+        Constants.AccessRole.includes(currentRoleId.toString())
+      ) {
+        setUserId('');
+        setRoleId('');
+        setSumProduct(0);
+        sessionStorage.removeItem('userId');
+      }
+    }
+  }, [
+    currentUserId,
+    currentRoleId,
+    currentPathname,
+    navigate,
+    setRoleId,
+    setUserId,
+    setSumProduct,
+  ]);
 
-   return (
-      <>
-         <Header />
-         <Routes>
-            {/* route for user */}
-            <Route index element={<HomePage />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<RegisterFrom />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/shopping-guide" element={<ShoppingGuide />} />
-            <Route path="/questions" element={<QuestionsFrequently />} />
-            <Route path="/policy" element={<Policy />} />
-            <Route path="/warranty" element={<Warranty />} />
-            <Route path="/security" element={<Security />} />
-            <Route path="/delivery-and-payment" element={<DeliveryPayment />} />
-            <Route path="/product-list" element={<UserProductList />} />
-            <Route
-               path="/product-detail/:productId"
-               element={<UserProductDetail />}
-            />
-            <Route path="/carts" element={<CartList />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/my-account" element={<MyAccount />} />
-            <Route path="/genuine-product" element={<GenuineProduct />} />
-            <Route path="/free-gift-wrapping" element={<GiftWrapping />} />
-            <Route path="/express-delivery" element={<ExpressDelivery />} />
+  return (
+    <>
+      <Header />
+      <Routes>
+        {/* route for user */}
+        <Route index element={<HomePage />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterFrom />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/shopping-guide" element={<ShoppingGuide />} />
+        <Route path="/questions" element={<QuestionsFrequently />} />
+        <Route path="/policy" element={<Policy />} />
+        <Route path="/warranty" element={<Warranty />} />
+        <Route path="/security" element={<Security />} />
+        <Route path="/delivery-and-payment" element={<DeliveryPayment />} />
+        <Route path="/product-list" element={<UserProductList />} />
+        <Route
+          path="/product-detail/:productId"
+          element={<UserProductDetail />}
+        />
+        <Route path="/carts" element={<CartList />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/my-account" element={<MyAccount />} />
+        <Route path="/genuine-product" element={<GenuineProduct />} />
+        <Route path="/free-gift-wrapping" element={<GiftWrapping />} />
+        <Route path="/express-delivery" element={<ExpressDelivery />} />
 
-            {/* route for admin */}
-            <Route path="/admin" element={<AdminHome />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/product-list" element={<ProductList />} />
-            <Route path="/admin/add-product" element={<AddProduct />} />
-            <Route
-               path="/admin/product-detail/:productId"
-               element={<ProductDetail />}
-            />
-            <Route path="/admin/user-list" element={<UserList />} />
-            <Route path="/admin/user-detail/:userId" element={<UserDetail />} />
-            <Route path="/admin/add-user" element={<AddNewUser />} />
-            <Route
-               path="/admin/age-category-list"
-               element={<AgeCategoryList />}
-            />
-            <Route
-               path="/admin/age-category-detail/:id"
-               element={<AgeCategoryDetail />}
-            />
-            <Route
-               path="/admin/add-age-category"
-               element={<AddAgeCategory />}
-            />
-            <Route
-               path="/admin/branch-category-list"
-               element={<BranchList />}
-            />
-            <Route
-               path="/admin/branch-category-detail/:id"
-               element={<BranchCategoryDetail />}
-            />
-            <Route
-               path="/admin/add-branch-category"
-               element={<AddBranchCategory />}
-            />
-            <Route path="/admin/skill-category-list" element={<SkillList />} />
-            <Route
-               path="/admin/skill-category-detail/:id"
-               element={<SkillCategoryDetail />}
-            />
-            <Route
-               path="/admin/add-skill-category"
-               element={<AddSkillCategory />}
-            />
-            <Route path="/admin/role-list" element={<RoleList />} />
-            <Route path="/admin/role-detail/:id" element={<RoleDetail />} />
-            <Route path="/admin/add-role" element={<AddRole />} />
-            <Route path="/admin/order-list" element={<AdminHome />} />
+        {/* route for admin */}
+        <Route path="/admin" element={<AdminHome />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/product-list" element={<ProductList />} />
+        <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route
+          path="/admin/product-detail/:productId"
+          element={<ProductDetail />}
+        />
+        <Route path="/admin/user-list" element={<UserList />} />
+        <Route path="/admin/user-detail/:userId" element={<UserDetail />} />
+        <Route path="/admin/add-user" element={<AddNewUser />} />
+        <Route path="/admin/age-category-list" element={<AgeCategoryList />} />
+        <Route
+          path="/admin/age-category-detail/:id"
+          element={<AgeCategoryDetail />}
+        />
+        <Route path="/admin/add-age-category" element={<AddAgeCategory />} />
+        <Route path="/admin/branch-category-list" element={<BranchList />} />
+        <Route
+          path="/admin/branch-category-detail/:id"
+          element={<BranchCategoryDetail />}
+        />
+        <Route
+          path="/admin/add-branch-category"
+          element={<AddBranchCategory />}
+        />
+        <Route path="/admin/skill-category-list" element={<SkillList />} />
+        <Route
+          path="/admin/skill-category-detail/:id"
+          element={<SkillCategoryDetail />}
+        />
+        <Route
+          path="/admin/add-skill-category"
+          element={<AddSkillCategory />}
+        />
+        <Route path="/admin/role-list" element={<RoleList />} />
+        <Route path="/admin/role-detail/:id" element={<RoleDetail />} />
+        <Route path="/admin/add-role" element={<AddRole />} />
+        <Route path="/admin/order-list" element={<AdminHome />} />
 
-            {/* 404 page */}
-            <Route path="*" element={<PageNotFound />} />
-         </Routes>
-         <Footer />
-         <ToastContainer newestOnTop />
-      </>
-   );
+        {/* 404 page */}
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+      <Footer />
+      <ToastContainer newestOnTop />
+    </>
+  );
 }
 
 export default App;
