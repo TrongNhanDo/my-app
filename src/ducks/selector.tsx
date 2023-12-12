@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { RoleStateProps, StateProps, initRoleValues } from './types';
+import { RoleStateProps, initRoleValues } from './types';
 
-export const roleSelector = (state: StateProps) => state.roles;
+export const roleSelector = (state: RoleStateProps) => state;
 
 export const getRoleList = createSelector(
   roleSelector,

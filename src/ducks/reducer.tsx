@@ -54,8 +54,28 @@ const roleReducer = (
   }
 };
 
+const userHomeReducer = (
+  state: types.UserHomeProps = types.initUserHomeValues,
+  action: {
+    type: types.TypeValues;
+    payload: any;
+  }
+): types.UserHomeProps => {
+  const { type, payload } = action;
+  switch (type) {
+    case types.TypeValues.setRoleList:
+      return {
+        ...state,
+        newProductsList: payload || [],
+      };
+    default:
+      return state;
+  }
+};
+
 const reducers = combineReducers({
   roles: roleReducer,
+  userHomepage: userHomeReducer,
 });
 
 export default reducers;
