@@ -1,9 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectors } from '../../../ducks';
 
 const NewProducts = React.memo(() => {
   const { t } = useTranslation(['user_home']);
+  const productList = useSelector(selectors.getNewestProductList);
+  console.log({ productList });
 
   return (
     <div className="w-full flex flex-col bg-white rounded p-5 mt-5">
@@ -18,7 +22,11 @@ const NewProducts = React.memo(() => {
         </div>
       </div>
       <div className="flex w-full mt-5 justify-center">
-        {t('updating_product')}
+        {productList && productList.length ? (
+          <></>
+        ) : (
+          <>{t('updating_product')}</>
+        )}
       </div>
     </div>
   );

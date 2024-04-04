@@ -1,20 +1,6 @@
 export enum TypeValues {
-  setRoleList = 'roles/setRoleList',
-  clearRoleList = 'roles/clearRoleList',
-  addRole = 'roles/addRole',
-  deleteRole = 'roles/deleteRole',
-  setRoleViewData = 'roles/setRoleViewData',
-  setRoleTableData = 'roles/setRoleTableData',
+  setNewestProductList = 'homepage/setNewestProductList',
 }
-
-export type NumberActionProps = {
-  type: TypeValues;
-};
-
-export type RoleActionProps = {
-  type: TypeValues;
-  payload: RoleProps[];
-};
 
 export type RoleProps = {
   _id: string;
@@ -34,19 +20,7 @@ export const initRoleValues: RoleProps = {
   __v: 0,
 };
 
-export type RoleStateProps = {
-  roleList?: RoleProps[];
-  roleViewData: RoleProps;
-  roleTableData: RoleProps[];
-};
-
-export const initRoleState: RoleStateProps = {
-  roleList: [],
-  roleViewData: initRoleValues,
-  roleTableData: [],
-};
-
-export type AgeCategoryProps = {
+export type AgeProps = {
   _id: string;
   ageId: number;
   ageName: string;
@@ -55,7 +29,7 @@ export type AgeCategoryProps = {
   __v: number;
 };
 
-export const initAgeValues: AgeCategoryProps = {
+export const initAgeValues: AgeProps = {
   _id: '',
   ageId: 0,
   ageName: '',
@@ -64,7 +38,7 @@ export const initAgeValues: AgeCategoryProps = {
   __v: 0,
 };
 
-export type BranchCategoryProps = {
+export type BranchProps = {
   _id: string;
   branchId: number;
   branchName: string;
@@ -73,7 +47,7 @@ export type BranchCategoryProps = {
   __v: number;
 };
 
-export const initBranchValues: BranchCategoryProps = {
+export const initBranchValues: BranchProps = {
   _id: '',
   branchId: 0,
   branchName: '',
@@ -82,7 +56,7 @@ export const initBranchValues: BranchCategoryProps = {
   __v: 0,
 };
 
-export type SkillCategoryProps = {
+export type SkillProps = {
   _id: string;
   skillId: number;
   skillName: string;
@@ -91,7 +65,7 @@ export type SkillCategoryProps = {
   __v: number;
 };
 
-export const initSkillValues: SkillCategoryProps = {
+export const initSkillValues: SkillProps = {
   _id: '',
   skillId: 0,
   skillName: '',
@@ -113,9 +87,9 @@ export type ProductProps = {
   images: string[];
   createdAt: string;
   updatedAt: string;
-  age: AgeCategoryProps;
-  branch: BranchCategoryProps;
-  skill: SkillCategoryProps;
+  age: AgeProps;
+  branch: BranchProps;
+  skill: SkillProps;
   __v: number;
 };
 
@@ -138,10 +112,18 @@ export const initProductValues: ProductProps = {
   __v: 0,
 };
 
-export type UserHomeProps = {
+export type HomePageProps = {
   newProductsList: ProductProps[];
 };
 
-export const initUserHomeValues = {
+export const initHomePagesValues: HomePageProps = {
   newProductsList: [],
+};
+
+export type StateAll = {
+  homePage: HomePageProps;
+};
+
+export const initStateAll: StateAll = {
+  homePage: initHomePagesValues,
 };

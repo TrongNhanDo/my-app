@@ -73,7 +73,7 @@ const SearchForm = React.memo(() => {
     <>
       <div className="flex flex-col w-full">
         <span className="text-xl font-bold">{t('base_on_branch')} 🔽</span>
-        <div className="flex mt-4">
+        <div className="flex mt-2">
           <div className="w-1/2">
             <input
               type="radio"
@@ -165,7 +165,7 @@ const SearchForm = React.memo(() => {
         </div>
         <hr className="my-5" />
         <span className="text-xl font-bold">{t('base_on_age')} 🔽</span>
-        <div className="flex mt-4">
+        <div className="flex mt-2">
           <div className="w-1/2">
             <input
               type="radio"
@@ -256,7 +256,7 @@ const SearchForm = React.memo(() => {
           </div>
         </div>
         <hr className="my-5" />
-        <span className="text-xl font-bold mb-4">{t('base_on_skill')} 🔽</span>
+        <span className="text-xl font-bold mb-2">{t('base_on_skill')} 🔽</span>
         <div className="w-full">
           <input
             type="radio"
