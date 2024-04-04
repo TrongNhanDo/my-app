@@ -26,9 +26,9 @@ const UserProductList = React.memo(() => {
     const skillId = searchParams.get('skillId') || '';
     const productName = searchParams.get('productName') || '';
     return {
-      ageId: ageId.trim(),
-      branchId: branchId.trim(),
-      skillId: skillId.trim(),
+      ageId: ageId ? ageId.split(',') : [],
+      branchId: branchId ? branchId.split(',') : [],
+      skillId: skillId ? skillId.split(',') : [],
       productName: productName.trim(),
     };
   }, [searchParams]);
