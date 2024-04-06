@@ -1,6 +1,6 @@
-import { RoleProps, TypeValues } from './types';
+import { ProductProps, TypeValues } from './types';
 
-export const setNewestProductList = (payload?: RoleProps[]) => {
+export const setNewestProductList = (payload?: ProductProps[]) => {
   return {
     type: TypeValues.setNewestProductList,
     payload,
