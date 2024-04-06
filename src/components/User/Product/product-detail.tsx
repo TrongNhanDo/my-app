@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FormikProps, ProductType } from './types';
+import { DetailFormikInitValues, FormikProps, ProductType } from './types';
 import Loader from '../../Common/Loader/loader';
 import {
   MethodProps,
@@ -62,12 +62,7 @@ const UserProductDetail = React.memo(() => {
   );
 
   const formikBag = useFormik({
-    initialValues: {
-      userId: '',
-      productId: '',
-      price: '',
-      amount: '',
-    },
+    initialValues: DetailFormikInitValues,
     validationSchema: validationSchema(t),
     onSubmit: (value) => onSubmit(value),
   });
@@ -133,14 +128,14 @@ const UserProductDetail = React.memo(() => {
             <img src={import.meta.env.VITE_IMAGE_NOT_FOUND || ''} alt="" />
           )}
         </div>
-        <div className="w-5/12">
+        <div className="w-6/12">
           <img
             src={mainImage || import.meta.env.VITE_IMAGE_NOT_FOUND}
             alt=""
             className="w-full h-auto object-cover rounded"
           />
         </div>
-        <div className="w-5/12 px-10 flex flex-col">
+        <div className="w-4/12 px-10 flex flex-col">
           <form onSubmit={formikBag.handleSubmit}>
             <input
               type="hidden"

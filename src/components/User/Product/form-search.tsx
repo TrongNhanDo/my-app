@@ -88,7 +88,7 @@ const SearchForm = React.memo(() => {
         <span className="text-xl font-bold">{t('base_on_branch')} 🔽</span>
         <div className="w-full">
           {Array.from({ length: 6 }).map((_, index: number) => (
-            <div className="w-1/2 inline-block mt-2">
+            <div className="w-1/2 inline-block mt-2 pr-1 overflow-hidden whitespace-nowrap break-all text-ellipsis line-clamp-1">
               <input
                 type="checkbox"
                 id={`branch${index + 1}`}
@@ -99,6 +99,7 @@ const SearchForm = React.memo(() => {
                 onChange={(e) => handleChangeCheckbox(setBranchId, e)}
               />
               <label
+                title={t(`branch${index + 1}`)}
                 htmlFor={`branch${index + 1}`}
                 className="ps-3 cursor-pointer"
               >
@@ -113,7 +114,7 @@ const SearchForm = React.memo(() => {
         <span className="text-xl font-bold">{t('base_on_age')} 🔽</span>
         <div className="w-full">
           {Array.from({ length: 6 }).map((_, index: number) => (
-            <div className="w-1/2 inline-block mt-2">
+            <div className="w-1/2 inline-block mt-2 pr-1 overflow-hidden whitespace-nowrap break-all text-ellipsis line-clamp-1">
               <input
                 type="checkbox"
                 id={`age${index + 1}`}
@@ -124,6 +125,7 @@ const SearchForm = React.memo(() => {
                 onChange={(e) => handleChangeCheckbox(setAgeId, e)}
               />
               <label
+                title={t(`age${index + 1}`)}
                 htmlFor={`age${index + 1}`}
                 className="ps-3 cursor-pointer"
               >
@@ -138,7 +140,7 @@ const SearchForm = React.memo(() => {
         <span className="text-xl font-bold mb-2">{t('base_on_skill')} 🔽</span>
         <div className="w-full">
           {Array.from({ length: 6 }).map((_, index: number) => (
-            <div className="w-1/2 inline-block mt-2">
+            <div className="w-1/2 inline-block mt-2 pr-1 overflow-hidden whitespace-nowrap break-all text-ellipsis line-clamp-1">
               <input
                 type="checkbox"
                 id={`skill${index + 1}`}
@@ -149,8 +151,9 @@ const SearchForm = React.memo(() => {
                 onChange={(e) => handleChangeCheckbox(setSkillId, e)}
               />
               <label
+                title={t(`skill${index + 1}`)}
                 htmlFor={`skill${index + 1}`}
-                className="ps-3 cursor-pointer lb"
+                className="ps-3 cursor-pointer"
               >
                 {t(`skill${index + 1}`)}
               </label>

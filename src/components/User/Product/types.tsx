@@ -54,3 +54,10 @@ export type FormikProps = {
   price: string;
   amount: string;
 };
+
+export const DetailFormikInitValues = {
+  userId: '',
+  productId: '',
+  price: '',
+  amount: '',
+};
