@@ -7,6 +7,7 @@ import {
   callApi,
   formatCurrency,
   renderStar,
+  scrollTop,
 } from '../../Common/Logic/logics';
 import { useFormik } from 'formik';
 import { validationSchema } from './validations';
@@ -35,6 +36,7 @@ const UserProductDetail = React.memo(() => {
       setViewData(viewData);
     }
     setShowLoading(false);
+    scrollTop();
   }, [productId, navigate]);
 
   const onSubmit = useCallback(
