@@ -42,7 +42,7 @@ import CartList from './components/User/Cart';
 import MyAccount from './components/User/Account/Detail';
 import CheckoutPage from './components/User/Checkout';
 import { SumProductContext } from './context/SumProductContext';
-import * as Constants from './contants';
+import * as Constants from './constants';
 import AdminLogin from './components/Admin/Login';
 import GenuineProduct from './components/User/Customer/GenuineProduct';
 import GiftWrapping from './components/User/Customer/GiftWrapping';
