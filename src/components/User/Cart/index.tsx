@@ -14,7 +14,6 @@ import {
   callApi,
   formatCurrency,
 } from '../../Common/Logic/logics';
-import Loader from '../../Common/Loader/loader';
 import { validationSchema } from './validations';
 import { SumProductContext } from '../../../context/SumProductContext';
 
@@ -22,7 +21,6 @@ const CartList = React.memo(() => {
   const { t } = useTranslation(['user_cart', 'user_error']);
   const navigate = useNavigate();
   const [viewData, setViewData] = useState<CartItemType[]>();
-  const [loading, setLoading] = useState<boolean>(false);
   const { setSumProduct, userId } = useContext(SumProductContext);
   const [isChangeForm, setIsChangeForm] = useState<boolean>(false);
   const [eventId, setEventId] = useState<string>('');
@@ -39,7 +37,6 @@ const CartList = React.memo(() => {
   }, [navigate, currentUserId]);
 
   const fetchApi = useCallback(async () => {
-    setLoading(true);
     setIsChangeForm(false);
     const response = await callApi('carts/get-by-userId', MethodProps.POST, {
       userId: currentUserId,
@@ -49,17 +46,14 @@ const CartList = React.memo(() => {
     if (data) {
       setViewData(data);
     }
-    setLoading(false);
   }, [currentUserId]);
 
   const handleDelete = useCallback(
     async (cartId: string) => {
       try {
-        setLoading(true);
         await callApi('carts', MethodProps.DELETE, { id: cartId }).catch(
           (err) => console.log({ err })
         );
-        setLoading(false);
         fetchApi();
       } catch (error) {
         console.log({ error });
@@ -70,14 +64,12 @@ const CartList = React.memo(() => {
 
   const onSubmit = useCallback(
     async (formikValues: FormikProps) => {
-      setLoading(true);
       if (eventId === 'update') {
         await callApi(
           'carts/update-cart/',
           MethodProps.POST,
           formikValues
         ).catch((err) => console.log({ err }));
-        setLoading(false);
         fetchApi();
       } else if (eventId === 'checkout') {
         navigate('/checkout', {
@@ -147,7 +139,6 @@ const CartList = React.memo(() => {
 
   return (
     <div className="div-contai">
-      {loading && <Loader />}
       {viewData && viewData.length ? (
         <div className="flex shadow-md">
           <div className="w-3/4 bg-white px-10 py-10 rounded">

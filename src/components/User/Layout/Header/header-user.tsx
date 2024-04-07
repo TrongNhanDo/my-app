@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../../i18n/i18n';
 import { SumProductContext } from '../../../../context/SumProductContext';
-import Loader from '../../../Common/Loader/loader';
 
 const HeaderUser = React.memo(() => {
   const { t } = useTranslation(['user_header']);
@@ -17,7 +16,6 @@ const HeaderUser = React.memo(() => {
     setLocale,
     setRoleId,
   } = useContext(SumProductContext);
-  const [loading, setLoading] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
 
   const changeLanguage = useCallback(
@@ -33,12 +31,10 @@ const HeaderUser = React.memo(() => {
   const handleLogout = useCallback(async () => {
     try {
       setModal(false);
-      setLoading(true);
       await setUserId('');
       await setRoleId('');
       await setSumProduct(0);
       await sessionStorage.removeItem('userId');
-      setLoading(false);
       navigate('/');
     } catch (error) {
       console.log({ error });
@@ -59,7 +55,6 @@ const HeaderUser = React.memo(() => {
 
   return (
     <>
-      {loading && <Loader />}
       {modal && (
         <div className="fixed flex w-full h-full bg-gray-500/75 top-0 left-0">
           <div className="flex flex-col w-3/12 h-auto bg-white m-auto items-center p-5 rounded index-30 font-bold">

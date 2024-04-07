@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { validationSchema } from './validations';
 import { FormikValueType, initValueFormik } from './types';
-import Loader from '../../../Common/Loader/loader';
 import { useTranslation } from 'react-i18next';
 import {
   MethodProps,
@@ -14,7 +13,6 @@ import {
 
 const LoginForm = React.memo(() => {
   const { t } = useTranslation(['user_register', 'user_error']);
-  const [showLoading, setShowLoading] = useState<boolean>(false);
   const [checkPass, setCheckPass] = useState<boolean>(false);
   const [isRegisterFail, setIsRegisterFail] = useState<boolean>(false);
   const [isRegisterSuccess, setIsRegisterSuccess] = useState<boolean>(false);
@@ -25,7 +23,6 @@ const LoginForm = React.memo(() => {
         setCheckPass(true);
         return;
       }
-      setShowLoading(true);
       const payload = {
         username: formikValues.email || '',
         password: formikValues.password || '',
@@ -50,7 +47,6 @@ const LoginForm = React.memo(() => {
             ToastTypeOptions.Error
           );
         });
-      setShowLoading(false);
     } catch (error) {
       console.log({ error });
     }
@@ -90,7 +86,6 @@ const LoginForm = React.memo(() => {
 
   return (
     <div className="div-contai w-1/3 bg-white shadow">
-      {showLoading && <Loader />}
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl uppercase text-center">
           {t('title')}

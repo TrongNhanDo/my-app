@@ -8,7 +8,6 @@ import {
   callApi,
   formatCurrency,
 } from '../../Common/Logic/logics';
-import Loader from '../../Common/Loader/loader';
 import { validationSchema } from './validations';
 import {
   paymentByCod,
@@ -21,12 +20,10 @@ const CheckoutPage = React.memo(() => {
   const { t } = useTranslation(['user_checkout', 'user_error']);
   const location = useLocation();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
   const [viewData, setViewData] = useState<CartItemType[]>();
   const { userId, shippingCost } = location.state;
 
   const fetchApi = useCallback(async () => {
-    setLoading(true);
     const response = await callApi('carts/get-by-userId', MethodProps.POST, {
       userId: userId,
     }).catch((err) => console.log({ err }));
@@ -35,7 +32,6 @@ const CheckoutPage = React.memo(() => {
       const data: CartItemType[] = response.data;
       setViewData(data);
     }
-    setLoading(false);
   }, [userId]);
 
   const totalPrices = useMemo(() => {
@@ -118,7 +114,6 @@ const CheckoutPage = React.memo(() => {
 
   return (
     <div className="div-contai bg-white py-5 px-10">
-      {loading && <Loader />}
       <div className="text-2xl font-bold w-full text-center uppercase">
         {t('title')}
       </div>

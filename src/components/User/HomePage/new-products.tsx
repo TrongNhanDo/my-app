@@ -10,12 +10,10 @@ import {
   formatCurrency,
   renderStar,
 } from '../../Common/Logic/logics';
-import Loader from '../../Common/Loader/loader';
 import * as actions from '../../../ducks/action';
 
 const NewProducts = React.memo(() => {
   const { t } = useTranslation(['user_home']);
-  const [showLoading, setShowLoading] = useState<boolean>(false);
   const [productList, setProductList] = useState<ProductProps[]>([]);
   const dispatch = useDispatch();
 
@@ -24,7 +22,6 @@ const NewProducts = React.memo(() => {
   console.log({ products });
 
   const fetchApi = useCallback(async () => {
-    setShowLoading(true);
     const response = await callApi(
       'products/get-newest-products',
       MethodProps.GET
@@ -32,7 +29,6 @@ const NewProducts = React.memo(() => {
     const data: ProductProps[] = response ? response.data || [] : [];
     setProductList(data);
     dispatch(actions.setNewestProductList(data));
-    setShowLoading(false);
   }, [dispatch]);
 
   useEffect(() => {
@@ -42,7 +38,6 @@ const NewProducts = React.memo(() => {
 
   return (
     <div className="w-full flex flex-col bg-white rounded p-5 mt-5">
-      {showLoading && <Loader />}
       <div className="flex w-full items-center">
         <div className="uppercase text-2xl font-bold w-1/2">
           {t('new_product')}

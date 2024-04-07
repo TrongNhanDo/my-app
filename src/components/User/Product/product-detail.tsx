@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DetailFormikInitValues, FormikProps, ProductType } from './types';
-import Loader from '../../Common/Loader/loader';
 import {
   MethodProps,
   callApi,
@@ -18,7 +17,6 @@ const UserProductDetail = React.memo(() => {
   const { t } = useTranslation(['user_product_detail', 'user_error']);
   const { productId } = useParams();
   const navigate = useNavigate();
-  const [showLoading, setShowLoading] = useState<boolean>(true);
   const [viewData, setViewData] = useState<ProductType>();
   const [mainImage, setMainImage] = useState<string>();
   const { sumProduct, setSumProduct, userId } = useContext(SumProductContext);
@@ -35,7 +33,6 @@ const UserProductDetail = React.memo(() => {
       const viewData: ProductType = response.data;
       setViewData(viewData);
     }
-    setShowLoading(false);
     scrollTop();
   }, [productId, navigate]);
 
@@ -43,13 +40,11 @@ const UserProductDetail = React.memo(() => {
     async (formikBagValues: FormikProps) => {
       try {
         if (formikBagValues.userId) {
-          setShowLoading(true);
           const newValue = sumProduct + parseInt(formikBagValues.amount);
           setSumProduct(newValue);
           await callApi('carts', MethodProps.POST, formikBagValues).catch(
             (err) => console.log({ err })
           );
-          setShowLoading(false);
           if (isBuyNow) {
             navigate('/carts');
           }
@@ -109,7 +104,6 @@ const UserProductDetail = React.memo(() => {
 
   return (
     <div className="div-contai flex flex-col bg-white p-5">
-      {showLoading && <Loader />}
       <div className="flex w-full">
         <div className="w-2/12 pe-5">
           {viewData && viewData.images.length ? (

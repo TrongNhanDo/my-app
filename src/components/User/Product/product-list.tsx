@@ -8,7 +8,6 @@ import {
   renderStar,
   scrollTop,
 } from '../../Common/Logic/logics';
-import Loader from '../../Common/Loader/loader';
 import SearchForm from './form-search';
 import { useTranslation } from 'react-i18next';
 
@@ -16,7 +15,6 @@ const UserProductList = React.memo(() => {
   const { t } = useTranslation(['user_product', 'user_error']);
   const [searchParams] = useSearchParams();
   const [viewData, setViewData] = useState<DataPropsType>();
-  const [showLoading, setShowLoading] = useState<boolean>(true);
   const dataPerPage = import.meta.env.VITE_PER_PAGE || 10;
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -34,7 +32,6 @@ const UserProductList = React.memo(() => {
   }, [searchParams]);
 
   const fetchApi = useCallback(async () => {
-    setShowLoading(true);
     setCurrentPage(1);
     const response = await callApi('products/paginate', MethodProps.POST, {
       perPage: dataPerPage,
@@ -43,13 +40,11 @@ const UserProductList = React.memo(() => {
     }).catch((err) => console.log({ err }));
     const data: DataPropsType = response.data || [];
     setViewData(data);
-    setShowLoading(false);
     scrollTop();
   }, [dataPerPage, queryParams]);
 
   const changePage = useCallback(
     async (perPage: number, page: number) => {
-      setShowLoading(true);
       setCurrentPage(page);
       const response = await callApi('products/paginate', MethodProps.POST, {
         perPage: perPage || 10,
@@ -59,7 +54,6 @@ const UserProductList = React.memo(() => {
       const data: DataPropsType = response.data || null;
       setViewData(data);
       scrollTop();
-      setShowLoading(false);
     },
     [queryParams]
   );
@@ -95,7 +89,6 @@ const UserProductList = React.memo(() => {
 
   return (
     <div className="div-contai">
-      {showLoading && <Loader />}
       <div className="flex w-full">
         <div className="w-1/4 p-4 bg-white h-fit rounded me-5">
           <SearchForm />
