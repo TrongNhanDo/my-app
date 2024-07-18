@@ -83,111 +83,96 @@ const HeaderUser = React.memo(() => {
           </div>
         </div>
       )}
-      <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
-        <li>
-          <Link
-            to="/"
-            className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
-            aria-current="page"
-          >
-            {t('home')}
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/product-list"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-          >
-            {t('product')}
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-          >
-            {t('service')}
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/about"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-          >
-            {t('about')}
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/contact"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-          >
-            {t('contact')}
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/carts"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 relative"
-          >
-            {t('cart')}
-            <span className="absolute px-1 text-white bg-blue-700 rounded-full sum-count font-bold">
-              {sumProduct || 0}
-            </span>
-          </Link>
-        </li>
-        {userId ? (
-          <>
-            <li>
-              <Link
-                to="/my-account"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('account')}
-              </Link>
-            </li>
-            <li>
-              <button
-                onClick={() => setModal(true)}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('logout')}
-              </button>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link
-                to="/login"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('login')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/register"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('register')}
-              </Link>
-            </li>
-          </>
-        )}
 
-        <li>
-          <select
-            id="countries"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2"
-            value={locale}
-            onChange={changeLanguage}
+      <Link
+        to="/"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:bg-transparent md:text-blue-700 md:p-0"
+        aria-current="page"
+      >
+        {t('home')}
+      </Link>
+
+      <Link
+        to="/product-list"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+      >
+        {t('product')}
+      </Link>
+
+      <Link
+        to="/"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+      >
+        {t('service')}
+      </Link>
+
+      <Link
+        to="/about"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+      >
+        {t('about')}
+      </Link>
+
+      <Link
+        to="/contact"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+      >
+        {t('contact')}
+      </Link>
+
+      <Link
+        to="/carts"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 relative"
+      >
+        {t('cart')}
+        <span className="absolute px-1 text-white bg-blue-700 rounded-full sum-count font-bold">
+          {sumProduct || 0}
+        </span>
+      </Link>
+
+      {userId ? (
+        <>
+          <Link
+            to="/my-account"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
           >
-            <option value="eng">English</option>
-            <option value="vie">Vietnamese</option>
-          </select>
-        </li>
-      </ul>
+            {t('account')}
+          </Link>
+
+          <button
+            onClick={() => setModal(true)}
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('logout')}
+          </button>
+        </>
+      ) : (
+        <>
+          <Link
+            to="/login"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('login')}
+          </Link>
+
+          <Link
+            to="/register"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('register')}
+          </Link>
+        </>
+      )}
+
+      <select
+        id="countries"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2"
+        value={locale}
+        onChange={changeLanguage}
+      >
+        <option value="eng">English</option>
+        <option value="vie">Vietnamese</option>
+      </select>
     </>
   );
 });

@@ -78,97 +78,85 @@ const HeaderAdmin = React.memo(() => {
           </div>
         </div>
       )}
-      <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 ">
-        {userId && (
-          <>
-            <li>
-              <Link
-                to="/admin"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                aria-current="page"
-              >
-                {t('home')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/role-list"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('role')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/user-list"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('user')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/product-list"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('product')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/age-category-list"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('age')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/branch-category-list"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('branch')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/skill-category-list"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('skill')}
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/account-detail"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('my_account')}
-              </Link>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => setModal(true)}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                {t('logout')}
-              </button>
-            </li>
-            <li>
-              <select
-                id="countries"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2"
-                value={locale}
-                onChange={changeLanguage}
-              >
-                <option value="eng">English</option>
-                <option value="vie">Vietnamese</option>
-              </select>
-            </li>
-          </>
-        )}
-      </ul>
+
+      {userId && (
+        <>
+          <Link
+            to="/admin"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            aria-current="page"
+          >
+            {t('home')}
+          </Link>
+
+          <Link
+            to="/admin/role-list"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('role')}
+          </Link>
+
+          <Link
+            to="/admin/user-list"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('user')}
+          </Link>
+
+          <Link
+            to="/admin/product-list"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('product')}
+          </Link>
+
+          <Link
+            to="/admin/age-category-list"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('age')}
+          </Link>
+
+          <Link
+            to="/admin/branch-category-list"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('branch')}
+          </Link>
+
+          <Link
+            to="/admin/skill-category-list"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('skill')}
+          </Link>
+
+          <Link
+            to="/admin/account-detail"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('my_account')}
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setModal(true)}
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+          >
+            {t('logout')}
+          </button>
+
+          <select
+            id="countries"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2"
+            value={locale}
+            onChange={changeLanguage}
+          >
+            <option value="eng">English</option>
+            <option value="vie">Vietnamese</option>
+          </select>
+        </>
+      )}
     </>
   );
 });

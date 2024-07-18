@@ -19,8 +19,6 @@ const NewProducts = React.memo(() => {
 
   const products: ProductProps[] = useSelector(selectors.getNewestProductList);
 
-  console.log({ products });
-
   const fetchApi = useCallback(async () => {
     const response = await callApi(
       'products/get-newest-products',

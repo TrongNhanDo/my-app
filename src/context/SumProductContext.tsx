@@ -58,7 +58,8 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
     setUserId(localUserId);
     setRoleId(localRoleId);
     setLocale(localLocale);
-  }, [localUserId, localRoleId, localLocale]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchApi = useCallback(async () => {
     if (userId) {
