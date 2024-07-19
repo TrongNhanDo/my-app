@@ -175,17 +175,6 @@ const SearchForm = React.memo(() => {
       </div>
       <hr className="my-5" />
       <div className="flex w-full justify-around items-center">
-        <Link
-          to="/product-list"
-          className={`w-fit py-2 px-3 w-2/6 rounded text-white ${
-            isSelected
-              ? 'hover:bg-red-500 bg-red-600'
-              : 'cursor-not-allowed bg-gray-500'
-          }`}
-          onClick={handleClearSearch}
-        >
-          {t('uncheck')}
-        </Link>
         <button
           type="button"
           className={`block py-2 w-3/6 rounded text-white ${
@@ -198,6 +187,17 @@ const SearchForm = React.memo(() => {
         >
           {t('search')}
         </button>
+        <Link
+          to="/product-list"
+          className={`py-2 px-3 w-2/6 rounded text-center text-white ${
+            isSelected
+              ? 'hover:bg-red-500 bg-red-600'
+              : 'cursor-not-allowed bg-gray-500'
+          }`}
+          onClick={handleClearSearch}
+        >
+          {t('uncheck')}
+        </Link>
       </div>
     </>
   );

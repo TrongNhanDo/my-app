@@ -28,18 +28,29 @@ const HeaderUser = React.memo(() => {
     [setLocale]
   );
 
+  // const handleLogout = useCallback(async () => {
+  //   try {
+  //     setModal(false);
+  //     await setUserId('');
+  //     await setRoleId('');
+  //     await setSumProduct(0);
+  //     await sessionStorage.removeItem('userId');
+  //     navigate('/');
+  //   } catch (error) {
+  //     console.log({ error });
+  //   }
+  // }, [setSumProduct, setUserId, navigate, setRoleId]);
+
   const handleLogout = useCallback(async () => {
-    try {
+    if (confirm('Log out ???')) {
       setModal(false);
       await setUserId('');
       await setRoleId('');
       await setSumProduct(0);
       await sessionStorage.removeItem('userId');
       navigate('/');
-    } catch (error) {
-      console.log({ error });
     }
-  }, [setSumProduct, setUserId, navigate, setRoleId]);
+  }, [navigate, setRoleId, setSumProduct, setUserId]);
 
   useEffect(() => {
     i18n.changeLanguage(locale);
@@ -55,7 +66,7 @@ const HeaderUser = React.memo(() => {
 
   return (
     <>
-      {modal && (
+      {/* {modal && (
         <div className="fixed flex w-full h-full bg-gray-500/75 top-0 left-0">
           <div className="flex flex-col w-3/12 h-auto bg-white m-auto items-center p-5 rounded index-30 font-bold">
             <div className="flex w-full flex-col">
@@ -82,11 +93,11 @@ const HeaderUser = React.memo(() => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       <Link
         to="/"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:bg-transparent md:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
         aria-current="page"
       >
         {t('home')}
@@ -94,35 +105,35 @@ const HeaderUser = React.memo(() => {
 
       <Link
         to="/product-list"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
       >
         {t('product')}
       </Link>
 
       <Link
         to="/"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
       >
         {t('service')}
       </Link>
 
       <Link
         to="/about"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
       >
         {t('about')}
       </Link>
 
       <Link
         to="/contact"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
       >
         {t('contact')}
       </Link>
 
       <Link
         to="/carts"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 relative"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 relative"
       >
         {t('cart')}
         <span className="absolute px-1 text-white bg-blue-700 rounded-full sum-count font-bold">
@@ -134,14 +145,15 @@ const HeaderUser = React.memo(() => {
         <>
           <Link
             to="/my-account"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
           >
             {t('account')}
           </Link>
 
           <button
-            onClick={() => setModal(true)}
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            // onClick={() => setModal(true)}
+            onClick={handleLogout}
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
           >
             {t('logout')}
           </button>
@@ -150,14 +162,14 @@ const HeaderUser = React.memo(() => {
         <>
           <Link
             to="/login"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
           >
             {t('login')}
           </Link>
 
           <Link
             to="/register"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
           >
             {t('register')}
           </Link>
