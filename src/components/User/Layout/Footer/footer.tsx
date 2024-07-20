@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import * as Logics from '../../../Common/Logic/logics';
 import { useFormik } from 'formik';
 import { validationSchema } from './validations';
+import './footer.css';
 
 type FormikBagProps = {
   email: string;
@@ -66,37 +67,42 @@ const Footer = React.memo(() => {
   }, [isSuccess]);
 
   return (
-    <footer className="w-full mt-auto">
+    <footer className="footer w-full mt-auto">
       {!isAdmin && (
-        <div className="flex w-full bg-footer2">
-          <div className="flex w-9/12 m-auto py-5 px-4">
-            <div className="flex flex-col w-1/4">
+        <div className="footer-top flex w-full bg-footer2">
+          <div className="footer-content flex w-9/12 m-auto py-5 px-4">
+            {/** Receive news from us */}
+            <div className="footer-item flex flex-col w-1/4">
               <div className="font-bold uppercase mb-3">
                 {t('receive_news')}
               </div>
-              <form onSubmit={formikBag.handleSubmit}>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Enter your email"
-                  className="px-2 py-2 rounded w-2/3"
-                  onChange={formikBag.handleChange}
-                  value={formikBag.values.email}
-                />
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
-                >
-                  {t('btn_send')}
-                </button>
-              </form>
-              {formikBag.errors.email && formikBag.touched.email && (
-                <span className="text-red-500">{formikBag.errors.email}</span>
-              )}
-              <div className="font-bold text-base mt-3">{t('hotline')}</div>
-              <div className="text-sm">{t('work_time')}</div>
+              <div>
+                <form onSubmit={formikBag.handleSubmit}>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    className="px-2 py-2 rounded w-2/3"
+                    onChange={formikBag.handleChange}
+                    value={formikBag.values.email}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-white"
+                  >
+                    {t('btn_send')}
+                  </button>
+                </form>
+                {formikBag.errors.email && formikBag.touched.email && (
+                  <span className="text-red-500">{formikBag.errors.email}</span>
+                )}
+              </div>
+              <div>
+                <div className="font-bold text-base mt-3">{t('hotline')}</div>
+                <div className="text-sm">{t('work_time')}</div>
+              </div>
               <div className="flex mt-1 items-center">
                 <div className="text-3xl">📞</div>
                 <div className="flex flex-col font-bold ps-4">
@@ -128,7 +134,9 @@ const Footer = React.memo(() => {
                 </Link>
               </div>
             </div>
-            <div className="flex flex-col w-1/4 ps-10 pe-5">
+
+            {/** Information */}
+            <div className="footer-item flex flex-col w-1/4 ps-10 pe-5">
               <div className="font-bold uppercase mb-3">{t('information')}</div>
               <ul>
                 <li className="py-2">
@@ -161,7 +169,9 @@ const Footer = React.memo(() => {
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col w-1/4 ps-5 pe-10">
+
+            {/** Policy */}
+            <div className="footer-item flex flex-col w-1/4 ps-5 pe-10">
               <div className="font-bold uppercase mb-3">{t('policy')}</div>
               <ul>
                 <li className="py-2">
@@ -176,9 +186,11 @@ const Footer = React.memo(() => {
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col w-1/4">
+
+            {/** Follow shop */}
+            <div className="footer-item flex flex-col w-1/4">
               <div className="font-bold uppercase mb-3">{t('follow')}</div>
-              <ul className="flex">
+              <ul className="footer-follow-bot flex">
                 <li>
                   <Link to="">
                     <img
@@ -270,7 +282,7 @@ const Footer = React.memo(() => {
           </div>
         </div>
       )}
-      <div className="flex w-full bg-footer1 flex-col items-center p-3 text-sm">
+      <div className="footer-bot flex w-full bg-footer1 flex-col items-center p-3 text-sm">
         <div className="flex font-bold text-base">{t('copyright')}</div>
       </div>
     </footer>
