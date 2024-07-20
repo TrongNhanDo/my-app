@@ -103,8 +103,8 @@ const UserProductDetail = React.memo(() => {
   }, [viewData]);
 
   return (
-    <div className="div-contai flex flex-col bg-white p-5">
-      <div className="flex w-full">
+    <div className="div-contai pd-detail flex flex-col bg-white p-5">
+      <div className="div-detail flex w-full">
         <div className="w-2/12 pe-5">
           {viewData && viewData.images.length ? (
             viewData.images.map((value: string, index: number) => {

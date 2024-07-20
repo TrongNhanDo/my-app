@@ -10,6 +10,7 @@ import {
 } from '../../Common/Logic/logics';
 import SearchForm from './form-search';
 import { useTranslation } from 'react-i18next';
+import './product.css';
 
 const UserProductList = React.memo(() => {
   const { t } = useTranslation(['user_product', 'user_error']);
@@ -89,7 +90,7 @@ const UserProductList = React.memo(() => {
 
   return (
     <div className="div-contai">
-      <div className="flex w-full">
+      <div className="div-product flex w-full">
         <div className="w-1/4 p-4 bg-white h-fit rounded me-5">
           <SearchForm />
         </div>
@@ -97,7 +98,7 @@ const UserProductList = React.memo(() => {
           {viewData && viewData.products && viewData.products.length ? (
             <>
               {viewData.products.map((value: ProductType, index: number) => (
-                <div className="w-1/3 inline-block p-4" key={index}>
+                <div className="pd-item w-1/3 inline-block p-4" key={index}>
                   <Link
                     to={`/product-detail/${value._id}`}
                     className="flex flex-col w-full bg-white hover:bg-gray-100 p-4 rounded border-solid border-2 border-gray-200"

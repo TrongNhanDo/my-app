@@ -16,6 +16,7 @@ import {
 } from '../../Common/Logic/logics';
 import { validationSchema } from './validations';
 import { SumProductContext } from '../../../context/SumProductContext';
+import './cart.css';
 
 const CartList = React.memo(() => {
   const { t } = useTranslation(['user_cart', 'user_error']);
@@ -140,7 +141,7 @@ const CartList = React.memo(() => {
   return (
     <div className="div-contai">
       {viewData && viewData.length ? (
-        <div className="flex shadow-md">
+        <div className="flex div-cart shadow-md">
           <div className="w-3/4 bg-white px-10 py-10 rounded">
             <div className="flex justify-between border-b pb-8">
               <h1 className="font-semibold text-2xl">{t('title')}</h1>
@@ -148,7 +149,7 @@ const CartList = React.memo(() => {
                 {totalProducts + ' ' + t('product')}
               </h2>
             </div>
-            <div className="flex mt-10 mb-5">
+            <div className="div-heading flex mt-10 mb-5">
               <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/6">
                 {t('header1')}
               </h3>
@@ -175,9 +176,9 @@ const CartList = React.memo(() => {
                 viewData.map((value: CartItemType, index: number) => {
                   return (
                     <div key={value._id}>
-                      <div className="flex items-center hover:bg-gray-100 py-5">
+                      <div className="pd-row flex items-center hover:bg-gray-100 py-5">
                         <div className="flex w-2/6">
-                          <div className="flex w-2/6 items-center">
+                          <div className="cart-image flex w-2/6 items-center">
                             <Link to={`/product-detail/${value.productId}`}>
                               <img
                                 className="h-24 object-cover"
@@ -192,7 +193,7 @@ const CartList = React.memo(() => {
                               />
                             </Link>
                           </div>
-                          <div className="flex flex-col justify-between ml-4 flex-grow w-3/6">
+                          <div className="div-info flex flex-col justify-between ml-4 flex-grow w-3/6">
                             <span className="font-bold line-clamp-2">
                               {value.product && value.product.productName
                                 ? value.product.productName
@@ -239,12 +240,12 @@ const CartList = React.memo(() => {
                             onChange={formikBag.handleChange}
                           />
                         </div>
-                        <span className="text-center w-1/6 font-semibold text-sm">
+                        <div className="text-center w-1/6 font-semibold text-sm">
                           {formatCurrency(value.price || 0)}
-                        </span>
-                        <span className="text-center w-1/6 font-semibold text-sm">
+                        </div>
+                        <div className="text-center w-1/6 font-semibold text-sm">
                           {formatCurrency(value.total || 0)}
-                        </span>
+                        </div>
                         <div className="flex w-1/6 justify-center">
                           <button
                             className="font-semibold text-sm w-fit hover:bg-red-600 p-1 rounded"

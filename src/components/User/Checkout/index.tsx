@@ -15,6 +15,7 @@ import {
   paymentByTransfer,
   paymentByVnPay,
 } from './payment';
+import './checkout.css';
 
 const CheckoutPage = React.memo(() => {
   const { t } = useTranslation(['user_checkout', 'user_error']);
@@ -113,21 +114,21 @@ const CheckoutPage = React.memo(() => {
   }, [shippingCost, viewData]);
 
   return (
-    <div className="div-contai bg-white py-5 px-10">
+    <div className="div-contai checkout bg-white py-5 px-10">
       <div className="text-2xl font-bold w-full text-center uppercase">
         {t('title')}
       </div>
       <hr className="w-full my-5" />
       <form onSubmit={formikBag.handleSubmit}>
-        <div className="flex w-full">
-          <div className="w-3/5">
+        <div className="div-checkout flex w-full">
+          <div className="ck-info w-3/5">
             <div className="text-xl font-bold w-full mb-4 uppercase">
               {t('title1')}
             </div>
             <div className="flex flex-col w-10/12">
               <div className="w-full mb-3">
                 <label htmlFor="name" className="block mb-2">
-                  {t('name')} (*):
+                  {t('fullname')} (*):
                 </label>
                 <input
                   type="name"
@@ -334,7 +335,7 @@ const CheckoutPage = React.memo(() => {
               </div>
             </div>
           </div>
-          <div className="w-2/5 relative overflow-x-auto">
+          <div className="ck-pm w-2/5 relative overflow-x-auto">
             <div className="text-xl font-bold w-full mb-4 uppercase">
               {t('title2')}
             </div>
