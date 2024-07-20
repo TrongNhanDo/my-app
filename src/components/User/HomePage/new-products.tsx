@@ -35,8 +35,8 @@ const NewProducts = React.memo(() => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col bg-white rounded p-5 mt-5">
-      <div className="flex w-full items-center">
+    <div className="new-pro w-full flex flex-col bg-white rounded p-5 mt-5">
+      <div className="new-pro-top flex w-full items-center">
         <div className="uppercase text-2xl font-bold w-1/2">
           {t('new_product')}
         </div>
@@ -46,11 +46,11 @@ const NewProducts = React.memo(() => {
           </Link>
         </div>
       </div>
-      <div className="flex w-full mt-5 justify-center">
+      <div className="new-pro-bot flex w-full mt-5 justify-center">
         {productList && productList.length ? (
           <>
             {productList.map((value: ProductProps, index: number) => (
-              <div className="w-1/3 inline-block p-4" key={index}>
+              <div className="div-pro w-1/3 inline-block p-4" key={index}>
                 <Link
                   to={`/product-detail/${value._id}`}
                   className="flex flex-col w-full bg-white hover:bg-gray-100 p-4 rounded border-solid border-2 border-gray-200"

@@ -6,8 +6,8 @@ const BaseOnAge = React.memo(() => {
   const { t } = useTranslation(['user_home']);
 
   return (
-    <div className="w-full flex flex-col bg-white rounded p-5 mt-5">
-      <div className="flex w-full items-center">
+    <div className="div-age w-full flex flex-col bg-white rounded p-5 mt-5">
+      <div className="div-age-top flex w-full items-center">
         <div className="uppercase text-2xl font-bold w-1/2">
           {t('base_on_age')}
         </div>
@@ -17,7 +17,7 @@ const BaseOnAge = React.memo(() => {
           </Link>
         </div>
       </div>
-      <div className="flex w-full mt-5 justify-around">
+      <div className="div-age-bot flex w-full mt-5 justify-around">
         <Link to="/product-list?ageId=1">
           <img
             src="https://res.cloudinary.com/dgc1ya9ud/image/upload/v1686709992/childrenToy/age1_y21mrq.png"

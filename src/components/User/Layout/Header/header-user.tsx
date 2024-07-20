@@ -97,7 +97,7 @@ const HeaderUser = React.memo(() => {
 
       <Link
         to="/"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
         aria-current="page"
       >
         {t('home')}
@@ -105,35 +105,35 @@ const HeaderUser = React.memo(() => {
 
       <Link
         to="/product-list"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
       >
         {t('product')}
       </Link>
 
       <Link
         to="/"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
       >
         {t('service')}
       </Link>
 
       <Link
         to="/about"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
       >
         {t('about')}
       </Link>
 
       <Link
         to="/contact"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
       >
         {t('contact')}
       </Link>
 
       <Link
         to="/carts"
-        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 relative"
+        className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0 relative"
       >
         {t('cart')}
         <span className="absolute px-1 text-white bg-blue-700 rounded-full sum-count font-bold">
@@ -145,7 +145,7 @@ const HeaderUser = React.memo(() => {
         <>
           <Link
             to="/my-account"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
           >
             {t('account')}
           </Link>
@@ -153,7 +153,7 @@ const HeaderUser = React.memo(() => {
           <button
             // onClick={() => setModal(true)}
             onClick={handleLogout}
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
           >
             {t('logout')}
           </button>
@@ -162,14 +162,14 @@ const HeaderUser = React.memo(() => {
         <>
           <Link
             to="/login"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
           >
             {t('login')}
           </Link>
 
           <Link
             to="/register"
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+            className="block py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 font-bold md:p-0"
           >
             {t('register')}
           </Link>
@@ -178,7 +178,7 @@ const HeaderUser = React.memo(() => {
 
       <select
         id="countries"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2"
+        className="block py-2 pl-4 pr-4 text-gray-900 rounded font-bold md:p-1"
         value={locale}
         onChange={changeLanguage}
       >

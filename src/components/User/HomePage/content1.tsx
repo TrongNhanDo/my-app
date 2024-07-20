@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Content1 = React.memo(() => {
   return (
     <>
-      <div className="flex w-full justify-around mt-4">
+      <div className="content1 flex w-full justify-around mt-4">
         <Link to="/warranty" className="block w-1/6">
           <img
             src="https://res.cloudinary.com/dgc1ya9ud/image/upload/v1686709993/childrenToy/DOI-TRA-300x300_umgjyo.png"

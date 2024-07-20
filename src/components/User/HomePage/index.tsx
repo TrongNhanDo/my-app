@@ -1,4 +1,5 @@
 import React from 'react';
+import './homepage.css';
 import Banner from './banner';
 import BaseOnAge from './base-on-age';
 import BaseOnBranch from './base-on-branch';

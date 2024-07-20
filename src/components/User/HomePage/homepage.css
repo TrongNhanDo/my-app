@@ -1,0 +1,104 @@
+@media screen and (max-width: 600px) {
+  .div-contai {
+    margin: 0;
+    padding: 0;
+  }
+
+  .div-contai .content1 a {
+    width: 20%;
+  }
+
+  .div-contai .new-pro-top {
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
+  }
+
+  .div-contai .new-pro-bot {
+    display: block;
+  }
+
+  .div-contai .new-pro-bot .div-pro {
+    display: block;
+    padding: 0;
+    float: left;
+    width: 47%;
+  }
+
+  .div-contai .new-pro-bot .div-pro:nth-of-type(even) {
+    margin-left: 6%;
+  }
+
+  .div-contai .new-pro-bot .div-pro:not(:first-child):not(:nth-child(2)) {
+    margin-top: 20px;
+  }
+
+  .div-contai .div-age-top {
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
+  }
+
+  .div-contai .div-age-bot {
+    display: block;
+  }
+
+  .div-contai .div-age-bot a {
+    display: block;
+    width: 30%;
+    float: left;
+  }
+
+  .div-contai .div-age-bot a:not(:nth-child(1)):not(:nth-child(4)) {
+    margin-left: 5%;
+  }
+
+  .div-contai .div-age-bot a:nth-of-type(n + 4) {
+    margin-top: 15px;
+  }
+
+  .div-contai .div-skill-top {
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
+  }
+
+  .div-contai .div-skill-bot {
+    display: block;
+  }
+
+  .div-contai .div-skill-bot a {
+    display: block;
+    width: 30%;
+    float: left;
+  }
+
+  .div-contai .div-skill-bot a:not(:nth-child(1)):not(:nth-child(4)) {
+    margin-left: 5%;
+  }
+
+  .div-contai .div-skill-bot a:nth-of-type(n + 4) {
+    margin-top: 15px;
+  }
+
+  .div-contai .div-brand-top {
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
+  }
+
+  .div-contai .div-brand-bot {
+    display: block;
+  }
+
+  .div-contai .div-brand-bot a {
+    display: block;
+    width: 30%;
+    float: left;
+    min-height: 80px;
+  }
+
+  .div-contai .div-brand-bot a:not(:nth-child(1)):not(:nth-child(4)) {
+    margin-left: 5%;
+  }
+
+  .div-contai .div-brand-bot a:nth-of-type(n + 4) {
+    margin-top: 15px;
+  }
+}
