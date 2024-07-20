@@ -6,6 +6,7 @@ import { validationSchema } from './validations';
 import { FormikValueType, initValueFormik } from './types';
 import { SumProductContext } from '../../../../context/SumProductContext';
 import { MethodProps, callApi } from '../../../Common/Logic/logics';
+import './login.css';
 
 const LoginForm = React.memo(() => {
   const { t } = useTranslation(['user_login', 'user_error']);
@@ -50,7 +51,7 @@ const LoginForm = React.memo(() => {
   });
 
   return (
-    <div className="div-contai w-1/3 bg-white rounded-lg shadow">
+    <div className="div-contai login w-1/3 bg-white rounded-lg shadow">
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl uppercase text-center">
           {t('title')}

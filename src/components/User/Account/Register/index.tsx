@@ -10,6 +10,7 @@ import {
   callApi,
   showToast,
 } from '../../../Common/Logic/logics';
+import './register.css';
 
 const LoginForm = React.memo(() => {
   const { t } = useTranslation(['user_register', 'user_error']);
@@ -85,7 +86,7 @@ const LoginForm = React.memo(() => {
   }, [isRegisterSuccess]);
 
   return (
-    <div className="div-contai w-1/3 bg-white shadow">
+    <div className="div-contai register w-1/3 bg-white shadow">
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <div className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl uppercase text-center">
           {t('title')}
