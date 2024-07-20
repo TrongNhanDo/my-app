@@ -6,7 +6,7 @@ const PageNotFound = React.memo(() => {
 
   return (
     <>
-      <main className="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
+      <main className="page-404 h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
         <h1 className="text-9xl font-extrabold text-white tracking-widest">
           404
         </h1>
