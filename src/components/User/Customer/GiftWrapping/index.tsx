@@ -6,7 +6,7 @@ const GiftWrapping = React.memo(() => {
   const { t } = useTranslation(['user_gift_wrapping']);
 
   return (
-    <div className="div-contai flex">
+    <div className="div-contai about flex">
       <div className="w-1/4">
         <Sidebar />
       </div>

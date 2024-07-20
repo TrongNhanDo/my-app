@@ -6,7 +6,7 @@ const ExpressDelivery = React.memo(() => {
   const { t } = useTranslation(['user_express_delivery']);
 
   return (
-    <div className="div-contai flex">
+    <div className="div-contai about flex">
       <div className="w-1/4">
         <Sidebar />
       </div>

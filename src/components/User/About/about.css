@@ -1,0 +1,39 @@
+@media screen and (max-width: 600px) {
+  .about {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .about > div:nth-child(1) {
+    display: none;
+  }
+
+  .about > div:nth-child(2) {
+    width: 100%;
+  }
+
+  .about > div:nth-child(2) .text-pd-left {
+    padding-left: 0px;
+  }
+
+  .about > div:nth-child(2) .pdl-80 {
+    padding-left: 0px;
+  }
+
+  .about > div:nth-child(2) h3 {
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+
+  .about .div-question {
+    width: 100%;
+  }
+
+  .about .div-question button {
+    text-align: left;
+  }
+
+  .about .div-question button:focus {
+    background-color: white;
+  }
+}

@@ -6,7 +6,7 @@ const ShoppingGuide = React.memo(() => {
   const { t } = useTranslation(['user_shopping_guide']);
 
   return (
-    <div className="div-contai flex">
+    <div className="div-contai about flex">
       <div className="w-1/4">
         <Sidebar />
       </div>

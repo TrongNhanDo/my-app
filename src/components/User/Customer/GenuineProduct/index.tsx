@@ -11,7 +11,7 @@ const GenuineProduct = React.memo(() => {
   const [check5, setCheck5] = useState(false);
 
   return (
-    <div className="div-contai flex">
+    <div className="div-contai about flex">
       <div className="w-1/4">
         <Sidebar />
       </div>
@@ -28,7 +28,7 @@ const GenuineProduct = React.memo(() => {
           <div>
             <button
               type="button"
-              className="text-base font-bold w-fit"
+              className="text-base font-bold w-fit text-left"
               onClick={() => setCheck1(!check1)}
             >
               {check1 ? '🔽 ' : '▶️ '}
@@ -45,7 +45,7 @@ const GenuineProduct = React.memo(() => {
           <div>
             <button
               type="button"
-              className="text-base font-bold w-fit"
+              className="text-base font-bold w-fit text-left"
               onClick={() => setCheck2(!check2)}
             >
               {check2 ? '🔽 ' : '▶️ '}
@@ -62,7 +62,7 @@ const GenuineProduct = React.memo(() => {
           <div>
             <button
               type="button"
-              className="text-base font-bold w-fit"
+              className="text-base font-bold w-fit text-left"
               onClick={() => setCheck3(!check3)}
             >
               {check3 ? '🔽 ' : '▶️ '}
@@ -79,7 +79,7 @@ const GenuineProduct = React.memo(() => {
           <div>
             <button
               type="button"
-              className="text-base font-bold w-fit"
+              className="text-base font-bold w-fit text-left"
               onClick={() => setCheck4(!check4)}
             >
               {check4 ? '🔽 ' : '▶️ '}
@@ -96,7 +96,7 @@ const GenuineProduct = React.memo(() => {
           <div>
             <button
               type="button"
-              className="text-base font-bold w-fit"
+              className="text-base font-bold w-fit text-left"
               onClick={() => setCheck5(!check5)}
             >
               {check5 ? '🔽 ' : '▶️ '}

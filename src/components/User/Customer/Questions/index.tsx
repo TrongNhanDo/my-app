@@ -9,7 +9,7 @@ const QuestionsFrequently = React.memo(() => {
   const [check3, setCheck3] = useState<boolean>(false);
 
   return (
-    <div className="div-contai flex">
+    <div className="div-contai about flex">
       <div className="w-1/4">
         <Sidebar />
       </div>
@@ -17,7 +17,7 @@ const QuestionsFrequently = React.memo(() => {
         <div className="uppercase text-2xl font-bold text-center">
           {t('title')}
         </div>
-        <div className="flex flex-col mt-5">
+        <div className="div-question flex flex-col mt-5">
           <button
             type="button"
             className="text-xl font-bold w-fit"
