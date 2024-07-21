@@ -187,7 +187,7 @@ const Footer = React.memo(() => {
               </ul>
             </div>
 
-            {/** Follow shop */}
+            {/** Follow shop - Payment */}
             <div className="footer-item flex flex-col w-1/4">
               <div className="font-bold uppercase mb-3">{t('follow')}</div>
               <ul className="footer-follow-bot flex">
@@ -233,49 +233,39 @@ const Footer = React.memo(() => {
               </div>
               <ul className="flex">
                 <li>
-                  <Link to="">
-                    <img
-                      src="https://yay.toys/wp-content/uploads/2021/12/MoMo_Logo-e1667989207587.png"
-                      alt=""
-                      className="rounded bg-white h-9 w-9"
-                    />
-                  </Link>
+                  <img
+                    src="https://yay.toys/wp-content/uploads/2021/12/MoMo_Logo-e1667989207587.png"
+                    alt=""
+                    className="rounded bg-white h-9 w-9"
+                  />
                 </li>
                 <li>
-                  <Link to="">
-                    <img
-                      src="https://yay.toys/wp-content/uploads/2021/12/visa-eps-vector-logo-e1667989227100.png"
-                      alt=""
-                      className="rounded ms-3 bg-white h-9 w-9"
-                    />
-                  </Link>
+                  <img
+                    src="https://yay.toys/wp-content/uploads/2021/12/visa-eps-vector-logo-e1667989227100.png"
+                    alt=""
+                    className="rounded ms-3 bg-white h-9 w-9"
+                  />
                 </li>
                 <li>
-                  <Link to="">
-                    <img
-                      src="https://yay.toys/wp-content/uploads/2021/12/abc.png"
-                      alt=""
-                      className="rounded ms-3 bg-white h-9 w-9"
-                    />
-                  </Link>
+                  <img
+                    src="https://yay.toys/wp-content/uploads/2021/12/abc.png"
+                    alt=""
+                    className="rounded ms-3 bg-white h-9 w-9"
+                  />
                 </li>
                 <li>
-                  <Link to="">
-                    <img
-                      src="https://yay.toys/wp-content/uploads/2021/12/JCB_logo.svg-e1667991432656.png"
-                      alt=""
-                      className="rounded ms-3 bg-white h-9 w-9"
-                    />
-                  </Link>
+                  <img
+                    src="https://yay.toys/wp-content/uploads/2021/12/JCB_logo.svg-e1667991432656.png"
+                    alt=""
+                    className="rounded ms-3 bg-white h-9 w-9"
+                  />
                 </li>
                 <li>
-                  <Link to="">
-                    <img
-                      src="https://yay.toys/wp-content/uploads/2021/12/VNPAY.png"
-                      alt=""
-                      className="rounded ms-3 bg-white h-9 w-9"
-                    />
-                  </Link>
+                  <img
+                    src="https://yay.toys/wp-content/uploads/2021/12/VNPAY.png"
+                    alt=""
+                    className="rounded ms-3 bg-white h-9 w-9"
+                  />
                 </li>
               </ul>
             </div>
