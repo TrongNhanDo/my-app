@@ -1,8 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 import i18n from '../../../../i18n/i18n';
 import { SumProductContext } from '../../../../context/SumProductContext';
+import { getExpireCookie } from '../../../Common/Logic/logics';
 
 const HeaderAdmin = React.memo(() => {
   const { t } = useTranslation(['admin_header']);
@@ -15,7 +17,7 @@ const HeaderAdmin = React.memo(() => {
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const languageValue = e.target.value;
       setLocale(languageValue);
-      sessionStorage.setItem('locale', languageValue);
+      Cookies.set('locale', languageValue, { expires: getExpireCookie() });
       i18n.changeLanguage(languageValue);
     },
     [setLocale]
@@ -28,8 +30,8 @@ const HeaderAdmin = React.memo(() => {
       await setUserId('');
       await setRoleId('');
       await setSumProduct(0);
-      await sessionStorage.removeItem('userId');
-      await sessionStorage.removeItem('roleId');
+      await Cookies.remove('userId');
+      await Cookies.remove('roleId');
       navigate('/admin/login');
     } catch (error) {
       console.log({ error });

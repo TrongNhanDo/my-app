@@ -157,3 +157,10 @@ export const upLoadImage = async (
   }
   return arrayUrl;
 };
+
+export const getExpireCookie = () => {
+  const expiresDate = new Date();
+  expiresDate.setTime(expiresDate.getTime() + 2 * 60 * 60 * 1000);
+
+  return expiresDate;
+};

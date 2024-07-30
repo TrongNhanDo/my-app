@@ -2,10 +2,15 @@ import { useFormik } from 'formik';
 import React, { useCallback, useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 import { validationSchema } from './validations';
 import { FormikValueType, initValueFormik } from './types';
 import { SumProductContext } from '../../../../context/SumProductContext';
-import { MethodProps, callApi } from '../../../Common/Logic/logics';
+import {
+  MethodProps,
+  callApi,
+  getExpireCookie,
+} from '../../../Common/Logic/logics';
 import './login.css';
 
 const LoginForm = React.memo(() => {
@@ -31,9 +36,9 @@ const LoginForm = React.memo(() => {
           const currentUserId = response.data._id || '';
           const currentRoleId = response.data.roleId || '';
           setUserId(currentUserId);
-          sessionStorage.setItem('userId', currentUserId);
+          Cookies.set('userId', currentUserId, { expires: getExpireCookie() });
           setRoleId(currentRoleId);
-          sessionStorage.setItem('roleId', currentRoleId);
+          Cookies.set('roleId', currentRoleId, { expires: getExpireCookie() });
           setMsg('');
           navigate('/');
         }

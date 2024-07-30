@@ -28,7 +28,7 @@ const CartList = React.memo(() => {
   const shippingCost = 30000;
 
   const currentUserId = useMemo(() => {
-    return userId || sessionStorage.getItem('userId') || '';
+    return userId;
   }, [userId]);
 
   useEffect(() => {

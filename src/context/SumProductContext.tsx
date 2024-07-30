@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import Cookies from 'js-cookie';
 import { CartItemType } from '../components/User/Cart/types';
 import { MethodProps, callApi } from '../components/Common/Logic/logics';
 
@@ -27,8 +28,8 @@ export const SumProductContext = createContext<ContextProps>({
   setUserId: () => '',
   roleId: '',
   setRoleId: () => '',
-  locale: 'eng',
-  setLocale: () => 'eng',
+  locale: '',
+  setLocale: () => '',
 });
 
 type Props = {
@@ -40,26 +41,31 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
   const [sumProduct, setSumProduct] = useState<number>(0);
   const [userId, setUserId] = useState<string>('');
   const [roleId, setRoleId] = useState<string | number>('');
-  const [locale, setLocale] = useState<string>('eng');
+  const [locale, setLocale] = useState<string>('');
 
   const localUserId = useMemo(() => {
-    return userId || sessionStorage.getItem('userId') || '';
+    return userId || Cookies.get('userId') || '';
   }, [userId]);
 
   const localRoleId = useMemo(() => {
-    return roleId || sessionStorage.getItem('roleId') || '';
+    return roleId || Cookies.get('roleId') || '';
   }, [roleId]);
 
   const localLocale = useMemo(() => {
-    return locale || sessionStorage.getItem('locale') || '';
+    return locale || Cookies.get('locale') || 'eng';
   }, [locale]);
 
   useEffect(() => {
     setUserId(localUserId);
+  }, [localUserId]);
+
+  useEffect(() => {
     setRoleId(localRoleId);
+  }, [localRoleId]);
+
+  useEffect(() => {
     setLocale(localLocale);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [localLocale]);
 
   const fetchApi = useCallback(async () => {
     if (userId) {

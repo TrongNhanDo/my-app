@@ -2,11 +2,16 @@ import React, { useCallback, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import Cookies from 'js-cookie';
 import { SumProductContext } from '../../../context/SumProductContext';
 import Loader from '../../Common/Loader/loader';
 import { FormikValueType, initValueFormik } from './types';
 import { validationSchema } from './validations';
-import { callApi, MethodProps } from '../../Common/Logic/logics';
+import {
+  callApi,
+  getExpireCookie,
+  MethodProps,
+} from '../../Common/Logic/logics';
 
 const AdminLogin = React.memo(() => {
   const { t } = useTranslation(['admin_login', 'admin_error']);
@@ -33,11 +38,11 @@ const AdminLogin = React.memo(() => {
         if (response && response.data) {
           const currentUserId = response.data._id || '';
           const currentRoleId = response.data.roleId || '';
-          await setUserId(currentUserId);
-          await sessionStorage.setItem('userId', currentUserId);
-          await setRoleId(currentRoleId);
-          await sessionStorage.setItem('roleId', currentRoleId);
-          await setMsg('');
+          setUserId(currentUserId);
+          Cookies.set('userId', currentUserId, { expires: getExpireCookie() });
+          setRoleId(currentRoleId);
+          Cookies.set('roleId', currentRoleId, { expires: getExpireCookie() });
+          setMsg('');
           navigate('/admin');
         }
       } catch (error) {
