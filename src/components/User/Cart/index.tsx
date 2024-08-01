@@ -109,12 +109,15 @@ const CartList = React.memo(() => {
   const totalProducts = useMemo(() => {
     if (viewData && viewData.length) {
       const total = viewData.reduce((sum, cur) => sum + cur.amount, 0);
-      setSumProduct(total);
       return total;
     }
-    setSumProduct(0);
+
     return 0;
-  }, [viewData, setSumProduct]);
+  }, [viewData]);
+
+  useEffect(() => {
+    setSumProduct(totalProducts);
+  }, [totalProducts, setSumProduct]);
 
   const totalPrices = useMemo(() => {
     if (viewData && viewData.length) {

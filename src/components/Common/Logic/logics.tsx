@@ -107,6 +107,7 @@ export const callApi = (
   url: string,
   method: MethodProps,
   data?: object
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   const requestApi = {
     method: method,
@@ -124,6 +125,7 @@ export const callApiUpload = (
   url: string,
   method: string,
   data?: FormData
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   const requestApi = {
     method: method,

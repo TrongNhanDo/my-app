@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import i18n from '../../../../i18n/i18n';
 import { SumProductContext } from '../../../../context/SumProductContext';
 import { getExpireCookie } from '../../../Common/Logic/logics';
+import { LocaleValues } from '../../../../context/types';
 
 const HeaderAdmin = React.memo(() => {
   const { t } = useTranslation(['admin_header']);
@@ -16,22 +17,24 @@ const HeaderAdmin = React.memo(() => {
   const changeLanguage = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const languageValue = e.target.value;
-      setLocale(languageValue);
+      setLocale(
+        languageValue === LocaleValues.VIE ? LocaleValues.VIE : LocaleValues.ENG
+      );
       Cookies.set('locale', languageValue, { expires: getExpireCookie() });
       i18n.changeLanguage(languageValue);
     },
     [setLocale]
   );
 
-  const handleLogout = useCallback(async () => {
+  const handleLogout = useCallback(() => {
     try {
       setModal(false);
       true;
-      await setUserId('');
-      await setRoleId('');
-      await setSumProduct(0);
-      await Cookies.remove('userId');
-      await Cookies.remove('roleId');
+      setUserId('');
+      setRoleId(0);
+      setSumProduct(0);
+      Cookies.remove('userId');
+      Cookies.remove('roleId');
       navigate('/admin/login');
     } catch (error) {
       console.log({ error });

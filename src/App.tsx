@@ -47,6 +47,7 @@ import AdminLogin from './components/Admin/Login';
 import GenuineProduct from './components/User/Customer/GenuineProduct';
 import GiftWrapping from './components/User/Customer/GiftWrapping';
 import ExpressDelivery from './components/User/Customer/ExpressDelivery';
+import Cookies from 'js-cookie';
 
 function App() {
   const { setUserId, setRoleId, setSumProduct, userId, roleId } =
@@ -59,11 +60,11 @@ function App() {
   }, [location]);
 
   const currentUserId = useMemo(() => {
-    return userId || sessionStorage.getItem('userId') || '';
+    return userId;
   }, [userId]);
 
   const currentRoleId = useMemo(() => {
-    return roleId || sessionStorage.getItem('roleId') || '';
+    return roleId;
   }, [roleId]);
 
   useEffect(() => {
@@ -74,9 +75,11 @@ function App() {
           // OK
         } else {
           setUserId('');
-          setRoleId('');
+          setRoleId(0);
           setSumProduct(0);
-          sessionStorage.removeItem('userId');
+          Cookies.remove('userId');
+          Cookies.remove('roleId');
+          Cookies.remove('locale');
           navigate('/admin/login');
         }
       } else {
@@ -89,9 +92,11 @@ function App() {
         Constants.AccessRole.includes(currentRoleId.toString())
       ) {
         setUserId('');
-        setRoleId('');
+        setRoleId(0);
         setSumProduct(0);
-        sessionStorage.removeItem('userId');
+        Cookies.remove('userId');
+        Cookies.remove('roleId');
+        Cookies.remove('locale');
       }
     }
   }, [

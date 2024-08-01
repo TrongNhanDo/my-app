@@ -1,73 +1,46 @@
-import React, {
-  ReactNode,
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React from 'react';
 import Cookies from 'js-cookie';
 import { CartItemType } from '../components/User/Cart/types';
 import { MethodProps, callApi } from '../components/Common/Logic/logics';
+import * as ContextTypes from './types';
 
-type ContextProps = {
-  sumProduct: number;
-  setSumProduct: React.Dispatch<React.SetStateAction<number>>;
-  userId: string;
-  setUserId: React.Dispatch<React.SetStateAction<string>>;
-  roleId: string | number;
-  setRoleId: React.Dispatch<React.SetStateAction<string | number>>;
-  locale: string;
-  setLocale: React.Dispatch<React.SetStateAction<string>>;
-};
+export const SumProductContext = React.createContext<ContextTypes.ContextProps>(
+  {
+    sumProduct: 0,
+    setSumProduct: () => 0,
+    userId: '',
+    setUserId: () => '',
+    roleId: '',
+    setRoleId: () => 0,
+    locale: '',
+    setLocale: () => '',
+  }
+);
 
-export const SumProductContext = createContext<ContextProps>({
-  sumProduct: 0,
-  setSumProduct: () => 0,
-  userId: '',
-  setUserId: () => '',
-  roleId: '',
-  setRoleId: () => '',
-  locale: '',
-  setLocale: () => '',
-});
+export const ContextProvider: React.FC<ContextTypes.ContextProviderProps> = ({
+  children,
+}) => {
+  const [viewData, setViewData] = React.useState<CartItemType[]>();
+  const [sumProduct, setSumProduct] = React.useState<number>(0);
+  const [userId, setUserId] = React.useState<string>('');
+  const [roleId, setRoleId] = React.useState<number>(0);
+  const [locale, setLocale] = React.useState<ContextTypes.LocaleValues>(
+    ContextTypes.LocaleValues.ENG
+  );
 
-type Props = {
-  children: ReactNode;
-};
-
-export const ContextProvider: React.FC<Props> = ({ children }) => {
-  const [viewData, setViewData] = useState<CartItemType[]>();
-  const [sumProduct, setSumProduct] = useState<number>(0);
-  const [userId, setUserId] = useState<string>('');
-  const [roleId, setRoleId] = useState<string | number>('');
-  const [locale, setLocale] = useState<string>('');
-
-  const localUserId = useMemo(() => {
+  const localUserId = React.useMemo(() => {
     return userId || Cookies.get('userId') || '';
   }, [userId]);
 
-  const localRoleId = useMemo(() => {
-    return roleId || Cookies.get('roleId') || '';
+  const localRoleId = React.useMemo(() => {
+    return roleId || Number(Cookies.get('roleId') || 0);
   }, [roleId]);
 
-  const localLocale = useMemo(() => {
+  const localLocale = React.useMemo(() => {
     return locale || Cookies.get('locale') || 'eng';
   }, [locale]);
 
-  useEffect(() => {
-    setUserId(localUserId);
-  }, [localUserId]);
-
-  useEffect(() => {
-    setRoleId(localRoleId);
-  }, [localRoleId]);
-
-  useEffect(() => {
-    setLocale(localLocale);
-  }, [localLocale]);
-
-  const fetchApi = useCallback(async () => {
+  const fetchApi = React.useCallback(async () => {
     if (userId) {
       const response = await callApi('carts/get-by-userId', MethodProps.POST, {
         userId: userId,
@@ -80,11 +53,42 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
     }
   }, [userId]);
 
-  useEffect(() => {
+  const handleUserId = React.useCallback((userId: string) => {
+    setUserId(userId || '');
+  }, []);
+
+  const handleRoleId = React.useCallback((roleId: number) => {
+    setRoleId(roleId || 0);
+  }, []);
+
+  const handleLocale = React.useCallback(
+    (locale: ContextTypes.LocaleValues) => {
+      setLocale(locale);
+    },
+    []
+  );
+
+  const handleSumProduct = React.useCallback((sum: number) => {
+    setSumProduct(sum);
+  }, []);
+
+  React.useEffect(() => {
+    setUserId(localUserId);
+  }, [localUserId]);
+
+  React.useEffect(() => {
+    setRoleId(localRoleId);
+  }, [localRoleId]);
+
+  React.useEffect(() => {
+    setLocale(localLocale);
+  }, [localLocale]);
+
+  React.useEffect(() => {
     fetchApi();
   }, [fetchApi]);
 
-  useEffect(() => {
+  React.useLayoutEffect(() => {
     if (viewData && viewData.length) {
       const total = viewData.reduce((sum, cur) => sum + cur.amount, 0);
       setSumProduct(total);
@@ -95,13 +99,13 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
     <SumProductContext.Provider
       value={{
         sumProduct,
-        setSumProduct,
+        setSumProduct: handleSumProduct,
         userId,
-        setUserId,
+        setUserId: handleUserId,
         roleId,
-        setRoleId,
+        setRoleId: handleRoleId,
         locale,
-        setLocale,
+        setLocale: handleLocale,
       }}
     >
       {children}

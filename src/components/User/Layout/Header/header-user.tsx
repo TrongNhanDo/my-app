@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import i18n from '../../../../i18n/i18n';
 import { SumProductContext } from '../../../../context/SumProductContext';
 import { getExpireCookie } from '../../../Common/Logic/logics';
+import { LocaleValues } from '../../../../context/types';
 
 const HeaderUser = React.memo(() => {
   const { t } = useTranslation(['user_header']);
@@ -23,21 +24,23 @@ const HeaderUser = React.memo(() => {
   const changeLanguage = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       const languageValue = e.target.value;
-      setLocale(languageValue);
+      setLocale(
+        languageValue === LocaleValues.VIE ? LocaleValues.VIE : LocaleValues.ENG
+      );
       Cookies.set('locale', languageValue, { expires: getExpireCookie() });
       i18n.changeLanguage(languageValue);
     },
     [setLocale]
   );
 
-  const handleLogout = useCallback(async () => {
+  const handleLogout = useCallback(() => {
     if (confirm('Log out ???')) {
       setModal(false);
-      await setUserId('');
-      await setRoleId('');
-      await Cookies.remove('userId');
-      await Cookies.remove('roleId');
-      await setSumProduct(0);
+      setUserId('');
+      setRoleId(0);
+      Cookies.remove('userId');
+      Cookies.remove('roleId');
+      setSumProduct(0);
       navigate('/');
     }
   }, [navigate, setRoleId, setSumProduct, setUserId]);
@@ -98,7 +101,7 @@ const HeaderUser = React.memo(() => {
       >
         {t('cart')}
         <span className="absolute px-1 text-white bg-blue-700 rounded-full sum-count font-bold">
-          {sumProduct || 0}
+          {sumProduct}
         </span>
       </Link>
 
@@ -142,8 +145,8 @@ const HeaderUser = React.memo(() => {
         value={locale}
         onChange={changeLanguage}
       >
-        <option value="eng">English</option>
-        <option value="vie">Vietnamese</option>
+        <option value={LocaleValues.ENG}>English</option>
+        <option value={LocaleValues.VIE}>Vietnamese</option>
       </select>
     </>
   );
